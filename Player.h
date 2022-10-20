@@ -6,6 +6,7 @@
 class Player : public GameObject
 {
     int hModel_;          //モデル番号
+    int hModelBlock_;
     float jump_v0;        //ジャンプの初速度
     float GRAVITY;        //重力
     float angle;          //角度
@@ -46,4 +47,6 @@ public:
     float PlayerX() { return transform_.position_.x; }
 
     //void OnCollision(GameObject* pTarget) override;
+
+    void FollowGround();
 };

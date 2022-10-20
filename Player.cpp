@@ -41,10 +41,14 @@ void Player::Initialize()
     hModel_ = Model::Load("duck.fbx");
     assert(hModel_ >= 0);
 
+
+    hModelBlock_ = Model::Load("Block.fbx");
+    assert(hModelBlock_ >= 0);
+
     //位置
-    transform_.position_ = XMFLOAT3(9.0f, 2.0f, 0);
-    transform_.rotate_.y = 180;
-    transform_.scale_ = XMFLOAT3(0.3, 0.3, 0.3); 
+    transform_.position_ = XMFLOAT3(0, 3.0f, -8);
+    transform_.rotate_ = XMFLOAT3(-30, 90, 0);
+    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
     //当たり判定
     //SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
@@ -73,14 +77,14 @@ void Player::Update()
         transform_.position_.x -= SPEED;
     }
 
-    if (Input::IsKey(DIK_S))
+    if (Input::IsKey(DIK_A))
     {
-        transform_.position_.z -= SPEED;
+        transform_.position_.z += SPEED;
     }
 
-    if (Input::IsKey(DIK_S))
+    if (Input::IsKey(DIK_D))
     {
-        transform_.position_.z += 1;
+        transform_.position_.z -= SPEED;
     }
 
     ////右移動
@@ -122,43 +126,57 @@ void Player::Update()
     //    Camera::SetPosition(XMFLOAT3(8, 7, -15));
     //}
 
-    //////////ジャンプ///////
-    //if (Input::IsKeyDown(DIK_SPACE) && (IsJump == 0))
-    //{
-    //    //初速度
-    //    jump_v0 = 0.2f;
-    //    //重力
-    //    GRAVITY = 0.005f;
+    ////////ジャンプ///////
+    if (Input::IsKeyDown(DIK_SPACE) && (IsJump == 0))
+    {
+        //初速度
+        jump_v0 = 0.2f;
+        //重力
+        GRAVITY = 0.008f;
 
-    //    //初速度を加える
-    //    move_.y = jump_v0;
+        //初速度を加える
+        move_.y = jump_v0;
 
-    //    //重力を加える
-    //    move_.y += GRAVITY;
+        //重力を加える
+        move_.y += GRAVITY;
 
-    //    //ジャンプフラグ
-    //    IsJump = 1;
-    //}
+        //ジャンプフラグ
+        IsJump = 1;
+    }
 
     ////ジャンプ中の重力
-    //if (IsJump == 1)
-    //{
-    //    //重力
-    //    move_.y -= GRAVITY;
-    //    transform_.position_.y += move_.y;
-    //}
+    if (IsJump == 1)
+    {
+        //重力
+        move_.y -= GRAVITY;
+        transform_.position_.y += move_.y;
+    }
 
-    ////ジャンプしてない時の重力
-    //if (IsJump == 0)
-    //{
-    //    //重力
-    //    GRAVITY = 0.1f;
+    //ジャンプしてない時の重力
+    if (IsJump == 0)
+    {
+        //重力
+        GRAVITY = 0.1f;
 
-    //    //重力を加える
-    //    move_.y = -GRAVITY;
-    //    transform_.position_.y += move_.y;
-    //}
+        //重力を加える
+        move_.y = -GRAVITY;
+        transform_.position_.y += move_.y;
+    }
 
+    if (transform_.position_.y < 1.5)
+    {
+        transform_.position_.y = 1.5;
+        IsJump = false;
+    }
+
+    if (transform_.position_.y < -40)
+    {
+        transform_.position_.y = -40;
+    }
+    if (transform_.position_.y > 40)
+    {
+        transform_.position_.y = 40;
+    }
     ///////////// プレイヤーの向き /////////////
 
     ////現在の位置のベクトル
@@ -314,6 +332,8 @@ void Player::Update()
     XMStoreFloat3(&camPos, vPos + vCam);
     Camera::SetPosition(camPos);
     Camera::SetTarget(transform_.position_);
+
+    //FollowGround();
 }
 
 void Player::Draw()
@@ -542,3 +562,34 @@ void Player::Release()
 //        }
 //    }
 //}
+
+//地面に沿わせる
+void Player::FollowGround()
+{
+    ////まだ地面のモデル番号を知らない
+    //if (hModelBlock_ == -1)
+    //{
+    //    //モデル番号を調べる
+    //    hModelBlock_ = ((Stage*)FindObject("Stage"))
+    //}
+
+    //もう地面のモデル番号を知っている
+    
+        //レイを撃つ準備
+        RayCastData data;
+        data.start = transform_.position_;		//戦車の原点から
+        data.start.y = 0;						//高さ0（地面は一番高いところでもY<0になっている）
+        data.dir = XMFLOAT3(0, -1, 0);		//真下方向
+
+                                                        //地面に対してレイを撃つ
+        Model::RayCast(hModel_, &data);
+
+        //レイが地面に当たったら
+        if (data.hit)
+        {
+            //戦車の高さを地面にあわせる
+            //（Y=0の高さからレイ撃って、data.distメートル先に地面があったということは
+            //　そこの標高は『-data.distメートル』ということになる）
+            transform_.position_.y = -data.dist;
+        }
+}

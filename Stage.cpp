@@ -146,22 +146,22 @@ void Stage::Release()
 }
 
 ////‚»‚±‚Í•Ç‚©
-//bool Stage::IsWall(int x, int y)
-//{
-//    return (map_[x][y] == 1);
-//}
-//
-//bool Stage::IsWallX(int x, int y)
-//{
-//    return (map_[x][y] == 2);
-//}
-//
-//bool Stage::IsWallM(int x, int y)
-//{
-//    return (map_[x][y] == 10);
-//}
-//
-//bool Stage::IsPipe(int x, int y)
-//{
-//    return (map_[x][y] == 3);
-//}
+bool Stage::IsWall(int x, int y)
+{
+    return (map_[x][y] == 1);
+}
+
+bool Stage::IsWallX(int x, int y)
+{
+    return (map_[x][y] == 2);
+}
+
+bool Stage::IsWallM(int x, int y)
+{
+    return (map_[x][y] == 10);
+}
+
+bool Stage::IsPipe(int x, int y)
+{
+    return (map_[x][y] == 3);
+}

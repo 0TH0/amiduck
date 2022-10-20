@@ -21,11 +21,11 @@ public:
     void Release() override;
 
     //‚»‚±‚Í•Ç‚È‚Ì‚©
-    //bool IsWall(int x, int y);
+    bool IsWall(int x, int y);
 
-    //bool IsWallX(int x, int y);
+    bool IsWallX(int x, int y);
 
-    //bool IsWallM(int x, int y);
+    bool IsWallM(int x, int y);
 
-    //bool IsPipe(int x, int y);
+    bool IsPipe(int x, int y);
 };
