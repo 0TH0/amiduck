@@ -19,13 +19,13 @@ Player::Player(GameObject* parent)
 
     //変数
     hModel_(-1),
-    jump_v0(0), GRAVITY(0), angle(0),BossHp(3),
+    jump_v0(0), GRAVITY(0), angle(0),BossHp(3), hModelBlock_(-1),
     
     //フラグ
     IsJump(false), IsGround(false),
 
     //定数
-    SPEED(0.1f), DUSHSPEED(0.05f),
+    SPEED(0.5f), DUSHSPEED(0.05f),
     CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
 {
 }
@@ -41,12 +41,8 @@ void Player::Initialize()
     hModel_ = Model::Load("duck.fbx");
     assert(hModel_ >= 0);
 
-
-    hModelBlock_ = Model::Load("Block.fbx");
-    assert(hModelBlock_ >= 0);
-
     //位置
-    transform_.position_ = XMFLOAT3(0, 3.0f, -8);
+    transform_.position_ = XMFLOAT3(0, 5.0f, -8);
     transform_.rotate_ = XMFLOAT3(-30, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
@@ -55,11 +51,13 @@ void Player::Initialize()
     //AddCollider(collision);
 
     pStage = (Stage*)FindObject("Stage");
-    assert(pStage != nullptr);
+    //assert(pStage != nullptr);
 }
 
 void Player::Update()
 {
+    pStage = (Stage*)FindObject("Stage");
+
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
 
@@ -126,8 +124,8 @@ void Player::Update()
     //    Camera::SetPosition(XMFLOAT3(8, 7, -15));
     //}
 
-    ////////ジャンプ///////
-    if (Input::IsKeyDown(DIK_SPACE) && (IsJump == 0))
+    //////////ジャンプ///////
+    if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
     {
         //初速度
         jump_v0 = 0.2f;
@@ -163,20 +161,15 @@ void Player::Update()
         transform_.position_.y += move_.y;
     }
 
-    if (transform_.position_.y < 1.5)
+    if (a)
     {
-        transform_.position_.y = 1.5;
-        IsJump = false;
+        if (transform_.position_.y < 1.0)
+        {
+            transform_.position_.y = 1.0;
+            IsJump = false;
+        }
     }
-
-    if (transform_.position_.y < -40)
-    {
-        transform_.position_.y = -40;
-    }
-    if (transform_.position_.y > 40)
-    {
-        transform_.position_.y = 40;
-    }
+    
     ///////////// プレイヤーの向き /////////////
 
     ////現在の位置のベクトル
@@ -222,11 +215,11 @@ void Player::Update()
     //float objY = transform_.position_.y;
 
     ////壁の判定(上)
-    //if (pStage->IsWall((int)objX, (int)(objY - 0.6f)))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
-    //    IsJump = 0;
-    //}
+    ////if (pStage->IsWall((int)objX, (int)(objY)))
+    ////{
+    ////    transform_.position_.y = (float)(int)(transform_.position_.y) - 1.5;
+    ////    IsJump = 0;
+    ////}
 
     //if (pStage->IsWallX((int)objX, (int)(objY - 0.6f)))
     //{
@@ -234,7 +227,7 @@ void Player::Update()
     //    IsJump = 0;
     //}
     //
-    ////壁の判定(下)
+    //壁の判定(下)
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
@@ -333,7 +326,18 @@ void Player::Update()
     Camera::SetPosition(camPos);
     Camera::SetTarget(transform_.position_);
 
-    //FollowGround();
+
+    XMFLOAT3 a = Input::GetMousePosition();
+
+    XMFLOAT3 b = Input::GetMouseMove();
+
+    float x = b.z - a.z;
+
+    float y =  b.z - a.z;
+
+    transform_.rotate_.x += x * 0.04;
+
+    FollowGround();
 }
 
 void Player::Draw()
@@ -566,30 +570,38 @@ void Player::Release()
 //地面に沿わせる
 void Player::FollowGround()
 {
-    ////まだ地面のモデル番号を知らない
-    //if (hModelBlock_ == -1)
-    //{
-    //    //モデル番号を調べる
-    //    hModelBlock_ = ((Stage*)FindObject("Stage"))
-    //}
-
-    //もう地面のモデル番号を知っている
-    
+    //まだ地面のモデル番号を知らない
+    if (hModelBlock_ == -1)
+    {
+        //モデル番号を調べる
+        hModelBlock_ = ((Stage*)FindObject("Stage"))->getModelHnadle();
+    }
+    else
+    {
         //レイを撃つ準備
         RayCastData data;
-        data.start = transform_.position_;		//戦車の原点から
-        data.start.y = 0;						//高さ0（地面は一番高いところでもY<0になっている）
-        data.dir = XMFLOAT3(0, -1, 0);		//真下方向
+        data.start = transform_.position_;
+        data.start.y = transform_.position_.y;
+        data.dir = XMFLOAT3(0, -1, 0);
 
-                                                        //地面に対してレイを撃つ
+        RayCastData xdata;
+        xdata.start = transform_.position_;
+        xdata.start.x = transform_.position_.x + 1;
+        xdata.dir = XMFLOAT3(0, -1, 0);
+
+        //地面に対してレイを撃つ
         Model::RayCast(hModel_, &data);
 
         //レイが地面に当たったら
         if (data.hit)
         {
-            //戦車の高さを地面にあわせる
-            //（Y=0の高さからレイ撃って、data.distメートル先に地面があったということは
-            //　そこの標高は『-data.distメートル』ということになる）
-            transform_.position_.y = -data.dist;
+            a = true;
         }
+        else
+        {
+            a = false;
+        }
+        /*if (xdata.hit) a = true;
+        else a = false;*/
+    }
 }

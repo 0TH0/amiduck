@@ -28,4 +28,6 @@ public:
     bool IsWallM(int x, int y);
 
     bool IsPipe(int x, int y);
+
+    int getModelHnadle() { return hModel_[1]; };
 };

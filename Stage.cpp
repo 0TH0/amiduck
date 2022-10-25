@@ -37,12 +37,12 @@ void Stage::Initialize()
     assert(hModel_[0] >= 0);
 
     //ブロック
-    hModel_[1] = Model::Load("Block.fbx");
+    hModel_[1] = Model::Load("white.fbx");
     assert(hModel_[1] >= 0);
 
     //旗先端
-    hModel_[6] = Model::Load("Flag_Edge.fbx");
-    assert(hModel_[6] >= 0);
+    hModel_[2] = Model::Load("wood.fbx");
+    assert(hModel_[2] >= 0);
 
     //Csv読み込み
     CsvReader csv;
@@ -52,7 +52,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < 150; z++)
         {
-            map_[x][z] = csv.GetValue(x, (-z + 15));
+            map_[x][z] = csv.GetValue(x, z);
 
             ////ブロック登場
             //if (map_[x][y] == 2)
@@ -127,12 +127,14 @@ void Stage::Draw()
             int type = map_[x][z];
             transform_.position_.x = x;
             transform_.position_.z = -z;
-
+            transform_.rotate_.y = 0;
+            transform_.scale_ = XMFLOAT3(1, 1, 1);
             ////旗の位置
-            //if (map_[x][y] == 6)
-            //{
-            //    transform_.position_.x = x + 0.5f;
-            //}
+            if (map_[x][z] == 2)
+            {
+                transform_.scale_ = XMFLOAT3(3, 1, 4);
+                transform_.rotate_.y = 45;
+            }
 
             Model::SetTransform(hModel_[type], transform_);
             Model::Draw(hModel_[type]);
@@ -146,22 +148,22 @@ void Stage::Release()
 }
 
 ////そこは壁か
-bool Stage::IsWall(int x, int y)
-{
-    return (map_[x][y] == 1);
-}
-
-bool Stage::IsWallX(int x, int y)
-{
-    return (map_[x][y] == 2);
-}
-
-bool Stage::IsWallM(int x, int y)
-{
-    return (map_[x][y] == 10);
-}
-
-bool Stage::IsPipe(int x, int y)
-{
-    return (map_[x][y] == 3);
-}
+//bool Stage::IsWall(int x, int y)
+//{
+//    return (map_[x][y] == 1);
+//}
+//
+//bool Stage::IsWallX(int x, int y)
+//{
+//    return (map_[x][y] == 2);
+//}
+//
+//bool Stage::IsWallM(int x, int y)
+//{
+//    return (map_[x][y] == 10);
+//}
+//
+//bool Stage::IsPipe(int x, int y)
+//{
+//    return (map_[x][y] == 3);
+//}

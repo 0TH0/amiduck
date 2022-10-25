@@ -57,7 +57,6 @@ namespace Input
 	//戻値：放した瞬間だったらtrue
 	bool IsMouseButtonUp(int buttonCode);
 
-
 	//マウスカーソルの位置を取得
 	//戻値：マウスカーソルの位置
 	XMFLOAT3 GetMousePosition();

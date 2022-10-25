@@ -24,6 +24,7 @@ class Player : public GameObject
     const float CAMERA_POS_Y; //カメラの位置
 
     Stage* pStage;
+    bool a;
 
 public:
     //コンストラクタ
