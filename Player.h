@@ -1,11 +1,13 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
+#include "Engine/Text.h"
 
 //◆◆◆を管理するクラス
 class Player : public GameObject
 {
     int hModel_;          //モデル番号
+    int hModelWood_;
     int hModelBlock_;
     float jump_v0;        //ジャンプの初速度
     float GRAVITY;        //重力
@@ -24,6 +26,8 @@ class Player : public GameObject
     const float CAMERA_POS_Y; //カメラの位置
 
     Stage* pStage;
+
+    Text* pText = new Text;
     bool a;
 
 public:

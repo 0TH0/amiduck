@@ -50,66 +50,66 @@ void Stage::Initialize()
 
     for (int x = 0; x < 180; x++)
     {
-        for (int z = 0; z < 150; z++)
-        {
-            map_[x][z] = csv.GetValue(x, z);
+            for (int z = 0; z < 40; z++)
+            {
+                map_[x][0][z] = csv.GetValue(x, -z + 40);
 
-            ////ブロック登場
-            //if (map_[x][y] == 2)
-            //{
-            //    Block* pBlock = Instantiate<Block>(GetParent());
-            //    pBlock->SetPosition(x, y, 0);
-            //}
+                ////ブロック登場
+                //if (map_[x][y] == 2)
+                //{
+                //    Block* pBlock = Instantiate<Block>(GetParent());
+                //    pBlock->SetPosition(x, y, 0);
+                //}
 
-            ////土管根本登場
-            //if (map_[x][y] == 3)
-            //{
-            //    Pipe_base* pPipe_base = Instantiate<Pipe_base>(GetParent());
-            //    pPipe_base->SetPosition(x + 0.5f, y, 0);
-            //}
+                ////土管根本登場
+                //if (map_[x][y] == 3)
+                //{
+                //    Pipe_base* pPipe_base = Instantiate<Pipe_base>(GetParent());
+                //    pPipe_base->SetPosition(x + 0.5f, y, 0);
+                //}
 
-            ////土管先端登場
-            //if (map_[x][y] == 4)
-            //{
-            //    Pipe* pPipe= Instantiate<Pipe>(GetParent());
-            //    pPipe->SetPosition(x + 0.5f, y, 0);
-            //}
+                ////土管先端登場
+                //if (map_[x][y] == 4)
+                //{
+                //    Pipe* pPipe= Instantiate<Pipe>(GetParent());
+                //    pPipe->SetPosition(x + 0.5f, y, 0);
+                //}
 
-            ////旗登場
-            //if (map_[x][y] == 5)
-            //{
-            //    Flag* pFlag = Instantiate<Flag>(GetParent());
-            //    pFlag->SetPosition(x + 0.5f, y, 0);
-            //}
+                ////旗登場
+                //if (map_[x][y] == 5)
+                //{
+                //    Flag* pFlag = Instantiate<Flag>(GetParent());
+                //    pFlag->SetPosition(x + 0.5f, y, 0);
+                //}
 
-            ////コイン登場
-            //if (map_[x][y] == 7)
-            //{
-            //    Coin* pCoin = Instantiate<Coin>(GetParent());
-            //    pCoin->SetPosition(x + 0.5, y + 0.75f, 0);
-            //}
+                ////コイン登場
+                //if (map_[x][y] == 7)
+                //{
+                //    Coin* pCoin = Instantiate<Coin>(GetParent());
+                //    pCoin->SetPosition(x + 0.5, y + 0.75f, 0);
+                //}
 
-            ////ボス登場
-            //if (map_[x][y] == 8)
-            //{
-            //    Boss* pBoss = Instantiate<Boss>(GetParent());
-            //    pBoss->SetPosition(x, y, 0);
-            //}
+                ////ボス登場
+                //if (map_[x][y] == 8)
+                //{
+                //    Boss* pBoss = Instantiate<Boss>(GetParent());
+                //    pBoss->SetPosition(x, y, 0);
+                //}
 
-            ////エネミー登場
-            //if (map_[x][y] == 9)
-            //{
-            //    Enemy* pEnemy = Instantiate<Enemy>(GetParent());
-            //    pEnemy->SetPosition(x, y, 0);
-            //}
-            ////ボス2登場
-            //if (map_[x][y] == 10)
-            //{
-            //    Boss2* pBoss2 = Instantiate<Boss2>(GetParent());
-            //    pBoss2->SetPosition(x, y, 0);
-            //}
+                ////エネミー登場
+                //if (map_[x][y] == 9)
+                //{
+                //    Enemy* pEnemy = Instantiate<Enemy>(GetParent());
+                //    pEnemy->SetPosition(x, y, 0);
+                //}
+                ////ボス2登場
+                //if (map_[x][y] == 10)
+                //{
+                //    Boss2* pBoss2 = Instantiate<Boss2>(GetParent());
+                //    pBoss2->SetPosition(x, y, 0);
+                //}
+            }
         }
-    }
 }
 
 //更新
@@ -122,22 +122,26 @@ void Stage::Draw()
 {
     for (int x = 0; x < 180; x++)
     {
-        for (int z = 0; z < 150; z++)
+        for (int y = 0; y < 1; y++)
         {
-            int type = map_[x][z];
-            transform_.position_.x = x;
-            transform_.position_.z = -z;
-            transform_.rotate_.y = 0;
-            transform_.scale_ = XMFLOAT3(1, 1, 1);
-            ////旗の位置
-            if (map_[x][z] == 2)
+            for (int z = 0; z < 40; z++)
             {
-                transform_.scale_ = XMFLOAT3(3, 1, 4);
-                transform_.rotate_.y = 45;
-            }
+                int type = map_[x][0][z];
+                transform_.position_.x = x;
+                transform_.position_.y = y;
+                transform_.position_.z = z;
+                transform_.rotate_.y = 0;
+                transform_.scale_ = XMFLOAT3(1, 1, 1);
+                ////旗の位置
+                if (map_[x][y][z] == 2)
+                {
+                    transform_.scale_ = XMFLOAT3(3, 1, 4);
+                    transform_.rotate_.y = 45;
+                }
 
-            Model::SetTransform(hModel_[type], transform_);
-            Model::Draw(hModel_[type]);
+                Model::SetTransform(hModel_[type], transform_);
+                Model::Draw(hModel_[type]);
+            }
         }
     }
 }
@@ -148,10 +152,10 @@ void Stage::Release()
 }
 
 ////そこは壁か
-//bool Stage::IsWall(int x, int y)
-//{
-//    return (map_[x][y] == 1);
-//}
+bool Stage::IsWall(int x, int y, int z)
+{
+    return (map_[x][y][z] == 1);
+}
 //
 //bool Stage::IsWallX(int x, int y)
 //{

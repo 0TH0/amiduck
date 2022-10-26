@@ -4,8 +4,8 @@
 class Stage : public GameObject
 {
     int hModel_[20];
-    int map_[180][150];
-
+    int map_[180][1][40];
+     
 public:
 
     Stage(GameObject* parent);
@@ -21,7 +21,7 @@ public:
     void Release() override;
 
     //‚»‚±‚Í•Ç‚È‚Ì‚©
-    bool IsWall(int x, int y);
+    bool IsWall(int x, int y, int z);
 
     bool IsWallX(int x, int y);
 
@@ -29,5 +29,5 @@ public:
 
     bool IsPipe(int x, int y);
 
-    int getModelHnadle() { return hModel_[1]; };
+    int getModelHandle(int handle) { return hModel_[handle]; };
 };

@@ -12,6 +12,7 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
+#include "Engine/Text.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -52,11 +53,16 @@ void Player::Initialize()
 
     pStage = (Stage*)FindObject("Stage");
     //assert(pStage != nullptr);
+
+    pText->Initialize();
 }
 
 void Player::Update()
 {
     pStage = (Stage*)FindObject("Stage");
+
+
+    //FollowGround();
 
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
@@ -161,14 +167,14 @@ void Player::Update()
         transform_.position_.y += move_.y;
     }
 
-    if (a)
-    {
-        if (transform_.position_.y < 1.0)
-        {
-            transform_.position_.y = 1.0;
-            IsJump = false;
-        }
-    }
+    //if (a)
+    //{
+        //if (transform_.position_.y < 1.0)
+        //{
+        //    transform_.position_.y = 1.0;
+        //    IsJump = false;
+        //}
+    //}
     
     ///////////// プレイヤーの向き /////////////
 
@@ -211,23 +217,24 @@ void Player::Update()
     //}
 
     //////////////////壁との衝突判定///////////////////////
-    //float objX = transform_.position_.x;
-    //float objY = transform_.position_.y;
+    float objX = transform_.position_.x;
+    float objY = transform_.position_.y;
+    float objZ = transform_.position_.z;
 
-    ////壁の判定(上)
-    ////if (pStage->IsWall((int)objX, (int)(objY)))
-    ////{
-    ////    transform_.position_.y = (float)(int)(transform_.position_.y) - 1.5;
-    ////    IsJump = 0;
-    ////}
+    //壁の判定(上)
+    if (pStage->IsWall( (int)objX, (int)(objY - 0.6f), (int)objZ ))
+    {
+        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
+        IsJump = 0;
+    }
 
-    //if (pStage->IsWallX((int)objX, (int)(objY - 0.6f)))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
-    //    IsJump = 0;
-    //}
+ /*   if (pStage->IsWallX((int)objX, (int)(objY - 0.6f)))
+    {
+        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
+        IsJump = 0;
+    }*/
     //
-    //壁の判定(下)
+    ////壁の判定(下)
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
@@ -255,7 +262,7 @@ void Player::Update()
     //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
     //}
 
- //カメラ回転
+     //カメラ回転
     if (Input::IsKey(DIK_LEFT))
     {
         transform_.rotate_.y -= 1.0f;
@@ -335,7 +342,10 @@ void Player::Update()
 
     float y =  b.z - a.z;
 
-    transform_.rotate_.x += x * 0.04;
+    transform_.rotate_.x += x * 0.025;
+
+    if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
+    if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
 
     FollowGround();
 }
@@ -344,6 +354,10 @@ void Player::Draw()
 {
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
+
+
+    pText->Draw(20, 20, "rotate.x");
+    pText->Draw(50, 50, transform_.rotate_.x);
 }
 
 void Player::Release()
@@ -571,37 +585,43 @@ void Player::Release()
 void Player::FollowGround()
 {
     //まだ地面のモデル番号を知らない
-    if (hModelBlock_ == -1)
+
+    //モデル番号を調べる
+    hModelBlock_ = ((Stage*)FindObject("Stage"))->getModelHandle(1);
+    hModelWood_ = ((Stage*)FindObject("Stage"))->getModelHandle(2);
+
+    //レイを撃つ準備
+    RayCastData data;
+    data.start = transform_.position_;
+    data.start.y = transform_.position_.y + 1;
+    data.dir = XMFLOAT3(0, -1, 0);
+
+    RayCastData xdata;
+    xdata.start = transform_.position_;
+    xdata.start.y = transform_.position_.y + 1;
+    xdata.dir = XMFLOAT3(0, -1, 0);
+    xdata.normal;
+
+    //地面に対してレイを撃つ
+    Model::RayCast(hModelBlock_, &data);
+    Model::RayCast(hModelWood_, &xdata);
+
+    //レイが地面に当たったら
+    if (data.hit)
     {
-        //モデル番号を調べる
-        hModelBlock_ = ((Stage*)FindObject("Stage"))->getModelHnadle();
+        if (transform_.position_.y - data.dist > 1)
+        {
+            transform_.position_.y = -data.dist;
+        }
     }
-    else
+    if (xdata.hit)
     {
-        //レイを撃つ準備
-        RayCastData data;
-        data.start = transform_.position_;
-        data.start.y = transform_.position_.y;
-        data.dir = XMFLOAT3(0, -1, 0);
-
-        RayCastData xdata;
-        xdata.start = transform_.position_;
-        xdata.start.x = transform_.position_.x + 1;
-        xdata.dir = XMFLOAT3(0, -1, 0);
-
-        //地面に対してレイを撃つ
-        Model::RayCast(hModel_, &data);
-
-        //レイが地面に当たったら
-        if (data.hit)
+        if (transform_.position_.y - xdata.dist > 1)
         {
-            a = true;
+            transform_.position_.y = -xdata.dist;
         }
-        else
-        {
-            a = false;
-        }
-        /*if (xdata.hit) a = true;
-        else a = false;*/
     }
+
+    /*if (xdata.hit) a = true;
+    else a = false;*/
 }
