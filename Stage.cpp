@@ -30,8 +30,7 @@ Stage::~Stage()
 {
 }
 
-//‰Šú‰»
-void Stage::Initialize()
+void Stage::StageLoad()
 {
     //‹ó” 
     hModel_[0] = Model::Load("Empty.fbx");
@@ -44,6 +43,12 @@ void Stage::Initialize()
     //Šøæ’[
     hModel_[2] = Model::Load("wood.fbx");
     assert(hModel_[2] >= 0);
+}
+
+//‰Šú‰»
+void Stage::Initialize()
+{
+    StageLoad();
 
     //Csv“Ç‚İ‚İ
     CsvReader csv;

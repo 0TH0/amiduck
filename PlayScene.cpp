@@ -29,6 +29,9 @@ void PlayScene::Initialize()
 
 	pText = new Text;
 	pText->Initialize();
+
+	Stage* pStage = (Stage*)FindObject("Stage");
+	pStage->StageLoad();
 }
 
 //XV

@@ -30,4 +30,6 @@ public:
     bool IsPipe(int x, int y);
 
     int getModelHandle(int handle) { return hModel_[handle]; };
+
+    void StageLoad();
 };
