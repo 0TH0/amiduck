@@ -20,7 +20,7 @@ void Block::Initialize()
     BoxCollider* collision = new BoxCollider(XMFLOAT3(0.5f, 0.5f, 0), XMFLOAT3(1, 1, 0));
     AddCollider(collision);
 
-    hModel_ = Model::Load("Yellow_block.fbx");
+    hModel_ = Model::Load("log.fbx");
     assert(hModel_ >= 0);
 }
 

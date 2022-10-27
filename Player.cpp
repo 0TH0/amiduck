@@ -43,7 +43,7 @@ void Player::Initialize()
     assert(hModel_ >= 0);
 
     //位置
-    transform_.position_ = XMFLOAT3(0, 5.0f, -8);
+    transform_.position_ = XMFLOAT3(0, 10.0f, -8);
     transform_.rotate_ = XMFLOAT3(-30, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
@@ -169,11 +169,11 @@ void Player::Update()
 
     //if (a)
     //{
-        //if (transform_.position_.y < 1.0)
-        //{
-        //    transform_.position_.y = 1.0;
-        //    IsJump = false;
-        //}
+        if (transform_.position_.y < 1.0)
+        {
+            transform_.position_.y = 1.0;
+            IsJump = false;
+        }
     //}
     
     ///////////// プレイヤーの向き /////////////
@@ -217,22 +217,22 @@ void Player::Update()
     //}
 
     //////////////////壁との衝突判定///////////////////////
-    float objX = transform_.position_.x;
-    float objY = transform_.position_.y;
-    float objZ = transform_.position_.z;
+    //float objX = transform_.position_.x;
+    //float objY = transform_.position_.y;
+    //float objZ = transform_.position_.z;
 
-    //壁の判定(上)
-    if (pStage->IsWall( (int)objX, (int)(objY - 0.6f), (int)objZ ))
-    {
-        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
-        IsJump = 0;
-    }
+    ////壁の判定(上)
+    //if (pStage->IsWall( (int)objX, (int)(objY - 0.6f), (int)objZ ))
+    //{
+    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
+    //    IsJump = 0;
+    //}
 
- /*   if (pStage->IsWallX((int)objX, (int)(objY - 0.6f)))
-    {
-        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
-        IsJump = 0;
-    }*/
+    //if (pStage->IsWallX((int)objX + 0.5f, (int)(objY - 0.3f), (int)objZ) || (pStage->IsWallX((int)objX - 0.5f, (int)(objY - 0.3f), (int)objZ)))
+    //{
+    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
+    //    IsJump = 0;
+    //}
     //
     ////壁の判定(下)
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
@@ -356,8 +356,15 @@ void Player::Draw()
     Model::Draw(hModel_);
 
 
-    pText->Draw(20, 20, "rotate.x");
+    pText->Draw(20, 20, "rotate.xyz");
     pText->Draw(50, 50, transform_.rotate_.x);
+    pText->Draw(150, 50, transform_.rotate_.y);
+    pText->Draw(250, 50, transform_.rotate_.z);
+
+    pText->Draw(20, 100, "transform.xyz");
+    pText->Draw(50, 130, transform_.position_.x);
+    pText->Draw(150, 130, transform_.position_.y);
+    pText->Draw(250, 130, transform_.position_.z);
 }
 
 void Player::Release()

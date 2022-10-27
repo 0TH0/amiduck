@@ -23,7 +23,7 @@ public:
     //‚»‚±‚Í•Ç‚È‚Ì‚©
     bool IsWall(int x, int y, int z);
 
-    bool IsWallX(int x, int y);
+    bool IsWallX(int x, int y, int z);
 
     bool IsWallM(int x, int y);
 

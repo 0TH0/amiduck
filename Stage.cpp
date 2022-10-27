@@ -9,6 +9,7 @@
 #include "Pipe.h"
 #include "Pipe_base.h"
 #include "Flag.h"
+#include "Player.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -37,7 +38,7 @@ void Stage::Initialize()
     assert(hModel_[0] >= 0);
 
     //ブロック
-    hModel_[1] = Model::Load("white.fbx");
+    hModel_[1] = Model::Load("log.fbx");
     assert(hModel_[1] >= 0);
 
     //旗先端
@@ -52,7 +53,7 @@ void Stage::Initialize()
     {
             for (int z = 0; z < 40; z++)
             {
-                map_[x][0][z] = csv.GetValue(x, -z + 40);
+                map_[x][0][z] = csv.GetValue(x, z);
 
                 ////ブロック登場
                 //if (map_[x][y] == 2)
@@ -128,16 +129,21 @@ void Stage::Draw()
             {
                 int type = map_[x][0][z];
                 transform_.position_.x = x;
-                transform_.position_.y = y;
-                transform_.position_.z = z;
+                //transform_.position_.y = y;
+                transform_.position_.z = -z;
                 transform_.rotate_.y = 0;
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
+                if (map_[x][y][z] == 1)
+                {
+                    transform_.rotate_.y = 90;
+                }
                 ////旗の位置
                 if (map_[x][y][z] == 2)
                 {
-                    transform_.scale_ = XMFLOAT3(3, 1, 4);
-                    transform_.rotate_.y = 45;
+                    transform_.scale_ = XMFLOAT3(3, 1, 2.5);
+                    //transform_.rotate_.y = 45;
                 }
+
 
                 Model::SetTransform(hModel_[type], transform_);
                 Model::Draw(hModel_[type]);
@@ -156,12 +162,12 @@ bool Stage::IsWall(int x, int y, int z)
 {
     return (map_[x][y][z] == 1);
 }
-//
-//bool Stage::IsWallX(int x, int y)
-//{
-//    return (map_[x][y] == 2);
-//}
-//
+
+bool Stage::IsWallX(int x, int y, int z)
+{
+    return (map_[x][y][z] == 2);
+}
+
 //bool Stage::IsWallM(int x, int y)
 //{
 //    return (map_[x][y] == 10);
