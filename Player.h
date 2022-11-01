@@ -32,6 +32,9 @@ class Player : public GameObject
     float a;
     bool c;
     bool b;
+    int time1;
+    int time2;
+    Transform trans[2];
 
 public:
     //コンストラクタ

@@ -59,6 +59,8 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    transform_.position_.x += SPEED;
+
     pStage = (Stage*)FindObject("Stage");
 
     // 1フレーム前の座標
@@ -235,23 +237,39 @@ void Player::Update()
     {
         a = true;
     }
-
-    if (pStage->IsPipe(objX, objY, objZ + 2))
+    else
     {
-        b = true;
+        if (pStage->IsPipe(objX, objY, objZ + 2))
+        {
+            b = true;
+        }
     }
-
 
 
     if (a)
     {
-        transform_.position_.z -= 6;
-        a = false;
+        time1++;
+        if (time1 > 10)
+        {
+            trans[0].position_ = transform_.position_;
+            transform_.position_.z -= 6;
+            time1 = 0;
+            a = false;
+        }
     }
-    else if (b)
+    else
     {
-        transform_.position_.z += 6;
-        b = false;
+        if (b)
+        {
+            time2++;
+            if (time2 > 10)
+            {
+                trans[0].position_ = transform_.position_;
+                transform_.position_.z += 6;
+                time2 = 0;
+                b = false;
+            }
+        }
     }
 
     //if (pStage->IsPipe(objX, objY, objZ + 2))
