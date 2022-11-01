@@ -135,7 +135,7 @@ void Stage::Draw()
                 int type = map_[x][0][z];
                 transform_.position_.x = x;
                 //transform_.position_.y = y;
-                transform_.position_.z = -z;
+                transform_.position_.z = z;
                 transform_.rotate_.y = 0;
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
                 if (map_[x][y][z] == 1)
@@ -148,7 +148,6 @@ void Stage::Draw()
                     transform_.scale_ = XMFLOAT3(3, 1, 2.5);
                     //transform_.rotate_.y = 45;
                 }
-
 
                 Model::SetTransform(hModel_[type], transform_);
                 Model::Draw(hModel_[type]);

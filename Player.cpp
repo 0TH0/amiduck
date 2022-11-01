@@ -26,7 +26,7 @@ Player::Player(GameObject* parent)
     IsJump(false), IsGround(false),
 
     //定数
-    SPEED(0.5f), DUSHSPEED(0.05f),
+    SPEED(0.3f), DUSHSPEED(0.05f),
     CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
 {
 }
@@ -52,7 +52,7 @@ void Player::Initialize()
     //AddCollider(collision);
 
     pStage = (Stage*)FindObject("Stage");
-    //assert(pStage != nullptr);
+    assert(pStage != nullptr);
 
     pText->Initialize();
 }
@@ -60,9 +60,6 @@ void Player::Initialize()
 void Player::Update()
 {
     pStage = (Stage*)FindObject("Stage");
-
-
-    //FollowGround();
 
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
@@ -169,11 +166,11 @@ void Player::Update()
 
     //if (a)
     //{
-        if (transform_.position_.y < 1.0)
-        {
-            transform_.position_.y = 1.0;
-            IsJump = false;
-        }
+        //if (transform_.position_.y < 1.0)
+        //{
+        //    transform_.position_.y = 1.0;
+        //    IsJump = false;
+        //}
     //}
     
     ///////////// プレイヤーの向き /////////////
@@ -217,22 +214,23 @@ void Player::Update()
     //}
 
     //////////////////壁との衝突判定///////////////////////
-    //float objX = transform_.position_.x;
-    //float objY = transform_.position_.y;
-    //float objZ = transform_.position_.z;
+    float objX = transform_.position_.x;
+    float objY = transform_.position_.y;
+    float objZ = transform_.position_.z;
 
     ////壁の判定(上)
-    //if (pStage->IsWall( (int)objX, (int)(objY - 0.6f), (int)objZ ))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.6f;
-    //    IsJump = 0;
-    //}
+    if (pStage->IsWall( (int)objX + 0.5f, (int)(objY - 0.6f), (int)objZ + 0.3f) || pStage->IsWall((int)objX + 0.5f, (int)(objY - 0.6f), (int)objZ - 0.3f))
+    {
+        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
+        IsJump = 0;
+    }
 
-    //if (pStage->IsWallX((int)objX + 0.5f, (int)(objY - 0.3f), (int)objZ) || (pStage->IsWallX((int)objX - 0.5f, (int)(objY - 0.3f), (int)objZ)))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
-    //    IsJump = 0;
-    //}
+    if (pStage->IsWallX((int)objX + 0.5f, (int)(objY - 0.3f), (int)objZ + 0.3f) || (pStage->IsWallX((int)objX - 0.5f, (int)(objY - 0.3f), (int)objZ + 0.3f)))
+    {
+        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
+        IsJump = 0;
+    }
+
     //
     ////壁の判定(下)
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
@@ -300,7 +298,7 @@ void Player::Update()
     XMVECTOR vX = XMLoadFloat3(&X);
     vX = XMVector3TransformCoord(vX, mRotate);
 
-    ////カメラ移動
+    //////カメラ移動
     //if (Input::IsKey(DIK_W))
     //{
     //    vPos += vMove;
@@ -356,15 +354,15 @@ void Player::Draw()
     Model::Draw(hModel_);
 
 
-    pText->Draw(20, 20, "rotate.xyz");
-    pText->Draw(50, 50, transform_.rotate_.x);
-    pText->Draw(150, 50, transform_.rotate_.y);
-    pText->Draw(250, 50, transform_.rotate_.z);
+    //pText->Draw(20, 20, "rotate.xyz");
+    //pText->Draw(50, 50, transform_.rotate_.x);
+    //pText->Draw(150, 50, transform_.rotate_.y);
+    //pText->Draw(250, 50, transform_.rotate_.z);
 
-    pText->Draw(20, 100, "transform.xyz");
-    pText->Draw(50, 130, transform_.position_.x);
-    pText->Draw(150, 130, transform_.position_.y);
-    pText->Draw(250, 130, transform_.position_.z);
+    //pText->Draw(20, 100, "transform.xyz");
+    //pText->Draw(50, 130, transform_.position_.x);
+    //pText->Draw(150, 130, transform_.position_.y);
+    //pText->Draw(250, 130, transform_.position_.z);
 }
 
 void Player::Release()
