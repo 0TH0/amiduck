@@ -43,7 +43,7 @@ void Player::Initialize()
     assert(hModel_ >= 0);
 
     //ˆÊ’u
-    transform_.position_ = XMFLOAT3(0, 10.0f, -8);
+    transform_.position_ = XMFLOAT3(0, 0.5, 38);
     transform_.rotate_ = XMFLOAT3(-30, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
@@ -214,22 +214,50 @@ void Player::Update()
     //}
 
     //////////////////•Ç‚Æ‚ÌÕ“Ë”»’è///////////////////////
-    float objX = transform_.position_.x;
-    float objY = transform_.position_.y;
-    float objZ = transform_.position_.z;
+    int objX = transform_.position_.x;
+    int objY = transform_.position_.y;
+    int objZ = transform_.position_.z;
 
     ////•Ç‚Ì”»’è(ã)
-    if (pStage->IsWall( (int)objX + 0.5f, (int)(objY - 0.6f), (int)objZ + 0.3f) || pStage->IsWall((int)objX + 0.5f, (int)(objY - 0.6f), (int)objZ - 0.3f))
+    if (pStage->IsWall( objX, objY ,objZ))
     {
-        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
+        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (pStage->IsWallX((int)objX + 0.5f, (int)(objY - 0.3f), (int)objZ + 0.3f) || (pStage->IsWallX((int)objX - 0.5f, (int)(objY - 0.3f), (int)objZ + 0.3f)))
+    if (pStage->IsWallX(objX, objY, objZ))
     {
-        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.8f;
+        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
+
+    if (pStage->IsWallM(objX, objY, objZ - 3))
+    {
+        a = true;
+    }
+
+    if (pStage->IsPipe(objX, objY, objZ + 2))
+    {
+        b = true;
+    }
+
+
+
+    if (a)
+    {
+        transform_.position_.z -= 6;
+        a = false;
+    }
+    else if (b)
+    {
+        transform_.position_.z += 6;
+        b = false;
+    }
+
+    //if (pStage->IsPipe(objX, objY, objZ + 2))
+    //{
+    //    transform_.position_.z += 12;
+    //}
 
     //
     ////•Ç‚Ì”»’è(‰º)

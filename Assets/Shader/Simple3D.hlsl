@@ -97,9 +97,9 @@ float4 PS(VS_OUT inData) : SV_Target
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
 	float4 ambient = g_vecAmbient;
-
+	float value = 0.3f;
 	//鏡面反射光（スペキュラー）
-	float4 speculer = float4(0.3, 0.3, 0.3, 0.3);	//とりあえずハイライトは無しにしておいて…
+	float4 speculer = float4(value, value, value, value);	//とりあえずハイライトは無しにしておいて…
 	if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
 	{
 		float4 R = reflect(lightDir, inData.normal);			//正反射ベクトル

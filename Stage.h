@@ -4,7 +4,7 @@
 class Stage : public GameObject
 {
     int hModel_[20];
-    int map_[180][1][40];
+    int map_[180][1][39];
      
 public:
 
@@ -25,9 +25,9 @@ public:
 
     bool IsWallX(int x, int y, int z);
 
-    bool IsWallM(int x, int y);
+    bool IsWallM(int x, int y, int z);
 
-    bool IsPipe(int x, int y);
+    bool IsPipe(int x, int y, int z);
 
     int getModelHandle(int handle) { return hModel_[handle]; };
 

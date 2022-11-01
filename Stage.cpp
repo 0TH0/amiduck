@@ -41,7 +41,7 @@ void Stage::StageLoad()
     assert(hModel_[1] >= 0);
 
     //Šøæ’[
-    hModel_[2] = Model::Load("wood.fbx");
+    hModel_[2] = Model::Load("wood2.fbx");
     assert(hModel_[2] >= 0);
 }
 
@@ -56,7 +56,7 @@ void Stage::Initialize()
 
     for (int x = 0; x < 180; x++)
     {
-            for (int z = 0; z < 40; z++)
+            for (int z = 0; z < 39; z++)
             {
                 map_[x][0][z] = csv.GetValue(x, z);
 
@@ -130,13 +130,11 @@ void Stage::Draw()
     {
         for (int y = 0; y < 1; y++)
         {
-            for (int z = 0; z < 40; z++)
+            for (int z = 0; z < 39; z++)
             {
                 int type = map_[x][0][z];
-                transform_.position_.x = x;
-                //transform_.position_.y = y;
-                transform_.position_.z = z;
-                transform_.rotate_.y = 0;
+                transform_.position_ = XMFLOAT3(x, 0, z + 1);
+                transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
                 if (map_[x][y][z] == 1)
                 {
@@ -145,8 +143,8 @@ void Stage::Draw()
                 ////Šø‚ÌˆÊ’u
                 if (map_[x][y][z] == 2)
                 {
-                    transform_.scale_ = XMFLOAT3(3, 1, 2.5);
-                    //transform_.rotate_.y = 45;
+                    transform_.position_ = XMFLOAT3(x, 0.5, z + 1);
+                    transform_.scale_ = XMFLOAT3(1, 1, 3);
                 }
 
                 Model::SetTransform(hModel_[type], transform_);
@@ -172,12 +170,17 @@ bool Stage::IsWallX(int x, int y, int z)
     return (map_[x][y][z] == 2);
 }
 
+bool Stage::IsWallM(int x, int y, int z)
+{
+    return (map_[x][y][z] == 2);
+}
+
 //bool Stage::IsWallM(int x, int y)
 //{
 //    return (map_[x][y] == 10);
 //}
 //
-//bool Stage::IsPipe(int x, int y)
-//{
-//    return (map_[x][y] == 3);
-//}
+bool Stage::IsPipe(int x, int y, int z)
+{
+    return (map_[x][y][z] == 2);
+}

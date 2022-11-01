@@ -28,7 +28,10 @@ class Player : public GameObject
     Stage* pStage;
 
     Text* pText = new Text;
-    bool a;
+
+    float a;
+    bool c;
+    bool b;
 
 public:
     //コンストラクタ
