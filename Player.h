@@ -34,7 +34,9 @@ class Player : public GameObject
     bool b;
     int time1;
     int time2;
+    int time3;
     Transform trans[2];
+    bool IsPress;
 
 public:
     //コンストラクタ

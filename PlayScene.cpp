@@ -21,7 +21,7 @@ PlayScene::PlayScene(GameObject* parent)
 //‰Šú‰»
 void PlayScene::Initialize()
 {
-	//Instantiate<Sky>(this);
+	Instantiate<Enemy>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Player>(this);
 

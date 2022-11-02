@@ -44,6 +44,7 @@ void Player::Initialize()
 
     //ˆÊ’u
     transform_.position_ = XMFLOAT3(0, 0.5, 38);
+    //transform_.position_ = XMFLOAT3(0, 0.5, 2);
     transform_.rotate_ = XMFLOAT3(-30, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
@@ -59,7 +60,21 @@ void Player::Initialize()
 
 void Player::Update()
 {
-    transform_.position_.x += SPEED;
+    if (Input::IsKeyDown(DIK_Z))
+    {
+        IsPress = true;
+    }
+    if (IsPress)
+    {
+        transform_.position_.x += SPEED;
+    }
+    else
+    {
+        if (Input::IsKeyDown(DIK_Z))
+        {
+            IsPress = false;
+        }
+    }
 
     pStage = (Stage*)FindObject("Stage");
 
@@ -236,6 +251,7 @@ void Player::Update()
     if (pStage->IsWallM(objX, objY, objZ - 3))
     {
         a = true;
+        time3++;
     }
     else
     {
@@ -264,7 +280,7 @@ void Player::Update()
             time2++;
             if (time2 > 10)
             {
-                trans[0].position_ = transform_.position_;
+                trans[1].position_ = transform_.position_;
                 transform_.position_.z += 6;
                 time2 = 0;
                 b = false;
