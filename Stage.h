@@ -4,7 +4,7 @@
 class Stage : public GameObject
 {
     int hModel_[20];
-    int map_[180][1][39];
+    int map_[180][10][39];
      
 public:
 

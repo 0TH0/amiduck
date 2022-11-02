@@ -128,12 +128,12 @@ void Stage::Draw()
 {
     for (int x = 0; x < 180; x++)
     {
-        for (int y = 0; y < 1; y++)
+        for (int y = 0; y < 2; y++)
         {
             for (int z = 0; z < 39; z++)
             {
                 int type = map_[x][0][z];
-                transform_.position_ = XMFLOAT3(x, 0, z + 1);
+                transform_.position_ = XMFLOAT3(x, -y * 5, z + 1);
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
                 if (map_[x][y][z] == 1)
