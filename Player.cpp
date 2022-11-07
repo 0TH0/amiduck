@@ -60,21 +60,6 @@ void Player::Initialize()
 
 void Player::Update()
 {
-    if (Input::IsKeyDown(DIK_Z))
-    {
-        IsPress = true;
-    }
-    if (IsPress)
-    {
-        transform_.position_.x += SPEED;
-    }
-    else
-    {
-        if (Input::IsKeyDown(DIK_Z))
-        {
-            IsPress = false;
-        }
-    }
 
     pStage = (Stage*)FindObject("Stage");
 
@@ -241,8 +226,7 @@ void Player::Update()
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-
-    if (pStage->IsWallX(objX, objY, objZ))
+    else if (pStage->IsWallX(objX, objY, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
@@ -250,43 +234,101 @@ void Player::Update()
 
     if (pStage->IsWallM(objX, objY, objZ - 3))
     {
+        SPEED = 0;
         a = true;
-        time3++;
     }
-    else
-    {
-        if (pStage->IsPipe(objX, objY, objZ + 2))
-        {
-            b = true;
-        }
-    }
-
+    //else
+    //{
+    //    if (!a)
+    //    {
+    //        if (pStage->IsPipe(objX, objY, objZ + 2))
+    //        {
+    //            if (!b)
+    //            {
+    //                //SPEED = 0;
+    //                b = true;
+    //            }
+    //        }
+    //    }
+    //}
 
     if (a)
     {
-        time1++;
-        if (time1 > 10)
+        if (g <= 0)
         {
-            trans[0].position_ = transform_.position_;
-            transform_.position_.z -= 6;
-            time1 = 0;
-            a = false;
+            s = 0.2;
+            t += s;
+            if (t >= 6)
+            {
+                trans[0].position_ = transform_.position_;
+                time1 = 0;
+                s = 0;
+                t = 0;
+                a = false;
+                SPEED = 0.2;
+            }
+            else
+            {
+                transform_.position_.z -= s;
+            }
         }
     }
     else
     {
+        if(!b) time1++;
+        
+        if (time1 > 20)
+        {
+            if (pStage->IsPipe(objX, objY, objZ + 2))
+            {
+                SPEED = 0;
+                b = true;
+            }
+        }
+
         if (b)
         {
             time2++;
-            if (time2 > 10)
+            f = 0.2;
+            g += f;
+            if (g >= 6)
             {
                 trans[1].position_ = transform_.position_;
-                transform_.position_.z += 6;
                 time2 = 0;
+                g = 0;
+                f = 0;
                 b = false;
+                SPEED = 0.2;
+                time1 = 0;
+            }
+            else
+            {
+                transform_.position_.z += f;
             }
         }
     }
+
+    if (Input::IsKeyDown(DIK_Z))
+    {
+        IsPress = true;
+    }
+    if (Input::IsKeyDown(DIK_X))
+    {
+        IsPress = false;
+    }
+    if (Input::IsKeyDown(DIK_C))
+    {
+        SPEED = -0.2f;
+    }
+    if (Input::IsKeyDown(DIK_V))
+    {
+        SPEED = 0.2f;
+    }
+    if (IsPress)
+    {
+    }
+
+    transform_.position_.x += SPEED;
 
     //if (pStage->IsPipe(objX, objY, objZ + 2))
     //{
@@ -416,15 +458,15 @@ void Player::Draw()
     Model::Draw(hModel_);
 
 
-    //pText->Draw(20, 20, "rotate.xyz");
-    //pText->Draw(50, 50, transform_.rotate_.x);
-    //pText->Draw(150, 50, transform_.rotate_.y);
-    //pText->Draw(250, 50, transform_.rotate_.z);
+    pText->Draw(20, 20, "rotate.xyz");
+    pText->Draw(50, 50, transform_.rotate_.x);
+    pText->Draw(150, 50, transform_.rotate_.y);
+    pText->Draw(250, 50, transform_.rotate_.z);
 
-    //pText->Draw(20, 100, "transform.xyz");
-    //pText->Draw(50, 130, transform_.position_.x);
-    //pText->Draw(150, 130, transform_.position_.y);
-    //pText->Draw(250, 130, transform_.position_.z);
+    pText->Draw(20, 100, "transform.xyz");
+    pText->Draw(50, 130, transform_.position_.x);
+    pText->Draw(150, 130, transform_.position_.y);
+    pText->Draw(250, 130, transform_.position_.z);
 }
 
 void Player::Release()
