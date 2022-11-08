@@ -4,8 +4,10 @@
 class Stage : public GameObject
 {
     int hModel_[20];
-    int map_[180][10][39];
-     
+    int map_[180][1][39];
+    int PlayerPosX_;
+    int PlayerPosZ_;
+
 public:
 
     Stage(GameObject* parent);
@@ -28,6 +30,8 @@ public:
     bool IsWallM(int x, int y, int z);
 
     bool IsPipe(int x, int y, int z);
+
+    bool IsEmpty(int x, int y, int z);
 
     int getModelHandle(int handle) { return hModel_[handle]; };
 

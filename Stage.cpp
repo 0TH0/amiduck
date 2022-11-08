@@ -58,7 +58,7 @@ void Stage::Initialize()
     {
             for (int z = 0; z < 39; z++)
             {
-                map_[x][0][z] = csv.GetValue(x, z);
+                map_[x][0][z] = csv.GetValue(x, -z + 38);
 
                 ////ブロック登場
                 //if (map_[x][y] == 2)
@@ -121,6 +121,29 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
+    Player* pPlayer = (Player*)FindObject("Player");
+    
+    if(!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 3;
+    else PlayerPosX_ = (int)pPlayer->GetPosition().x - 3;
+
+    PlayerPosZ_ = (int)pPlayer->GetPosition().z;
+
+    if ((PlayerPosX_ % 2) == 1)
+    {
+        if (Input::IsKeyDown(DIK_B))
+        {
+            map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
+        }
+
+        if (Input::IsKeyDown(DIK_N))
+        {
+            map_[PlayerPosX_][0][PlayerPosZ_ - 2] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+        }
+    }
 }
 
 //描画
@@ -133,18 +156,18 @@ void Stage::Draw()
             for (int z = 0; z < 39; z++)
             {
                 int type = map_[x][0][z];
-                transform_.position_ = XMFLOAT3(x, y, z + 1);
+                transform_.position_ = XMFLOAT3(x + 0.5, 0, z + 1);
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
-                if (map_[x][y][z] == 1)
+                if (map_[x][0][z] == 1)
                 {
                     transform_.rotate_.y = 90;
                 }
                 ////旗の位置
-                if (map_[x][y][z] == 2)
+                if (map_[x][0][z] == 2)
                 {
                     transform_.position_ = XMFLOAT3(x, 0.5, z + 1);
-                    transform_.scale_ = XMFLOAT3(1, 1, 3);
+                    transform_.scale_ = XMFLOAT3(3, 1, 3);
                 }
 
                 Model::SetTransform(hModel_[type], transform_);
@@ -183,4 +206,9 @@ bool Stage::IsWallM(int x, int y, int z)
 bool Stage::IsPipe(int x, int y, int z)
 {
     return (map_[x][y][z] == 2);
+}
+
+bool Stage::IsEmpty(int x, int y, int z)
+{
+    return (map_[x][y][z] == 0);
 }

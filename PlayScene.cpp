@@ -21,7 +21,12 @@ PlayScene::PlayScene(GameObject* parent)
 //初期化
 void PlayScene::Initialize()
 {
+	//ステージ
 	Instantiate<Stage>(this);
+	Stage* pStage = (Stage*)FindObject("Stage");
+	//ステージのモデルロード
+	pStage->StageLoad();
+
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
 
@@ -29,9 +34,6 @@ void PlayScene::Initialize()
 
 	pText = new Text;
 	pText->Initialize();
-
-	Stage* pStage = (Stage*)FindObject("Stage");
-	pStage->StageLoad();
 }
 
 //更新

@@ -232,10 +232,27 @@ void Player::Update()
         IsJump = 0;
     }
 
+    if (!a && !b && pStage->IsEmpty((float)objX + 2.5, objY, objZ))
+    {
+        IsReturn = true;
+    }
+    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    {
+        IsReturn = false;
+    }
+    if (IsReturn)
+    {
+        transform_.position_.x -= SPEED;
+    }
+    else
+    {
+        transform_.position_.x += SPEED;
+    }
+
 
     ///////////////////////// ‚ ‚Ý‚¾‚­‚¶‚Ìˆ— ///////////////////////////////////////////
 
-    if (!b && time2 > 15)
+    if (!b && time2 > 5)
     {
         if (pStage->IsWallM(objX, objY, objZ - 3))
         {
@@ -274,7 +291,7 @@ void Player::Update()
 
         if(!b) time1++;
         
-        if (time1 > 15)
+        if (time1 > 5)
         {
             if (pStage->IsPipe(objX, objY, objZ + 2))
             {
@@ -323,8 +340,6 @@ void Player::Update()
     if (IsPress)
     {
     }
-
-    transform_.position_.x += SPEED;
 
     //if (pStage->IsPipe(objX, objY, objZ + 2))
     //{
