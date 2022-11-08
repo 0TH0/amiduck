@@ -21,9 +21,9 @@ PlayScene::PlayScene(GameObject* parent)
 //‰Šú‰»
 void PlayScene::Initialize()
 {
-	Instantiate<Enemy>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Player>(this);
+	Instantiate<Enemy>(this);
 
 	Instructions pInstructions = (Instructions*)FindObject("Instructions");
 

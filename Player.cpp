@@ -232,31 +232,25 @@ void Player::Update()
         IsJump = 0;
     }
 
-    if (pStage->IsWallM(objX, objY, objZ - 3))
-    {
-        SPEED = 0;
-        a = true;
-    }
-    //else
-    //{
-    //    if (!a)
-    //    {
-    //        if (pStage->IsPipe(objX, objY, objZ + 2))
-    //        {
-    //            if (!b)
-    //            {
-    //                //SPEED = 0;
-    //                b = true;
-    //            }
-    //        }
-    //    }
-    //}
 
+    ///////////////////////// Ç†Ç›ÇæÇ≠Ç∂ÇÃèàóù ///////////////////////////////////////////
+
+    if (!b && time2 > 15)
+    {
+        if (pStage->IsWallM(objX, objY, objZ - 3))
+        {
+            SPEED = 0;
+            a = true;
+            time2 = 0;
+        }
+    }
+
+    //âEÇ…çsÇ≠
     if (a)
     {
         if (g <= 0)
         {
-            s = 0.2;
+            s = 0.2f;
             t += s;
             if (t >= 6)
             {
@@ -273,11 +267,14 @@ void Player::Update()
             }
         }
     }
+    //ç∂Ç…çsÇ≠
     else
     {
+        time2++;
+
         if(!b) time1++;
         
-        if (time1 > 20)
+        if (time1 > 15)
         {
             if (pStage->IsPipe(objX, objY, objZ + 2))
             {
@@ -288,8 +285,7 @@ void Player::Update()
 
         if (b)
         {
-            time2++;
-            f = 0.2;
+            f = 0.2f;
             g += f;
             if (g >= 6)
             {

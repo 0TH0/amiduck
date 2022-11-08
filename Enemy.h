@@ -20,19 +20,23 @@ class Enemy : public GameObject
     int BossHp;           //ボスのHP
 
     //定数
-    const float SPEED;        //移動速度
+    float SPEED;        //移動速度
     const float DUSHSPEED;    //ダッシュ速度
     const float CAMERA_TAR_Y; //カメラの向き
     const float CAMERA_POS_Y; //カメラの位置
+    float s;
+    float t;
+    float f;
+    float g;
 
     Stage* pStage;
 
     Text* pText = new Text;
 
-    float a;
-    bool c;
-    bool b;
-    int time1;
+    float a = false;
+    bool c = false;
+    bool b = false;
+    int time1 = 0;
     int time2;
     int time3;
     Transform trans[2];

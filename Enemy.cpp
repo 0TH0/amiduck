@@ -52,29 +52,14 @@ void Enemy::Initialize()
     //SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     //AddCollider(collision);
 
-    //pStage = (Stage*)FindObject("Stage");
-    //assert(pStage != nullptr);
+    pStage = (Stage*)FindObject("Stage");
+    assert(pStage != nullptr);
 
     pText->Initialize();
 }
 
 void Enemy::Update()
 {
-        transform_.position_.x += SPEED;
-    if (Input::IsKeyDown(DIK_Z))
-    {
-        IsPress = true;
-    }
-    if (IsPress)
-    {
-    }
-    else
-    {
-        if (Input::IsKeyDown(DIK_Z))
-        {
-            IsPress = false;
-        }
-    }
 
     pStage = (Stage*)FindObject("Stage");
 
@@ -83,27 +68,27 @@ void Enemy::Update()
 
     /////////////////////////移動/////////////////////////
 
-    //左移動
-    if (Input::IsKey(DIK_W))
-    {
-        transform_.position_.x += SPEED;
-    }
+    ////左移動
+    //if (Input::IsKey(DIK_W))
+    //{
+    //    transform_.position_.x += SPEED;
+    //}
 
-    //左移動
-    if (Input::IsKey(DIK_S))
-    {
-        transform_.position_.x -= SPEED;
-    }
+    ////左移動
+    //if (Input::IsKey(DIK_S))
+    //{
+    //    transform_.position_.x -= SPEED;
+    //}
 
-    if (Input::IsKey(DIK_A))
-    {
-        transform_.position_.z += SPEED;
-    }
+    //if (Input::IsKey(DIK_A))
+    //{
+    //    transform_.position_.z += SPEED;
+    //}
 
-    if (Input::IsKey(DIK_D))
-    {
-        transform_.position_.z -= SPEED;
-    }
+    //if (Input::IsKey(DIK_D))
+    //{
+    //    transform_.position_.z -= SPEED;
+    //}
 
     ////右移動
     //if (Input::IsKey(DIK_D))
@@ -145,22 +130,22 @@ void Enemy::Update()
     //}
 
     //////////ジャンプ///////
-    if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
-    {
-        //初速度
-        jump_v0 = 0.2f;
-        //重力
-        GRAVITY = 0.008f;
+    //if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
+    //{
+    //    //初速度
+    //    jump_v0 = 0.2f;
+    //    //重力
+    //    GRAVITY = 0.008f;
 
-        //初速度を加える
-        move_.y = jump_v0;
+    //    //初速度を加える
+    //    move_.y = jump_v0;
 
-        //重力を加える
-        move_.y += GRAVITY;
+    //    //重力を加える
+    //    move_.y += GRAVITY;
 
-        //ジャンプフラグ
-        IsJump = 1;
-    }
+    //    //ジャンプフラグ
+    //    IsJump = 1;
+    //}
 
     ////ジャンプ中の重力
     if (IsJump == 1)
@@ -241,52 +226,105 @@ void Enemy::Update()
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-
-    if (pStage->IsWallX(objX, objY, objZ))
+    else if (pStage->IsWallX(objX, objY, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (pStage->IsWallM(objX, objY, objZ - 3))
+
+    ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
+
+    if (!b && time2 > 15)
     {
-        a = true;
-        time3++;
-    }
-    else
-    {
-        if (pStage->IsPipe(objX, objY, objZ + 2))
+        if (pStage->IsWallM(objX, objY, objZ - 3))
         {
-            b = true;
+            SPEED = 0;
+            a = true;
+            time2 = 0;
         }
     }
 
-
+    //右に行く
     if (a)
     {
-        time1++;
-        if (time1 > 10)
+        if (g <= 0)
         {
-            trans[0].position_ = transform_.position_;
-            transform_.position_.z -= 6;
-            time1 = 0;
-            a = false;
-        }
-    }
-    else
-    {
-        if (b)
-        {
-            time2++;
-            if (time2 > 10)
+            s = 0.2f;
+            t += s;
+            if (t >= 6)
             {
                 trans[0].position_ = transform_.position_;
-                transform_.position_.z += 6;
-                time2 = 0;
-                b = false;
+                time1 = 0;
+                s = 0;
+                t = 0;
+                a = false;
+                SPEED = 0.2;
+            }
+            else
+            {
+                transform_.position_.z -= s;
             }
         }
     }
+    //左に行く
+    else
+    {
+        time2++;
+
+        if (!b) time1++;
+
+        if (time1 > 15)
+        {
+            if (pStage->IsPipe(objX, objY, objZ + 2))
+            {
+                SPEED = 0;
+                b = true;
+            }
+        }
+
+        if (b)
+        {
+            f = 0.2f;
+            g += f;
+            if (g >= 6)
+            {
+                trans[1].position_ = transform_.position_;
+                time2 = 0;
+                g = 0;
+                f = 0;
+                b = false;
+                SPEED = 0.2;
+                time1 = 0;
+            }
+            else
+            {
+                transform_.position_.z += f;
+            }
+        }
+    }
+
+    //if (Input::IsKeyDown(DIK_Z))
+    //{
+    //    IsPress = true;
+    //}
+    //if (Input::IsKeyDown(DIK_X))
+    //{
+    //    IsPress = false;
+    //}
+    //if (Input::IsKeyDown(DIK_C))
+    //{
+    //    SPEED = -0.2f;
+    //}
+    //if (Input::IsKeyDown(DIK_V))
+    //{
+    //    SPEED = 0.2f;
+    //}
+    //if (IsPress)
+    //{
+    //}
+
+    transform_.position_.x += SPEED;
 
     //if (pStage->IsPipe(objX, objY, objZ + 2))
     //{
@@ -322,43 +360,43 @@ void Enemy::Update()
     //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
     //}
 
-     //カメラ回転
-    if (Input::IsKey(DIK_LEFT))
-    {
-        transform_.rotate_.y -= 1.0f;
-    }
+    // //カメラ回転
+    //if (Input::IsKey(DIK_LEFT))
+    //{
+    //    transform_.rotate_.y -= 1.0f;
+    //}
 
-    if (Input::IsKey(DIK_RIGHT))
-    {
-        transform_.rotate_.y += 1.0f;
-    }
+    //if (Input::IsKey(DIK_RIGHT))
+    //{
+    //    transform_.rotate_.y += 1.0f;
+    //}
 
-    if (Input::IsKey(DIK_UP))
-    {
-        transform_.rotate_.x += 1.0f;
-    }
+    //if (Input::IsKey(DIK_UP))
+    //{
+    //    transform_.rotate_.x += 1.0f;
+    //}
 
-    if (Input::IsKey(DIK_DOWN))
-    {
-        transform_.rotate_.x -= 1.0f;
-    }
+    //if (Input::IsKey(DIK_DOWN))
+    //{
+    //    transform_.rotate_.x -= 1.0f;
+    //}
 
-    //回転行列
-    XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-    XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
-    XMMATRIX mRotate = mRotateX * mRotateY;
+    ////回転行列
+    //XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
+    //XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+    //XMMATRIX mRotate = mRotateX * mRotateY;
 
-    //現在位置をベクトルにしておく
-    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
+    ////現在位置をベクトルにしておく
+    //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 
-    //移動ベクトル
-    XMFLOAT3 move = { 0, 0, 0.2f };
-    XMVECTOR vMove = XMLoadFloat3(&move);
-    vMove = XMVector3TransformCoord(vMove, mRotate);
+    ////移動ベクトル
+    //XMFLOAT3 move = { 0, 0, 0.2f };
+    //XMVECTOR vMove = XMLoadFloat3(&move);
+    //vMove = XMVector3TransformCoord(vMove, mRotate);
 
-    XMFLOAT3 X = { 0.2f, 0, 0 };
-    XMVECTOR vX = XMLoadFloat3(&X);
-    vX = XMVector3TransformCoord(vX, mRotate);
+    //XMFLOAT3 X = { 0.2f, 0, 0 };
+    //XMVECTOR vX = XMLoadFloat3(&X);
+    //vX = XMVector3TransformCoord(vX, mRotate);
 
     //////カメラ移動
     //if (Input::IsKey(DIK_W))
@@ -385,29 +423,29 @@ void Enemy::Update()
     //    XMStoreFloat3(&transform_.position_, vPos);
     //}
 
-    //カメラ
-    XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
-    vCam = XMVector3TransformCoord(vCam, mRotate);
-    XMFLOAT3 camPos;
-    XMStoreFloat3(&camPos, vPos + vCam);
-    Camera::SetPosition(camPos);
-    Camera::SetTarget(transform_.position_);
+    ////カメラ
+    //XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
+    //vCam = XMVector3TransformCoord(vCam, mRotate);
+    //XMFLOAT3 camPos;
+    //XMStoreFloat3(&camPos, vPos + vCam);
+    //Camera::SetPosition(camPos);
+    //Camera::SetTarget(transform_.position_);
 
 
-    XMFLOAT3 a = Input::GetMousePosition();
+    //XMFLOAT3 a = Input::GetMousePosition();
 
-    XMFLOAT3 b = Input::GetMouseMove();
+    //XMFLOAT3 b = Input::GetMouseMove();
 
-    float x = b.z - a.z;
+    //float x = b.z - a.z;
 
-    float y = b.z - a.z;
+    //float y = b.z - a.z;
 
-    transform_.rotate_.x += x * 0.025;
+    //transform_.rotate_.x += x * 0.025;
 
-    if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-    if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
+    //if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
+    //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
 
-    FollowGround();
+    //FollowGround();
 }
 
 void Enemy::Draw()
@@ -416,15 +454,15 @@ void Enemy::Draw()
     Model::Draw(hModel_);
 
 
-    //pText->Draw(20, 20, "rotate.xyz");
-    //pText->Draw(50, 50, transform_.rotate_.x);
-    //pText->Draw(150, 50, transform_.rotate_.y);
-    //pText->Draw(250, 50, transform_.rotate_.z);
+    pText->Draw(20, 20, "rotate.xyz");
+    pText->Draw(50, 50, transform_.rotate_.x);
+    pText->Draw(150, 50, transform_.rotate_.y);
+    pText->Draw(250, 50, transform_.rotate_.z);
 
-    //pText->Draw(20, 100, "transform.xyz");
-    //pText->Draw(50, 130, transform_.position_.x);
-    //pText->Draw(150, 130, transform_.position_.y);
-    //pText->Draw(250, 130, transform_.position_.z);
+    pText->Draw(20, 100, "transform.xyz");
+    pText->Draw(50, 130, transform_.position_.x);
+    pText->Draw(150, 130, transform_.position_.y);
+    pText->Draw(250, 130, transform_.position_.z);
 }
 
 void Enemy::Release()
