@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "Boss.h"
 #include "Pipe_base.h"
+#include "Fire.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -56,6 +57,8 @@ void Player::Initialize()
     assert(pStage != nullptr);
 
     pText->Initialize();
+
+    //Instantiate<Fire>(this);
 }
 
 void Player::Update()
@@ -68,27 +71,27 @@ void Player::Update()
 
     /////////////////////////移動/////////////////////////
 
-    //左移動
-    if (Input::IsKey(DIK_W))
-    {
-        transform_.position_.x += SPEED;
-    }
+    ////左移動
+    //if (Input::IsKey(DIK_W))
+    //{
+    //    transform_.position_.x += SPEED;
+    //}
 
-    //左移動
-    if (Input::IsKey(DIK_S))
-    {
-        transform_.position_.x -= SPEED;
-    }
+    ////左移動
+    //if (Input::IsKey(DIK_S))
+    //{
+    //    transform_.position_.x -= SPEED;
+    //}
 
-    if (Input::IsKey(DIK_A))
-    {
-        transform_.position_.z += SPEED;
-    }
+    //if (Input::IsKey(DIK_A))
+    //{
+    //    transform_.position_.z += SPEED;
+    //}
 
-    if (Input::IsKey(DIK_D))
-    {
-        transform_.position_.z -= SPEED;
-    }
+    //if (Input::IsKey(DIK_D))
+    //{
+    //    transform_.position_.z -= SPEED;
+    //}
 
     ////右移動
     //if (Input::IsKey(DIK_D))
@@ -130,22 +133,23 @@ void Player::Update()
     //}
 
     //////////ジャンプ///////
-    if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
-    {
-        //初速度
-        jump_v0 = 0.2f;
-        //重力
-        GRAVITY = 0.008f;
+    //if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
+    //{
+    //    ////初速度
+    //    //jump_v0 = 0.2f;
+    //    ////重力
+    //    //GRAVITY = 0.008f;
 
-        //初速度を加える
-        move_.y = jump_v0;
+    //    ////初速度を加える
+    //    //move_.y = jump_v0;
 
-        //重力を加える
-        move_.y += GRAVITY;
+    //    ////重力を加える
+    //    //move_.y += GRAVITY;
 
-        //ジャンプフラグ
-        IsJump = 1;
-    }
+    //    ////ジャンプフラグ
+    //    //IsJump = 1;
+    //    SPEED = 0;
+    //}
 
     ////ジャンプ中の重力
     if (IsJump == 1)
@@ -221,18 +225,18 @@ void Player::Update()
     int objZ = transform_.position_.z;
 
     ////壁の判定(上)
-    if (pStage->IsWall( objX, objY ,objZ))
+    if (pStage->IsWall(objX, objY ,objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    else if (pStage->IsWallX(objX, objY, objZ))
+    if (pStage->IsWallX(objX, objY, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 2.5, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX + 4, objY, objZ))
     {
         IsReturn = true;
     }
@@ -252,7 +256,7 @@ void Player::Update()
 
     ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
 
-    if (!b && time2 > 5)
+    if (!b && time2 > 4)
     {
         if (pStage->IsWallM(objX, objY, objZ - 3))
         {
@@ -291,7 +295,7 @@ void Player::Update()
 
         if(!b) time1++;
         
-        if (time1 > 5)
+        if (time1 > 4)
         {
             if (pStage->IsPipe(objX, objY, objZ + 2))
             {
@@ -394,6 +398,15 @@ void Player::Update()
     if (Input::IsKey(DIK_DOWN))
     {
         transform_.rotate_.x -= 1.0f;
+    }
+
+    if (Input::IsKey(DIK_1))
+    {
+        transform_.rotate_.y = -90;
+    }
+    if (Input::IsKey(DIK_2))
+    {
+        transform_.rotate_.y = 90;
     }
 
     //回転行列

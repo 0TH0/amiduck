@@ -102,6 +102,7 @@
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Boss2.cpp" />
+    <ClCompile Include="Fire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -180,6 +181,7 @@
     <ClInclude Include="Flag.h" />
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Boss2.h" />
+    <ClInclude Include="Fire.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

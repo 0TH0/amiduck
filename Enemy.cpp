@@ -39,11 +39,11 @@ Enemy::~Enemy()
 //‰Šú‰»
 void Enemy::Initialize()
 {
-    hModel_ = Model::Load("duck.fbx");
+    hModel_ = Model::Load("Enemy.fbx");
     assert(hModel_ >= 0);
 
     //ˆÊ’u
-    transform_.position_ = XMFLOAT3(0, 0.5, 38);
+    transform_.position_ = XMFLOAT3(178, 0.5, 38);
     //transform_.position_ = XMFLOAT3(0, 0.5, 2);
     transform_.rotate_ = XMFLOAT3(-30, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
@@ -226,16 +226,33 @@ void Enemy::Update()
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    else if (pStage->IsWallX(objX, objY, objZ))
+    if (pStage->IsWallX(objX, objY, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
+    if (!a && !b && pStage->IsEmpty((float)objX + 2, objY, objZ))
+    {
+        IsReturn = true;
+    }
+    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    {
+        IsReturn = false;
+    }
+    if (IsReturn)
+    {
+        transform_.position_.x -= SPEED;
+    }
+    else
+    {
+        transform_.position_.x += SPEED;
+    }
+
 
     ///////////////////////// ‚ ‚Ý‚¾‚­‚¶‚Ìˆ— ///////////////////////////////////////////
 
-    if (!b && time2 > 15)
+    if (!b && time2 > 4)
     {
         if (pStage->IsWallM(objX, objY, objZ - 3))
         {
@@ -274,7 +291,7 @@ void Enemy::Update()
 
         if (!b) time1++;
 
-        if (time1 > 15)
+        if (time1 > 4)
         {
             if (pStage->IsPipe(objX, objY, objZ + 2))
             {
@@ -323,8 +340,6 @@ void Enemy::Update()
     //if (IsPress)
     //{
     //}
-
-    transform_.position_.x += SPEED;
 
     //if (pStage->IsPipe(objX, objY, objZ + 2))
     //{

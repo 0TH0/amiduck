@@ -41,6 +41,7 @@ class Enemy : public GameObject
     int time3;
     Transform trans[2];
     bool IsPress;
+    bool IsReturn;
 
 public:
     //コンストラクタ
@@ -66,4 +67,6 @@ public:
     //void OnCollision(GameObject* pTarget) override;
 
     void FollowGround();
+
+    bool GetReturn() { return IsReturn; };
 };
