@@ -284,6 +284,7 @@ void Player::Update()
     //âEÇ…çsÇ≠
     if (a)
     {
+        IsStop = false;
         if (g <= 0)
         {
             s = 0.2f;
@@ -306,10 +307,14 @@ void Player::Update()
     //ç∂Ç…çsÇ≠
     else
     {
-        time2++;
+        //é~Ç‹Ç¡ÇƒÇ¢Ç»Ç©Ç¡ÇΩÇÁ
+        if (!IsStop)
+        {
+            time2++;
 
-        if(!b) time1++;
-        
+            if (!b) time1++;
+        }
+
         if (time1 > 4)
         {
             if (pStage->IsPipe(objX, objY, objZ + 2))
@@ -321,6 +326,7 @@ void Player::Update()
 
         if (b)
         {
+            IsStop = false;
             f = 0.2f;
             g += f;
             if (g >= 6)
