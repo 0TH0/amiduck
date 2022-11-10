@@ -42,6 +42,7 @@ class Player : public GameObject
     Transform trans[2];
     bool IsPress;
     bool IsReturn;
+    bool IsStop;
 
 public:
     //コンストラクタ

@@ -122,21 +122,30 @@ void Stage::Initialize()
 void Stage::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
-    
-    if(!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 3;
+
+    if (!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 3;
     else PlayerPosX_ = (int)pPlayer->GetPosition().x - 3;
 
     PlayerPosZ_ = (int)pPlayer->GetPosition().z;
 
-    if ((PlayerPosX_ % 2) == 1)
+    if (Input::IsKeyDown(DIK_B))
     {
-        if (Input::IsKeyDown(DIK_B))
-        {
-            map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
-        }
+        map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
+        map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
+        map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
+    }
 
+    if (PlayerPosZ_ >= 38)
+    {
+        if (Input::IsKeyDown(DIK_N))
+        {
+            map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ - 5] = 2;
+        }
+    }
+    else
+    {
         if (Input::IsKeyDown(DIK_N))
         {
             map_[PlayerPosX_][0][PlayerPosZ_ - 2] = 2;

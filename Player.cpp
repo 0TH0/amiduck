@@ -69,6 +69,21 @@ void Player::Update()
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
 
+    //停止する
+    if(Input::IsKeyDown(DIK_SPACE))
+    {
+        if (!IsStop)
+        {
+            SPEED = 0;
+            IsStop = true;
+        }
+        else
+        {
+            SPEED = 0.3f;
+            IsStop = false;
+        }
+    }
+
     /////////////////////////移動/////////////////////////
 
     ////左移動
