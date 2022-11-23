@@ -1,11 +1,7 @@
 #include "Enemy.h"
 #include "Stage.h"
 #include "PlayScene.h"
-#include "Block.h"
 #include "StartScene.h"
-#include "Coin.h"
-#include "Boss.h"
-#include "Pipe_base.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"

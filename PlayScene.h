@@ -3,7 +3,6 @@
 #include "Player.h"
 #include "Instructions.h"
 #include "Engine/Text.h"
-#include "Coin.h"
 
 //■■シーンを管理するクラス
 class PlayScene : public GameObject

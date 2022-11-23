@@ -23,7 +23,7 @@
     <ProjectGuid>{D68FA256-14C6-4B85-B85F-EC93C87CD599}</ProjectGuid>
     <RootNamespace>BaseProjectDx112</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>GameBaseDx11</ProjectName>
+    <ProjectName>Amiduck</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,11 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
@@ -152,11 +148,8 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="Flag.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="Pipe_base.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Sky.cpp" />
@@ -164,11 +157,7 @@
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="Boss.h" />
-    <ClInclude Include="Boss2.h" />
     <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="Coin.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
@@ -191,11 +180,8 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Fire.h" />
-    <ClInclude Include="Flag.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Instructions.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="Pipe_base.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Sky.h" />

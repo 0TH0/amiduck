@@ -2,13 +2,6 @@
 #include "Player.h"
 #include "PlayScene.h"
 #include "Enemy.h"
-#include "Block.h"
-#include "Coin.h"
-#include "Boss.h"
-#include "Boss2.h"
-#include "Pipe.h"
-#include "Pipe_base.h"
-#include "Flag.h"
 #include "Player.h"
 
 #include "Engine/SceneManager.h"
@@ -116,6 +109,8 @@ void Stage::Initialize()
                 //}
             }
         }
+
+    pText->Initialize();
 }
 
 //XV
@@ -123,34 +118,56 @@ void Stage::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
 
-    if (!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 3;
-    else PlayerPosX_ = (int)pPlayer->GetPosition().x - 3;
+    if (!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 1;
+    else PlayerPosX_ = (int)pPlayer->GetPosition().x - 1;
 
     PlayerPosZ_ = (int)pPlayer->GetPosition().z;
 
-    if (Input::IsKeyDown(DIK_B))
+    time_++;
+
+    if (time_ >= 180 && time_ <= 180)
     {
-        map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
-        map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
-        map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
+        count_++;
+        time_ = 0;
     }
 
-    if (PlayerPosZ_ >= 38)
+    if (count_ >= 3)
     {
-        if (Input::IsKeyDown(DIK_N))
-        {
-            map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ - 5] = 2;
-        }
+        count_ = 3;
     }
-    else
+
+    if (count_ > 0)
     {
-        if (Input::IsKeyDown(DIK_N))
+        if (Input::IsKeyDown(DIK_B))
         {
-            map_[PlayerPosX_][0][PlayerPosZ_ - 2] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
+            map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
+            time_ = 0;
+            count_--;
+        }
+
+        if (PlayerPosZ_ >= 38)
+        {
+            if (Input::IsKeyDown(DIK_N))
+            {
+                map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
+                map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+                map_[PlayerPosX_][0][PlayerPosZ_ - 5] = 2;
+                time_ = 0;
+                count_--;
+            }
+        }
+        else
+        {
+            if (Input::IsKeyDown(DIK_N))
+            {
+                map_[PlayerPosX_][0][PlayerPosZ_ - 2] = 2;
+                map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
+                map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+                time_ = 0;
+                count_--;
+            }
         }
     }
 }
@@ -184,6 +201,9 @@ void Stage::Draw()
             }
         }
     }
+
+    pText->Draw(100, 200, "count");
+    pText->Draw(200, 200, count_);
 }
 
 //ŠJ•ú

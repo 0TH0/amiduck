@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameBaseDx11", "GameBaseDx11.vcxproj", "{D68FA256-14C6-4B85-B85F-EC93C87CD599}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amiduck", "Amiduck.vcxproj", "{D68FA256-14C6-4B85-B85F-EC93C87CD599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E10294FC-34D0-48E8-9E40-D3C1D1744D25}
+		SolutionGuid = {B16A29CE-685B-4D54-B07F-72C1D3EF3E97}
 	EndGlobalSection
 EndGlobal

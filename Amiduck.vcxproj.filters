@@ -93,15 +93,8 @@
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StartScene.cpp" />
-    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="Pipe_base.cpp" />
-    <ClCompile Include="Flag.cpp" />
     <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Fire.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,16 +164,9 @@
     <ClInclude Include="Sky.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StartScene.h" />
-    <ClInclude Include="Block.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Boss.h" />
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="Pipe_base.h" />
-    <ClInclude Include="Flag.h" />
     <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="Boss2.h" />
     <ClInclude Include="Fire.h" />
   </ItemGroup>
   <ItemGroup>

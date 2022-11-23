@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Text.h"
 
 class Stage : public GameObject
 {
@@ -7,8 +8,11 @@ class Stage : public GameObject
     int map_[180][1][39];
     int PlayerPosX_;
     int PlayerPosZ_;
+    int time_;
+    int count_ = 1;
+    Text* pText = new Text;
 
-public:
+public: 
 
     Stage(GameObject* parent);
 
