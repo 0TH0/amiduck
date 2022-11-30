@@ -43,6 +43,8 @@ class Enemy : public GameObject
     bool IsPress;
     bool IsReturn;
 
+    XMFLOAT3 rotate_;
+
 public:
     //コンストラクタ
     Enemy(GameObject* parent);

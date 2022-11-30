@@ -35,13 +35,13 @@ Enemy::~Enemy()
 //èâä˙âª
 void Enemy::Initialize()
 {
-    hModel_ = Model::Load("Enemy.fbx");
+    hModel_ = Model::Load("Enemy\\raccoon2.fbx");
     assert(hModel_ >= 0);
 
     //à íu
     transform_.position_ = XMFLOAT3(178, 0.5, 38);
     //transform_.position_ = XMFLOAT3(0, 0.5, 2);
-    transform_.rotate_ = XMFLOAT3(-30, 90, 0);
+    transform_.rotate_ = XMFLOAT3(0, rotate_.y, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
     //ìñÇΩÇËîªíË
@@ -56,6 +56,7 @@ void Enemy::Initialize()
 
 void Enemy::Update()
 {
+    transform_.rotate_ = XMFLOAT3(0, rotate_.y, 0);
 
     pStage = (Stage*)FindObject("Stage");
 
@@ -236,13 +237,16 @@ void Enemy::Update()
     {
         IsReturn = false;
     }
+
     if (IsReturn)
     {
         transform_.position_.x -= SPEED;
+        rotate_.y = 0;
     }
     else
     {
         transform_.position_.x += SPEED;
+        rotate_.y = 180;
     }
 
 
@@ -261,6 +265,7 @@ void Enemy::Update()
     //âEÇ…çsÇ≠
     if (a)
     {
+        rotate_.y = -90;
         if (g <= 0)
         {
             s = 0.2f;
@@ -298,6 +303,7 @@ void Enemy::Update()
 
         if (b)
         {
+            rotate_.y = 90;
             f = 0.2f;
             g += f;
             if (g >= 6)
