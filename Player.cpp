@@ -46,8 +46,8 @@ void Player::Initialize()
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
     //当たり判定
-    //SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
-    //AddCollider(collision);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
+    AddCollider(collision);
 
     pStage = (Stage*)FindObject("Stage");
     assert(pStage != nullptr);
@@ -66,7 +66,7 @@ void Player::Update()
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
 
     //停止する
-    if(Input::IsKeyDown(DIK_SPACE))
+    if(Input::IsKeyDown(DIK_F))
     {
         if (!IsStop)
         {
@@ -514,222 +514,188 @@ void Player::Release()
 {
 }
 
-////何かに当たった
-//void Player::OnCollision(GameObject* pTarget)
-//{
-//    XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
-//    XMVECTOR Down = { 0,-1,0,0 };
-//
-//    float objX = transform_.position_.x;
-//    float objY = transform_.position_.y;
-//
-//    //ブロックに当たった
-//    if (pTarget->GetObjectName() == "Block")
-//    {
-//        if (pStage->IsWallX((int)objX, (int)(objY + 0.2f)))
-//        {
-//            pTarget->KillMe();
-//            IsJump = 0;
-//        }
-//    }
-//
-//    //コインに当たった
-//    if (pTarget->GetObjectName() == "Coin")
-//    {
-//        pTarget->KillMe();
-//    }
-//
-//    //敵に当たった
-//    if (pTarget->GetObjectName() == "Enemy")
-//    {
-//        //敵の位置
-//        XMFLOAT3 EnemyPos = pTarget->GetPosition();
-//        XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
-//
-//        //プレイヤーの位置
-//        XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
-//        XMVector3Normalize(PlayerPos);
-//
-//        //Downとプレイヤーの外積を求める
-//        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-//        float Dot = XMVectorGetY(vDot);
-//
-//        //角度を求める
-//        angle = acos(Dot) * (180.0 / 3.14f);
-//
-//        if (angle <= 90)
-//        {
-//            //初速度
-//            jump_v0 = 0.15f;
-//            //重力
-//            GRAVITY = 0.003f;
-//
-//            //初速度を加える
-//            move_.y = jump_v0;
-//            transform_.position_.y += move_.y;
-//
-//            //重力を加える
-//            move_.y += GRAVITY;
-//            transform_.position_.y += move_.y;
-//        }
-//        else
-//        {
-//            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-//            KillMe();
-//        }
-//    }
-//
-//    //動くブロックに当たった
-//    if (pTarget->GetObjectName() == "Block_move")
-//    {
-//        //壁の判定(下)
-//        if (pStage->IsWallM((int)objX, (int)(objY + 0.2f)))
-//        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2f;
-//            IsJump = 0;
-//        }
-//        //壁の判定（上）
-//        if (pStage->IsWallM((int)objX, (int)(objY - 0.2f)))
-//        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
-//            IsJump = 0;
-//        }
-//        //壁の判定(右)
-//        if (pStage->IsWallM((int)(objX + 0.4f), (int)objY))
-//        {
-//            transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-//        }
-//
-//        //壁の判定(左)
-//        if (pStage->IsWallM((int)(objX - 0.4f), (int)objY))
-//        {
-//            transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-//        }
-//    }
-//
-//    //土管に当たった
-//    if (pTarget->GetObjectName() == "Pipe_base")
-//    {
-//        //壁の判定(上)
-//        if (pStage->IsPipe((int)objX, (int)(objY - 0.2f)))
-//        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
-//            IsJump = 0;
-//        }
-//
-//        //壁の判定(下)
-//        if (pStage->IsPipe((int)objX, (int)(objY + 0.2f)))
-//        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-//            move_.y = -GRAVITY;
-//        }
-//
-//        //壁の判定(右)
-//        if (pStage->IsPipe((int)(objX + 0.4f), (int)objY))
-//        {
-//            transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-//        }
-//
-//        //壁の判定(左)
-//        if (pStage->IsPipe((int)(objX - 0.4f), (int)objY))
-//        {
-//            transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-//        }
-//    }
-//
-//    //ボスに当たった
-//    if (pTarget->GetObjectName() == "Boss")
-//    {
-//        //敵の位置
-//        XMFLOAT3 BossPos = pTarget->GetPosition();
-//        XMVECTOR vBossPos = XMLoadFloat3(&BossPos);
-//
-//        //プレイヤーの位置
-//        XMVECTOR PlayerPos = vBossPos - vPlayerPos;
-//        XMVector3Normalize(PlayerPos);
-//
-//        //Downとプレイヤーの外積を求める
-//        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-//        float Dot = XMVectorGetY(vDot);
-//
-//        //角度を求める
-//        angle = acos(Dot) * (180.0 / 3.14f);
-//
-//        if (angle <= 90)
-//        {
-//            //初速度
-//            jump_v0 = 0.15f;
-//            //重力
-//            GRAVITY = 0.003f;
-//
-//            //初速度を加える
-//            move_.y = jump_v0;
-//            transform_.position_.y += move_.y;
-//
-//            //重力を加える
-//            move_.y += GRAVITY;
-//            transform_.position_.y += move_.y;
-//
-//            pTarget->KillMe();
-//        }
-//        else
-//        {
-//            //横から当たったらプレイヤーを消す
-//            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-//            KillMe();
-//        }
-//    }
-//
-//    //ボス2に当たった
-//    if (pTarget->GetObjectName() == "Boss2")
-//    {
-//        //敵の位置
-//        XMFLOAT3 Boss2Pos = pTarget->GetPosition();
-//        XMVECTOR vBoss2Pos = XMLoadFloat3(&Boss2Pos);
-//
-//        //プレイヤーの位置
-//        XMVECTOR PlayerPos = vBoss2Pos - vPlayerPos;
-//        XMVector3Normalize(PlayerPos);
-//
-//        //Downとプレイヤーの外積を求める
-//        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-//        float Dot = XMVectorGetY(vDot);
-//
-//        if (angle <= 90)
-//        {
-//            //初速度
-//            jump_v0 = 0.15f;
-//            //重力
-//            GRAVITY = 0.003f;
-//
-//            //初速度を加える
-//            move_.y = jump_v0;
-//            transform_.position_.y += move_.y;
-//
-//            //重力を加える
-//            move_.y += GRAVITY;
-//            transform_.position_.y += move_.y;
-//
-//            //HPを減らす
-//            BossHp--;
-//
-//            //HPが０になったら消す
-//            if (BossHp <= 0)
-//            {
-//                pTarget->KillMe();
-//            }
-//        }
-//        else
-//        {
-//            //横から当たったらプレイヤーを消す
-//            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-//            KillMe();
-//        }
-//    }
-//}
+//何かに当たった
+void Player::OnCollision(GameObject* pTarget)
+{
+    //XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
+    //XMVECTOR Down = { 0,-1,0,0 };
+
+    //float objX = transform_.position_.x;
+    //float objY = transform_.position_.y;
+
+    ////ブロックに当たった
+    //if (pTarget->GetObjectName() == "Block")
+    //{
+    //    if (pStage->IsWallX((int)objX, (int)(objY + 0.2f)))
+    //    {
+    //        pTarget->KillMe();
+    //        IsJump = 0;
+    //    }
+    //}
+
+    ////コインに当たった
+    //if (pTarget->GetObjectName() == "Coin")
+    //{
+    //    pTarget->KillMe();
+    //}
+
+    //敵に当たった
+    if (pTarget->GetObjectName() == "Enemy")
+    {
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    }
+
+    ////動くブロックに当たった
+    //if (pTarget->GetObjectName() == "Block_move")
+    //{
+    //    //壁の判定(下)
+    //    if (pStage->IsWallM((int)objX, (int)(objY + 0.2f)))
+    //    {
+    //        transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2f;
+    //        IsJump = 0;
+    //    }
+    //    //壁の判定（上）
+    //    if (pStage->IsWallM((int)objX, (int)(objY - 0.2f)))
+    //    {
+    //        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
+    //        IsJump = 0;
+    //    }
+    //    //壁の判定(右)
+    //    if (pStage->IsWallM((int)(objX + 0.4f), (int)objY))
+    //    {
+    //        transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
+    //    }
+
+    //    //壁の判定(左)
+    //    if (pStage->IsWallM((int)(objX - 0.4f), (int)objY))
+    //    {
+    //        transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
+    //    }
+    //}
+
+    ////土管に当たった
+    //if (pTarget->GetObjectName() == "Pipe_base")
+    //{
+    //    //壁の判定(上)
+    //    if (pStage->IsPipe((int)objX, (int)(objY - 0.2f)))
+    //    {
+    //        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
+    //        IsJump = 0;
+    //    }
+
+    //    //壁の判定(下)
+    //    if (pStage->IsPipe((int)objX, (int)(objY + 0.2f)))
+    //    {
+    //        transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
+    //        move_.y = -GRAVITY;
+    //    }
+
+    //    //壁の判定(右)
+    //    if (pStage->IsPipe((int)(objX + 0.4f), (int)objY))
+    //    {
+    //        transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
+    //    }
+
+    //    //壁の判定(左)
+    //    if (pStage->IsPipe((int)(objX - 0.4f), (int)objY))
+    //    {
+    //        transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
+    //    }
+    //}
+
+    ////ボスに当たった
+    //if (pTarget->GetObjectName() == "Boss")
+    //{
+    //    //敵の位置
+    //    XMFLOAT3 BossPos = pTarget->GetPosition();
+    //    XMVECTOR vBossPos = XMLoadFloat3(&BossPos);
+
+    //    //プレイヤーの位置
+    //    XMVECTOR PlayerPos = vBossPos - vPlayerPos;
+    //    XMVector3Normalize(PlayerPos);
+
+    //    //Downとプレイヤーの外積を求める
+    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
+    //    float Dot = XMVectorGetY(vDot);
+
+    //    //角度を求める
+    //    angle = acos(Dot) * (180.0 / 3.14f);
+
+    //    if (angle <= 90)
+    //    {
+    //        //初速度
+    //        jump_v0 = 0.15f;
+    //        //重力
+    //        GRAVITY = 0.003f;
+
+    //        //初速度を加える
+    //        move_.y = jump_v0;
+    //        transform_.position_.y += move_.y;
+
+    //        //重力を加える
+    //        move_.y += GRAVITY;
+    //        transform_.position_.y += move_.y;
+
+    //        pTarget->KillMe();
+    //    }
+    //    else
+    //    {
+    //        //横から当たったらプレイヤーを消す
+    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+    //        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    //        KillMe();
+    //    }
+    //}
+
+    ////ボス2に当たった
+    //if (pTarget->GetObjectName() == "Boss2")
+    //{
+    //    //敵の位置
+    //    XMFLOAT3 Boss2Pos = pTarget->GetPosition();
+    //    XMVECTOR vBoss2Pos = XMLoadFloat3(&Boss2Pos);
+
+    //    //プレイヤーの位置
+    //    XMVECTOR PlayerPos = vBoss2Pos - vPlayerPos;
+    //    XMVector3Normalize(PlayerPos);
+
+    //    //Downとプレイヤーの外積を求める
+    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
+    //    float Dot = XMVectorGetY(vDot);
+
+    //    if (angle <= 90)
+    //    {
+    //        //初速度
+    //        jump_v0 = 0.15f;
+    //        //重力
+    //        GRAVITY = 0.003f;
+
+    //        //初速度を加える
+    //        move_.y = jump_v0;
+    //        transform_.position_.y += move_.y;
+
+    //        //重力を加える
+    //        move_.y += GRAVITY;
+    //        transform_.position_.y += move_.y;
+
+    //        //HPを減らす
+    //        BossHp--;
+
+    //        //HPが０になったら消す
+    //        if (BossHp <= 0)
+    //        {
+    //            pTarget->KillMe();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //横から当たったらプレイヤーを消す
+    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+    //        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    //        KillMe();
+    //    }
+    //}
+}
 
 //地面に沿わせる
 void Player::FollowGround()

@@ -24,7 +24,7 @@ void GameoverScene::Update()
 	{
 		//プレイシーンに切り替え
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_START);
+		pSceneManager->ChangeScene(SCENE_ID_PLAY);
 	}
 }
 

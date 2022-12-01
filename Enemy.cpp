@@ -45,8 +45,8 @@ void Enemy::Initialize()
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
     //“–‚½‚è”»’è
-    //SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
-    //AddCollider(collision);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
+    AddCollider(collision);
 
     pStage = (Stage*)FindObject("Stage");
     assert(pStage != nullptr);

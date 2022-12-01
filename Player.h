@@ -65,7 +65,7 @@ public:
 
     float PlayerX() { return transform_.position_.x; }
 
-    //void OnCollision(GameObject* pTarget) override;
+    void OnCollision(GameObject* pTarget) override;
 
     void FollowGround();
 

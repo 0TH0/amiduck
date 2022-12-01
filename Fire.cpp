@@ -22,14 +22,29 @@ void Fire::Initialize()
 void Fire::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
-	
-	PlayerPosX_ = pPlayer->GetPosition().x;
 
-	PlayerPosZ_ = pPlayer->GetPosition().z;
+	plus = 1;
+	time++;
 
 	if (Input::IsKeyDown(DIK_SPACE))
 	{
-		transform_.position_ = XMFLOAT3(PlayerPosX_, 0 ,PlayerPosZ_);
+		if (!Is)
+		{
+			PlayerPosX_ = pPlayer->GetPosition().x;
+			PlayerPosZ_ = pPlayer->GetPosition().z;
+			Is = true;
+		}
+	}
+
+	transform_.position_ = XMFLOAT3(PlayerPosX_, pPlayer->GetPosition().y + 3, PlayerPosZ_);
+
+	if (time >= 90)
+	{
+		KillMe();
+	}
+	else
+	{
+		PlayerPosX_ += plus;
 	}
 }
 

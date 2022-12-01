@@ -11,6 +11,7 @@
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
+#include "Fire.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -54,6 +55,11 @@ void PlayScene::Update()
 	if (Input::IsKey(DIK_E))
 	{
 		PostQuitMessage(0);	//プログラム終了
+	}
+
+	if (Input::IsKeyDown(DIK_SPACE))
+	{
+		Instantiate<Fire>(this);
 	}
 }
 
