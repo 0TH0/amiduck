@@ -42,7 +42,7 @@ void Player::Initialize()
     //ˆÊ’u
     transform_.position_ = XMFLOAT3(0, 0.5, 38);
     //transform_.position_ = XMFLOAT3(0, 0.5, 2);
-    transform_.rotate_ = XMFLOAT3(-30, 90, 0);
+    transform_.rotate_ = XMFLOAT3(-25, 90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
     //“–‚½‚è”»’è
@@ -508,6 +508,9 @@ void Player::Draw()
     pText->Draw(50, 130, transform_.position_.x);
     pText->Draw(150, 130, transform_.position_.y);
     pText->Draw(250, 130, transform_.position_.z);
+
+    pText->Draw(100, 250, "coin");
+    pText->Draw(200, 250, coin_count_);
 }
 
 void Player::Release()

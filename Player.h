@@ -44,6 +44,8 @@ class Player : public GameObject
     bool IsReturn;
     bool IsStop;
 
+    int coin_count_;
+
 public:
     //コンストラクタ
     Player(GameObject* parent);
@@ -70,4 +72,12 @@ public:
     void FollowGround();
 
     bool GetReturn() { return IsReturn; };
+
+
+    // Coin
+    int GetCoinCount() { return coin_count_; };
+
+    void PlusCoinCount(int count) { coin_count_ += count; };
+
+    void MinCoinCount(int count) { coin_count_ -= count; };
 };

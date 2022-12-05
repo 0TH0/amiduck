@@ -29,7 +29,7 @@ void PlayScene::Initialize()
 	pStage->StageLoad();
 
 	Instantiate<Player>(this);
-	Instantiate<Enemy>(this);
+	//Instantiate<Enemy>(this);
 
 	Instructions pInstructions = (Instructions*)FindObject("Instructions");
 
@@ -40,6 +40,19 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {
+
+	Player* pPlayer = (Player*)FindObject("Player");
+	
+	if (Input::IsKeyDown(DIK_SPACE))
+	{
+		if (pPlayer->GetCoinCount() >= 3)
+		{
+			pPlayer->MinCoinCount(3);
+
+			Instantiate<Fire>(this);
+		}
+	}
+
 	//操作方法を表示
 	if (Input::IsKey(DIK_M))
 	{
@@ -52,14 +65,16 @@ void PlayScene::Update()
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_START);
 	}
+	if (FindObject("Enemy") == nullptr)
+	{
+		//プレイシーンに切り替え
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	}
+
 	if (Input::IsKey(DIK_E))
 	{
 		PostQuitMessage(0);	//プログラム終了
-	}
-
-	if (Input::IsKeyDown(DIK_SPACE))
-	{
-		Instantiate<Fire>(this);
 	}
 }
 

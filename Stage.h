@@ -4,6 +4,14 @@
 
 class Stage : public GameObject
 {
+    enum Number
+    {
+        empty = 0,
+        log,
+        coin,
+        enemy
+    };
+
     int hModel_[20];
     int map_[180][1][39];
     int PlayerPosX_;

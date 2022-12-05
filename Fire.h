@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Stage.h"
 
 //シーンを管理するクラス
 class Fire : public GameObject
@@ -31,6 +32,9 @@ public:
 
 	int time;
 
+	Stage* pStage;
+	float speed_;        //移動速度
+
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Fire(GameObject* parent);
@@ -46,4 +50,7 @@ public:
 
 	//開放
 	void Release() override;
+
+	void OnCollision(GameObject* pTarget) override;
+
 };
