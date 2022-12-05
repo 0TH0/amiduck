@@ -6,6 +6,7 @@
 #include "StartScene.h"
 #include "GameoverScene.h"
 #include "Instructions.h"
+#include "Controller.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -29,9 +30,6 @@ void PlayScene::Initialize()
 	pStage->StageLoad();
 
 	Instantiate<Player>(this);
-	//Instantiate<Enemy>(this);
-
-	Instructions pInstructions = (Instructions*)FindObject("Instructions");
 
 	pText = new Text;
 	pText->Initialize();

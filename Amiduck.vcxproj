@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BoxCollider.h" />

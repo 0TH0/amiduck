@@ -37,6 +37,9 @@ void Stage::StageLoad()
     //旗先端
     hModel_[coin] = Model::Load("wood2.fbx");
     assert(hModel_[coin] >= 0);
+
+    hModel_[enemy] = Model::Load("log.fbx");
+    assert(hModel_[enemy] >= 0);
 }
 
 //初期化
@@ -54,19 +57,12 @@ void Stage::Initialize()
         {
             map_[x][0][z] = csv.GetValue(x, -z + 38);
 
-            ////コイン登場
+            //コイン登場
             if (map_[x][0][z] == coin)
             {
                 Coin* pCoin = Instantiate<Coin>(GetParent());
                 pCoin->SetPosition(x + 0.25, 1, z + 1);
             }
-
-            ////ボス登場
-            //if (map_[x][y] == 8)
-            //{
-            //    Boss* pBoss = Instantiate<Boss>(GetParent());
-            //    pBoss->SetPosition(x, y, 0);
-            //}
 
             //エネミー登場
             if (map_[x][0][z] == enemy)
@@ -156,10 +152,14 @@ void Stage::Draw()
                     transform_.rotate_.y = 90;
                 }
                 ////旗の位置
-                if (map_[x][0][z] == 2 || map_[x][0][z] == enemy)
+                if (map_[x][0][z] == coin)
                 {
                     transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
                     transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                }
+                if (map_[x][0][z] == enemy)
+                {
+                    transform_.rotate_.y = 90;
                 }
 
                 Model::SetTransform(hModel_[type], transform_);

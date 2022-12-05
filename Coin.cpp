@@ -27,14 +27,30 @@ void Coin::Initialize()
 //XV
 void Coin::Update()
 {
-	transform_.rotate_.y++;
+	transform_.rotate_.y += 3;
+
+	if (IsHit_)
+	{
+		time_++;
+	}
+
+	if (time_ >= 300)
+	{
+		Visible();
+		IsHit_ = false;
+		time_ = 0;
+	}
 }
 
 //•`‰æ
 void Coin::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+
+	if (IsVisibled())
+	{
+		Model::Draw(hModel_);
+	}
 }
 
 //ŠJ•ú
@@ -48,8 +64,13 @@ void Coin::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Player")
 	{
 		Player* pPlayer = (Player*)FindObject("Player");
-		pPlayer->PlusCoinCount(1);
 
-		KillMe();
+		if (IsVisibled())
+		{
+			pPlayer->PlusCoinCount(1);
+		}
+
+		Invisible();
+		IsHit_ = true;
 	}
 }

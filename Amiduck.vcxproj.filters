@@ -97,6 +97,7 @@
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -170,6 +171,7 @@
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -5,7 +5,8 @@
 class Coin : public GameObject
 {
 	int coin_count_;
-
+	int time_;
+	bool IsHit_;
 public:
 
 	int hModel_;

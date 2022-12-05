@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "StartScene.h"
 #include "Fire.h"
+#include "Controller.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -41,8 +42,7 @@ void Player::Initialize()
 
     //位置
     transform_.position_ = XMFLOAT3(0, 0.5, 38);
-    //transform_.position_ = XMFLOAT3(0, 0.5, 2);
-    transform_.rotate_ = XMFLOAT3(-25, 90, 0);
+    transform_.rotate_ = XMFLOAT3(0, -90, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
     //当たり判定
@@ -52,9 +52,9 @@ void Player::Initialize()
     pStage = (Stage*)FindObject("Stage");
     assert(pStage != nullptr);
 
-    pText->Initialize();
+    Instantiate<Controller>(this);
 
-    //Instantiate<Fire>(this);
+    pText->Initialize();
 }
 
 void Player::Update()
@@ -396,100 +396,6 @@ void Player::Update()
     //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
     //}
 
-     //カメラ回転
-    if (Input::IsKey(DIK_LEFT))
-    {
-        transform_.rotate_.y -= 1.0f;
-    }
-
-    if (Input::IsKey(DIK_RIGHT))
-    {
-        transform_.rotate_.y += 1.0f;
-    }
-
-    if (Input::IsKey(DIK_UP))
-    {
-        transform_.rotate_.x += 1.0f;
-    }
-
-    if (Input::IsKey(DIK_DOWN))
-    {
-        transform_.rotate_.x -= 1.0f;
-    }
-
-    if (Input::IsKey(DIK_1))
-    {
-        transform_.rotate_.y = -90;
-    }
-    if (Input::IsKey(DIK_2))
-    {
-        transform_.rotate_.y = 90;
-    }
-
-    //回転行列
-    XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-    XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
-    XMMATRIX mRotate = mRotateX * mRotateY;
-
-    //現在位置をベクトルにしておく
-    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-
-    //移動ベクトル
-    XMFLOAT3 move = { 0, 0, 0.2f };
-    XMVECTOR vMove = XMLoadFloat3(&move);
-    vMove = XMVector3TransformCoord(vMove, mRotate);
-
-    XMFLOAT3 X = { 0.2f, 0, 0 };
-    XMVECTOR vX = XMLoadFloat3(&X);
-    vX = XMVector3TransformCoord(vX, mRotate);
-
-    //////カメラ移動
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    vPos += vMove;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    vPos -= vMove;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    vPos += vX;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_A))
-    //{
-    //    vPos -= vX;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //カメラ
-    XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
-    vCam = XMVector3TransformCoord(vCam, mRotate);
-    XMFLOAT3 camPos;
-    XMStoreFloat3(&camPos, vPos + vCam);
-    Camera::SetPosition(camPos);
-    Camera::SetTarget(transform_.position_);
-
-
-    XMFLOAT3 a = Input::GetMousePosition();
-
-    XMFLOAT3 b = Input::GetMouseMove();
-
-    float x = b.z - a.z;
-
-    float y =  b.z - a.z;
-
-    transform_.rotate_.x += x * 0.025;
-
-    if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-    if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
-
     FollowGround();
 }
 
@@ -497,8 +403,7 @@ void Player::Draw()
 {
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
-
-
+\
     pText->Draw(20, 20, "rotate.xyz");
     pText->Draw(50, 50, transform_.rotate_.x);
     pText->Draw(150, 50, transform_.rotate_.y);
