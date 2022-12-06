@@ -229,7 +229,7 @@ void Enemy::Update()
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 2, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX + 3, objY, objZ))
     {
         IsReturn = true;
     }

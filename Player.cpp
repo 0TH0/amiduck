@@ -247,7 +247,7 @@ void Player::Update()
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 4, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX + 5, objY, objZ))
     {
         IsReturn = true;
     }
@@ -403,7 +403,7 @@ void Player::Draw()
 {
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
-\
+
     pText->Draw(20, 20, "rotate.xyz");
     pText->Draw(50, 50, transform_.rotate_.x);
     pText->Draw(150, 50, transform_.rotate_.y);
