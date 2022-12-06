@@ -43,11 +43,11 @@ void PlayScene::Update()
 	
 	if (Input::IsKeyDown(DIK_SPACE))
 	{
+			Instantiate<Fire>(this);
 		if (pPlayer->GetCoinCount() >= 3)
 		{
 			pPlayer->MinCoinCount(3);
 
-			Instantiate<Fire>(this);
 		}
 	}
 
