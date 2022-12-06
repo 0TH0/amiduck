@@ -28,7 +28,7 @@ namespace Direct3D
 
 
 	//■シェーダー関連で必要なセット
-	enum SHADER_TYPE{SHADER_3D, SHADER_2D, SHADER_UNLIT, SHADER_MAX};	//3タイプ（3D用、2D用、当たり判定枠表示用）
+	enum SHADER_TYPE { SHADER_3D, SHADER_2D, SHADER_UNLIT, SHADER_BILLBOARD, SHADER_TOON, SHADER_MAX };	//3タイプ（3D用、2D用、当たり判定枠表示用）
 	struct SHADER_BUNDLE
 	{
 		//【頂点入力レイアウト情報】
@@ -50,6 +50,11 @@ namespace Direct3D
 	};
 	extern SHADER_BUNDLE shaderBundle[SHADER_MAX];
 
+	//■ブレンドモード
+	enum BLEND_MODE
+	{
+		BLEND_DEFAULT, BLEND_ADD, BLEND_MAX
+	};
 
 
 	//その他
@@ -70,12 +75,23 @@ namespace Direct3D
 	//引数：screenHeight	スクリーンの高さ
 	HRESULT Initialize(HWND hWnd, int screenWidth, int screenHeight);
 
-	//シェーダー関連で必要なセット準備
-	void InitShaderBundle();
+	//シェーダー準備
+	HRESULT InitShader();
+	HRESULT InitShader3D();
+	HRESULT InitShader2D();
+	HRESULT InitShaderUnlit();
+	HRESULT InitShaderBillBoard();
+	HRESULT InitShaderToon();
 
 	//今から描画するShaderBundleを設定
 	//引数：type	SHADER_3D, SHADER_2D, SHADER_UNLITのどれか
 	void SetShader(SHADER_TYPE type);
+
+
+	//ブレンドモードの変更
+	//引数：blendMode	BLEND_DEFAULT	通常
+	//					BLEND_ADD		加算合成（パーティクル用）
+	void SetBlendMode(BLEND_MODE blendMode);
 
 	//描画開始
 	void BeginDraw();

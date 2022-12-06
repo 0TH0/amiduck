@@ -1,15 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
+#include "Engine/PoryLine.h"
+
 
 //シーンを管理するクラス
 class Fire : public GameObject
 {
 public:
 	int hModel_; 
-	float PlayerPosX_;
-	float PlayerPosY_;
-	float PlayerPosZ_;
 	XMFLOAT3 PlayerPos_;
 	float plus;
 	bool Is;
@@ -34,6 +33,8 @@ public:
 
 	Stage* pStage;
 	float speed_;        //移動速度
+	PoryLine* pLine;
+	PoryLine* pLine2;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

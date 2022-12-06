@@ -130,6 +130,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
+    <ClCompile Include="Engine\BillBoard.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Collider.cpp" />
@@ -142,6 +143,8 @@
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\Model.cpp" />
+    <ClCompile Include="Engine\Particle.cpp" />
+    <ClCompile Include="Engine\PoryLine.cpp" />
     <ClCompile Include="Engine\RootObject.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
     <ClCompile Include="Engine\SphereCollider.cpp" />
@@ -164,6 +167,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Audio.h" />
+    <ClInclude Include="Engine\BillBoard.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Collider.h" />
@@ -176,6 +180,8 @@
     <ClInclude Include="Engine\Image.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Model.h" />
+    <ClInclude Include="Engine\Particle.h" />
+    <ClInclude Include="Engine\PoryLine.h" />
     <ClInclude Include="Engine\RootObject.h" />
     <ClInclude Include="Engine\SceneManager.h" />
     <ClInclude Include="Engine\SphereCollider.h" />
@@ -193,6 +199,9 @@
     <ClInclude Include="StartScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Assets\Shader\BillBoard.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
     <FxCompile Include="Assets\Shader\Debug3D.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -204,6 +213,9 @@
     </FxCompile>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\Toon.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
   </ItemGroup>

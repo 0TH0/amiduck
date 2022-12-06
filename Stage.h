@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Text.h"
+#include "Engine/Particle.h"
 
 class Stage : public GameObject
 {
@@ -9,16 +10,20 @@ class Stage : public GameObject
         empty = 0,
         log,
         coin,
-        enemy
+        enemy,
+        player
     };
 
     int hModel_[20];
     int map_[180][1][39];
+    XMFLOAT3 player_pos_;
     int PlayerPosX_;
     int PlayerPosZ_;
     int time_;
     int count_ = 1;
     Text* pText = new Text;
+
+    Particle* pParticle_;
 
 public: 
 

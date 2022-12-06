@@ -40,6 +40,9 @@ void Stage::StageLoad()
 
     hModel_[enemy] = Model::Load("log.fbx");
     assert(hModel_[enemy] >= 0);
+
+    hModel_[player] = Model::Load("log.fbx");
+    assert(hModel_[player] >= 0);
 }
 
 //èâä˙âª
@@ -70,6 +73,13 @@ void Stage::Initialize()
                 Enemy* pEnemy = Instantiate<Enemy>(GetParent());
                 pEnemy->SetPosition(x, 1, z + 1);
             }
+
+            //ÉvÉåÉCÉÑÅ[ìoèÍ
+            if (map_[x][0][z] == player)
+            {
+                Player* pPlayer = Instantiate<Player>(GetParent());
+                pPlayer->SetPosition(x, 1, z + 1);
+            }
         }
     }
 
@@ -80,10 +90,10 @@ void Stage::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
 
-    if (!pPlayer->GetReturn()) PlayerPosX_ = (int)pPlayer->GetPosition().x + 1;
-    else PlayerPosX_ = (int)pPlayer->GetPosition().x - 1;
+    if (!pPlayer->GetReturn()) player_pos_.x = (int)pPlayer->GetPosition().x + 1;
+    else player_pos_.x = (int)pPlayer->GetPosition().x - 1;
 
-    PlayerPosZ_ = (int)pPlayer->GetPosition().z;
+    player_pos_.z = (int)pPlayer->GetPosition().z;
 
     time_++;
 
@@ -100,33 +110,33 @@ void Stage::Update()
 
     if (count_ > 0)
     {
-        if (Input::IsKeyDown(DIK_B))
+        if (Input::IsKeyDown(DIK_A))
         {
-            map_[PlayerPosX_][0][PlayerPosZ_ + 2] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ + 3] = 2;
-            map_[PlayerPosX_][0][PlayerPosZ_ + 4] = 2;
+            map_[(int)player_pos_.x][0][(int)player_pos_.z + 2] = 2;
+            map_[(int)player_pos_.x][0][(int)player_pos_.z + 3] = 2;
+            map_[(int)player_pos_.x][0][(int)player_pos_.z + 4] = 2;
             time_ = 0;
             count_--;
         }
 
-        if (PlayerPosZ_ >= 38)
+        if ((int)player_pos_.z >= 38)
         {
-            if (Input::IsKeyDown(DIK_N))
+            if (Input::IsKeyDown(DIK_D))
             {
-                map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
-                map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
-                map_[PlayerPosX_][0][PlayerPosZ_ - 5] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 5] = 2;
                 time_ = 0;
                 count_--;
             }
         }
         else
         {
-            if (Input::IsKeyDown(DIK_N))
+            if (Input::IsKeyDown(DIK_D))
             {
-                map_[PlayerPosX_][0][PlayerPosZ_ - 2] = 2;
-                map_[PlayerPosX_][0][PlayerPosZ_ - 3] = 2;
-                map_[PlayerPosX_][0][PlayerPosZ_ - 4] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
+                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
                 time_ = 0;
                 count_--;
             }
@@ -157,7 +167,7 @@ void Stage::Draw()
                     transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
                     transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                 }
-                if (map_[x][0][z] == enemy)
+                if (map_[x][0][z] == enemy || map_[x][0][z] == player)
                 {
                     transform_.rotate_.y = 90;
                 }

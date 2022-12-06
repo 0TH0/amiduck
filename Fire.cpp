@@ -6,7 +6,7 @@
 
 //コンストラクタ
 Fire::Fire(GameObject* parent)
-	: GameObject(parent, "Fire"), hModel_(-1)
+	: GameObject(parent, "Fire"), hModel_(-1), pLine(nullptr)
 {
 }
 
@@ -22,12 +22,22 @@ void Fire::Initialize()
 	AddCollider(collision);
 
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
+
+    transform_.rotate_ = XMFLOAT3(0, 90, 0);
+
+    //ポリライン初期化
+    pLine = new PoryLine;
+    pLine->Load("tex_red.png");
+
+    pLine2 = new PoryLine;
+    pLine2->Load("tex_orange.png");
 }
 
 //更新
 void Fire::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
+    transform_.position_ = PlayerPos_;
 
 	plus = 1;
 	time++;
@@ -36,13 +46,10 @@ void Fire::Update()
 	{
 		if (!Is)
 		{
-			PlayerPosX_ = pPlayer->GetPosition().x;
-			PlayerPosZ_ = pPlayer->GetPosition().z;
+            PlayerPos_ = pPlayer->GetPosition();
 			Is = true;
 		}
 	}
-
-	transform_.position_ = XMFLOAT3(PlayerPosX_, pPlayer->GetPosition().y, PlayerPosZ_);
 
 	if (time >= 90)
 	{
@@ -50,17 +57,19 @@ void Fire::Update()
 	}
 	else
 	{
-		PlayerPosX_ += plus;
+		PlayerPos_.x += plus;
 	}
+
+    //ポリラインに現在の位置を伝える
+    pLine->AddPosition(PlayerPos_);
+    pLine2->AddPosition(PlayerPos_);
 
     ///////////////////////// あみだくじの処理 //////////////////////////////////////////
    
-
     //////////////////壁との衝突判定///////////////////////
     //int objX = transform_.position_.x;
     //int objY = transform_.position_.y;
     //int objZ = transform_.position_.z;
-
     //////壁の判定(上)
     //if (pStage->IsWall(objX, objY, objZ))
     //{
@@ -70,7 +79,6 @@ void Fire::Update()
     //{
     //    transform_.position_.y = (int)(transform_.position_.y) + 0.8;
     //}
-
     //if (!a && !b && pStage->IsEmpty((float)objX + 4, objY, objZ))
     //{
     //    IsReturn = true;
@@ -87,8 +95,6 @@ void Fire::Update()
     //{
     //    transform_.position_.x += speed_;
     //}
-
-
     //if (!b && time2 > 4)
     //{
     //    if (pStage->IsWallM(objX, objY, objZ - 3))
@@ -98,7 +104,6 @@ void Fire::Update()
     //        time2 = 0;
     //    }
     //}
-
     ////右に行く
     //if (a)
     //{
@@ -129,10 +134,8 @@ void Fire::Update()
     //    if (!IsStop)
     //    {
     //        time2++;
-
     //        if (!b) time1++;
     //    }
-
     //    if (time1 > 4)
     //    {
     //        if (pStage->IsPipe(objX, objY, objZ + 2))
@@ -141,7 +144,6 @@ void Fire::Update()
     //            b = true;
     //        }
     //    }
-
     //    if (b)
     //    {
     //        IsStop = false;
@@ -170,11 +172,18 @@ void Fire::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+
+    //ポリラインを描画
+    pLine->Draw();
+    pLine2->Draw();
 }
 
 //開放
 void Fire::Release()
 {
+    //ポリライン解放
+    pLine->Release();
+    pLine2->Release();
 }
 
 void Fire::OnCollision(GameObject* pTarget)

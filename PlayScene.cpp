@@ -63,6 +63,7 @@ void PlayScene::Update()
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_START);
 	}
+
 	if (FindObject("Enemy") == nullptr)
 	{
 		//プレイシーンに切り替え

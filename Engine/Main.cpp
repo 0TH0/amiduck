@@ -214,7 +214,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_CREATE:
-		ShowCursor(false);
+		//ShowCursor(false);
 		return 0;
 	//ウィンドウを閉じた
 	case WM_DESTROY:

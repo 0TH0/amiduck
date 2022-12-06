@@ -450,8 +450,7 @@ void Player::OnCollision(GameObject* pTarget)
     //“G‚É“–‚½‚Á‚½
     if (pTarget->GetObjectName() == "Enemy")
     {
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+        KillMe();
     }
 
     ////“®‚­ƒuƒƒbƒN‚É“–‚½‚Á‚½

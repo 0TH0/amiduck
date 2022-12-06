@@ -98,6 +98,15 @@
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Engine\PoryLine.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Particle.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\BillBoard.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -172,6 +181,15 @@
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Engine\PoryLine.h">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Particle.h">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BillBoard.h">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
@@ -181,6 +199,12 @@
       <Filter>02Shader</Filter>
     </FxCompile>
     <FxCompile Include="Assets\Shader\Debug3D.hlsl">
+      <Filter>02Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\BillBoard.hlsl">
+      <Filter>02Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\Toon.hlsl">
       <Filter>02Shader</Filter>
     </FxCompile>
   </ItemGroup>
