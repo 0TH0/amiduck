@@ -10,6 +10,7 @@ class PlayScene : public GameObject
 public:
 	Player* pPlayer;
 	Text* pText;
+	Transform playerTrans;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

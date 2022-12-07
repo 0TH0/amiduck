@@ -7,6 +7,7 @@
 #include "GameoverScene.h"
 #include "Instructions.h"
 #include "Controller.h"
+#include "FireFollowGround.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -40,14 +41,27 @@ void PlayScene::Update()
 {
 
 	Player* pPlayer = (Player*)FindObject("Player");
-	
-	if (Input::IsKeyDown(DIK_SPACE))
+
+	FireFollowGround* pFireFollowGround;
+	Fire* pFire;
+
+	playerTrans.position_ = pPlayer->GetPosition();
+
+	if (Input::IsKeyDown(DIK_3))
 	{
-			Instantiate<Fire>(this);
 		if (pPlayer->GetCoinCount() >= 3)
 		{
+			pFireFollowGround = Instantiate<FireFollowGround>(this);
 			pPlayer->MinCoinCount(3);
+		}
+	}
 
+	if (Input::IsKeyDown(DIK_4))
+	{
+		if (pPlayer->GetCoinCount() >= 3)
+		{
+			pFire = Instantiate<Fire>(this);
+			pPlayer->MinCoinCount(3);
 		}
 	}
 

@@ -153,6 +153,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Fire.h" />
+    <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Player.h" />

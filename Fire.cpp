@@ -31,6 +31,10 @@ void Fire::Initialize()
 
     pLine2 = new PoryLine;
     pLine2->Load("tex_orange.png");
+
+    Player* pPlayer = (Player*)FindObject("Player");
+    PlayerPos_ = pPlayer->GetPosition();
+    transform_.position_ = PlayerPos_;
 }
 
 //XV
