@@ -31,17 +31,17 @@ void Stage::StageLoad()
     assert(hModel_[0] >= 0);
 
     //ブロック
-    hModel_[log] = Model::Load("log.fbx");
+    hModel_[log] = Model::Load("Model\\Brick.fbx");
     assert(hModel_[log] >= 0);
 
     //旗先端
     hModel_[coin] = Model::Load("wood2.fbx");
     assert(hModel_[coin] >= 0);
 
-    hModel_[enemy] = Model::Load("log.fbx");
+    hModel_[enemy] = Model::Load("Model\\Brick.fbx");
     assert(hModel_[enemy] >= 0);
 
-    hModel_[player] = Model::Load("log.fbx");
+    hModel_[player] = Model::Load("Model\\Brick.fbx");
     assert(hModel_[player] >= 0);
 }
 

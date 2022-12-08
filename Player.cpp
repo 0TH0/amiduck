@@ -4,6 +4,7 @@
 #include "StartScene.h"
 #include "Fire.h"
 #include "Controller.h"
+#include "Enemy.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -61,6 +62,16 @@ void Player::Update()
 {
 
     pStage = (Stage*)FindObject("Stage");
+    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
+
+    //EnemyPos_ = pEnemy->GetPosition();
+    //EnemyPos_.x = EnemyPos_.x - 5;
+
+    //if (Input::IsKeyDown(DIK_L))
+    //{
+    //    transform_.position_ = EnemyPos_;
+    //}
 
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);

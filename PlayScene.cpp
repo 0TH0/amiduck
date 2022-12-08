@@ -49,18 +49,20 @@ void PlayScene::Update()
 
 	if (Input::IsKeyDown(DIK_3))
 	{
+		pFireFollowGround = Instantiate<FireFollowGround>(this);
 		if (pPlayer->GetCoinCount() >= 3)
 		{
-			pFireFollowGround = Instantiate<FireFollowGround>(this);
+
 			pPlayer->MinCoinCount(3);
 		}
 	}
 
 	if (Input::IsKeyDown(DIK_4))
 	{
+		pFire = Instantiate<Fire>(this);
 		if (pPlayer->GetCoinCount() >= 3)
 		{
-			pFire = Instantiate<Fire>(this);
+
 			pPlayer->MinCoinCount(3);
 		}
 	}

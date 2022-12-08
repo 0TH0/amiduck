@@ -45,6 +45,7 @@ class Player : public GameObject
     bool IsStop;
 
     int coin_count_;
+    XMFLOAT3 EnemyPos_;
 
 public:
     //コンストラクタ
