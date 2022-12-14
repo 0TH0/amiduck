@@ -35,6 +35,9 @@ namespace Direct3D
 
 	DWORD vectorSize = sizeof(XMFLOAT3);
 
+	//ビューポート
+	D3D11_VIEWPORT vp_left;
+	D3D11_VIEWPORT vp_right;
 
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
@@ -111,6 +114,29 @@ namespace Direct3D
 
 		//一時的にバックバッファを取得しただけなので、解放
 		pBackBuffer->Release();
+
+		//★
+		// ビューポートの設定
+		//レンダリング結果を表示する範囲
+		//左画面用
+		{
+			vp_left.Width = (float)screenWidth / 2;			//幅
+			vp_left.Height = (float)screenHeight;		//高さ
+			vp_left.MinDepth = 0.0f;		//手前
+			vp_left.MaxDepth = 1.0f;		//奥
+			vp_left.TopLeftX = 0;		//左
+			vp_left.TopLeftY = 0;		//上
+		}
+
+		//右画面用
+		{
+			vp_right.Width = (float)screenWidth / 2;			//幅
+			vp_right.Height = (float)screenHeight;		//高さ
+			vp_right.MinDepth = 0.0f;		//手前
+			vp_right.MaxDepth = 1.0f;		//奥
+			vp_right.TopLeftX = (float)screenWidth / 2;		//左
+			vp_right.TopLeftY = 0;		//上
+		}
 
 
 
@@ -237,6 +263,10 @@ namespace Direct3D
 			return E_FAIL;
 		}
 		if (FAILED(InitShaderToon()))
+		{
+			return E_FAIL;
+		}
+		if (FAILED(InitShaderNormalMap()))
 		{
 			return E_FAIL;
 		}
@@ -448,6 +478,65 @@ namespace Direct3D
 		return S_OK;
 	}
 
+	HRESULT InitShaderNormalMap()
+	{
+		HRESULT hr;
+
+		// 頂点シェーダの作成（コンパイル）
+		ID3DBlob* pCompileVS = nullptr;
+		D3DCompileFromFile(L"Shader/Normalmap.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+		assert(pCompileVS != nullptr);
+
+		hr = pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_TOON].pVertexShader);
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "頂点シェーダーの作成に失敗しました", "エラー", MB_OK);
+			SAFE_RELEASE(pCompileVS);
+			return hr;
+		}
+
+		//頂点インプットレイアウト
+		D3D11_INPUT_ELEMENT_DESC layout[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//位置
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, sizeof(XMVECTOR),  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//UV
+			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(XMVECTOR) * 2,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//法線
+			{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(XMVECTOR) * 3,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//法線
+		};
+		hr = pDevice_->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &shaderBundle[SHADER_NORMALMAP].pVertexLayout);
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "頂点インプットレイアウトの作成に失敗しました", "エラー", MB_OK);
+			SAFE_RELEASE(pCompileVS);
+			return hr;
+		}
+		SAFE_RELEASE(pCompileVS);
+
+		// ピクセルシェーダの作成（コンパイル）
+		ID3DBlob* pCompilePS = nullptr;
+		D3DCompileFromFile(L"Shader/Normalmap.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+		assert(pCompilePS != nullptr);
+		hr = pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_NORMALMAP].pPixelShader);
+		SAFE_RELEASE(pCompilePS);
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "ピクセルシェーダの作成に失敗しました", "エラー", MB_OK);
+			return hr;
+		}
+
+		//ラスタライザ作成
+		D3D11_RASTERIZER_DESC rdc = {};
+		rdc.CullMode = D3D11_CULL_BACK;
+		rdc.FillMode = D3D11_FILL_SOLID;
+		rdc.FrontCounterClockwise = FALSE;
+		hr = pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_NORMALMAP].pRasterizerState);
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "ラスタライザの作成に失敗しました", "エラー", MB_OK);
+			return hr;
+		}
+		return S_OK;
+	}
+
 
 	//今から描画するShaderBundleを設定
 	void SetShader(SHADER_TYPE type)
@@ -506,6 +595,7 @@ namespace Direct3D
 		for (int i = 0; i < BLEND_MAX; i++)
 		{
 			SAFE_RELEASE(pBlendState[i]);
+			SAFE_RELEASE(pDepthStencilState[i]);
 		}
 		SAFE_RELEASE(pRenderTargetView_);
 		SAFE_RELEASE(pSwapChain_);
@@ -598,6 +688,22 @@ namespace Direct3D
 		{
 			pContext_->OMSetRenderTargets(1, &pRenderTargetView_, nullptr);
 		}
+	}
+
+	//★
+	void SetViewPort(int lr)
+	{
+		switch (lr)
+		{
+		case 0:
+			pContext_->RSSetViewports(1, &vp_left);
+			break;
+
+		case 1:
+			pContext_->RSSetViewports(1, &vp_right);
+			break;
+		}
+
 	}
 
 }

@@ -34,6 +34,7 @@ public:
 
 	Stage* pStage;
 	float speed_;        //移動速度
+	XMFLOAT3 mousePos_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

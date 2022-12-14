@@ -44,3 +44,13 @@ XMMATRIX Transform::GetWorldMatrix()
 	return  matScale_ * matRotate_ * matTranslate_;
 }
 
+void Transform::SetWorldMatrix(XMMATRIX mat)
+{
+	Calclation();
+	if (pParent_)
+	{
+		mat = matScale_ * matRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+	}
+
+	mat = matScale_ * matRotate_ * matTranslate_;
+}

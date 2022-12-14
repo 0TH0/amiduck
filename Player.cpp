@@ -38,12 +38,15 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("duck.fbx");
+    hModel_ = Model::Load("Enemy\\raccoon10.fbx");
     assert(hModel_ >= 0);
+
+    //アニメーションの設定
+    Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
     //位置
     transform_.position_ = XMFLOAT3(0, 0.5, 38);
-    transform_.rotate_ = XMFLOAT3(0, -90, 0);
+    transform_.rotate_ = XMFLOAT3(0, 180, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35); 
 
     //当たり判定
@@ -56,10 +59,173 @@ void Player::Initialize()
     Instantiate<Controller>(this);
 
     pText->Initialize();
+
+    pParticle_ = Instantiate<Particle>(this);
+
+    //data.textureFileName = "Particle\\Cloud.png";
+    //data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+    //data.delay = 5;
+    //data.number = 1;
+    //data.lifeTime = 30;
+    //data.dir = XMFLOAT3(0, 1, 0);
+    //data.dirErr = XMFLOAT3(0, 0, 0);
+    //data.speed = 0.2f;
+    //data.accel = 0.98;
+    //data.speedErr = 0.0;
+    //data.size = XMFLOAT2(2, 2);
+    //data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //data.scale = XMFLOAT2(1.01, 1.01);
+    //data.color = XMFLOAT4(1, 1, 1, 0.2);
+    //data.deltaColor = XMFLOAT4(0, 0, 0, -0.002);
+
+    //data.delay = 0;
+    //data.number = 80;
+    //data.lifeTime = 100;
+    //data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+    //data.dir = XMFLOAT3(0, 1, 0);
+    //data.dirErr = XMFLOAT3(90, 90, 90);
+    //data.speed = 0.25f;
+    //data.speedErr = 1;
+    //data.accel = 0.93;
+    //data.size = XMFLOAT2(0.1, 0.1);
+    //data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //data.scale = XMFLOAT2(0.99, 0.99);
+    //data.color = XMFLOAT4(1, 0.5, 0.1, 1);
+    //data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+    //data.gravity = 0.003f;
+
+    //炎
+    {
+    }
 }
 
 void Player::Update()
 {
+    if (Input::IsKeyDown(DIK_SPACE))
+    {
+        //EmitterData data;
+        //data.textureFileName = "Particle\\Cloud.png";
+        //data.position = transform_.position_;
+        //data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+        //data.delay = 0;
+        //data.number = 5;
+        //data.lifeTime = 60;
+        //data.dir = XMFLOAT3(0, 1, 0);
+        //data.dirErr = XMFLOAT3(0, 0, 0);
+        //data.speed = 0.01f;
+        //data.speedErr = 0.0;
+        //data.size = XMFLOAT2(2, 2);
+        //data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //data.scale = XMFLOAT2(1.03, 1.02);
+        //data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1);
+        //pParticle_->Start(data);
+
+        ////神々しいやつ
+        //EmitterData data;
+
+        //data.textureFileName = "Particle\\Cloud.png";
+        //data.position = transform_.position_;
+        //data.positionErr = XMFLOAT3(0.1, 2, 0.1);
+        //data.delay = 0;
+        //data.number = 1;
+        //data.lifeTime = 150;
+        //data.dir = XMFLOAT3(0, 1, 0);
+        //data.dirErr = XMFLOAT3(0, 0, 0);
+        //data.speed = 0.1f;
+        //data.accel = 0.98;
+        //data.speedErr = 0.5;
+        //data.size = XMFLOAT2(2, 2);
+        //data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //data.scale = XMFLOAT2(1.01, 1.5);
+        //data.color = XMFLOAT4(1, 1, 1, 0.2);
+        //data.deltaColor = XMFLOAT4(0, 0, 0, -0.002);
+        //pParticle_->Start(data);
+
+        //EmitterData data;
+        //data.textureFileName = "Particle\\Cloud.png";
+        //data.position = transform_.position_;
+        //data.delay = 0;
+        //data.number = 80;
+        //data.lifeTime = 30;
+        //data.dir = XMFLOAT3(1, 0, 0);
+        //data.dirErr = XMFLOAT3(180, 90, 90);
+        //data.speed = 0.4f;
+        //data.speedErr = 1;
+        //data.size = XMFLOAT2(1, 0.5);
+        //data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //data.scale = XMFLOAT2(1.05, 1.05);
+        //data.color = XMFLOAT4(0.2, 0.2, 1, 1);
+        //data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+        //data.gravity = 0.003f;
+        //pParticle_->Start(data);
+
+        //data.color = XMFLOAT4(0.5, 0.5, 0, 1);
+        //pParticle_->Start(data);
+
+        //data.delay = 0;
+        //data.number = 80;
+        //data.lifeTime = 100;
+        //data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+        //data.dir = XMFLOAT3(0, 1, 0);
+        //data.dirErr = XMFLOAT3(180, 180, 180);
+        //data.speed = 0.5f;
+        //data.speedErr = 1;
+        //data.accel = 0.93;
+        //data.size = XMFLOAT2(0.1, 0.1);
+        //data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //data.scale = XMFLOAT2(0.99, 0.99);
+        //data.color = XMFLOAT4(1, 1, 0.1, 1);
+        //data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+        //data.gravity = 0.003f;
+        //pParticle_->Start(data);
+    }
+
+
+    //if (Input::IsKeyDown(DIK_SPACE))
+    //{
+    //    EmitterData data;
+    //    data.textureFileName = "Cloud.png";
+    //    data.position = XMFLOAT3(0, 0.05, 0);
+    //    data.delay = 0;
+    //    data.number = 80;
+    //    data.lifeTime = 20;
+    //    data.dir = XMFLOAT3(0, 1, 0);
+    //    data.dirErr = XMFLOAT3(90, 90, 90);
+    //    data.speed = 0.1f;
+    //    data.speedErr = 0.8;
+    //    data.size = XMFLOAT2(1, 1);
+    //    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //    data.scale = XMFLOAT2(1.05, 1.05);
+    //    data.color = XMFLOAT4(1, 1, 0.1, 1);
+    //    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+    //    pParticle_->Start(data);
+
+
+
+
+
+    //    data.delay = 0;
+    //    data.number = 80;
+    //    data.lifeTime = 100;
+    //    data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+    //    data.dir = XMFLOAT3(0, 1, 0);
+    //    data.dirErr = XMFLOAT3(90, 90, 90);
+    //    data.speed = 0.25f;
+    //    data.speedErr = 1;
+    //    data.accel = 0.93;
+    //    data.size = XMFLOAT2(0.1, 0.1);
+    //    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //    data.scale = XMFLOAT2(0.99, 0.99);
+    //    data.color = XMFLOAT4(1, 1, 0.1, 1);
+    //    data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+    //    data.gravity = 0.003f;
+    //    pParticle_->Start(data);
+
+
+
+
+
+    //}
 
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
@@ -292,6 +458,8 @@ void Player::Update()
     if (a)
     {
         IsStop = false;
+
+        transform_.rotate_ = XMFLOAT3(0, -90, 0);
         if (g <= 0)
         {
             s = 0.2f;
@@ -304,6 +472,14 @@ void Player::Update()
                 t = 0;
                 a = false;
                 SPEED = 0.2;
+                if (IsReturn)
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                }
+                else
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
+                }
             }
             else
             {
@@ -336,6 +512,7 @@ void Player::Update()
             IsStop = false;
             f = 0.2f;
             g += f;
+            transform_.rotate_ = XMFLOAT3(0, 90, 0);
             if (g >= 6)
             {
                 trans[1].position_ = transform_.position_;
@@ -345,6 +522,14 @@ void Player::Update()
                 b = false;
                 SPEED = 0.2;
                 time1 = 0;
+                if (IsReturn)
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                }
+                else
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
+                }
             }
             else
             {
@@ -355,11 +540,11 @@ void Player::Update()
 
     if (Input::IsKeyDown(DIK_Z))
     {
-        IsPress = true;
+        IsVisibled();
     }
     if (Input::IsKeyDown(DIK_X))
     {
-        IsPress = false;
+        Visible();
     }
     if (Input::IsKeyDown(DIK_C))
     {
@@ -408,25 +593,62 @@ void Player::Update()
     //}
 
     FollowGround();
+
+    if (!IsBlend())
+    {
+        if (Input::IsKeyDown(DIK_L))
+        {
+            Blend();
+            EmitterData data;
+            data.textureFileName = "Particle\\Cloud.png";
+            data.position = transform_.position_;
+            data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+            data.delay = 0;
+            data.number = 5;
+            data.lifeTime = 60;
+            data.dir = XMFLOAT3(0, 1, 0);
+            data.dirErr = XMFLOAT3(0, 0, 0);
+            data.speed = 0.01f;
+            data.speedErr = 0.0;
+            data.size = XMFLOAT2(2, 2);
+            data.sizeErr = XMFLOAT2(0.4, 0.4);
+            data.scale = XMFLOAT2(1.03, 1.02);
+            data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1);
+            pParticle_->Start(data);
+        }
+    }
+    if (Input::IsKeyDown(DIK_K))
+    {
+        Default();
+    }
 }
 
 void Player::Draw()
 {
+    //if (blade_)
+    //{
+    //    Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
+    //}
+    //else
+    //{
+    //    Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+    //}
+
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
-    pText->Draw(20, 20, "rotate.xyz");
-    pText->Draw(50, 50, transform_.rotate_.x);
-    pText->Draw(150, 50, transform_.rotate_.y);
-    pText->Draw(250, 50, transform_.rotate_.z);
+    //pText->Draw(20, 20, "rotate.xyz");
+    //pText->Draw(50, 50, transform_.rotate_.x);
+    //pText->Draw(150, 50, transform_.rotate_.y);
+    //pText->Draw(250, 50, transform_.rotate_.z);
 
-    pText->Draw(20, 100, "transform.xyz");
-    pText->Draw(50, 130, transform_.position_.x);
-    pText->Draw(150, 130, transform_.position_.y);
-    pText->Draw(250, 130, transform_.position_.z);
+    //pText->Draw(20, 100, "transform.xyz");
+    //pText->Draw(50, 130, transform_.position_.x);
+    //pText->Draw(150, 130, transform_.position_.y);
+    //pText->Draw(250, 130, transform_.position_.z);
 
-    pText->Draw(100, 250, "coin");
-    pText->Draw(200, 250, coin_count_);
+    //pText->Draw(100, 250, "coin");
+    //pText->Draw(200, 250, coin_count_);
 }
 
 void Player::Release()

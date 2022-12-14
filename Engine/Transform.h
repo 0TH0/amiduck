@@ -34,10 +34,16 @@ public:
 	//戻値：その時点でのワールド行列
 	XMMATRIX GetWorldMatrix();
 
+	void SetWorldMatrix(XMMATRIX mat);
 
 	static XMFLOAT3 Float3Add(XMFLOAT3 a, XMFLOAT3 b)
 	{
 		return XMFLOAT3(a.x + b.x, a.y + b.y, a.z + b.z);
 	}
+	static void SetFloat3(XMFLOAT3 pos, float x, float y, float z)
+	{
+		pos.x = x;
+		pos.y = y;
+		pos.z = z;
+	}
 };
-

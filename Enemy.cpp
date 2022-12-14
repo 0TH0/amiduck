@@ -35,8 +35,11 @@ Enemy::~Enemy()
 //初期化
 void Enemy::Initialize()
 {
-    hModel_ = Model::Load("Enemy\\raccoon2.fbx");
+    hModel_ = Model::Load("Enemy\\raccoon10.fbx");
     assert(hModel_ >= 0);
+
+    //アニメーションの設定
+    Model::SetAnimFrame(hModel_, 0, 300, 2.0f);
 
     //位置
     transform_.position_ = XMFLOAT3(178, 0.5, 38);

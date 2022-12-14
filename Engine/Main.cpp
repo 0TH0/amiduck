@@ -11,17 +11,20 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Audio.h"
+#include "../Player.h"
+#include "../Controller.h"
 
 #pragma comment(lib,"Winmm.lib")
 
 //定数宣言
-const char* WIN_CLASS_NAME = "SampleGame";	//ウィンドウクラス名
+const char* WIN_CLASS_NAME = "Amiduck";	//ウィンドウクラス名
 
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+RootObject* pRootObject;
 
 // エントリーポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -60,7 +63,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
-	RootObject* pRootObject = new RootObject;
+	pRootObject = new RootObject;
 	pRootObject->Initialize();
 
 
@@ -128,9 +131,34 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//このフレームの描画開始
 				Direct3D::BeginDraw();
 
-				//全オブジェクトを描画
-				//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+				////全オブジェクトを描画
+				////ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->DrawSub();
+
+				//★
+				////左画面描画
+				//{
+				//	Direct3D::SetViewPort(0);
+
+				//	Camera::SetPosition(((Player*)pRootObject->FindObject("Player"))->GetPosition());
+				//	Camera::Update();
+
+				//	//全オブジェクトを描画
+				//	//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+				//	pRootObject->DrawSub();
+				//}
+
+				////右画面描画
+				//{
+				//	Direct3D::SetViewPort(1);
+
+				//	Camera::SetPosition(XMFLOAT3(10, 0, 0));
+				//	Camera::Update();
+
+				//	//全オブジェクトを描画
+				//	//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+				//	pRootObject->DrawSub();
+				//}
 
 				//描画終了
 				Direct3D::EndDraw();

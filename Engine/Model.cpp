@@ -1,5 +1,6 @@
 #include "Global.h"
 #include "Model.h"
+#include "RootObject.h"
 
 //3Dモデル（FBXファイル）を管理する
 namespace Model
@@ -69,6 +70,10 @@ namespace Model
 	//描画
 	void Draw(int handle)
 	{
+		/*	bool visible = false;
+			visible = _datas[handle]->pRootObject->
+				FindObject(_datas[handle]->pRootObject->GetObjectName())->IsVisibled();*/
+
 		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
 		{
 			return;
@@ -87,6 +92,7 @@ namespace Model
 		{
 			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame);
 		}
+
 	}
 
 

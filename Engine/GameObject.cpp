@@ -101,6 +101,21 @@ bool GameObject::IsVisibled()
 	return (state_.visible != 0);
 }
 
+void GameObject::Default()
+{
+	state_.blend = 0;
+}
+
+void GameObject::Blend()
+{
+	state_.blend = 1;
+}
+
+bool GameObject::IsBlend()
+{
+	return(state_.blend != 0);
+}
+
 //子オブジェクトリストを取得
 std::list<GameObject*>* GameObject::GetChildList()
 {
@@ -311,17 +326,29 @@ void GameObject::UpdateSub()
 
 void GameObject::DrawSub()
 {
+	//透明化
+	switch (IsBlend())
+	{
+	case true:
+		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
+		break;
+	case false:
+		Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+		break;
+	default:
+		break;
+	}
+
 	Draw();
 
-
 	//リリース時は削除
-#ifdef _DEBUG
+//#ifdef _DEBUG
 		//コリジョンの描画
 	if (Direct3D::isDrawCollision_)
 	{
 		CollisionDraw();
 	}
-#endif
+//#endif
 
 	//その子オブジェクトの描画処理
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
@@ -361,4 +388,7 @@ XMMATRIX GameObject::GetWorldMatrix(void)
 	return transform_.GetWorldMatrix();
 }
 
-
+void GameObject::SetWorldMatrix(XMMATRIX mat)
+{
+	transform_.SetWorldMatrix(mat);
+}

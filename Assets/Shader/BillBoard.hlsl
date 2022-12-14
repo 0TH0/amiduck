@@ -7,8 +7,8 @@ SamplerState	g_sampler : register(s0);	//サンプラー
 //───────────────────────────────────────
 cbuffer global
 {
-	float4x4	matWVP;			// ワールド・ビュー・プロジェクションの合成行列
-	float4	    color;
+	float4x4	g_matWVP;			// ワールド・ビュー・プロジェクションの合成行列
+	float4	    g_color;
 };
 
 //───────────────────────────────────────
@@ -30,7 +30,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 
 	//ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
 	//スクリーン座標に変換し、ピクセルシェーダーへ
-	outData.pos = mul(pos, matWVP);
+	outData.pos = mul(pos, g_matWVP);
 
 	outData.uv = uv;
 
@@ -43,6 +43,6 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-	float4 c =  g_texture.Sample(g_sampler, inData.uv) * color;
+	float4 c =  g_texture.Sample(g_sampler, inData.uv) * g_color;
 	return c;
 }

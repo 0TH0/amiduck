@@ -2,6 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 #include "Engine/Text.h"
+#include "Engine/Particle.h"
 
 //◆◆◆を管理するクラス
 class Player : public GameObject
@@ -46,6 +47,10 @@ class Player : public GameObject
 
     int coin_count_;
     XMFLOAT3 EnemyPos_;
+    XMMATRIX mat_;
+
+    Particle* pParticle_;
+    EmitterData data;
 
 public:
     //コンストラクタ
@@ -75,7 +80,7 @@ public:
     bool GetReturn() { return IsReturn; };
 
 
-    // Coin
+    //Coin
     int GetCoinCount() { return coin_count_; };
 
     void PlusCoinCount(int count) { coin_count_ += count; };

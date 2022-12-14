@@ -21,6 +21,7 @@ class FbxParts
 		XMFLOAT3 position;
 		XMFLOAT3 normal;
 		XMFLOAT3 uv;
+		XMFLOAT3 tangent;
 	};
 
 	//【コンスタントバッファー】
@@ -49,6 +50,7 @@ class FbxParts
 		XMFLOAT4	specular;			//鏡面反射光（スペキュラ）への反射強度
 		float		shininess;			//ハイライトの強さ（サイズ）
 		Texture*	pTexture;			//テクスチャ
+		Texture*	pNormalTexture;		//テクスチャ
 	}*pMaterial_;
 
 	// ボーン構造体（関節情報）

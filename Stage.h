@@ -24,6 +24,7 @@ class Stage : public GameObject
     Text* pText = new Text;
 
     Particle* pParticle_;
+    EmitterData data;
 
 public: 
 
@@ -53,4 +54,8 @@ public:
     int getModelHandle(int handle) { return hModel_[handle]; };
 
     void StageLoad();
+
+    void Cloud();
+
+    void SetCloudPos(float x, float y, float z);
 };

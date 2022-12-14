@@ -22,10 +22,8 @@ void Controller::Initialize()
 void Controller::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
-
-    PlayerPosX_ = pPlayer->GetPosition().x;
-    PlayerPosZ_ = pPlayer->GetPosition().z;
-    transform_.position_ = XMFLOAT3(PlayerPosX_, pPlayer->GetPosition().y, PlayerPosZ_);
+    PlayerPos_ = pPlayer->GetPosition();
+    transform_.position_ = PlayerPos_;
 
     //ƒJƒƒ‰‰ñ“]
     if (Input::IsKey(DIK_LEFT))
@@ -93,8 +91,10 @@ void Controller::Update()
 
     transform_.rotate_.x += x * 0.025;
 
-    if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-    if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
+    mousePos_ = Input::GetMousePosition();
+
+    //if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
+    //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
 }
 
 //•`‰æ

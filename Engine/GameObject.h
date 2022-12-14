@@ -60,6 +60,7 @@ public:
 	//戻値：ワールド行列
 	XMMATRIX GetWorldMatrix();
 
+	void SetWorldMatrix(XMMATRIX mat);
 
 
 	//各フラグの制御
@@ -73,7 +74,9 @@ public:
 	void SetInitialized();	// 初期化済みにする
 	bool IsEntered();		// Update実行していいか
 	bool IsVisibled();		// Draw実行していいか
-
+	void Default();			// 透明化しない
+	void Blend();			// 透明化する
+	bool IsBlend();			// 透明化しているか
 
 	//子オブジェクトリストを取得
 	//戻値：子オブジェクトリスト
@@ -107,8 +110,6 @@ public:
 
 	//子オブジェクトを全て削除
 	void KillAllChildren();
-
-
 
 	//コライダー（衝突判定）を追加する
 	void AddCollider(Collider * collider);
@@ -161,6 +162,7 @@ private:
 		unsigned entered : 1;		//更新するか
 		unsigned visible : 1;		//描画するか
 		unsigned dead : 1;			//削除するか
+		unsigned blend : 1;			//透明化するか
 	};
 	OBJECT_STATE state_;
 

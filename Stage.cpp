@@ -31,18 +31,44 @@ void Stage::StageLoad()
     assert(hModel_[0] >= 0);
 
     //ブロック
-    hModel_[log] = Model::Load("Model\\Brick.fbx");
+    hModel_[log] = Model::Load("Model\\Brick2.fbx");
     assert(hModel_[log] >= 0);
 
     //旗先端
     hModel_[coin] = Model::Load("wood2.fbx");
     assert(hModel_[coin] >= 0);
 
-    hModel_[enemy] = Model::Load("Model\\Brick.fbx");
+    hModel_[enemy] = Model::Load("Model\\Brick2.fbx");
     assert(hModel_[enemy] >= 0);
 
-    hModel_[player] = Model::Load("Model\\Brick.fbx");
+    hModel_[player] = Model::Load("Model\\Brick2.fbx");
     assert(hModel_[player] >= 0);
+}
+
+void Stage::Cloud()
+{
+    data.textureFileName = "Particle\\Cloud.png";
+    data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+    data.delay = 0;
+    data.number = 5;
+    data.lifeTime = 60;
+    data.dir = XMFLOAT3(0, 1, 0);
+    data.dirErr = XMFLOAT3(0, 0, 0);
+    data.speed = 0.01f;
+    data.speedErr = 0.5;
+    data.size = XMFLOAT2(2, 2);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.03, 1.02);
+    float color = 0.5;
+    data.color = XMFLOAT4(color, color, color, 0.1);
+    pParticle_->Start(data);
+}
+
+void Stage::SetCloudPos(float x, float y, float z)
+{
+    data.position.x = x;
+    data.position.y = y;
+    data.position.z = z;
 }
 
 //初期化
@@ -84,6 +110,7 @@ void Stage::Initialize()
     }
 
     pText->Initialize();
+    pParticle_ = Instantiate<Particle>(this);
 }
 //更新
 void Stage::Update()
@@ -97,7 +124,7 @@ void Stage::Update()
 
     time_++;
 
-    if (time_ >= 180 && time_ <= 180)
+    if (time_ == 180)
     {
         count_++;
         time_ = 0;
@@ -117,28 +144,34 @@ void Stage::Update()
             map_[(int)player_pos_.x][0][(int)player_pos_.z + 4] = 2;
             time_ = 0;
             count_--;
+            SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z + 4);
+            Cloud();
         }
 
-        if ((int)player_pos_.z >= 38)
+        if (Input::IsKeyDown(DIK_D))
         {
-            if (Input::IsKeyDown(DIK_D))
+            if ((int)player_pos_.z >= 38)
             {
                 map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
                 map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
                 map_[(int)player_pos_.x][0][(int)player_pos_.z - 5] = 2;
                 time_ = 0;
                 count_--;
+                SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 3);
+                Cloud();
             }
-        }
-        else
-        {
-            if (Input::IsKeyDown(DIK_D))
+            else
             {
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
-                time_ = 0;
-                count_--;
+                if (Input::IsKeyDown(DIK_D))
+                {
+                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
+                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
+                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
+                    time_ = 0;
+                    count_--;
+                    SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 2);
+                    Cloud();
+                }
             }
         }
     }
@@ -172,14 +205,16 @@ void Stage::Draw()
                     transform_.rotate_.y = 90;
                 }
 
+                //Direct3D::SetShader(Direct3D::SHADER_NORMALMAP);
+                //Direct3D::SetShader(Direct3D::SHADER_3D);
                 Model::SetTransform(hModel_[type], transform_);
                 Model::Draw(hModel_[type]);
             }
         }
     }
 
-    pText->Draw(100, 200, "count");
-    pText->Draw(200, 200, count_);
+    //pText->Draw(100, 200, "count");
+    //pText->Draw(200, 200, count_);
 }
 
 //開放

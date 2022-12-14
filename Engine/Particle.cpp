@@ -173,23 +173,20 @@ void Particle::EmitterUpdate()
 //パーティクル描画
 void Particle::Draw()
 {
-    //Direct3D::SetShader(Direct3D::SHADER_BILLBOARD);
-    //Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
+    Direct3D::SetShader(Direct3D::SHADER_BILLBOARD);
+    Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 
- 
     for (auto particle = particleList_.begin(); particle != particleList_.end(); particle++)
     {
         XMMATRIX matWorld;
         XMMATRIX matTrans = XMMatrixTranslation((*particle)->now.position.x, (*particle)->now.position.y, (*particle)->now.position.z);
-
         XMMATRIX matScale = XMMatrixScaling((*particle)->now.scale.x, (*particle)->now.scale.y, 1.0f);
-
-
         matWorld = matScale * Camera::GetBillboardMatrix() * matTrans;
-        (*particle)->pEmitter->pBillBoard->Draw(matWorld,(*particle)->now.color);
+        (*particle)->pEmitter->pBillBoard->Draw(matWorld, (*particle)->now.color);
     }
 
-    
+    Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+    Direct3D::SetShader(Direct3D::SHADER_3D);
 }
 
 void Particle::Release()

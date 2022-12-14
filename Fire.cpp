@@ -180,6 +180,9 @@ void Fire::Draw()
     //ƒ|ƒŠƒ‰ƒCƒ“‚ð•`‰æ
     pLine->Draw();
     pLine2->Draw();
+
+    //Direct3D::SetShader(Direct3D::SHADER_TOON);
+    //Direct3D::SetShader(Direct3D::SHADER_3D);
 }
 
 //ŠJ•ú
