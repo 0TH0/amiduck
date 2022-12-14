@@ -135,30 +135,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				////ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->DrawSub();
 
-				//★
-				////左画面描画
-				//{
-				//	Direct3D::SetViewPort(0);
+				//★画面分割
+				if (Camera::GetDual() == 2)
+				{
+					//左画面描画
+					{
+						Direct3D::SetViewPort(0);
 
-				//	Camera::SetPosition(((Player*)pRootObject->FindObject("Player"))->GetPosition());
-				//	Camera::Update();
+						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
+						Camera::Update();
+						pRootObject->DrawSub();
+					}
 
-				//	//全オブジェクトを描画
-				//	//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				//	pRootObject->DrawSub();
-				//}
+					//右画面描画
+					{
+						Direct3D::SetViewPort(1);
 
-				////右画面描画
-				//{
-				//	Direct3D::SetViewPort(1);
-
-				//	Camera::SetPosition(XMFLOAT3(10, 0, 0));
-				//	Camera::Update();
-
-				//	//全オブジェクトを描画
-				//	//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				//	pRootObject->DrawSub();
-				//}
+						((Controller*)pRootObject->FindObject("Controller"))->EnemyCamera();
+						Camera::Update();
+					}
+				}
+				else if (Camera::GetDual() == 1)
+				{
+					Direct3D::SetViewPort(2);
+					((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
+					Camera::Update();
+				}
 
 				//描画終了
 				Direct3D::EndDraw();

@@ -7,10 +7,8 @@ class Controller : public GameObject
 {
 public:
 	int hModel_;
-	float PlayerPosX_;
-	float PlayerPosY_;
-	float PlayerPosZ_;
 	XMFLOAT3 PlayerPos_;
+	XMFLOAT3 EnemyPos_;
 	float plus;
 	bool Is;
 
@@ -54,4 +52,7 @@ public:
 
 	void OnCollision(GameObject* pTarget) override;
 
+	void PlayerCamera();
+
+	void EnemyCamera();
 };

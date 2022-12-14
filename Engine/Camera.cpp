@@ -13,7 +13,7 @@ void Camera::Initialize()
 {
 	_position = XMFLOAT3(0, 3, -10);	//カメラの位置
 	_target = XMFLOAT3( 0, 0, 0);	//カメラの焦点
-	dual_ = 1;
+	dual_ = 2;
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_ / dual_ , 0.1f, 1000.0f);
@@ -53,3 +53,22 @@ XMMATRIX Camera::GetProjectionMatrix() { return _proj; }
 
 //ビルボード用回転行列を取得
 XMMATRIX Camera::GetBillboardMatrix() { return _billBoard; }
+
+void Camera::SetDefault()
+{
+	dual_ = 1;
+	//プロジェクション行列
+	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_ / dual_, 0.1f, 1000.0f);
+}
+
+void Camera::SetDual()
+{
+	dual_ = 2;
+	//プロジェクション行列
+	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_ / dual_, 0.1f, 1000.0f);
+}
+
+float Camera::GetDual()
+{
+	return dual_;
+}

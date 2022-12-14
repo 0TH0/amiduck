@@ -540,11 +540,11 @@ void Player::Update()
 
     if (Input::IsKeyDown(DIK_Z))
     {
-        IsVisibled();
+        Camera::SetDual();
     }
     if (Input::IsKeyDown(DIK_X))
     {
-        Visible();
+        Camera::SetDefault();
     }
     if (Input::IsKeyDown(DIK_C))
     {

@@ -36,6 +36,7 @@ namespace Direct3D
 	DWORD vectorSize = sizeof(XMFLOAT3);
 
 	//ビューポート
+	D3D11_VIEWPORT vp;
 	D3D11_VIEWPORT vp_left;
 	D3D11_VIEWPORT vp_right;
 
@@ -146,7 +147,6 @@ namespace Direct3D
 
 		// ビューポートの設定
 		//レンダリング結果を表示する範囲
-		D3D11_VIEWPORT vp;
 		vp.Width = (float)screenWidth;			//幅
 		vp.Height = (float)screenHeight;		//高さ
 		vp.MinDepth = 0.0f;		//手前
@@ -702,8 +702,10 @@ namespace Direct3D
 		case 1:
 			pContext_->RSSetViewports(1, &vp_right);
 			break;
+		case 2:
+			pContext_->RSSetViewports(1, &vp);
+			break;
 		}
-
 	}
 
 }

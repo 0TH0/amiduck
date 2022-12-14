@@ -32,4 +32,10 @@ namespace Camera
 
 	//ビルボード用回転行列を取得
 	XMMATRIX GetBillboardMatrix();
+
+	void SetDefault();
+
+	void SetDual();
+
+	float GetDual();
 };
