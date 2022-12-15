@@ -691,19 +691,18 @@ namespace Direct3D
 	}
 
 	//š
-	void SetViewPort(int lr)
+	void SetViewPort(SCREEN_SPLIT scr)
 	{
-		switch (lr)
+		switch (scr)
 		{
-		case 0:
-			pContext_->RSSetViewports(1, &vp_left);
+		case SCREEN_DEFAULT:
+			pContext_->RSSetViewports(1, &vp);
 			break;
-
-		case 1:
+		case SCREEN_RIGHT:
 			pContext_->RSSetViewports(1, &vp_right);
 			break;
-		case 2:
-			pContext_->RSSetViewports(1, &vp);
+		case SCREEN_LEFT:
+			pContext_->RSSetViewports(1, &vp_left);
 			break;
 		}
 	}

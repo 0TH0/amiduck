@@ -2,6 +2,8 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
+#include "Engine/Camera.h"
+
 
 //コンストラクタ
 GameoverScene::GameoverScene(GameObject* parent)
@@ -12,6 +14,10 @@ GameoverScene::GameoverScene(GameObject* parent)
 //初期化
 void GameoverScene::Initialize()
 {
+	//全画面表示する
+	Direct3D::SetViewPort(Direct3D::SCREEN_DEFAULT);
+	Camera::SetDefault();
+
 	//画像データのロード
 	hPict_ = Image::Load("GameOver.png");
 	assert(hPict_ >= 0);

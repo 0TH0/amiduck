@@ -25,7 +25,7 @@ Player::Player(GameObject* parent)
     IsJump(false), IsGround(false),
 
     //定数
-    SPEED(0.3f), DUSHSPEED(0.05f),
+    speed(0.3f), DUSHSPEED(0.05f),
     CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
 {
 }
@@ -61,253 +61,34 @@ void Player::Initialize()
     pText->Initialize();
 
     pParticle_ = Instantiate<Particle>(this);
-
-    //data.textureFileName = "Particle\\Cloud.png";
-    //data.positionErr = XMFLOAT3(0.1, 0, 0.1);
-    //data.delay = 5;
-    //data.number = 1;
-    //data.lifeTime = 30;
-    //data.dir = XMFLOAT3(0, 1, 0);
-    //data.dirErr = XMFLOAT3(0, 0, 0);
-    //data.speed = 0.2f;
-    //data.accel = 0.98;
-    //data.speedErr = 0.0;
-    //data.size = XMFLOAT2(2, 2);
-    //data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //data.scale = XMFLOAT2(1.01, 1.01);
-    //data.color = XMFLOAT4(1, 1, 1, 0.2);
-    //data.deltaColor = XMFLOAT4(0, 0, 0, -0.002);
-
-    //data.delay = 0;
-    //data.number = 80;
-    //data.lifeTime = 100;
-    //data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-    //data.dir = XMFLOAT3(0, 1, 0);
-    //data.dirErr = XMFLOAT3(90, 90, 90);
-    //data.speed = 0.25f;
-    //data.speedErr = 1;
-    //data.accel = 0.93;
-    //data.size = XMFLOAT2(0.1, 0.1);
-    //data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //data.scale = XMFLOAT2(0.99, 0.99);
-    //data.color = XMFLOAT4(1, 0.5, 0.1, 1);
-    //data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-    //data.gravity = 0.003f;
-
-    //炎
-    {
-    }
 }
 
 void Player::Update()
 {
-    if (Input::IsKeyDown(DIK_SPACE))
-    {
-        //EmitterData data;
-        //data.textureFileName = "Particle\\Cloud.png";
-        //data.position = transform_.position_;
-        //data.positionErr = XMFLOAT3(0.1, 0, 0.1);
-        //data.delay = 0;
-        //data.number = 5;
-        //data.lifeTime = 60;
-        //data.dir = XMFLOAT3(0, 1, 0);
-        //data.dirErr = XMFLOAT3(0, 0, 0);
-        //data.speed = 0.01f;
-        //data.speedErr = 0.0;
-        //data.size = XMFLOAT2(2, 2);
-        //data.sizeErr = XMFLOAT2(0.4, 0.4);
-        //data.scale = XMFLOAT2(1.03, 1.02);
-        //data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1);
-        //pParticle_->Start(data);
-
-        ////神々しいやつ
-        //EmitterData data;
-
-        //data.textureFileName = "Particle\\Cloud.png";
-        //data.position = transform_.position_;
-        //data.positionErr = XMFLOAT3(0.1, 2, 0.1);
-        //data.delay = 0;
-        //data.number = 1;
-        //data.lifeTime = 150;
-        //data.dir = XMFLOAT3(0, 1, 0);
-        //data.dirErr = XMFLOAT3(0, 0, 0);
-        //data.speed = 0.1f;
-        //data.accel = 0.98;
-        //data.speedErr = 0.5;
-        //data.size = XMFLOAT2(2, 2);
-        //data.sizeErr = XMFLOAT2(0.4, 0.4);
-        //data.scale = XMFLOAT2(1.01, 1.5);
-        //data.color = XMFLOAT4(1, 1, 1, 0.2);
-        //data.deltaColor = XMFLOAT4(0, 0, 0, -0.002);
-        //pParticle_->Start(data);
-
-        //EmitterData data;
-        //data.textureFileName = "Particle\\Cloud.png";
-        //data.position = transform_.position_;
-        //data.delay = 0;
-        //data.number = 80;
-        //data.lifeTime = 30;
-        //data.dir = XMFLOAT3(1, 0, 0);
-        //data.dirErr = XMFLOAT3(180, 90, 90);
-        //data.speed = 0.4f;
-        //data.speedErr = 1;
-        //data.size = XMFLOAT2(1, 0.5);
-        //data.sizeErr = XMFLOAT2(0.4, 0.4);
-        //data.scale = XMFLOAT2(1.05, 1.05);
-        //data.color = XMFLOAT4(0.2, 0.2, 1, 1);
-        //data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-        //data.gravity = 0.003f;
-        //pParticle_->Start(data);
-
-        //data.color = XMFLOAT4(0.5, 0.5, 0, 1);
-        //pParticle_->Start(data);
-
-        //data.delay = 0;
-        //data.number = 80;
-        //data.lifeTime = 100;
-        //data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-        //data.dir = XMFLOAT3(0, 1, 0);
-        //data.dirErr = XMFLOAT3(180, 180, 180);
-        //data.speed = 0.5f;
-        //data.speedErr = 1;
-        //data.accel = 0.93;
-        //data.size = XMFLOAT2(0.1, 0.1);
-        //data.sizeErr = XMFLOAT2(0.4, 0.4);
-        //data.scale = XMFLOAT2(0.99, 0.99);
-        //data.color = XMFLOAT4(1, 1, 0.1, 1);
-        //data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-        //data.gravity = 0.003f;
-        //pParticle_->Start(data);
-    }
-
-
-    //if (Input::IsKeyDown(DIK_SPACE))
-    //{
-    //    EmitterData data;
-    //    data.textureFileName = "Cloud.png";
-    //    data.position = XMFLOAT3(0, 0.05, 0);
-    //    data.delay = 0;
-    //    data.number = 80;
-    //    data.lifeTime = 20;
-    //    data.dir = XMFLOAT3(0, 1, 0);
-    //    data.dirErr = XMFLOAT3(90, 90, 90);
-    //    data.speed = 0.1f;
-    //    data.speedErr = 0.8;
-    //    data.size = XMFLOAT2(1, 1);
-    //    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //    data.scale = XMFLOAT2(1.05, 1.05);
-    //    data.color = XMFLOAT4(1, 1, 0.1, 1);
-    //    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-    //    pParticle_->Start(data);
-
-
-
-
-
-    //    data.delay = 0;
-    //    data.number = 80;
-    //    data.lifeTime = 100;
-    //    data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-    //    data.dir = XMFLOAT3(0, 1, 0);
-    //    data.dirErr = XMFLOAT3(90, 90, 90);
-    //    data.speed = 0.25f;
-    //    data.speedErr = 1;
-    //    data.accel = 0.93;
-    //    data.size = XMFLOAT2(0.1, 0.1);
-    //    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //    data.scale = XMFLOAT2(0.99, 0.99);
-    //    data.color = XMFLOAT4(1, 1, 0.1, 1);
-    //    data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-    //    data.gravity = 0.003f;
-    //    pParticle_->Start(data);
-
-
-
-
-
-    //}
-
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-
-    //EnemyPos_ = pEnemy->GetPosition();
-    //EnemyPos_.x = EnemyPos_.x - 5;
-
-    //if (Input::IsKeyDown(DIK_L))
-    //{
-    //    transform_.position_ = EnemyPos_;
-    //}
-
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
+
+    FollowGround();
+
+    Amidakuji();
 
     //停止する
     if(Input::IsKeyDown(DIK_F))
     {
         if (!IsStop)
         {
-            SPEED = 0;
+            speed = 0;
             IsStop = true;
         }
         else
         {
-            SPEED = 0.3f;
+            speed = 0.3f;
             IsStop = false;
         }
     }
-
-    /////////////////////////移動/////////////////////////
-
-    ////左移動
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    transform_.position_.x += SPEED;
-    //}
-
-    ////左移動
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    transform_.position_.x -= SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_A))
-    //{
-    //    transform_.position_.z += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    transform_.position_.z -= SPEED;
-    //}
-
-    ////右移動
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    transform_.position_.x += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    transform_.position_.z += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    transform_.position_.z -= SPEED;
-    //}
-
-    ////左ダッシュ
-    //if ((Input::IsKey(DIK_A)) && (Input::IsKey(DIK_B)))
-    //{
-    //    transform_.position_.x -= DUSHSPEED;
-    //}
-
-    ////右ダッシュ
-    //if ((Input::IsKey(DIK_D)) && (Input::IsKey(DIK_B)))
-    //{
-    //    transform_.position_.x += DUSHSPEED;
-    //}
 
     ////カメラ
     //Camera::SetPosition(XMFLOAT3(transform_.position_.x, 7, CAMERA_POS_Y));
@@ -336,7 +117,7 @@ void Player::Update()
 
     //    ////ジャンプフラグ
     //    //IsJump = 1;
-    //    SPEED = 0;
+    //    speed = 0;
     //}
 
     ////ジャンプ中の重力
@@ -407,137 +188,7 @@ void Player::Update()
     //    transform_.rotate_.y = angle * 180.0f / 3.14f;
     //}
 
-    //////////////////壁との衝突判定///////////////////////
-    int objX = transform_.position_.x;
-    int objY = transform_.position_.y;
-    int objZ = transform_.position_.z;
-
-    ////壁の判定(上)
-    if (pStage->IsWall(objX, objY ,objZ))
-    {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
-    }
-    if (pStage->IsWallX(objX, objY, objZ))
-    {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
-    }
-
-    if (!a && !b && pStage->IsEmpty((float)objX + 5, objY, objZ))
-    {
-        IsReturn = true;
-    }
-    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
-    {
-        IsReturn = false;
-    }
-    if (IsReturn)
-    {
-        transform_.position_.x -= SPEED;
-    }
-    else
-    {
-        transform_.position_.x += SPEED;
-    }
-
-
-    ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
-
-    if (!b && time2 > 4)
-    {
-        if (pStage->IsWallM(objX, objY, objZ - 3))
-        {
-            SPEED = 0;
-            a = true;
-            time2 = 0;
-        }
-    }
-
-    //右に行く
-    if (a)
-    {
-        IsStop = false;
-
-        transform_.rotate_ = XMFLOAT3(0, -90, 0);
-        if (g <= 0)
-        {
-            s = 0.2f;
-            t += s;
-            if (t >= 6)
-            {
-                trans[0].position_ = transform_.position_;
-                time1 = 0;
-                s = 0;
-                t = 0;
-                a = false;
-                SPEED = 0.2;
-                if (IsReturn)
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                }
-                else
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
-                }
-            }
-            else
-            {
-                transform_.position_.z -= s;
-            }
-        }
-    }
-    //左に行く
-    else
-    {
-        //止まっていなかったら
-        if (!IsStop)
-        {
-            time2++;
-
-            if (!b) time1++;
-        }
-
-        if (time1 > 4)
-        {
-            if (pStage->IsPipe(objX, objY, objZ + 2))
-            {
-                SPEED = 0;
-                b = true;
-            }
-        }
-
-        if (b)
-        {
-            IsStop = false;
-            f = 0.2f;
-            g += f;
-            transform_.rotate_ = XMFLOAT3(0, 90, 0);
-            if (g >= 6)
-            {
-                trans[1].position_ = transform_.position_;
-                time2 = 0;
-                g = 0;
-                f = 0;
-                b = false;
-                SPEED = 0.2;
-                time1 = 0;
-                if (IsReturn)
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                }
-                else
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
-                }
-            }
-            else
-            {
-                transform_.position_.z += f;
-            }
-        }
-    }
-
+    //画面切り替え
     if (Input::IsKeyDown(DIK_Z))
     {
         Camera::SetDual();
@@ -546,53 +197,6 @@ void Player::Update()
     {
         Camera::SetDefault();
     }
-    if (Input::IsKeyDown(DIK_C))
-    {
-        SPEED = -0.2f;
-    }
-    if (Input::IsKeyDown(DIK_V))
-    {
-        SPEED = 0.2f;
-    }
-    if (IsPress)
-    {
-    }
-
-    //if (pStage->IsPipe(objX, objY, objZ + 2))
-    //{
-    //    transform_.position_.z += 12;
-    //}
-
-    //
-    ////壁の判定(下)
-    //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-    //    move_.y = -GRAVITY;
-    //}
-
-    ////壁の判定(右)
-    //if (pStage->IsWall((int)(objX + 0.4f), (int)objY))
-    //{
-    //    transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-    //}
-
-    ////壁の判定(左)
-    //if (pStage->IsWall((int)(objX - 0.4f), (int)objY))
-    //{
-    //    transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-    //}
-
-    /////////////////////////　シーン切り替え ///////////////////////////
-
-    ////落ちたらゲームオーバーに戻る
-    //if (transform_.position_.y < 0)
-    //{
-    //    SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-    //}
-
-    FollowGround();
 
     if (!IsBlend())
     {
@@ -625,15 +229,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-    //if (blade_)
-    //{
-    //    Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
-    //}
-    //else
-    //{
-    //    Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
-    //}
-
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
@@ -658,184 +253,144 @@ void Player::Release()
 //何かに当たった
 void Player::OnCollision(GameObject* pTarget)
 {
-    //XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
-    //XMVECTOR Down = { 0,-1,0,0 };
-
-    //float objX = transform_.position_.x;
-    //float objY = transform_.position_.y;
-
-    ////ブロックに当たった
-    //if (pTarget->GetObjectName() == "Block")
-    //{
-    //    if (pStage->IsWallX((int)objX, (int)(objY + 0.2f)))
-    //    {
-    //        pTarget->KillMe();
-    //        IsJump = 0;
-    //    }
-    //}
-
-    ////コインに当たった
-    //if (pTarget->GetObjectName() == "Coin")
-    //{
-    //    pTarget->KillMe();
-    //}
-
     //敵に当たった
     if (pTarget->GetObjectName() == "Enemy")
     {
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
         pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
     }
+}
 
-    ////動くブロックに当たった
-    //if (pTarget->GetObjectName() == "Block_move")
-    //{
-    //    //壁の判定(下)
-    //    if (pStage->IsWallM((int)objX, (int)(objY + 0.2f)))
-    //    {
-    //        transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2f;
-    //        IsJump = 0;
-    //    }
-    //    //壁の判定（上）
-    //    if (pStage->IsWallM((int)objX, (int)(objY - 0.2f)))
-    //    {
-    //        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
-    //        IsJump = 0;
-    //    }
-    //    //壁の判定(右)
-    //    if (pStage->IsWallM((int)(objX + 0.4f), (int)objY))
-    //    {
-    //        transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-    //    }
+void Player::Amidakuji()
+{
+    ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
+    
+    int objX = transform_.position_.x;
+    int objY = transform_.position_.y;
+    int objZ = transform_.position_.z;
 
-    //    //壁の判定(左)
-    //    if (pStage->IsWallM((int)(objX - 0.4f), (int)objY))
-    //    {
-    //        transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-    //    }
-    //}
+    ////壁の判定(上)
+    if (pStage->IsWall(objX, objY, objZ))
+    {
+        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
+        IsJump = 0;
+    }
+    if (pStage->IsWallX(objX, objY, objZ))
+    {
+        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
+        IsJump = 0;
+    }
 
-    ////土管に当たった
-    //if (pTarget->GetObjectName() == "Pipe_base")
-    //{
-    //    //壁の判定(上)
-    //    if (pStage->IsPipe((int)objX, (int)(objY - 0.2f)))
-    //    {
-    //        transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
-    //        IsJump = 0;
-    //    }
+    if (!a && !b && pStage->IsEmpty((float)objX + 5, objY, objZ))
+    {
+        IsReturn = true;
+    }
+    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    {
+        IsReturn = false;
+    }
+    if (IsReturn)
+    {
+        transform_.position_.x -= speed;
+    }
+    else
+    {
+        transform_.position_.x += speed;
+    }
 
-    //    //壁の判定(下)
-    //    if (pStage->IsPipe((int)objX, (int)(objY + 0.2f)))
-    //    {
-    //        transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-    //        move_.y = -GRAVITY;
-    //    }
+    if (!b && time2 > 4)
+    {
+        if (pStage->IsWallM(objX, objY, objZ - 3))
+        {
+            speed = 0;
+            a = true;
+            time2 = 0;
+        }
+    }
 
-    //    //壁の判定(右)
-    //    if (pStage->IsPipe((int)(objX + 0.4f), (int)objY))
-    //    {
-    //        transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-    //    }
+    //右に行く
+    if (a)
+    {
+        IsStop = false;
 
-    //    //壁の判定(左)
-    //    if (pStage->IsPipe((int)(objX - 0.4f), (int)objY))
-    //    {
-    //        transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-    //    }
-    //}
+        transform_.rotate_ = XMFLOAT3(0, -90, 0);
+        if (g <= 0)
+        {
+            s = 0.2f;
+            t += s;
+            if (t >= 6)
+            {
+                trans[0].position_ = transform_.position_;
+                time1 = 0;
+                s = 0;
+                t = 0;
+                a = false;
+                speed = 0.2;
+                if (IsReturn)
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                }
+                else
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
+                }
+            }
+            else
+            {
+                transform_.position_.z -= s;
+            }
+        }
+    }
+    //左に行く
+    else
+    {
+        //止まっていなかったら
+        if (!IsStop)
+        {
+            time2++;
 
-    ////ボスに当たった
-    //if (pTarget->GetObjectName() == "Boss")
-    //{
-    //    //敵の位置
-    //    XMFLOAT3 BossPos = pTarget->GetPosition();
-    //    XMVECTOR vBossPos = XMLoadFloat3(&BossPos);
+            if (!b) time1++;
+        }
 
-    //    //プレイヤーの位置
-    //    XMVECTOR PlayerPos = vBossPos - vPlayerPos;
-    //    XMVector3Normalize(PlayerPos);
+        if (time1 > 4)
+        {
+            if (pStage->IsPipe(objX, objY, objZ + 2))
+            {
+                speed = 0;
+                b = true;
+            }
+        }
 
-    //    //Downとプレイヤーの外積を求める
-    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-    //    float Dot = XMVectorGetY(vDot);
-
-    //    //角度を求める
-    //    angle = acos(Dot) * (180.0 / 3.14f);
-
-    //    if (angle <= 90)
-    //    {
-    //        //初速度
-    //        jump_v0 = 0.15f;
-    //        //重力
-    //        GRAVITY = 0.003f;
-
-    //        //初速度を加える
-    //        move_.y = jump_v0;
-    //        transform_.position_.y += move_.y;
-
-    //        //重力を加える
-    //        move_.y += GRAVITY;
-    //        transform_.position_.y += move_.y;
-
-    //        pTarget->KillMe();
-    //    }
-    //    else
-    //    {
-    //        //横から当たったらプレイヤーを消す
-    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-    //        KillMe();
-    //    }
-    //}
-
-    ////ボス2に当たった
-    //if (pTarget->GetObjectName() == "Boss2")
-    //{
-    //    //敵の位置
-    //    XMFLOAT3 Boss2Pos = pTarget->GetPosition();
-    //    XMVECTOR vBoss2Pos = XMLoadFloat3(&Boss2Pos);
-
-    //    //プレイヤーの位置
-    //    XMVECTOR PlayerPos = vBoss2Pos - vPlayerPos;
-    //    XMVector3Normalize(PlayerPos);
-
-    //    //Downとプレイヤーの外積を求める
-    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-    //    float Dot = XMVectorGetY(vDot);
-
-    //    if (angle <= 90)
-    //    {
-    //        //初速度
-    //        jump_v0 = 0.15f;
-    //        //重力
-    //        GRAVITY = 0.003f;
-
-    //        //初速度を加える
-    //        move_.y = jump_v0;
-    //        transform_.position_.y += move_.y;
-
-    //        //重力を加える
-    //        move_.y += GRAVITY;
-    //        transform_.position_.y += move_.y;
-
-    //        //HPを減らす
-    //        BossHp--;
-
-    //        //HPが０になったら消す
-    //        if (BossHp <= 0)
-    //        {
-    //            pTarget->KillMe();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //横から当たったらプレイヤーを消す
-    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-    //        KillMe();
-    //    }
-    //}
+        if (b)
+        {
+            IsStop = false;
+            f = 0.2f;
+            g += f;
+            transform_.rotate_ = XMFLOAT3(0, 90, 0);
+            if (g >= 6)
+            {
+                trans[1].position_ = transform_.position_;
+                time2 = 0;
+                g = 0;
+                f = 0;
+                b = false;
+                speed = 0.2;
+                time1 = 0;
+                if (IsReturn)
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                }
+                else
+                {
+                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
+                }
+            }
+            else
+            {
+                transform_.position_.z += f;
+            }
+        }
+    }
 }
 
 //地面に沿わせる
@@ -878,7 +433,4 @@ void Player::FollowGround()
             transform_.position_.y = -xdata.dist;
         }
     }
-
-    /*if (xdata.hit) a = true;
-    else a = false;*/
 }

@@ -10,6 +10,7 @@ class Player : public GameObject
     int hModel_;          //モデル番号
     int hModelWood_;
     int hModelBlock_;
+    float speed;          //移動速度
     float jump_v0;        //ジャンプの初速度
     float GRAVITY;        //重力
     float angle;          //角度
@@ -21,7 +22,7 @@ class Player : public GameObject
     int BossHp;           //ボスのHP
 
     //定数
-    float SPEED;        //移動速度
+
     const float DUSHSPEED;    //ダッシュ速度
     const float CAMERA_TAR_Y; //カメラの向き
     const float CAMERA_POS_Y; //カメラの位置
@@ -79,6 +80,7 @@ public:
 
     bool GetReturn() { return IsReturn; };
 
+    void Amidakuji();
 
     //Coin
     int GetCoinCount() { return coin_count_; };

@@ -128,7 +128,6 @@ public:
 	//RootJobを取得
 	GameObject* GetRootJob();
 
-
 	//各アクセス関数
 	XMFLOAT3 GetPosition() { return transform_.position_; }
 	XMFLOAT3 GetRotate() { return transform_.rotate_; }
@@ -145,7 +144,6 @@ public:
 	void SetRotateZ(float z) { SetRotate(transform_.rotate_.x, transform_.rotate_.y, z); }
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 	void SetScale(float x, float y, float z) { SetScale(XMFLOAT3(x, y, z)); }
-
 
 private:
 

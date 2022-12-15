@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Audio.h"
+#include "SceneManager.h"
 #include "../Player.h"
 #include "../Controller.h"
 
@@ -126,8 +127,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				Camera::Update();
 
 
-
-
 				//このフレームの描画開始
 				Direct3D::BeginDraw();
 
@@ -135,12 +134,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				////ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->DrawSub();
 
-				//★画面分割
-				if (Camera::GetDual() == 2)
+				//プレイシーンだったら
+				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY)
 				{
+					//★画面分割
+					switch (Camera::GetDual())
+					{
+					case 1:
+						Direct3D::SetViewPort(Direct3D::SCREEN_DEFAULT);
+						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
+						Camera::Update();
+
+						break;
+
+					case 2:
 					//左画面描画
 					{
-						Direct3D::SetViewPort(0);
+						Direct3D::SetViewPort(Direct3D::SCREEN_LEFT);
 
 						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
 						Camera::Update();
@@ -149,24 +159,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 					//右画面描画
 					{
-						Direct3D::SetViewPort(1);
+						Direct3D::SetViewPort(Direct3D::SCREEN_RIGHT);
 
 						((Controller*)pRootObject->FindObject("Controller"))->EnemyCamera();
-						Camera::Update();
 					}
-				}
-				else if (Camera::GetDual() == 1)
-				{
-					Direct3D::SetViewPort(2);
-					((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
-					Camera::Update();
+						break;
+					}
 				}
 
 				//描画終了
 				Direct3D::EndDraw();
-
-
-
 				
 				//ちょっと休ませる
 				Sleep(1);

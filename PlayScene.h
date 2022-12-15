@@ -9,7 +9,6 @@ class PlayScene : public GameObject
 {
 public:
 	Player* pPlayer;
-	Text* pText;
 	Transform playerTrans;
 
 	//コンストラクタ

@@ -8,12 +8,13 @@
 #include "Instructions.h"
 #include "Controller.h"
 #include "FireFollowGround.h"
+#include "Fire.h"
+#include "Enemy.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-#include "Fire.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -26,20 +27,20 @@ void PlayScene::Initialize()
 {
 	//ステージ
 	Instantiate<Stage>(this);
+
 	Stage* pStage = (Stage*)FindObject("Stage");
-	//ステージのモデルロード
+	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
+	//モデルロード
 	pStage->StageLoad();
+	pEnemy->EnemyLoad();
 
 	Instantiate<Player>(this);
-
-	pText = new Text;
-	pText->Initialize();
 }
 
 //更新
 void PlayScene::Update()
 {
-
 	Player* pPlayer = (Player*)FindObject("Player");
 
 	FireFollowGround* pFireFollowGround;
@@ -82,7 +83,7 @@ void PlayScene::Update()
 
 	if (FindObject("Enemy") == nullptr)
 	{
-		//プレイシーンに切り替え
+		//クリアシーンに切り替え
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 	}

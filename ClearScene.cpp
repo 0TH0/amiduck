@@ -2,6 +2,7 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
+#include "Engine/Camera.h"
 
 //コンストラクタ
 ClearScene::ClearScene(GameObject* parent)
@@ -15,6 +16,9 @@ void ClearScene::Initialize()
 	//画像データのロード
 	hPict_ = Image::Load("CLEAR.png");
 	assert(hPict_ >= 0);
+
+	
+	Camera::SetDefault();
 }
 
 //更新

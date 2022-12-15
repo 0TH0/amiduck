@@ -63,12 +63,8 @@ public:
 
     //ŠJ•ú
     void Release() override;
-
-    float EnemyX() { return transform_.position_.x; }
-
-    //void OnCollision(GameObject* pTarget) override;
-
-    void FollowGround();
-
+    
     bool GetReturn() { return IsReturn; };
+
+    void EnemyLoad();
 };

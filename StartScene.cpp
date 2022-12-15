@@ -17,6 +17,8 @@ StartScene::StartScene(GameObject* parent)
 //‰Šú‰»
 void StartScene::Initialize()
 {
+	Camera::SetDefault();
+
 	hPict_[0] = Image::Load("a.png");
 	assert(hPict_[0] >= 0);
 

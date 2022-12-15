@@ -65,6 +65,12 @@ namespace Direct3D
 		BLEND_DEFAULT, BLEND_ADD, BLEND_MAX
 	};
 
+	//‰æ–Ê•ªŠ„
+	enum SCREEN_SPLIT
+	{
+		SCREEN_DEFAULT, SCREEN_LEFT, SCREEN_RIGHT, SCREEN_MAX
+	};
+
 
 	//‚»‚Ì‘¼
 	extern int		screenWidth_;		//ƒXƒNƒŠ[ƒ“‚Ì•
@@ -126,6 +132,6 @@ namespace Direct3D
 	void SetDepthBafferWriteEnable(bool isWrite);
 
 	//š
-	void SetViewPort(int lr);
+	void SetViewPort(SCREEN_SPLIT lr);
 };
 

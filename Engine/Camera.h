@@ -37,5 +37,5 @@ namespace Camera
 
 	void SetDual();
 
-	float GetDual();
+	int GetDual();
 };

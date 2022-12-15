@@ -6,14 +6,14 @@ XMFLOAT3 _target;
 XMMATRIX _view;
 XMMATRIX _proj;
 XMMATRIX _billBoard;
-float dual_;
+int dual_;
 
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
 {
 	_position = XMFLOAT3(0, 3, -10);	//カメラの位置
 	_target = XMFLOAT3( 0, 0, 0);	//カメラの焦点
-	dual_ = 2;
+	dual_ = 1;
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_ / dual_ , 0.1f, 1000.0f);
@@ -68,7 +68,7 @@ void Camera::SetDual()
 	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_ / dual_, 0.1f, 1000.0f);
 }
 
-float Camera::GetDual()
+int Camera::GetDual()
 {
 	return dual_;
 }
