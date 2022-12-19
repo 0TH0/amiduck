@@ -7,10 +7,16 @@
 //◆◆◆を管理するクラス
 class Player : public GameObject
 {
+    enum dir
+    {
+        left = 0,
+        right,
+        dir_max
+    };
+
     int hModel_;          //モデル番号
     int hModelWood_;
     int hModelBlock_;
-    float speed;          //移動速度
     float jump_v0;        //ジャンプの初速度
     float GRAVITY;        //重力
     float angle;          //角度
@@ -21,25 +27,24 @@ class Player : public GameObject
     bool IsEnemy;         //敵に当たったか
     int BossHp;           //ボスのHP
 
-    //定数
+    float speed_;        //移動速度
+    float speed_on_wood_[dir_max];  //木の上の移動速度
+    float time_on_wood_[dir_max];    //木の上の時間
 
+    //定数
     const float DUSHSPEED;    //ダッシュ速度
     const float CAMERA_TAR_Y; //カメラの向き
     const float CAMERA_POS_Y; //カメラの位置
-    float s;
-    float t;
-    float f;
-    float g;
 
     Stage* pStage;
 
     Text* pText = new Text;
 
-    float a = false;
+    bool IsRight_ = false;
     bool c = false;
-    bool b = false;
-    int time1 = 0;
-    int time2;
+    bool IsLeft_ = false;
+    int delay;          //遅延
+    int stopped_time_;
     int time3;
     Transform trans[2];
     bool IsPress;
@@ -81,6 +86,7 @@ public:
     bool GetReturn() { return IsReturn; };
 
     void Amidakuji();
+
 
     //Coin
     int GetCoinCount() { return coin_count_; };

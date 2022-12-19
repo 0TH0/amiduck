@@ -9,7 +9,7 @@ class Fire : public GameObject
 {
 public:
 	int hModel_; 
-	XMFLOAT3 PlayerPos_;
+	Transform PlayerTrans_;
 	float plus;
 	bool Is;
 

@@ -14,7 +14,7 @@ Fire::Fire(GameObject* parent)
 void Fire::Initialize()
 {
 	//画像データのロード
-	hModel_ = Model::Load("fire.fbx");
+	hModel_ = Model::Load("Enemy\\raccoon10.fbx");
 	assert(hModel_ >= 0);
 
 	//当たり判定
@@ -23,7 +23,7 @@ void Fire::Initialize()
 
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
-    transform_.rotate_ = XMFLOAT3(0, 90, 0);
+    transform_.rotate_ = XMFLOAT3(0, 0, 0);
 
     //ポリライン初期化
     pLine = new PoryLine;
@@ -33,15 +33,15 @@ void Fire::Initialize()
     pLine2->Load("tex_orange.png");
 
     Player* pPlayer = (Player*)FindObject("Player");
-    PlayerPos_ = pPlayer->GetPosition();
-    transform_.position_ = PlayerPos_;
+    PlayerTrans_.position_ = pPlayer->GetPosition();
+    transform_.position_ = PlayerTrans_.position_;
 }
 
 //更新
 void Fire::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
-    transform_.position_ = PlayerPos_;
+    transform_.position_ = PlayerTrans_.position_;
 
 	plus = 1;
 	time++;
@@ -50,7 +50,7 @@ void Fire::Update()
 	{
 		if (!Is)
 		{
-            PlayerPos_ = pPlayer->GetPosition();
+            PlayerTrans_.position_ = pPlayer->GetPosition();
 			Is = true;
 		}
 	}
@@ -61,12 +61,13 @@ void Fire::Update()
 	}
 	else
 	{
-		PlayerPos_.x += plus;
+        PlayerTrans_.position_.x += plus;
+        PlayerTrans_.rotate_.y++;
 	}
 
     //ポリラインに現在の位置を伝える
-    pLine->AddPosition(PlayerPos_);
-    pLine2->AddPosition(PlayerPos_);
+    pLine->AddPosition(PlayerTrans_.position_);
+    pLine2->AddPosition(PlayerTrans_.position_);
 
     ///////////////////////// あみだくじの処理 //////////////////////////////////////////
    
