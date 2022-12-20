@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Fbx.h"
 
 //-----------------------------------------------------------
 //カメラ
@@ -38,4 +39,25 @@ namespace Camera
 	void SetDual();
 
 	int GetDual();
+
+	//ビューポート行列を取得
+	XMMATRIX GetViewPortMatrix();
+
+	//スクリーン座標からワールド座標に計算する
+	void CalcScreenToWorld(RayCastData& rayData);
+	
+	//スタート位置のベクトル取得
+	XMVECTOR GetvStart();
+
+	//ターゲット位置のベクトル取得
+	XMVECTOR GetvTarget();
+
+	//各逆行列を求める
+	XMMATRIX CalcinvTransform();
+
+	//スタート位置のベクトル取得
+	XMFLOAT3& getMousePosBack();
+
+	//ターゲット位置のベクトル取得
+	XMFLOAT3& getMousePosFront();
 };

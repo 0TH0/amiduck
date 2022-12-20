@@ -6,6 +6,7 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
+#include "Engine/Camera.h"
 
 //コンストラクタ
 Coin::Coin(GameObject* parent)
@@ -39,6 +40,15 @@ void Coin::Update()
 		Visible();
 		IsHit_ = false;
 		time_ = 0;
+	}
+
+	RayCastData rDog;
+	Camera::CalcScreenToWorld(rDog);
+	Model::RayCast(hModel_, &rDog);
+
+	if (rDog.hit)
+	{
+		transform_.position_.y++;
 	}
 }
 

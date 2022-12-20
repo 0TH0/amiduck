@@ -17,7 +17,7 @@ struct RayCastData
 	XMFLOAT3 normal;	//法線
 
 	RayCastData() { dist = 99999.0f; }
-};
+};	
 
 //-----------------------------------------------------------
 //　FBXファイルを扱うクラス
