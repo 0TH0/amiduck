@@ -1,0 +1,10 @@
+﻿#pragma once
+#include <DirectXMath.h>
+
+using namespace DirectX;
+
+namespace Math
+{
+	//XMFLOAT4をセットする
+	void SetXMFLOAT4(XMFLOAT4 xmf4, float x, float y, float z, float w);
+};

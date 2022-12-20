@@ -142,6 +142,7 @@
     <ClCompile Include="Engine\Image.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
+    <ClCompile Include="Engine\Math.cpp" />
     <ClCompile Include="Engine\Model.cpp" />
     <ClCompile Include="Engine\Particle.cpp" />
     <ClCompile Include="Engine\PoryLine.cpp" />
@@ -156,11 +157,13 @@
     <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClearScene.h" />
@@ -180,6 +183,7 @@
     <ClInclude Include="Engine\Global.h" />
     <ClInclude Include="Engine\Image.h" />
     <ClInclude Include="Engine\Input.h" />
+    <ClInclude Include="Engine\Math.h" />
     <ClInclude Include="Engine\Model.h" />
     <ClInclude Include="Engine\Particle.h" />
     <ClInclude Include="Engine\PoryLine.h" />
@@ -194,11 +198,13 @@
     <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Instructions.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Sky.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

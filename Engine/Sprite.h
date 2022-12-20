@@ -70,7 +70,8 @@ public:
 	//引数：matrix	変換行列（ワールド行列）
 	//引数：rect	画像の切り抜き範囲
 	//引数：alpha	アルファ値（不透明度）
-	void Draw(Transform& transform, RECT rect, float alpha);
+	//引数：color	アルファ値（不透明度）
+	void Draw(Transform& transform, RECT rect, XMFLOAT4 color);
 
 
 	//画像サイズの取得

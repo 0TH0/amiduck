@@ -10,6 +10,7 @@
 #include "FireFollowGround.h"
 #include "Fire.h"
 #include "Enemy.h"
+#include "Line.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"

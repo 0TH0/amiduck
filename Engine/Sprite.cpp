@@ -101,7 +101,7 @@ void Sprite::InitIndex()
 
 
 
-void Sprite::Draw(Transform& transform, RECT rect, float alpha)
+void Sprite::Draw(Transform& transform, RECT rect, XMFLOAT4 color)
 {
 	//いろいろ設定
 	Direct3D::SetShader(Direct3D::SHADER_2D);
@@ -143,7 +143,7 @@ void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 	
 
 	// テクスチャ合成色情報を渡す
-	cb.color = XMFLOAT4(1, 1, 1, alpha);
+	cb.color = color;
 
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る

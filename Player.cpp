@@ -5,6 +5,7 @@
 #include "Fire.h"
 #include "Controller.h"
 #include "Enemy.h"
+#include "Line.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -141,45 +142,58 @@ void Player::Update()
         //    data.deltaColor = XMFLOAT4(0, 0, 0, -0.002);
         //    pParticle_->Start(data);
         //}
-        {
-            EmitterData data;
-            data.textureFileName = "Particle\\Cloud.png";
-            data.position = transform_.position_;
-            data.delay = 0;
-            data.number = 80;
-            data.lifeTime = 30;
-            data.dir = XMFLOAT3(1, 0, 0);
-            data.dirErr = XMFLOAT3(180, 90, 90);
-            data.speed = 0.4f;
-            data.speedErr = 1;
-            data.size = XMFLOAT2(1, 0.5);
-            data.sizeErr = XMFLOAT2(0.4, 0.4);
-            data.scale = XMFLOAT2(1.05, 1.05);
-            data.color = XMFLOAT4(0.2, 0.2, 1, 1);
-            data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-            data.gravity = 0.003f;
-            pParticle_->Start(data);
+        //{
+        //    EmitterData data;
+        //    data.textureFileName = "Particle\\Cloud.png";
+        //    data.position = transform_.position_;
+        //    data.delay = 0;
+        //    data.number = 80;
+        //    data.lifeTime = 30;
+        //    data.dir = XMFLOAT3(1, 0, 0);
+        //    data.dirErr = XMFLOAT3(180, 90, 90);
+        //    data.speed = 0.4f;
+        //    data.speedErr = 1;
+        //    data.size = XMFLOAT2(1, 0.5);
+        //    data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //    data.scale = XMFLOAT2(1.05, 1.05);
+        //    data.color = XMFLOAT4(0.2, 0.2, 1, 1);
+        //    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+        //    data.gravity = 0.003f;
+        //    pParticle_->Start(data);
 
-            data.color = XMFLOAT4(0.5, 0.5, 0, 1);
-            pParticle_->Start(data);
+        //    data.color = XMFLOAT4(0.5, 0.5, 0, 1);
+        //    pParticle_->Start(data);
 
-            data.delay = 0;
-            data.number = 80;
-            data.lifeTime = 100;
-            data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-            data.dir = XMFLOAT3(0, 1, 0);
-            data.dirErr = XMFLOAT3(180, 180, 180);
-            data.speed = 0.5f;
-            data.speedErr = 1;
-            data.accel = 0.93;
-            data.size = XMFLOAT2(0.1, 0.1);
-            data.sizeErr = XMFLOAT2(0.4, 0.4);
-            data.scale = XMFLOAT2(0.99, 0.99);
-            data.color = XMFLOAT4(1, 1, 0.1, 1);
-            data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-            data.gravity = 0.003f;
-            pParticle_->Start(data);
-        }
+        //    data.delay = 0;
+        //    data.number = 80;
+        //    data.lifeTime = 100;
+        //    data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+        //    data.dir = XMFLOAT3(0, 1, 0);
+        //    data.dirErr = XMFLOAT3(180, 180, 180);
+        //    data.speed = 0.5f;
+        //    data.speedErr = 1;
+        //    data.accel = 0.93;
+        //    data.size = XMFLOAT2(0.1, 0.1);
+        //    data.sizeErr = XMFLOAT2(0.4, 0.4);
+        //    data.scale = XMFLOAT2(0.99, 0.99);
+        //    data.color = XMFLOAT4(1, 1, 0.1, 1);
+        //    data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+        //    data.gravity = 0.003f;
+        //    pParticle_->Start(data);
+        //}
+
+        is_Speed_up_ = true;
+        Instantiate<Line>(this);
+    }
+
+    if (is_Speed_up_)
+    {
+        speed_up_time_++;
+        speed_ = 0.4;
+    }
+    if (speed_up_time_ > 30)
+    {
+        is_Speed_up_ = false;
     }
 
 
@@ -601,10 +615,12 @@ void Player::Amidakuji()
     if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX + 5, objY, objZ))
     {
         IsReturn = true;
+        transform_.rotate_ = XMFLOAT3(0, 0, 0);
     }
     if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
     {
         IsReturn = false;
+        transform_.rotate_ = XMFLOAT3(0, 180, 0);
     }
     if (IsReturn)
     {

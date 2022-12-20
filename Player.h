@@ -30,6 +30,8 @@ class Player : public GameObject
     float speed_;        //移動速度
     float speed_on_wood_[dir_max];  //木の上の移動速度
     float time_on_wood_[dir_max];    //木の上の時間
+    int speed_up_time_;             //スピードUPしている時間
+    bool is_Speed_up_;
 
     //定数
     const float DUSHSPEED;    //ダッシュ速度
