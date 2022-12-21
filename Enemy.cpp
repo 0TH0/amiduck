@@ -217,7 +217,7 @@ void Enemy::Update()
     //    }
 
     //    //‚»‚ÌŠp“x‰ñ“]‚³‚¹‚é
-    //    transform_.rotate_.y = angle * 180.0f / 3.14f;
+    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.14f;
     //}
 
     //////////////////•Ç‚Æ‚ÌÕ“Ë”»’è///////////////////////
@@ -226,22 +226,22 @@ void Enemy::Update()
     int objZ = transform_.position_.z;
 
     ////•Ç‚Ì”»’è(ã)
-    if (pStage->IsWall(objX, objY, objZ))
+    if (pStage->IsWall(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    if (pStage->IsWallX(objX, objY, objZ))
+    if (pStage->IsWallX(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 3, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX + 3,  objZ))
     {
         IsReturn = true;
     }
-    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX - 2.5,  objZ))
     {
         IsReturn = false;
     }
@@ -254,7 +254,7 @@ void Enemy::Update()
     else
     {
         transform_.position_.x += SPEED;
-        rotate_.y = 180;
+        rotate_.y = STAGE_SIZE_X;
     }
 
 
@@ -262,7 +262,7 @@ void Enemy::Update()
 
     if (!b && time2 > 4)
     {
-        if (pStage->IsWallM(objX, objY, objZ - 3))
+        if (pStage->IsWallM(objX,  objZ - 3))
         {
             SPEED = 0;
             a = true;
@@ -302,7 +302,7 @@ void Enemy::Update()
 
         if (time1 > 4)
         {
-            if (pStage->IsPipe(objX, objY, objZ + 2))
+            if (pStage->IsPipe(objX,  objZ + 2))
             {
                 SPEED = 0;
                 b = true;

@@ -223,7 +223,7 @@ void FireFollowGround::Update()
     //    }
 
     //    //ÇªÇÃäpìxâÒì]Ç≥ÇπÇÈ
-    //    transform_.rotate_.y = angle * 180.0f / 3.14f;
+    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.14f;
     //}
 
     //////////////////ï«Ç∆ÇÃè’ìÀîªíË///////////////////////
@@ -232,22 +232,22 @@ void FireFollowGround::Update()
     int objZ = transform_.position_.z;
 
     ////ï«ÇÃîªíË(è„)
-    if (pStage->IsWall(objX, objY, objZ))
+    if (pStage->IsWall(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    if (pStage->IsWallX(objX, objY, objZ))
+    if (pStage->IsWallX(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 3, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX + 3, objZ))
     {
         IsReturn = true;
     }
-    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objZ))
     {
         IsReturn = false;
     }
@@ -260,14 +260,14 @@ void FireFollowGround::Update()
     else
     {
         transform_.position_.x += SPEED;
-        rotate_.y = 180;
+        rotate_.y = STAGE_SIZE_X;
     }
 
     ///////////////////////// Ç†Ç›ÇæÇ≠Ç∂ÇÃèàóù ///////////////////////////////////////////
 
     if (!b && time2 > 4)
     {
-        if (pStage->IsWallM(objX, objY, objZ - 3))
+        if (pStage->IsWallM(objX, objZ - 3))
         {
             SPEED = 0;
             a = true;
@@ -307,7 +307,7 @@ void FireFollowGround::Update()
 
         if (time1 > 4)
         {
-            if (pStage->IsPipe(objX, objY, objZ + 2))
+            if (pStage->IsPipe(objX, objZ + 2))
             {
                 SPEED = 0;
                 b = true;
@@ -552,7 +552,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        float Dot = XMVectorGetY(vDot);
 //
 //        //äpìxÇãÅÇﬂÇÈ
-//        angle = acos(Dot) * (180.0 / 3.14f);
+//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.14f);
 //
 //        if (angle <= 90)
 //        {
@@ -651,7 +651,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        float Dot = XMVectorGetY(vDot);
 //
 //        //äpìxÇãÅÇﬂÇÈ
-//        angle = acos(Dot) * (180.0 / 3.14f);
+//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.14f);
 //
 //        if (angle <= 90)
 //        {

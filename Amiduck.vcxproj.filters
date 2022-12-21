@@ -113,6 +113,7 @@
     <ClCompile Include="Engine\Math.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Empty.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -202,6 +203,7 @@
     <ClInclude Include="Engine\Math.h">
       <Filter>01Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Empty.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Coin.h"
+#include "Empty.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -11,6 +12,7 @@
 #include "Engine/Input.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/BoxCollider.h"
+#include "Engine/Camera.h"
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -27,8 +29,8 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //空箱
-    hModel_[empty] = Model::Load("Empty.fbx");
-    assert(hModel_[0] >= 0);
+    //hModel_[empty] = Model::Load("Empty.fbx");
+    //assert(hModel_[0] >= 0);
 
     //ブロック
     hModel_[log] = Model::Load("log.fbx");
@@ -74,34 +76,48 @@ void Stage::SetCloudPos(float x, float y, float z)
 //初期化
 void Stage::Initialize()
 {
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
+            stage_[x][z].height = 1;
+            stage_[x][z].type = 0;
+        }
+    }
+
     StageLoad();
 
     //Csv読み込み
     CsvReader csv;
     csv.Load("map.csv");
 
-    for (int x = 0; x < 180; x++)
+    for (int x = 0; x < STAGE_SIZE_X; x++)
     {
-        for (int z = 0; z < 39; z++)
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            map_[x][0][z] = csv.GetValue(x, -z + 38);
+            stage_[x][z].type = csv.GetValue(x, -z + 38);
+
+            if (stage_[x][z].type == empty)
+            {
+                //Empty* pEmpty = Instantiate<Empty>(this);
+            }
 
             //コイン登場
-            if (map_[x][0][z] == coin)
+            if (stage_[x][z].type == coin)
             {
                 Coin* pCoin = Instantiate<Coin>(GetParent());
                 pCoin->SetPosition(x + 0.25, 1, z + 1);
             }
 
             //エネミー登場
-            if (map_[x][0][z] == enemy)
+            if (stage_[x][z].type == enemy)
             {
                 Enemy* pEnemy = Instantiate<Enemy>(GetParent());
                 pEnemy->SetPosition(x, 1, z + 1);
             }
 
             //プレイヤー登場
-            if (map_[x][0][z] == player)
+            if (stage_[x][z].type  == player)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
                 pPlayer->SetPosition(x, 1, z + 1);
@@ -122,56 +138,147 @@ void Stage::Update()
 
     player_pos_.z = (int)pPlayer->GetPosition().z;
 
-    time_++;
+    //time_++;
 
-    if (time_ == 180)
-    {
-        count_++;
-        time_ = 0;
-    }
+    //if (time_ == STAGE_SIZE_X)
+    //{
+    //    count_++;
+    //    time_ = 0;
+    //}
 
-    if (count_ >= 3)
-    {
-        count_ = 3;
-    }
+    //if (count_ >= 3)
+    //{
+    //    count_ = 3;
+    //}
 
-    if (count_ > 0)
+    //if (count_ > 0)
+    //{
+    //    if (Input::IsKeyDown(DIK_A))
+    //    {
+    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 2] = 2;
+    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 3] = 2;
+    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 4] = 2;
+    //        time_ = 0;
+    //        count_--;
+    //        SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z + 4);
+    //        Cloud();
+    //    }
+
+    //    if (Input::IsKeyDown(DIK_D))
+    //    {
+    //        if ((int)player_pos_.z >= 38)
+    //        {
+    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
+    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
+    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 5] = 2;
+    //            time_ = 0;
+    //            count_--;
+    //            SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 3);
+    //            Cloud();
+    //        }
+    //        else
+    //        {
+    //            if (Input::IsKeyDown(DIK_D))
+    //            {
+    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
+    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
+    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
+    //                time_ = 0;
+    //                count_--;
+    //                SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 2);
+    //                Cloud();
+    //            }
+    //        }
+    //    }
+    //}
+
+    int bufX, bufY, bufZ = 0;
+    float minDistance = 9999999;
+    bool IsHit = false;
+    
+    if(Input::IsMouseButtonDown(0))
     {
-        if (Input::IsKeyDown(DIK_A))
+        for (int x = 0; x < STAGE_SIZE_X; x++)
         {
-            map_[(int)player_pos_.x][0][(int)player_pos_.z + 2] = 2;
-            map_[(int)player_pos_.x][0][(int)player_pos_.z + 3] = 2;
-            map_[(int)player_pos_.x][0][(int)player_pos_.z + 4] = 2;
-            time_ = 0;
-            count_--;
-            SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z + 4);
-            Cloud();
+            for (int z = 0; z < STAGE_SIZE_Z; z++)
+            {
+                for (int y = 0; y < stage_[x][z].height; y++)
+                {
+                    //レイ飛ばす
+                    RayCastData ray;
+                    Camera::CalcScreenToWorld(ray);
+
+                    int type = stage_[x][z].type;
+                    Transform trans;
+                    trans.position_.x = x;
+                    trans.position_.y = y;
+                    trans.position_.z = z;
+                    Model::SetTransform(hModel_[stage_[x][z].type], trans);
+                    Model::RayCast(hModel_[stage_[x][z].type], &ray);
+
+                    //レイが当たったら
+                    if (ray.hit)
+                    {
+                        IsHit = true;
+                        if (minDistance > ray.dist)
+                        {
+                            minDistance = ray.dist;
+                            bufX = x;
+                            bufY = y;
+                            bufZ = z;
+                        }
+                    }
+                }
+            }
         }
 
-        if (Input::IsKeyDown(DIK_D))
+        //マウスの位置にブロックがあったら
+        if (IsHit)
         {
-            if ((int)player_pos_.z >= 38)
+            //クリックしたところが何もなかったら
+            if (stage_[bufX][bufZ].type == empty)
             {
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
-                map_[(int)player_pos_.x][0][(int)player_pos_.z - 5] = 2;
-                time_ = 0;
-                count_--;
-                SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 3);
-                Cloud();
-            }
-            else
-            {
-                if (Input::IsKeyDown(DIK_D))
+                if (stage_[bufX][bufZ].type == log)
                 {
-                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
-                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
-                    map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
-                    time_ = 0;
-                    count_--;
-                    SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 2);
-                    Cloud();
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ - 2].type = coin;
                 }
+                if (stage_[bufX][bufZ - 1].type == log)
+                {
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
+                }
+  /*              else if (stage_[bufX][bufZ - 2].type == log)
+                {
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                }*/
+
+                if (stage_[bufX][bufZ].type == log)
+                {
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
+                }
+                if (stage_[bufX][bufZ + 1].type == log)
+                {
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ - 2].type = coin;
+                }
+                //else if (stage_[bufX][bufZ + 2].type == log)
+                //{
+                //    stage_[bufX][bufZ - 1].type = coin;
+                //    stage_[bufX][bufZ].type = coin;
+                //    stage_[bufX][bufZ + 1].type = coin;
+                //}
+
+                //stage_[bufX][bufZ - 1].type = coin;
+                //stage_[bufX][bufZ].type = coin;
+                //stage_[bufX][bufZ + 1].type = coin;
             }
         }
     }
@@ -180,36 +287,44 @@ void Stage::Update()
 //描画
 void Stage::Draw()
 {
-    for (int x = 0; x < 180; x++)
+    for (int x = 0; x < STAGE_SIZE_X; x++)
     {
-        for (int y = 0; y < 1; y++)
-        {
-            for (int z = 0; z < 39; z++)
+            for (int z = 0; z < STAGE_SIZE_Z; z++)
             {
-                int type = map_[x][0][z];
-                transform_.position_ = XMFLOAT3(x, 0, z + 1);
-                transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                transform_.scale_ = XMFLOAT3(1, 1, 1);
-                if (map_[x][0][z] == 1)
+                for (int y = 0; y < stage_[x][z].height; y++)
                 {
-                    transform_.rotate_.y = 90;
-                }
-                ////旗の位置
-                if (map_[x][0][z] == coin)
-                {
-                    transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
-                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-                }
-                if (map_[x][0][z] == enemy || map_[x][0][z] == player)
-                {
-                    transform_.rotate_.y = 90;
-                }
+                    int type = stage_[x][z].type;
+                    transform_.position_ = XMFLOAT3(x, 0, z + 1);
+                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                    transform_.scale_ = XMFLOAT3(1, 1, 1);
 
-                //Direct3D::SetShader(Direct3D::SHADER_NORMALMAP);
-                //Direct3D::SetShader(Direct3D::SHADER_3D);
-                Model::SetTransform(hModel_[type], transform_);
-                Model::Draw(hModel_[type]);
-            }
+                    switch (stage_[x][z].type)
+                    {
+                    case empty:
+                        break;
+                    case log:
+                        transform_.rotate_.y = 90;
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    case coin:
+                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
+                        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    case enemy:
+                        transform_.rotate_.y = 90;
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    case player:
+                        transform_.rotate_.y = 90;
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    }
+                }
         }
     }
 
@@ -223,19 +338,19 @@ void Stage::Release()
 }
 
 ////そこは壁か
-bool Stage::IsWall(int x, int y, int z)
+bool Stage::IsWall(int x,  int z)
 {
-    return (map_[x][y][z] == 1);
+    return (stage_[x][z].type == 1);
 }
 
-bool Stage::IsWallX(int x, int y, int z)
+bool Stage::IsWallX(int x,  int z)
 {
-    return (map_[x][y][z] == 2);
+    return (stage_[x][z].type == 2);
 }
 
-bool Stage::IsWallM(int x, int y, int z)
+bool Stage::IsWallM(int x,  int z)
 {
-    return (map_[x][y][z] == 2);
+    return (stage_[x][z].type == 2);
 }
 
 //bool Stage::IsWallM(int x, int y)
@@ -243,12 +358,12 @@ bool Stage::IsWallM(int x, int y, int z)
 //    return (map_[x][y] == 10);
 //}
 //
-bool Stage::IsPipe(int x, int y, int z)
+bool Stage::IsPipe(int x,  int z)
 {
-    return (map_[x][y][z] == 2);
+    return (stage_[x][z].type == 2);
 }
 
-bool Stage::IsEmpty(int x, int y, int z)
+bool Stage::IsEmpty(int x,  int z)
 {
-    return (map_[x][y][z] == 0);
+    return (stage_[x][z].type == 0);
 }

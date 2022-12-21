@@ -176,6 +176,10 @@ namespace Model
 		_datas[handle]->transform = transform;
 	}
 
+	XMFLOAT3 GetPosition(int handle)
+	{
+		return _datas[handle]->transform.position_;
+	}
 
 	//ƒ[ƒ‹ƒhs—ñ‚Ìæ“¾
 	XMMATRIX GetMatrix(int handle)

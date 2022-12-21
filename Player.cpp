@@ -182,8 +182,12 @@ void Player::Update()
         //    pParticle_->Start(data);
         //}
 
-        is_Speed_up_ = true;
-        Instantiate<Line>(this);
+        //‹´‚ð“n‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
+        if (!is_on_bridge_)
+        {
+            is_Speed_up_ = true;
+            Instantiate<Line>(this);
+        }
     }
 
     if (is_Speed_up_)
@@ -516,18 +520,18 @@ void Player::Draw()
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
-    //pText->Draw(20, 20, "rotate.xyz");
-    //pText->Draw(50, 50, transform_.rotate_.x);
-    //pText->Draw(150, 50, transform_.rotate_.y);
-    //pText->Draw(250, 50, transform_.rotate_.z);
+    pText->Draw(20, 20, "rotate.xyz");
+    pText->Draw(50, 50, transform_.rotate_.x);
+    pText->Draw(150, 50, transform_.rotate_.y);
+    pText->Draw(250, 50, transform_.rotate_.z);
 
-    //pText->Draw(20, 100, "transform.xyz");
-    //pText->Draw(50, 130, transform_.position_.x);
-    //pText->Draw(150, 130, transform_.position_.y);
-    //pText->Draw(250, 130, transform_.position_.z);
+    pText->Draw(20, 100, "transform.xyz");
+    pText->Draw(50, 130, transform_.position_.x);
+    pText->Draw(150, 130, transform_.position_.y);
+    pText->Draw(250, 130, transform_.position_.z);
 
-    //pText->Draw(100, 250, "coin");
-    //pText->Draw(200, 250, coin_count_);
+    pText->Draw(100, 250, "coin");
+    pText->Draw(200, 250, coin_count_);
 }
 
 void Player::Release()
@@ -601,23 +605,23 @@ void Player::Amidakuji()
     int objZ = transform_.position_.z;
 
     ////•Ç‚Ì”»’è(ã)
-    if (pStage->IsWall(objX, objY, objZ))
+    if (pStage->IsWall(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    if (pStage->IsWallX(objX, objY, objZ))
+    if (pStage->IsWallX(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX + 5, objY, objZ))
+    if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX + 5, objZ))
     {
         IsReturn = true;
         transform_.rotate_ = XMFLOAT3(0, 0, 0);
     }
-    if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX - 2.5, objY, objZ))
+    if (!IsRight_ && !IsLeft_ && pStage->IsEmpty((float)objX - 2.5, objZ))
     {
         IsReturn = false;
         transform_.rotate_ = XMFLOAT3(0, 180, 0);
@@ -636,11 +640,12 @@ void Player::Amidakuji()
 
     if (!IsLeft_ && stopped_time_ > 4)
     {
-        if (pStage->IsWallM(objX, objY, objZ - 3))
+        if (pStage->IsWallM(objX,  objZ - 3))
         {
             speed_ = 0;
             IsRight_ = true;
             stopped_time_ = 0;
+            is_on_bridge_ = true;
         }
     }
 
@@ -659,6 +664,7 @@ void Player::Amidakuji()
             time_on_wood_[right] = 0;
             IsRight_ = false;
             speed_ = 0.2;
+            is_on_bridge_ = false;
             if (IsReturn)
             {
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
@@ -687,10 +693,11 @@ void Player::Amidakuji()
 
         if (delay > 4)
         {
-            if (pStage->IsPipe(objX, objY, objZ + 2))
+            if (pStage->IsPipe(objX, objZ + 2))
             {
                 speed_ = 0;
                 IsLeft_ = true;
+                is_on_bridge_ = true;
             }
         }
 
@@ -709,6 +716,7 @@ void Player::Amidakuji()
                 IsLeft_ = false;
                 speed_ = 0.2;
                 delay = 0;
+                is_on_bridge_ = false;
                 if (IsReturn)
                 {
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);

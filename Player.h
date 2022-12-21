@@ -52,6 +52,7 @@ class Player : public GameObject
     bool IsPress;
     bool IsReturn;
     bool IsStop;
+    bool is_on_bridge_;
 
     int coin_count_;
     XMFLOAT3 EnemyPos_;

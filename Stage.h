@@ -3,6 +3,9 @@
 #include "Engine/Text.h"
 #include "Engine/Particle.h"
 
+#define STAGE_SIZE_X 180
+#define STAGE_SIZE_Z 39
+
 class Stage : public GameObject
 {
     enum Number
@@ -14,8 +17,13 @@ class Stage : public GameObject
         player
     };
 
+    struct
+    {
+        int type;
+        int height;
+    } stage_[STAGE_SIZE_X][STAGE_SIZE_Z]; //ステージ
+
     int hModel_[20];
-    int map_[180][1][39];
     XMFLOAT3 player_pos_;
     int PlayerPosX_;
     int PlayerPosZ_;
@@ -41,15 +49,15 @@ public:
     void Release() override;
 
     //そこは壁なのか
-    bool IsWall(int x, int y, int z);
+    bool IsWall(int x,  int z);
 
-    bool IsWallX(int x, int y, int z);
+    bool IsWallX(int x,  int z);
 
-    bool IsWallM(int x, int y, int z);
+    bool IsWallM(int x,  int z);
 
-    bool IsPipe(int x, int y, int z);
+    bool IsPipe(int x,  int z);
 
-    bool IsEmpty(int x, int y, int z);
+    bool IsEmpty(int x,  int z);
 
     int getModelHandle(int handle) { return hModel_[handle]; };
 
