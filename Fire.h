@@ -40,6 +40,8 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	Fire(GameObject* parent);
 
+	~Fire() override;
+
 	//初期化
 	void Initialize() override;
 

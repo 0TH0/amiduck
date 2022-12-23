@@ -28,6 +28,10 @@ Stage::~Stage()
 
 void Stage::StageLoad()
 {
+    //Csvì«Ç›çûÇ›
+    csv;
+    csv.Load("Csv\\map.csv");
+
     //ãÛî†
     //hModel_[empty] = Model::Load("Empty.fbx");
     //assert(hModel_[0] >= 0);
@@ -86,10 +90,6 @@ void Stage::Initialize()
     }
 
     StageLoad();
-
-    //Csvì«Ç›çûÇ›
-    CsvReader csv;
-    csv.Load("map.csv");
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
@@ -343,22 +343,7 @@ bool Stage::IsWall(int x,  int z)
     return (stage_[x][z].type == 1);
 }
 
-bool Stage::IsWallX(int x,  int z)
-{
-    return (stage_[x][z].type == 2);
-}
-
-bool Stage::IsWallM(int x,  int z)
-{
-    return (stage_[x][z].type == 2);
-}
-
-//bool Stage::IsWallM(int x, int y)
-//{
-//    return (map_[x][y] == 10);
-//}
-//
-bool Stage::IsPipe(int x,  int z)
+bool Stage::IsBridge(int x,  int z)
 {
     return (stage_[x][z].type == 2);
 }

@@ -10,7 +10,7 @@ class Enemy : public GameObject
     int hModelWood_;
     int hModelBlock_;
     float jump_v0;        //ジャンプの初速度
-    float GRAVITY;        //重力
+    float gravity;        //重力
     float angle;          //角度
     XMFLOAT3 move_;       //初速度
     bool IsJump;          //ジャンプしたか

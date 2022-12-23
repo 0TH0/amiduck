@@ -77,7 +77,7 @@ void Coin::OnCollision(GameObject* pTarget)
 
 		if (IsVisibled())
 		{
-			pPlayer->PlusCoinCount(1);
+			//pPlayer->PlusCoinCount(1);
 		}
 
 		Invisible();

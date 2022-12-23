@@ -16,7 +16,7 @@ FireFollowGround::FireFollowGround(GameObject* parent)
 
     //変数
     hModel_(-1),
-    jump_v0(0), GRAVITY(0), angle(0), BossHp(3), hModelBlock_(-1),
+    jump_v0(0), gravity(0), angle(0), BossHp(3), hModelBlock_(-1),
 
     //フラグ
     IsJump(false), IsGround(false),
@@ -146,13 +146,13 @@ void FireFollowGround::Update()
     //    //初速度
     //    jump_v0 = 0.2f;
     //    //重力
-    //    GRAVITY = 0.008f;
+    //    gravity = 0.008f;
 
     //    //初速度を加える
     //    move_.y = jump_v0;
 
     //    //重力を加える
-    //    move_.y += GRAVITY;
+    //    move_.y += gravity;
 
     //    //ジャンプフラグ
     //    IsJump = 1;
@@ -162,7 +162,7 @@ void FireFollowGround::Update()
     if (IsJump == 1)
     {
         //重力
-        move_.y -= GRAVITY;
+        move_.y -= gravity;
         transform_.position_.y += move_.y;
     }
 
@@ -170,10 +170,10 @@ void FireFollowGround::Update()
     if (IsJump == 0)
     {
         //重力
-        GRAVITY = 0.1f;
+        gravity = 0.1f;
 
         //重力を加える
-        move_.y = -GRAVITY;
+        move_.y = -gravity;
         transform_.position_.y += move_.y;
     }
 
@@ -237,7 +237,7 @@ void FireFollowGround::Update()
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    if (pStage->IsWallX(objX, objZ))
+    if (pStage->IsBridge(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
@@ -267,7 +267,7 @@ void FireFollowGround::Update()
 
     if (!b && time2 > 4)
     {
-        if (pStage->IsWallM(objX, objZ - 3))
+        if (pStage->IsBridge(objX, objZ - 3))
         {
             SPEED = 0;
             a = true;
@@ -307,7 +307,7 @@ void FireFollowGround::Update()
 
         if (time1 > 4)
         {
-            if (pStage->IsPipe(objX, objZ + 2))
+            if (pStage->IsBridge(objX, objZ + 2))
             {
                 SPEED = 0;
                 b = true;
@@ -356,7 +356,7 @@ void FireFollowGround::Update()
     //{
     //}
 
-    //if (pStage->IsPipe(objX, objY, objZ + 2))
+    //if (pStage->IsBridge(objX, objY, objZ + 2))
     //{
     //    transform_.position_.z += 12;
     //}
@@ -366,7 +366,7 @@ void FireFollowGround::Update()
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-    //    move_.y = -GRAVITY;
+    //    move_.y = -gravity;
     //}
 
     ////壁の判定(右)
@@ -523,7 +523,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    //ブロックに当たった
 //    if (pTarget->GetObjectName() == "Block")
 //    {
-//        if (pStage->IsWallX((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
 //        {
 //            pTarget->KillMe();
 //            IsJump = 0;
@@ -559,14 +559,14 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //            //初速度
 //            jump_v0 = 0.15f;
 //            //重力
-//            GRAVITY = 0.003f;
+//            gravity = 0.003f;
 //
 //            //初速度を加える
 //            move_.y = jump_v0;
 //            transform_.position_.y += move_.y;
 //
 //            //重力を加える
-//            move_.y += GRAVITY;
+//            move_.y += gravity;
 //            transform_.position_.y += move_.y;
 //        }
 //        else
@@ -581,25 +581,25 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    if (pTarget->GetObjectName() == "Block_move")
 //    {
 //        //壁の判定(下)
-//        if (pStage->IsWallM((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
 //        {
 //            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2f;
 //            IsJump = 0;
 //        }
 //        //壁の判定（上）
-//        if (pStage->IsWallM((int)objX, (int)(objY - 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2f)))
 //        {
 //            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
 //            IsJump = 0;
 //        }
 //        //壁の判定(右)
-//        if (pStage->IsWallM((int)(objX + 0.4f), (int)objY))
+//        if (pStage->IsBridge((int)(objX + 0.4f), (int)objY))
 //        {
 //            transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
 //        }
 //
 //        //壁の判定(左)
-//        if (pStage->IsWallM((int)(objX - 0.4f), (int)objY))
+//        if (pStage->IsBridge((int)(objX - 0.4f), (int)objY))
 //        {
 //            transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
 //        }
@@ -609,27 +609,27 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    if (pTarget->GetObjectName() == "Pipe_base")
 //    {
 //        //壁の判定(上)
-//        if (pStage->IsPipe((int)objX, (int)(objY - 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2f)))
 //        {
 //            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
 //            IsJump = 0;
 //        }
 //
 //        //壁の判定(下)
-//        if (pStage->IsPipe((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
 //        {
 //            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-//            move_.y = -GRAVITY;
+//            move_.y = -gravity;
 //        }
 //
 //        //壁の判定(右)
-//        if (pStage->IsPipe((int)(objX + 0.4f), (int)objY))
+//        if (pStage->IsBridge((int)(objX + 0.4f), (int)objY))
 //        {
 //            transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
 //        }
 //
 //        //壁の判定(左)
-//        if (pStage->IsPipe((int)(objX - 0.4f), (int)objY))
+//        if (pStage->IsBridge((int)(objX - 0.4f), (int)objY))
 //        {
 //            transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
 //        }
@@ -658,14 +658,14 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //            //初速度
 //            jump_v0 = 0.15f;
 //            //重力
-//            GRAVITY = 0.003f;
+//            gravity = 0.003f;
 //
 //            //初速度を加える
 //            move_.y = jump_v0;
 //            transform_.position_.y += move_.y;
 //
 //            //重力を加える
-//            move_.y += GRAVITY;
+//            move_.y += gravity;
 //            transform_.position_.y += move_.y;
 //
 //            pTarget->KillMe();
@@ -699,14 +699,14 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //            //初速度
 //            jump_v0 = 0.15f;
 //            //重力
-//            GRAVITY = 0.003f;
+//            gravity = 0.003f;
 //
 //            //初速度を加える
 //            move_.y = jump_v0;
 //            transform_.position_.y += move_.y;
 //
 //            //重力を加える
-//            move_.y += GRAVITY;
+//            move_.y += gravity;
 //            transform_.position_.y += move_.y;
 //
 //            //HPを減らす

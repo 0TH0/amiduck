@@ -3,11 +3,18 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 #include "Player.h"
+#include "Engine/Global.h"
 
 //コンストラクタ
 Fire::Fire(GameObject* parent)
 	: GameObject(parent, "Fire"), hModel_(-1), pLine(nullptr)
 {
+}
+
+Fire::~Fire()
+{
+	SAFE_DELETE(pLine);
+	SAFE_DELETE(pLine2);
 }
 
 //初期化

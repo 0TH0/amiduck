@@ -16,7 +16,7 @@ Enemy::Enemy(GameObject* parent)
 
     //変数
     hModel_(-1),
-    jump_v0(0), GRAVITY(0), angle(0), BossHp(3), hModelBlock_(-1),
+    jump_v0(0), gravity(0), angle(0), BossHp(3), hModelBlock_(-1),
 
     //フラグ
     IsJump(false), IsGround(false),
@@ -140,13 +140,13 @@ void Enemy::Update()
     //    //初速度
     //    jump_v0 = 0.2f;
     //    //重力
-    //    GRAVITY = 0.008f;
+    //    gravity = 0.008f;
 
     //    //初速度を加える
     //    move_.y = jump_v0;
 
     //    //重力を加える
-    //    move_.y += GRAVITY;
+    //    move_.y += gravity;
 
     //    //ジャンプフラグ
     //    IsJump = 1;
@@ -156,7 +156,7 @@ void Enemy::Update()
     if (IsJump == 1)
     {
         //重力
-        move_.y -= GRAVITY;
+        move_.y -= gravity;
         transform_.position_.y += move_.y;
     }
 
@@ -164,10 +164,10 @@ void Enemy::Update()
     if (IsJump == 0)
     {
         //重力
-        GRAVITY = 0.1f;
+        gravity = 0.1f;
 
         //重力を加える
-        move_.y = -GRAVITY;
+        move_.y = -gravity;
         transform_.position_.y += move_.y;
     }
 
@@ -231,7 +231,7 @@ void Enemy::Update()
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
-    if (pStage->IsWallX(objX, objZ))
+    if (pStage->IsBridge(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
@@ -262,7 +262,7 @@ void Enemy::Update()
 
     if (!b && time2 > 4)
     {
-        if (pStage->IsWallM(objX,  objZ - 3))
+        if (pStage->IsBridge(objX,  objZ - 3))
         {
             SPEED = 0;
             a = true;
@@ -302,7 +302,7 @@ void Enemy::Update()
 
         if (time1 > 4)
         {
-            if (pStage->IsPipe(objX,  objZ + 2))
+            if (pStage->IsBridge(objX,  objZ + 2))
             {
                 SPEED = 0;
                 b = true;
@@ -351,7 +351,7 @@ void Enemy::Update()
     //{
     //}
 
-    //if (pStage->IsPipe(objX, objY, objZ + 2))
+    //if (pStage->IsBridge(objX, objY, objZ + 2))
     //{
     //    transform_.position_.z += 12;
     //}
@@ -361,7 +361,7 @@ void Enemy::Update()
     //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-    //    move_.y = -GRAVITY;
+    //    move_.y = -gravity;
     //}
 
     ////壁の判定(右)

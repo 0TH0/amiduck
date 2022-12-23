@@ -2,6 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Engine/Text.h"
 #include "Engine/Particle.h"
+#include "Engine/CsvReader.h"
 
 #define STAGE_SIZE_X 180
 #define STAGE_SIZE_Z 39
@@ -31,6 +32,7 @@ class Stage : public GameObject
     int count_ = 1;
     Text* pText = new Text;
 
+    CsvReader csv;
     Particle* pParticle_;
     EmitterData data;
 
@@ -51,11 +53,7 @@ public:
     //‚»‚±‚Í•Ç‚È‚Ì‚©
     bool IsWall(int x,  int z);
 
-    bool IsWallX(int x,  int z);
-
-    bool IsWallM(int x,  int z);
-
-    bool IsPipe(int x,  int z);
+    bool IsBridge(int x,  int z);
 
     bool IsEmpty(int x,  int z);
 
