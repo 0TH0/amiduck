@@ -29,7 +29,6 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csv“Ç‚Ýž‚Ý
-    csv;
     csv.Load("Csv\\map.csv");
 
     //‹ó” 
@@ -68,13 +67,6 @@ void Stage::Cloud()
     float color = 0.5;
     data.color = XMFLOAT4(color, color, color, 0.1);
     pParticle_->Start(data);
-}
-
-void Stage::SetCloudPos(float x, float y, float z)
-{
-    data.position.x = x;
-    data.position.y = y;
-    data.position.z = z;
 }
 
 //‰Šú‰»
@@ -363,9 +355,6 @@ void Stage::Draw()
                 }
         }
     }
-
-    //pText->Draw(100, 200, "count");
-    //pText->Draw(200, 200, count_);
 }
 
 //ŠJ•ú

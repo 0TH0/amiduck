@@ -4,18 +4,20 @@
 #include "Engine/Particle.h"
 #include "Engine/CsvReader.h"
 
-#define STAGE_SIZE_X 180
-#define STAGE_SIZE_Z 39
-
 class Stage : public GameObject
 {
-    enum Number
+    //íËêî
+    static const int STAGE_SIZE_X = 180;
+    static const int STAGE_SIZE_Z = 39;
+
+    enum StageModelNum
     {
         empty = 0,
         log,
         coin,
         enemy,
-        player
+        player,
+        STAGE_MODEL_MAX
     };
 
     struct
@@ -63,5 +65,6 @@ public:
 
     void Cloud();
 
-    void SetCloudPos(float x, float y, float z);
+    static const int GetStageSizeX() { return STAGE_SIZE_X; };
+    static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
 };

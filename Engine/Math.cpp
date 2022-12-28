@@ -3,10 +3,16 @@
 
 #include <algorithm>
 
-static void Math::SetXMFLOAT4(XMFLOAT4 xmf4, float x, float y, float z, float w)
+void Math::SetXMFLOAT4(XMFLOAT4 xmf4, float x, float y, float z, float w)
 {
     xmf4.x = x;
     xmf4.y = y;
     xmf4.z = z;
     xmf4.w = w;
-};
+}
+void Math::SetXMFLOAT3(XMFLOAT3 xmf3, float x, float y, float z)
+{
+    xmf3.x = x;
+    xmf3.y = y;
+    xmf3.z = z;
+}

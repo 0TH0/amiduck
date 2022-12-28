@@ -254,7 +254,7 @@ void Enemy::Update()
     else
     {
         transform_.position_.x += SPEED;
-        rotate_.y = STAGE_SIZE_X;
+        rotate_.y = Stage::GetStageSizeX();
     }
 
 
