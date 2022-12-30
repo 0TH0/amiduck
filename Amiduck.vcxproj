@@ -163,6 +163,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
@@ -205,6 +206,7 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Sky.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

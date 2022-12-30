@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Coin.h"
 #include "Empty.h"
+#include "Star.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -48,6 +49,9 @@ void Stage::StageLoad()
 
     hModel_[player] = Model::Load("log.fbx");
     assert(hModel_[player] >= 0);
+
+    hModel_[star] = Model::Load("log.fbx");
+    assert(hModel_[star] >= 0);
 }
 
 void Stage::Cloud()
@@ -113,6 +117,11 @@ void Stage::Initialize()
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
                 pPlayer->SetPosition(x, 1, z + 1);
+            }
+            if (stage_[x][z].type == star)
+            {
+                Star* pStar = Instantiate<Star>(GetParent());
+                pStar->SetPosition(x, 1.25, z + 1);
             }
         }
     }
@@ -347,6 +356,11 @@ void Stage::Draw()
                         Model::Draw(hModel_[type]);
                         break;
                     case player:
+                        transform_.rotate_.y = 90;
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    case star:
                         transform_.rotate_.y = 90;
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type]);

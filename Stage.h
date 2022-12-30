@@ -17,6 +17,7 @@ class Stage : public GameObject
         coin,
         enemy,
         player,
+        star,
         STAGE_MODEL_MAX
     };
 
