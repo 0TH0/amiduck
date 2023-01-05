@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
+#include "Input.h"
 
 
 //コンストラクタ
@@ -48,6 +49,11 @@ void SceneManager::Update()
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;
+	}
+
+	if (Input::IsKey(DIK_E))
+	{
+		PostQuitMessage(0);	//プログラム終了
 	}
 }
 

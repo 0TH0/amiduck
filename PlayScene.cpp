@@ -88,11 +88,6 @@ void PlayScene::Update()
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 	}
-
-	if (Input::IsKey(DIK_E))
-	{
-		PostQuitMessage(0);	//ƒvƒƒOƒ‰ƒ€I—¹
-	}
 }
 
 //•`‰æ

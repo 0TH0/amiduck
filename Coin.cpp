@@ -42,11 +42,41 @@ void Coin::Update()
 		time_ = 0;
 	}
 
-	RayCastData rDog;
-	Camera::CalcScreenToWorld(rDog);
-	Model::RayCast(hModel_, &rDog);
+	//ビューポート行列
+	float w = (FLOAT)Direct3D::screenWidth_ / 2.0f;
 
-	if (rDog.hit)
+	float h = (FLOAT)Direct3D::screenHeight_ / 2.0f;
+
+	XMMATRIX vp = {
+		w,  0, 0, 0,
+		0, -h, 0, 0,
+		0,  0, 1, 0,
+		w,  h, 0, 1
+	};
+
+	//各行列の逆行列
+	XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
+	XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
+	XMMATRIX invPrj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
+
+	//マウス位置（手前）
+	XMFLOAT3 mousePosFront = Input::GetMousePosition();
+	mousePosFront.z = 0.0f;
+
+	//マウス位置（奥）
+	XMFLOAT3 mousePosBack = Input::GetMousePosition();
+	mousePosBack.z = 1.0f;
+
+	//逆行列の合成
+	XMMATRIX invTransform = invVP * invPrj * invView;
+
+	XMVECTOR vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
+	XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
+
+	RayCastData rCoin;
+	Model::RayCast(hModel_, &rCoin);
+
+	if (rCoin.hit)
 	{
 		transform_.position_.y++;
 	}

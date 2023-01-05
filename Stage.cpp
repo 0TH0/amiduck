@@ -139,60 +139,6 @@ void Stage::Update()
 
     player_pos_.z = (int)pPlayer->GetPosition().z;
 
-    //time_++;
-
-    //if (time_ == STAGE_SIZE_X)
-    //{
-    //    count_++;
-    //    time_ = 0;
-    //}
-
-    //if (count_ >= 3)
-    //{
-    //    count_ = 3;
-    //}
-
-    //if (count_ > 0)
-    //{
-    //    if (Input::IsKeyDown(DIK_A))
-    //    {
-    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 2] = 2;
-    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 3] = 2;
-    //        map_[(int)player_pos_.x][0][(int)player_pos_.z + 4] = 2;
-    //        time_ = 0;
-    //        count_--;
-    //        SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z + 4);
-    //        Cloud();
-    //    }
-
-    //    if (Input::IsKeyDown(DIK_D))
-    //    {
-    //        if ((int)player_pos_.z >= 38)
-    //        {
-    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
-    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
-    //            map_[(int)player_pos_.x][0][(int)player_pos_.z - 5] = 2;
-    //            time_ = 0;
-    //            count_--;
-    //            SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 3);
-    //            Cloud();
-    //        }
-    //        else
-    //        {
-    //            if (Input::IsKeyDown(DIK_D))
-    //            {
-    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 2] = 2;
-    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 3] = 2;
-    //                map_[(int)player_pos_.x][0][(int)player_pos_.z - 4] = 2;
-    //                time_ = 0;
-    //                count_--;
-    //                SetCloudPos(player_pos_.x, player_pos_.y + 1, player_pos_.z - 2);
-    //                Cloud();
-    //            }
-    //        }
-    //    }
-    //}
-
     //ビューポート行列
     float w = (FLOAT)Direct3D::screenWidth_ / 2.0f;
 
@@ -270,29 +216,38 @@ void Stage::Update()
             //クリックしたところが何もなかったら
             if (stage_[bufX][bufZ].type == empty)
             {
-                //if (stage_[bufX][bufZ].type == log)
-                //{
-                //    stage_[bufX][bufZ].type = log;
-                //    stage_[bufX][bufZ - 1].type = coin;
-                //    stage_[bufX][bufZ - 2].type = coin;
-                //}
                 if (stage_[bufX][bufZ - 1].type == log)
                 {
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
                     stage_[bufX][bufZ + 2].type = coin;
+                    data.position.x = bufX;
+                    data.position.z = bufZ + 2;
+                    Cloud();
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
                     stage_[bufX][bufZ - 1].type = coin;
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
+                    data.position.x = bufX;
+                    data.position.z = bufZ + 1;
+                    Cloud();
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ - 1].type = coin;
                     stage_[bufX][bufZ - 2].type = coin;
+                    data.position.x = bufX;
+                    data.position.z = bufZ;
+                    Cloud();
+                }
+                else if (stage_[bufX][bufZ + 3].type == log)
+                {
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
                 }
                 //if (stage_[bufX][bufZ].type == log)
                 //{

@@ -104,14 +104,14 @@ void Camera::CalcScreenToWorld(RayCastData& rayData)
 //スタート位置のベクトル取得
 XMVECTOR Camera::GetvStart()
 {
-	XMVECTOR vStart = XMVector3TransformCoord(XMLoadFloat3(&getMousePosFront()), CalcinvTransform());
+	XMVECTOR vStart = XMVector3TransformCoord(XMLoadFloat3(&GetMousePosFront()), CalcinvTransform());
 	return vStart;
 }
 
 //ターゲット位置のベクトル取得
 XMVECTOR Camera::GetvTarget()
 {
-	XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&getMousePosBack()), CalcinvTransform());
+	XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&GetMousePosBack()), CalcinvTransform());
 	return vTarget;
 }
 
@@ -130,7 +130,7 @@ XMMATRIX Camera::CalcinvTransform()
 }
 
 //スタート位置のベクトル取得
-XMFLOAT3& Camera::getMousePosFront()
+XMFLOAT3 Camera::GetMousePosFront()
 {
 	//マウス位置（手前）
 	XMFLOAT3 mousePosFront = Input::GetMousePosition();
@@ -140,7 +140,7 @@ XMFLOAT3& Camera::getMousePosFront()
 }
 
 //ターゲット位置のベクトル取得
-XMFLOAT3& Camera::getMousePosBack()
+XMFLOAT3 Camera::GetMousePosBack()
 {
 	//マウス位置（奥）
 	XMFLOAT3 mousePosBack = Input::GetMousePosition();
