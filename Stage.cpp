@@ -44,6 +44,9 @@ void Stage::StageLoad()
     hModel_[coin] = Model::Load("wood2.fbx");
     assert(hModel_[coin] >= 0);
 
+    hModel_[bridge] = Model::Load("wood2.fbx");
+    assert(hModel_[bridge] >= 0);
+
     hModel_[enemy] = Model::Load("log.fbx");
     assert(hModel_[enemy] >= 0);
 
@@ -174,7 +177,7 @@ void Stage::Update()
     float minDistance = 9999999;
     bool IsHit = false;
 
-    if (Input::IsMouseButtonDown(0))
+    //if (Input::IsMouseButtonDown(0))
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -218,59 +221,37 @@ void Stage::Update()
             {
                 if (stage_[bufX][bufZ - 1].type == log)
                 {
-                    stage_[bufX][bufZ].type = coin;
-                    stage_[bufX][bufZ + 1].type = coin;
-                    stage_[bufX][bufZ + 2].type = coin;
-                    data.position.x = bufX;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ + 2].type = bridge;
+    /*                data.position.x = bufX;
                     data.position.z = bufZ + 2;
-                    Cloud();
+                    Cloud();*/
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
-                    stage_[bufX][bufZ - 1].type = coin;
-                    stage_[bufX][bufZ].type = coin;
-                    stage_[bufX][bufZ + 1].type = coin;
-                    data.position.x = bufX;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+     /*               data.position.x = bufX;
                     data.position.z = bufZ + 1;
-                    Cloud();
+                    Cloud();*/
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
-                    stage_[bufX][bufZ].type = coin;
-                    stage_[bufX][bufZ - 1].type = coin;
-                    stage_[bufX][bufZ - 2].type = coin;
-                    data.position.x = bufX;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ - 2].type = bridge;
+     /*               data.position.x = bufX;
                     data.position.z = bufZ;
-                    Cloud();
+                    Cloud();*/
                 }
                 else if (stage_[bufX][bufZ + 3].type == log)
                 {
-                    stage_[bufX][bufZ].type = coin;
-                    stage_[bufX][bufZ + 1].type = coin;
-                    stage_[bufX][bufZ + 2].type = coin;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ + 2].type = bridge;
                 }
-                //if (stage_[bufX][bufZ].type == log)
-                //{
-                //    stage_[bufX][bufZ].type = coin;
-                //    stage_[bufX][bufZ + 1].type = coin;
-                //    stage_[bufX][bufZ + 2].type = coin;
-                //}
-                //if (stage_[bufX][bufZ + 1].type == log)
-                //{
-                //    stage_[bufX][bufZ].type = coin;
-                //    stage_[bufX][bufZ - 1].type = coin;
-                //    stage_[bufX][bufZ - 2].type = coin;
-                //}
-                //else if (stage_[bufX][bufZ + 2].type == log)
-                //{
-                //    stage_[bufX][bufZ - 1].type = coin;
-                //    stage_[bufX][bufZ].type = coin;
-                //    stage_[bufX][bufZ + 1].type = coin;
-                //}
-
-                //stage_[bufX][bufZ - 1].type = coin;
-                //stage_[bufX][bufZ].type = coin;
-                //stage_[bufX][bufZ + 1].type = coin;
             }
         }
     }
@@ -289,6 +270,7 @@ void Stage::Draw()
                     transform_.position_ = XMFLOAT3(x, 0, z + 1);
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);
                     transform_.scale_ = XMFLOAT3(1, 1, 1);
+                    Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 
                     switch (stage_[x][z].type)
                     {
@@ -304,6 +286,12 @@ void Stage::Draw()
                         transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type]);
+                        break;
+                    case bridge:
+                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
+                        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type], 0.3);
                         break;
                     case enemy:
                         transform_.rotate_.y = 90;

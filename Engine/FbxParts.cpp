@@ -461,6 +461,11 @@ void FbxParts::IntConstantBuffer()
 //描画
 void FbxParts::Draw(Transform& transform)
 {
+	Draw(transform, 1);
+}
+
+void FbxParts::Draw(Transform& transform, FLOAT alpha)
+{
 	//今から描画する頂点情報をシェーダに伝える
 	UINT stride = sizeof(VERTEX);
 	UINT offset = 0;
@@ -483,15 +488,16 @@ void FbxParts::Draw(Transform& transform)
 		// パラメータの受け渡し
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;
-		cb.worldVewProj =	XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
-		cb.world =		XMMatrixTranspose(transform.GetWorldMatrix());
-		cb.normalTrans =	XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
+		cb.worldVewProj = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
+		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
+		cb.normalTrans = XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
 		cb.ambient = pMaterial_[i].ambient;
 		cb.diffuse = pMaterial_[i].diffuse;
 		cb.speculer = pMaterial_[i].specular;
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightDirection = XMFLOAT4(1, -1, 1, 0);
+		cb.alpha = alpha;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 
 
@@ -504,10 +510,10 @@ void FbxParts::Draw(Transform& transform)
 
 		if (pMaterial_[i].pTexture)
 		{
-			ID3D11SamplerState*	pSampler = pMaterial_[i].pTexture->GetSampler();
+			ID3D11SamplerState* pSampler = pMaterial_[i].pTexture->GetSampler();
 			Direct3D::pContext_->PSSetSamplers(0, 1, &pSampler);
 
-			ID3D11ShaderResourceView*	pSRV = pMaterial_[i].pTexture->GetSRV();
+			ID3D11ShaderResourceView* pSRV = pMaterial_[i].pTexture->GetSRV();
 			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
 		}
 
@@ -522,7 +528,6 @@ void FbxParts::Draw(Transform& transform)
 		 //ポリゴンメッシュを描画する
 		Direct3D::pContext_->DrawIndexed(pMaterial_[i].polygonCount * 3, 0, 0);
 	}
-
 }
 
 //ボーン有りのモデルを描画
@@ -588,7 +593,7 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time)
 
 }
 
-void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene)
+void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene, FLOAT alpha)
 {
 	//// その瞬間の自分の姿勢行列を得る
 	//FbxAnimEvaluator *evaluator = scene->GetAnimationEvaluator();
@@ -603,7 +608,7 @@ void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scen
 	//	}
 	//}
 
-	Draw(transform);
+	Draw(transform , alpha);
 }
 
 bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3 * position)

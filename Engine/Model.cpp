@@ -68,7 +68,7 @@ namespace Model
 
 
 	//•`‰æ
-	void Draw(int handle)
+	void Draw(int handle, FLOAT alpha)
 	{
 		/*	bool visible = false;
 			visible = _datas[handle]->pRootObject->
@@ -90,7 +90,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, alpha);
 		}
 
 	}

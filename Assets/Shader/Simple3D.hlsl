@@ -19,6 +19,7 @@ cbuffer global
 	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;// 視点（カメラの位置）
 	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
+	float		g_alpha;			//透明度
 	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
 
 };
@@ -79,7 +80,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	//拡散反射光（ディフューズ）
 	//法線と光のベクトルの内積が、そこの明るさになる
 	float4 shade = saturate(dot(inData.normal, -lightDir));
-	shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
+	shade = 1;	//暗いところが透明になるので、強制的にアルファは1
 
 	float4 diffuse;
 	//テクスチャ有無
@@ -107,7 +108,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	}
 
 	//最終的な色
-	float4 result = diffuse;// *shade + diffuse * ambient + speculer;
-	//result.a = 0.5;
+	float4 result = diffuse * shade + diffuse * ambient + speculer;
+	result.a = g_alpha;
 	return result;
 }

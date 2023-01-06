@@ -118,7 +118,7 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-void Fbx::Draw(Transform& transform, int frame)
+void Fbx::Draw(Transform& transform, int frame, FLOAT alpha)
 {
 	//パーツを1個ずつ描画
 	for (int k = 0; k < parts_.size(); k++)
@@ -137,7 +137,7 @@ void Fbx::Draw(Transform& transform, int frame)
 		//メッシュアニメーションの場合
 		else
 		{
-			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_);
+			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_, alpha);
 		}
 	}
 }

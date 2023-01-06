@@ -18,6 +18,7 @@ class Stage : public GameObject
         enemy,
         player,
         star,
+        bridge,
         STAGE_MODEL_MAX
     };
 
@@ -33,8 +34,10 @@ class Stage : public GameObject
     int PlayerPosZ_;
     int time_;
     int count_ = 1;
-    Text* pText = new Text;
 
+    std::list<XMFLOAT3> stagePosList_;
+
+    Text* pText = new Text;
     CsvReader csv;
     Particle* pParticle_;
     EmitterData data;
