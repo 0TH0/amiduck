@@ -7,11 +7,9 @@
 class StartScene : public GameObject
 {
 	int hPict_[3];
-	float time;
-	int stock;
+	int alpha_;
 	Text* pText;
-	//SceneManager* pSceneManager;
-
+	
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -24,6 +22,4 @@ public:
 	void Draw() override;
 
 	void Release() override;
-
-	void minStock() { stock--; };
 };

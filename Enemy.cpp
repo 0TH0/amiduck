@@ -34,7 +34,7 @@ Enemy::~Enemy()
 
 void Enemy::EnemyLoad()
 {
-    hModel_ = Model::Load("Enemy\\raccoon10.fbx");
+    hModel_ = Model::Load("Player\\egg.fbx");
     assert(hModel_ >= 0);
 }
 
@@ -285,7 +285,7 @@ void Enemy::Update()
                 s = 0;
                 t = 0;
                 a = false;
-                SPEED = 0.2;
+                SPEED = 0.3;
             }
             else
             {
@@ -321,7 +321,7 @@ void Enemy::Update()
                 g = 0;
                 f = 0;
                 b = false;
-                SPEED = 0.2;
+                SPEED = 0.3;
                 time1 = 0;
             }
             else

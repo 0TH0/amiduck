@@ -57,6 +57,9 @@ void Player::Initialize()
     hModel_ = Model::Load("Player\\egg.fbx");
     assert(hModel_ >= 0);
 
+    hModel2_ = Model::Load("Enemy\\raccoon10.fbx");
+    assert(hModel2_ >= 0);
+
     //アニメーションの設定
     Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
@@ -77,11 +80,24 @@ void Player::Initialize()
     pText->Initialize();
 
     pParticle_ = Instantiate<Particle>(this);
+
+    //最初は卵から
+    playerState = EGG;
 }
 
 void Player::Update()
 {
     LadderLottery();
+
+    if (Input::IsKeyDown(DIK_3))
+    {
+        playerState = EGG;
+    }
+
+    if (Input::IsKeyDown(DIK_4))
+    {
+        playerState = LARVA;
+    }
 
     if (Input::IsKeyDown(DIK_SPACE))
     {
@@ -127,23 +143,23 @@ void Player::Update()
     /////////////////////////移動/////////////////////////
 
     //ジャンプ中の重力
-    if (IsJump)
-    {
-        //重力
-        move_.y -= gravity;
-        transform_.position_.y += move_.y;
-    }
+    //if (IsJump)
+    //{
+    //    //重力
+    //    move_.y -= gravity;
+    //    transform_.position_.y += move_.y;
+    //}
 
-    //ジャンプしてない時の重力
-    else
-    {
-        //重力
-        gravity = 0.1f;
+    ////ジャンプしてない時の重力
+    //else
+    //{
+    //    //重力
+    //    gravity = 0.1f;
 
-        //重力を加える
-        move_.y = -gravity;
-        transform_.position_.y += move_.y;
-    }
+    //    //重力を加える
+    //    move_.y = -gravity;
+    //    transform_.position_.y += move_.y;
+    //}
 
     if (Input::IsKeyDown(DIK_Z))
     {
@@ -193,8 +209,18 @@ void Player::Update()
 
 void Player::Draw()
 {
+    Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
-    Model::Draw(hModel_);
+
+    switch (playerState)
+    {
+    case EGG:
+        Model::Draw(hModel_, 0.6);
+        break;
+    case LARVA:
+        Model::Draw(hModel2_);
+        break;
+    }
 }
 
 void Player::Release()
@@ -209,6 +235,11 @@ void Player::OnCollision(GameObject* pTarget)
     {
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
         pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    }
+
+    if (pTarget->GetObjectName() == "Star")
+    {
+        playerState = LARVA;
     }
 }
 
@@ -230,12 +261,12 @@ void Player::LadderLottery()
     if (!IsRight_ && !IsLeft_)
     {
         //進行方向に道がなかったら戻ってくる
-        if (pStage->IsEmpty((float)objX + 2.5, objZ))
+        if (pStage->IsEmpty((float)objX + 3, objZ))
         {
             IsReturn_ = true;
             transform_.rotate_ = XMFLOAT3(0, 0, 0);
         }
-        if (pStage->IsEmpty((float)objX - 2.5, objZ))
+        if (pStage->IsEmpty((float)objX - 3, objZ))
         {
             IsReturn_ = false;
             transform_.rotate_ = XMFLOAT3(0, 180, 0);

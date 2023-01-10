@@ -130,7 +130,7 @@ XMMATRIX Camera::CalcinvTransform()
 }
 
 //スタート位置のベクトル取得
-XMFLOAT3 Camera::GetMousePosFront()
+XMFLOAT3& Camera::GetMousePosFront()
 {
 	//マウス位置（手前）
 	XMFLOAT3 mousePosFront = Input::GetMousePosition();
@@ -139,8 +139,18 @@ XMFLOAT3 Camera::GetMousePosFront()
 	return mousePosFront;
 }
 
+float Camera::GetScrWDiv2()
+{
+	return _wDiv2;
+}
+
+float Camera::GetScrHDiv2()
+{
+	return _hDiv2;
+}
+
 //ターゲット位置のベクトル取得
-XMFLOAT3 Camera::GetMousePosBack()
+XMFLOAT3& Camera::GetMousePosBack()
 {
 	//マウス位置（奥）
 	XMFLOAT3 mousePosBack = Input::GetMousePosition();

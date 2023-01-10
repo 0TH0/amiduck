@@ -115,6 +115,7 @@
     </ClCompile>
     <ClCompile Include="Empty.cpp" />
     <ClCompile Include="Star.cpp" />
+    <ClCompile Include="ItemBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -206,6 +207,7 @@
     </ClInclude>
     <ClInclude Include="Empty.h" />
     <ClInclude Include="Star.h" />
+    <ClInclude Include="ItemBox.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

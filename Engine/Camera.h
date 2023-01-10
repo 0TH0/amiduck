@@ -56,8 +56,12 @@ namespace Camera
 	XMMATRIX CalcinvTransform();
 
 	//スタート位置のベクトル取得
-	XMFLOAT3 GetMousePosBack();
+	XMFLOAT3 &GetMousePosBack();
 
 	//ターゲット位置のベクトル取得
-	XMFLOAT3 GetMousePosFront();
+	XMFLOAT3 &GetMousePosFront();
+
+	float GetScrWDiv2();
+
+	float GetScrHDiv2();
 };

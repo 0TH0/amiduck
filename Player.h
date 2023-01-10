@@ -14,7 +14,17 @@ class Player : public GameObject
         DIR_MAX
     };
 
+    //プレイヤーの状態
+    enum State
+    {
+        EGG = 0,    //卵
+        LARVA, //幼虫
+    } playerState;
+
+
     int hModel_;          //モデル番号
+    int hModel2_;          //モデル番号
+
     float jump_v0;        //ジャンプの初速度
     float gravity;        //重力
     float angle;          //角度
@@ -36,6 +46,7 @@ class Player : public GameObject
     bool IsReturn_;     //戻ってきているか
     bool IsStop_;       //止まっているか
     bool IsOnBridge_;   //橋の上にいるか
+    int starCount_;
 
     //定数
     const float DUSHSPEED;    //ダッシュ速度

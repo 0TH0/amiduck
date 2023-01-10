@@ -342,13 +342,13 @@ void GameObject::DrawSub()
 	Draw();
 
 	//リリース時は削除
-//#ifdef _DEBUG
+#ifdef _DEBUG
 		//コリジョンの描画
 	if (Direct3D::isDrawCollision_)
 	{
 		CollisionDraw();
 	}
-//#endif
+#endif
 
 	//その子オブジェクトの描画処理
 	for (auto it = childList_.begin(); it != childList_.end(); it++)

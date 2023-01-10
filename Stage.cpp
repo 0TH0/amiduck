@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "Empty.h"
 #include "Star.h"
+#include "ItemBox.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -55,6 +56,9 @@ void Stage::StageLoad()
 
     hModel_[star] = Model::Load("log.fbx");
     assert(hModel_[star] >= 0);
+
+    hModel_[itembox] = Model::Load("log.fbx");
+    assert(hModel_[itembox] >= 0);
 }
 
 void Stage::Cloud()
@@ -126,6 +130,11 @@ void Stage::Initialize()
                 Star* pStar = Instantiate<Star>(GetParent());
                 pStar->SetPosition(x, 1.25, z + 1);
             }
+            if (stage_[x][z].type == itembox)
+            {
+                ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
+                pItemBox->SetPosition(x, 1.25, z + 1);
+            }
         }
     }
 
@@ -143,9 +152,10 @@ void Stage::Update()
     player_pos_.z = (int)pPlayer->GetPosition().z;
 
     //ビューポート行列
-    float w = (FLOAT)Direct3D::screenWidth_ / 2.0f;
+    float w = Camera::GetScrWDiv2();
 
-    float h = (FLOAT)Direct3D::screenHeight_ / 2.0f;
+    float h = Camera::GetScrHDiv2();
+
 
     XMMATRIX vp = {
         w,  0, 0, 0,
@@ -177,7 +187,8 @@ void Stage::Update()
     float minDistance = 9999999;
     bool IsHit = false;
 
-    //if (Input::IsMouseButtonDown(0))
+
+    if (Input::IsMouseButtonDown(0))
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -221,36 +232,36 @@ void Stage::Update()
             {
                 if (stage_[bufX][bufZ - 1].type == log)
                 {
-                    stage_[bufX][bufZ].type = bridge;
-                    stage_[bufX][bufZ + 1].type = bridge;
-                    stage_[bufX][bufZ + 2].type = bridge;
-    /*                data.position.x = bufX;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
+                    data.position.x = bufX;
                     data.position.z = bufZ + 2;
-                    Cloud();*/
+                    Cloud();
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
-                    stage_[bufX][bufZ - 1].type = bridge;
-                    stage_[bufX][bufZ].type = bridge;
-                    stage_[bufX][bufZ + 1].type = bridge;
-     /*               data.position.x = bufX;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    data.position.x = bufX;
                     data.position.z = bufZ + 1;
-                    Cloud();*/
+                    Cloud();
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
-                    stage_[bufX][bufZ].type = bridge;
-                    stage_[bufX][bufZ - 1].type = bridge;
-                    stage_[bufX][bufZ - 2].type = bridge;
-     /*               data.position.x = bufX;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ - 2].type = coin;
+                    data.position.x = bufX;
                     data.position.z = bufZ;
-                    Cloud();*/
+                    Cloud();
                 }
                 else if (stage_[bufX][bufZ + 3].type == log)
                 {
-                    stage_[bufX][bufZ].type = bridge;
-                    stage_[bufX][bufZ + 1].type = bridge;
-                    stage_[bufX][bufZ + 2].type = bridge;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
                 }
             }
         }
@@ -304,6 +315,11 @@ void Stage::Draw()
                         Model::Draw(hModel_[type]);
                         break;
                     case star:
+                        transform_.rotate_.y = 90;
+                        Model::SetTransform(hModel_[type], transform_);
+                        Model::Draw(hModel_[type]);
+                        break;
+                    case itembox:
                         transform_.rotate_.y = 90;
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type]);

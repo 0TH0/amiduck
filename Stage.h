@@ -19,6 +19,7 @@ class Stage : public GameObject
         player,
         star,
         bridge,
+        itembox,
         STAGE_MODEL_MAX
     };
 

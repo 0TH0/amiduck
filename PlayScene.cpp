@@ -11,6 +11,7 @@
 #include "Fire.h"
 #include "Enemy.h"
 #include "Line.h"
+#include "StartScene.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -37,6 +38,7 @@ void PlayScene::Initialize()
 	pEnemy->EnemyLoad();
 
 	Instantiate<Player>(this);
+	Instantiate<StartScene>(this);
 }
 
 //XV
