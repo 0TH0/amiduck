@@ -158,4 +158,4 @@ float4 PS_OUTLINE(VS_OUT inData) : SV_Target
 
 
 //セルシェーディング
-//カリングモード
+//カリングトリック

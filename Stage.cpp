@@ -145,11 +145,14 @@ void Stage::Initialize()
 void Stage::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
+    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
     if (!pPlayer->GetReturn()) player_pos_.x = (int)pPlayer->GetPosition().x + 1;
     else player_pos_.x = (int)pPlayer->GetPosition().x - 1;
 
     player_pos_.z = (int)pPlayer->GetPosition().z;
+
+    enemyPos_ = pEnemy->GetPosition();
 
     //ビューポート行列
     float w = Camera::GetScrWDiv2();
@@ -265,6 +268,14 @@ void Stage::Update()
                 }
             }
         }
+    }
+
+    //卵のAI予定
+    if(Input::IsKeyDown(DIK_J))
+    {
+        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 1].type = coin;
+        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 2].type = coin;
+        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
     }
 }
 

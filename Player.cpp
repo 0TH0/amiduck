@@ -215,7 +215,7 @@ void Player::Draw()
     switch (playerState)
     {
     case EGG:
-        Model::Draw(hModel_, 0.6);
+        Model::Draw(hModel_);
         break;
     case LARVA:
         Model::Draw(hModel2_);
