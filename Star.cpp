@@ -17,7 +17,7 @@ Star::Star(GameObject* parent)
 //‰Šú‰»
 void Star::Initialize()
 {
-	hModel_ = Model::Load("Star\\star.fbx");
+	hModel_ = Model::Load("Model\\star.fbx");
 	assert(hPict_ >= 0);
 
 	//“–‚½‚è”»’è

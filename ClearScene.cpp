@@ -28,7 +28,7 @@ void ClearScene::Update()
 	{
 		//プレイシーンに切り替え
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_START);
+		pSceneManager->ChangeScene(SCENE_ID_PLAY);
 	}
 
 	if (Input::IsKey(DIK_E))

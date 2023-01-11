@@ -89,20 +89,10 @@ void Player::Update()
 {
     LadderLottery();
 
-    if (Input::IsKeyDown(DIK_3))
-    {
-        playerState = EGG;
-    }
-
-    if (Input::IsKeyDown(DIK_4))
-    {
-        playerState = LARVA;
-    }
-
     if (Input::IsKeyDown(DIK_SPACE))
     {
         //‹´‚ð“n‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
-        if (IsOnBridge_ == false)
+        if (!(IsOnBridge_))
         {
             IsSpeedUp_ = true;
             Instantiate<Line>(this);
@@ -347,6 +337,7 @@ void Player::LadderLottery()
             if (pStage->IsBridge(objX, objZ + 2))
             {
                 speed_ = 0;
+
                 IsLeft_ = true;
                 IsOnBridge_ = true;
             }

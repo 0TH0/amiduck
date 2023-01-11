@@ -471,23 +471,23 @@ void Enemy::Update()
     //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
 
     //FollowGround();
+
+    if (!(IsVisibled()))
+    {
+        //クリアシーンに切り替え
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+    }
 }
 
 void Enemy::Draw()
 {
     Model::SetTransform(hModel_, transform_);
-    Model::Draw(hModel_);
 
-
-    //pText->Draw(20, 20, "rotate.xyz");
-    //pText->Draw(50, 50, transform_.rotate_.x);
-    //pText->Draw(150, 50, transform_.rotate_.y);
-    //pText->Draw(250, 50, transform_.rotate_.z);
-
-    //pText->Draw(20, 100, "transform.xyz");
-    //pText->Draw(50, 130, transform_.position_.x);
-    //pText->Draw(150, 130, transform_.position_.y);
-    //pText->Draw(250, 130, transform_.position_.z);
+    if (IsVisibled())
+    {
+        Model::Draw(hModel_);
+    }
 }
 
 void Enemy::Release()

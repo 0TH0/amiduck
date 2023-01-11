@@ -83,7 +83,7 @@ void TestScene::Initialize()
 	{
 		EmitterData data;
 
-		data.textureFileName = "Water.png";
+		data.textureFileName = "star.png";
 		data.position = XMFLOAT3(4, 3.3, -4.5);
 		data.delay = 1;
 		data.number = 3;
@@ -101,7 +101,7 @@ void TestScene::Initialize()
 		pParticle_->Start(data);
 
 		//…“H
-		data.textureFileName = "buble.png";
+		data.textureFileName = "star.png";
 		data.position = XMFLOAT3(4, 3.3, -4.5);
 		data.positionErr = XMFLOAT3(0.5, 0, 0);
 		data.delay = 1;
@@ -130,21 +130,21 @@ void TestScene::Update()
 	if (Input::IsKeyDown(DIK_SPACE))
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "star.png";
 		data.position = XMFLOAT3(0,0.05,0);
-		data.delay = 0;
-		data.number = 80;
-		data.lifeTime = 20;
-		data.dir = XMFLOAT3(0, 1, 0);
-		data.dirErr = XMFLOAT3(90, 90, 90);
-		data.speed = 0.1f;
-		data.speedErr = 0.8;
-		data.size = XMFLOAT2(1, 1);
-		data.sizeErr = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 1, 0.1, 1);
-		data.deltaColor = XMFLOAT4(0, -1.0/20, 0, -1.0/20);
-		pParticle_->Start(data);
+		//data.delay = 0;
+		//data.number = 80;
+		//data.lifeTime = 20;
+		//data.dir = XMFLOAT3(0, 1, 0);
+		//data.dirErr = XMFLOAT3(90, 90, 90);
+		//data.speed = 0.1f;
+		//data.speedErr = 0.8;
+		//data.size = XMFLOAT2(1, 1);
+		//data.sizeErr = XMFLOAT2(0.4, 0.4);
+		//data.scale = XMFLOAT2(1.05, 1.05);
+		//data.color = XMFLOAT4(0, 1, 1, 1);
+		//data.deltaColor = XMFLOAT4(0, -1.0/20, 0, -1.0/20);
+		//pParticle_->Start(data);
 
 
 
@@ -153,15 +153,15 @@ void TestScene::Update()
 		data.delay = 0;
 		data.number = 80;
 		data.lifeTime = 100;
-		data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+		data.positionErr = XMFLOAT3(0.4, 0, 0.4);
 		data.dir = XMFLOAT3(0, 1, 0);
 		data.dirErr = XMFLOAT3(90, 90, 90);
 		data.speed = 0.25f;
 		data.speedErr = 1;
 		data.accel = 0.93;
-		data.size = XMFLOAT2(0.1, 0.1);
+		data.size = XMFLOAT2(0.4, 0.4);
 		data.sizeErr = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(0.99, 0.99);
+		data.scale = XMFLOAT2(1, 1);
 		data.color = XMFLOAT4(1, 1, 0.1, 1);
 		data.deltaColor = XMFLOAT4(0, 0, 0, 0);
 		data.gravity = 0.003f;

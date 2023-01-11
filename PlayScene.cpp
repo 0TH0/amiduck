@@ -51,25 +51,15 @@ void PlayScene::Update()
 
 	playerTrans.position_ = pPlayer->GetPosition();
 
-	//if (Input::IsKeyDown(DIK_3))
-	//{
-	//	pFireFollowGround = Instantiate<FireFollowGround>(this);
-	//	if (pPlayer->GetCoinCount() >= 3)
-	//	{
+	if (Input::IsKeyDown(DIK_3))
+	{
+		pFireFollowGround = Instantiate<FireFollowGround>(this);
+	}
 
-	//		pPlayer->MinCoinCount(3);
-	//	}
-	//}
-
-	//if (Input::IsKeyDown(DIK_4))
-	//{
-	//	pFire = Instantiate<Fire>(this);
-	//	if (pPlayer->GetCoinCount() >= 3)
-	//	{
-
-	//		pPlayer->MinCoinCount(3);
-	//	}
-	//}
+	if (Input::IsKeyDown(DIK_4))
+	{
+		pFire = Instantiate<Fire>(this);
+	}
 
 	//操作方法を表示
 	if (Input::IsKey(DIK_M))
@@ -77,19 +67,12 @@ void PlayScene::Update()
 		Instantiate<Instructions>(this);
 	}
 
-	if (FindObject("Player") == nullptr)
-	{
-		//プレイシーンに切り替え
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_START);
-	}
-
-	if (FindObject("Enemy") == nullptr)
-	{
-		//クリアシーンに切り替え
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
-	}
+	//if (FindObject("Enemy") == nullptr)
+	//{
+	//	//クリアシーンに切り替え
+	//	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+	//	pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	//}
 }
 
 //描画

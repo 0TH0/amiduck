@@ -92,6 +92,6 @@ void Fire::OnCollision(GameObject* pTarget)
 	//“G‚É“–‚½‚Á‚½
 	if (pTarget->GetObjectName() == "Enemy")
 	{
-		pTarget->KillMe();
+		pTarget->Invisible();
 	}
 }

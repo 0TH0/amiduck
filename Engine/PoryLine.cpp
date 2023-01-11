@@ -112,9 +112,9 @@ void PoryLine::Draw()
 	Direct3D::SetShader(Direct3D::SHADER_BILLBOARD);
 
 	//コンスタントバッファに渡す情報
-	CONSTANT_BUFFER cb;
+	//CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.color = XMFLOAT4(1, 1, 1, 1);
+	//cb.color = XMFLOAT4(1, 1, 1, 1);
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
@@ -156,4 +156,9 @@ void PoryLine::Release()
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pVertexBuffer_);
 	positions_.clear();
+}
+
+void PoryLine::SetColor(XMFLOAT4 color)
+{
+	cb.color = color;
 }

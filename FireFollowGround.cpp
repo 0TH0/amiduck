@@ -52,7 +52,7 @@ void FireFollowGround::Initialize()
     pText->Initialize();
 
     pLine = new PoryLine;
-    pLine->Load("tex.png");
+    pLine->Load("white_line.png.");
 
     Player* pPlayer = (Player*)FindObject("Player");
     PlayerPos_ = pPlayer->GetPosition();
@@ -483,6 +483,7 @@ void FireFollowGround::Draw()
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
+    pLine->SetColor(XMFLOAT4(1, 0.6, 1, 0.7));
     pLine->Draw();
 
     //pText->Draw(20, 20, "rotate.xyz");
@@ -506,7 +507,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
     //“G‚É“–‚½‚Á‚½
     if (pTarget->GetObjectName() == "Enemy")
     {
-        pTarget->KillMe();
+        pTarget->Invisible();
         KillMe();
     }
 }

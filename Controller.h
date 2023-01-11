@@ -34,6 +34,18 @@ public:
 	float speed_;        //移動速度
 	XMFLOAT3 mousePos_;
 
+	const char InitialState_ = 7;	//初期値
+	const float Move_ = 0.01f;		//移動速度
+	const char Rotate_ = 0.01;			//回転速度
+	const char LimRot_ = 30;		//回転の限界値
+
+	float PrevPosX_;
+	float PrevPosY_;
+
+	void CrickMouseRight();	//マウス右クリックによるカメラ操作
+	void IOCamera();		//マウスホイールの回転によるカメラ操作
+	void CrickWheel();		//マウスホイールを押下している時の操作
+
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Controller(GameObject* parent);

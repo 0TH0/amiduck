@@ -13,8 +13,8 @@ class PoryLine
 	struct CONSTANT_BUFFER
 	{
 		XMMATRIX	matWVP;
-		XMFLOAT4	color;
-	};
+		XMFLOAT4	color = XMFLOAT4(1, 1, 1, 1);
+	} cb;
 
 	//í∏ì_èÓïÒ
 	struct VERTEX
@@ -55,5 +55,8 @@ public:
 	//âï˙
 	void Release();
 
+	void SetColor(XMFLOAT4 color);
+
+	XMFLOAT4 GetColor() { return cb.color; };
 };
 

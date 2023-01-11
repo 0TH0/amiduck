@@ -20,7 +20,6 @@
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage")
 {
-
 }
 
 //デストラクタ
