@@ -15,6 +15,7 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/BoxCollider.h"
 #include "Engine/Camera.h"
+#include "Engine/Audio.h"
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -30,7 +31,7 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csv読み込み
-    csv.Load("Csv\\map.csv");
+    csv.Load("Csv\\map2.csv");
 
     //空箱
     //hModel_[empty] = Model::Load("Empty.fbx");
@@ -58,6 +59,9 @@ void Stage::StageLoad()
 
     hModel_[itembox] = Model::Load("log.fbx");
     assert(hModel_[itembox] >= 0);
+
+    hAudio_ = Audio::Load("Audio\\smoke.wav", 5);
+    assert(hAudio_ >= 0);
 }
 
 void Stage::Cloud()
@@ -77,6 +81,8 @@ void Stage::Cloud()
     float color = 0.5;
     data.color = XMFLOAT4(color, color, color, 0.1);
     pParticle_->Start(data);
+
+    Audio::Play(hAudio_);
 }
 
 //初期化
@@ -98,7 +104,57 @@ void Stage::Initialize()
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
             stage_[x][z].type = csv.GetValue(x, -z + 38);
+        }
+    }
 
+    //stage_[5][35].type = coin;
+    //stage_[5][34].type = coin;
+    //stage_[5][33].type = coin;
+
+    //stage_[7][29].type = coin;
+    //stage_[7][28].type = coin;
+    //stage_[7][27].type = coin;
+
+    while(bridgeCount_ < 15)
+    {
+        //time関数を使った乱数の種の設定
+       // srand((unsigned int)time(NULL));
+        int randX = (rand() % STAGE_SIZE_X - 1);
+        int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+        if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+        {
+            stage_[randX][randZ].type = coin;
+            stage_[randX][randZ - 1].type = coin;
+            stage_[randX][randZ - 2].type = coin;
+            bridgeCount_++;
+        }
+    }
+
+    /*
+    * 
+    * 23
+    * 22
+    * 21
+    * 
+    * 17
+    * 16
+    * 15
+    * 
+    * 11
+    * 10
+    * 9
+    * 
+    * 5
+    * 4
+    * 3
+    * 
+    */
+
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
             if (stage_[x][z].type == empty)
             {
                 //Empty* pEmpty = Instantiate<Empty>(this);
@@ -119,7 +175,7 @@ void Stage::Initialize()
             }
 
             //プレイヤー登場
-            if (stage_[x][z].type  == player)
+            if (stage_[x][z].type == player)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
                 pPlayer->SetPosition(x, 1, z + 1);
@@ -140,6 +196,7 @@ void Stage::Initialize()
     pText->Initialize();
     pParticle_ = Instantiate<Particle>(this);
 }
+
 //更新
 void Stage::Update()
 {

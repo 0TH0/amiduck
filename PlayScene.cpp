@@ -28,14 +28,18 @@ PlayScene::PlayScene(GameObject* parent)
 void PlayScene::Initialize()
 {
 	//ステージ
-	Instantiate<Stage>(this);
+	Stage* pStage1;
+	Stage* pStage2;
+	//Instantiate<Stage>(this);
+	pStage2 = Instantiate<Stage>(this);
+	pStage2->SetPosition(XMFLOAT3(0, 0, 0));
 
 	Stage* pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
 	//モデルロード
-	pStage->StageLoad();
-	pEnemy->EnemyLoad();
+	//pStage->StageLoad();
+	//pEnemy->EnemyLoad();
 
 	Instantiate<Player>(this);
 	Instantiate<StartScene>(this);

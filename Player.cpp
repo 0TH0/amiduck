@@ -140,7 +140,7 @@ void Player::Update()
     //    transform_.position_.y += move_.y;
     //}
 
-    ////ジャンプしてない時の重力
+    //ジャンプしてない時の重力
     //else
     //{
     //    //重力
@@ -302,7 +302,19 @@ void Player::LadderLottery()
             IsOnBridge_ = false;
             delay_ = 0;
             SpeedOnWood_[R] = 0;
-            speed_ = 0.2;
+            
+
+            switch (playerState)
+            {
+            case Player::EGG:
+                speed_ = 0.2f;
+                break;
+            case Player::LARVA:
+                speed_ = 0.3f;
+                break;
+            default:
+                break;
+            }
 
             if (IsReturn_)
             {
@@ -358,8 +370,18 @@ void Player::LadderLottery()
                 delay_ = 0;
                 StoppedTime_ = 0;
                 SpeedOnWood_[L] = 0;
-                speed_ = 0.2;
 
+                switch (playerState)
+                {
+                case Player::EGG:
+                    speed_ = 0.2f;
+                    break;                                                                                    
+                case Player::LARVA:
+                    speed_ = 0.3f;
+                    break;
+                default:
+                    break;
+                }
                 if (IsReturn_)
                 {
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);

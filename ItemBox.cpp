@@ -90,7 +90,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 void ItemBox::StarEffect()
 {
 	EmitterData data;
-	data.textureFileName = "Image\\star.png";
+	data.textureFileName = "Image\\question_white.png";
 	data.position = transform_.position_;
 	data.delay = 0;
 	data.number = 80;
@@ -104,7 +104,7 @@ void ItemBox::StarEffect()
 	data.size = XMFLOAT2(0.4, 0.4);
 	data.sizeErr = XMFLOAT2(0.4, 0.4);
 	data.scale = XMFLOAT2(1, 1);
-	data.color = XMFLOAT4(1, 1, 0.1, 1);
+	data.color = XMFLOAT4(1, 1, 1, 1);
 	data.deltaColor = XMFLOAT4(0, 0, 0, 0);
 	data.gravity = 0.003f;
 	pParticle_->Start(data);

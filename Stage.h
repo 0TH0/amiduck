@@ -36,6 +36,8 @@ class Stage : public GameObject
     int PlayerPosZ_;
     int time_;
     int count_ = 1;
+    int bridgeCount_;
+    int hAudio_;
 
     std::list<XMFLOAT3> stagePosList_;
 
