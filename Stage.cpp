@@ -59,7 +59,8 @@ void Stage::StageLoad()
 
     hModel_[itembox] = Model::Load("log.fbx");
     assert(hModel_[itembox] >= 0);
-
+    
+    //煙の音
     hAudio_ = Audio::Load("Audio\\smoke.wav", 5);
     assert(hAudio_ >= 0);
 }
@@ -107,14 +108,7 @@ void Stage::Initialize()
         }
     }
 
-    //stage_[5][35].type = coin;
-    //stage_[5][34].type = coin;
-    //stage_[5][33].type = coin;
-
-    //stage_[7][29].type = coin;
-    //stage_[7][28].type = coin;
-    //stage_[7][27].type = coin;
-
+    //マップの自動生成
     while(bridgeCount_ < 15)
     {
         //time関数を使った乱数の種の設定
@@ -131,26 +125,7 @@ void Stage::Initialize()
         }
     }
 
-    /*
-    * 
-    * 23
-    * 22
-    * 21
-    * 
-    * 17
-    * 16
-    * 15
-    * 
-    * 11
-    * 10
-    * 9
-    * 
-    * 5
-    * 4
-    * 3
-    * 
-    */
-
+    //読み込んだモデルの初期化
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)

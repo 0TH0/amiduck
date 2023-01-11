@@ -34,7 +34,7 @@ void SceneManager::Update()
 		KillAllChildren();
 
 		//ロードしたデータを全削除
-		Audio::Release();
+		//Audio::Release();
 		Model::AllRelease();
 		Image::AllRelease();
 
