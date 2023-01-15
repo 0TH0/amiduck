@@ -167,6 +167,7 @@
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClearScene.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Star.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
