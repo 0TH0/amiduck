@@ -43,15 +43,6 @@ void Star::Update()
 		IsHit_ = false;
 		time_ = 0;
 	}
-
-	RayCastData rDog;
-	Camera::CalcScreenToWorld(rDog);
-	Model::RayCast(hModel_, &rDog);
-
-	if (rDog.hit)
-	{
-		transform_.position_.y++;
-	}
 }
 
 //•`‰æ

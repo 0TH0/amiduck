@@ -11,7 +11,7 @@ TitleScene::TitleScene(GameObject* parent)
 //‰Šú‰»
 void TitleScene::Initialize()
 {
-	hPict_ = Image::Load("Title\\Title.jpg");
+	hPict_ = Image::Load("Title\\TitleLogo.png");
 	assert(hPict_ >= 0);
 
 	hPictCh_ = Image::Load("Title\\title_ch.png");
@@ -54,7 +54,7 @@ void TitleScene::Draw()
 	Image::Draw(hPict_);
 
 	Transform trans;
-	trans.position_.y = -0.5;
+	trans.position_.y = -0.75;
 
 	Image::SetTransform(hPictCh_, trans);
 	Image::Draw(hPictCh_);

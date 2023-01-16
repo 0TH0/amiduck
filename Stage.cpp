@@ -108,6 +108,7 @@ void Stage::Initialize()
         }
     }
 
+    //あとで関数作る
     //マップの自動生成
     while(bridgeCount_ < 15)
     {
@@ -124,6 +125,38 @@ void Stage::Initialize()
             bridgeCount_++;
         }
     }
+
+    //アイテムボックス出現
+    {
+        int a = 0;
+        while (a < 10)
+        {
+            int randX = (rand() % STAGE_SIZE_X - 1);
+            int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+            if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+            {
+                stage_[randX][randZ + 2].type = itembox;
+                a++;
+            }
+        }
+    }
+
+    {
+        int a = 0;
+        while (a < 5)
+        {
+            int randX = (rand() % STAGE_SIZE_X - 1);
+            int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+            if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+            {
+                stage_[randX][randZ + 2].type = star;
+                a++;
+            }
+        }
+    }
+
 
     //読み込んだモデルの初期化
     for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -153,7 +186,7 @@ void Stage::Initialize()
             if (stage_[x][z].type == player)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
-                pPlayer->SetPosition(x, 1, z + 1);
+                pPlayer->SetPosition(x, 0, z + 1);
             }
             if (stage_[x][z].type == star)
             {

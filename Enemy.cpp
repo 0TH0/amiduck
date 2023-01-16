@@ -34,7 +34,7 @@ Enemy::~Enemy()
 
 void Enemy::EnemyLoad()
 {
-    hModel_ = Model::Load("Player\\egg.fbx");
+    hModel_ = Model::Load("Model\\Player\\egg.fbx");
     assert(hModel_ >= 0);
 }
 

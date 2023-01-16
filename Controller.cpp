@@ -69,14 +69,14 @@ void Controller::PlayerCamera()
         Camera::SetPosition(cam);
         Camera::SetTarget(camTar);
 
-        if (transform_.rotate_.x > (float)LimRot_)
+ /*       if (transform_.rotate_.x > (float)LimRot_)
         {
             transform_.rotate_.x = (float)LimRot_;
         }
         if (transform_.rotate_.x < (float)-LimRot_)
         {
             transform_.rotate_.x = (float)-LimRot_;
-        }
+        }*/
 
         //ƒJƒƒ‰‰ñ“]
         if (Input::IsKey(DIK_LEFT))
@@ -139,20 +139,20 @@ void Controller::PlayerCamera()
         //Camera::SetTarget(transform_.position_);
 
 
-        //XMFLOAT3 a = Input::GetMousePosition();
+        XMFLOAT3 a = Input::GetMousePosition();
 
-        //XMFLOAT3 b = Input::GetMouseMove();
+        XMFLOAT3 b = Input::GetMouseMove();
 
-        //float x = b.z - a.z;
+        float x = b.z - a.z;
 
-        //float y = b.z - a.z;
+        float y = b.z - a.z;
 
-        //transform_.rotate_.x += x * 0.025;
+        transform_.rotate_.x += x * 0.025;
 
-        //mousePos_ = Input::GetMousePosition();
+        mousePos_ = Input::GetMousePosition();
 
-        //if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-        //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
+        if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
+        if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
     }
 }
 
@@ -174,7 +174,7 @@ void Controller::CrickWheel()
     }
 
     //transform_.rotate_.x += moveY;
-    transform_.rotate_.y -= moveX;
+    transform_.rotate_.y -= moveX * 1.1f;
 
     PrevPosX_ = Input::GetMousePosition().x;
     //PrevPosY_ = Input::GetMousePosition().y;
@@ -188,36 +188,6 @@ void Controller::EnemyCamera()
     {
         EnemyPos_ = pEnemy->GetPosition();
         transform_.position_ = EnemyPos_;
-
-        //ƒJƒƒ‰‰ñ“]
-        if (Input::IsKey(DIK_LEFT))
-        {
-            transform_.rotate_.y -= 1.0f;
-        }
-
-        if (Input::IsKey(DIK_RIGHT))
-        {
-            transform_.rotate_.y += 1.0f;
-        }
-
-        if (Input::IsKey(DIK_UP))
-        {
-            transform_.rotate_.x += 1.0f;
-        }
-
-        if (Input::IsKey(DIK_DOWN))
-        {
-            transform_.rotate_.x -= 1.0f;
-        }
-
-        if (Input::IsKey(DIK_1))
-        {
-            transform_.rotate_.y = -90;
-        }
-        if (Input::IsKey(DIK_2))
-        {
-            transform_.rotate_.y = 90;
-        }
 
         //‰ñ“]s—ñ
         XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
@@ -243,20 +213,5 @@ void Controller::EnemyCamera()
         XMStoreFloat3(&camPos, vPos + vCam);
         Camera::SetPosition(camPos);
         Camera::SetTarget(transform_.position_);
-
-        XMFLOAT3 a = Input::GetMousePosition();
-
-        XMFLOAT3 b = Input::GetMouseMove();
-
-        float x = b.z - a.z;
-
-        float y = b.z - a.z;
-
-        transform_.rotate_.x += x * 0.025;
-
-        mousePos_ = Input::GetMousePosition();
-
-        if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-        if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
     }
 }

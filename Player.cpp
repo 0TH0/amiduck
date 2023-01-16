@@ -54,17 +54,17 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("Player\\egg.fbx");
+    hModel_ = Model::Load("Model\\Player\\egg.fbx");
     assert(hModel_ >= 0);
 
-    hModel2_ = Model::Load("Enemy\\raccoon10.fbx");
+    hModel2_ = Model::Load("Model\\Player\\duck.fbx");
     assert(hModel2_ >= 0);
 
     //アニメーションの設定
     Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
     //位置
-    transform_.position_ = XMFLOAT3(0, 0.8, 38);
+    //transform_.position_ = XMFLOAT3(0, 0.8, 38);
     transform_.rotate_ = XMFLOAT3(0, 180, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 

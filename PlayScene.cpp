@@ -41,7 +41,6 @@ void PlayScene::Initialize()
 	//pStage->StageLoad();
 	//pEnemy->EnemyLoad();
 
-	Instantiate<Player>(this);
 	Instantiate<StartScene>(this);
 }
 
