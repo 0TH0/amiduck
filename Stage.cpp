@@ -68,7 +68,7 @@ void Stage::StageLoad()
 void Stage::Cloud()
 {
     data.textureFileName = "Particle\\Cloud.png";
-    data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+    data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
     data.delay = 0;
     data.number = 5;
     data.lifeTime = 60;
@@ -80,7 +80,7 @@ void Stage::Cloud()
     data.sizeErr = XMFLOAT2(0.4, 0.4);
     data.scale = XMFLOAT2(1.03, 1.02);
     float color = 0.5;
-    data.color = XMFLOAT4(color, color, color, 0.1);
+    data.color = XMFLOAT4(color, color, color, 0.1f);
     pParticle_->Start(data);
 
     Audio::Play(hAudio_);
@@ -357,6 +357,7 @@ void Stage::Draw()
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);
                     transform_.scale_ = XMFLOAT3(1, 1, 1);
                     Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+                    Direct3D::SetShader(Direct3D::SHADER_3D);
 
                     switch (stage_[x][z].type)
                     {

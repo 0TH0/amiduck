@@ -10,6 +10,7 @@ class PlayScene : public GameObject
 public:
 	Player* pPlayer;
 	Transform playerTrans;
+	int hAudio_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

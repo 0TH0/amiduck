@@ -122,11 +122,11 @@ void Controller::PlayerCamera()
         //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 
         ////移動ベクトル
-        //XMFLOAT3 move = { 0, 0, 0.2f };
+        //XMFLOAT3 move = { 0, 0, 0.2 };
         //XMVECTOR vMove = XMLoadFloat3(&move);
         //vMove = XMVector3TransformCoord(vMove, mRotate);
 
-        //XMFLOAT3 X = { 0.2f, 0, 0 };
+        //XMFLOAT3 X = { 0.2, 0, 0 };
         //XMVECTOR vX = XMLoadFloat3(&X);
         //vX = XMVector3TransformCoord(vX, mRotate);
 
@@ -198,11 +198,11 @@ void Controller::EnemyCamera()
         XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 
         //移動ベクトル
-        XMFLOAT3 move = { 0, 0, 0.2f };
+        XMFLOAT3 move = { 0, 0, 0.2 };
         XMVECTOR vMove = XMLoadFloat3(&move);
         vMove = XMVector3TransformCoord(vMove, mRotate);
 
-        XMFLOAT3 X = { 0.2f, 0, 0 };
+        XMFLOAT3 X = { 0.2, 0, 0 };
         XMVECTOR vX = XMLoadFloat3(&X);
         vX = XMVector3TransformCoord(vX, mRotate);
 

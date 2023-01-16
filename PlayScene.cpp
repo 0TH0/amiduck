@@ -17,6 +17,7 @@
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
+#include "Engine/Audio.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -42,6 +43,10 @@ void PlayScene::Initialize()
 	//pEnemy->EnemyLoad();
 
 	Instantiate<StartScene>(this);
+
+	//BGM
+	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);
+	assert(hAudio_ >= 0);
 }
 
 //更新
@@ -76,6 +81,9 @@ void PlayScene::Update()
 	//	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 	//	pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 	//}
+
+	//BGM再生
+	Audio::Play(hAudio_);
 }
 
 //描画

@@ -144,7 +144,7 @@ void FireFollowGround::Update()
     //if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
     //{
     //    //初速度
-    //    jump_v0 = 0.2f;
+    //    jump_v0 = 0.2;
     //    //重力
     //    gravity = 0.008f;
 
@@ -197,7 +197,7 @@ void FireFollowGround::Update()
     ////移動べクトル
     //XMVECTOR Length = XMVector3Length(nowMove);
 
-    ////0.1以上の時は実行しない
+    ////0.1f以上の時は実行しない
     //if (XMVectorGetX(Length) > 0.01)
     //{
     //    //角度を求めるのに長さを1にする（正規化）
@@ -223,7 +223,7 @@ void FireFollowGround::Update()
     //    }
 
     //    //その角度回転させる
-    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.14f;
+    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.1f4f;
     //}
 
     //////////////////壁との衝突判定///////////////////////
@@ -346,11 +346,11 @@ void FireFollowGround::Update()
     //}
     //if (Input::IsKeyDown(DIK_C))
     //{
-    //    SPEED = -0.2f;
+    //    SPEED = -0.2;
     //}
     //if (Input::IsKeyDown(DIK_V))
     //{
-    //    SPEED = 0.2f;
+    //    SPEED = 0.2;
     //}
     //if (IsPress)
     //{
@@ -363,7 +363,7 @@ void FireFollowGround::Update()
 
     //
     ////壁の判定(下)
-    //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
+    //if (pStage->IsWall((int)objX, (int)(objY + 0.2)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
     //    move_.y = -gravity;
@@ -420,11 +420,11 @@ void FireFollowGround::Update()
     //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 
     ////移動ベクトル
-    //XMFLOAT3 move = { 0, 0, 0.2f };
+    //XMFLOAT3 move = { 0, 0, 0.2 };
     //XMVECTOR vMove = XMLoadFloat3(&move);
     //vMove = XMVector3TransformCoord(vMove, mRotate);
 
-    //XMFLOAT3 X = { 0.2f, 0, 0 };
+    //XMFLOAT3 X = { 0.2, 0, 0 };
     //XMVECTOR vX = XMLoadFloat3(&X);
     //vX = XMVector3TransformCoord(vX, mRotate);
 
@@ -524,7 +524,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    //ブロックに当たった
 //    if (pTarget->GetObjectName() == "Block")
 //    {
-//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2)))
 //        {
 //            pTarget->KillMe();
 //            IsJump = 0;
@@ -553,12 +553,12 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        float Dot = XMVectorGetY(vDot);
 //
 //        //角度を求める
-//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.14f);
+//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.1f4f);
 //
 //        if (angle <= 90)
 //        {
 //            //初速度
-//            jump_v0 = 0.15f;
+//            jump_v0 = 0.1f5f;
 //            //重力
 //            gravity = 0.003f;
 //
@@ -582,15 +582,15 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    if (pTarget->GetObjectName() == "Block_move")
 //    {
 //        //壁の判定(下)
-//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2)))
 //        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2f;
+//            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.2;
 //            IsJump = 0;
 //        }
 //        //壁の判定（上）
-//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2)))
 //        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
+//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2;
 //            IsJump = 0;
 //        }
 //        //壁の判定(右)
@@ -610,14 +610,14 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //    if (pTarget->GetObjectName() == "Pipe_base")
 //    {
 //        //壁の判定(上)
-//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY - 0.2)))
 //        {
-//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2f;
+//            transform_.position_.y = (float)(int)(transform_.position_.y) + 0.2;
 //            IsJump = 0;
 //        }
 //
 //        //壁の判定(下)
-//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2f)))
+//        if (pStage->IsBridge((int)objX, (int)(objY + 0.2)))
 //        {
 //            transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
 //            move_.y = -gravity;
@@ -652,12 +652,12 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        float Dot = XMVectorGetY(vDot);
 //
 //        //角度を求める
-//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.14f);
+//        angle = acos(Dot) * (STAGE_SIZE_X.0 / 3.1f4f);
 //
 //        if (angle <= 90)
 //        {
 //            //初速度
-//            jump_v0 = 0.15f;
+//            jump_v0 = 0.1f5f;
 //            //重力
 //            gravity = 0.003f;
 //
@@ -698,7 +698,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        if (angle <= 90)
 //        {
 //            //初速度
-//            jump_v0 = 0.15f;
+//            jump_v0 = 0.1f5f;
 //            //重力
 //            gravity = 0.003f;
 //

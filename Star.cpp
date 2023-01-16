@@ -24,7 +24,7 @@ void Star::Initialize()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
 	AddCollider(collision);
 
-	transform_.scale_ = XMFLOAT3(0.1, 0.1, 0.1);
+	transform_.scale_ = XMFLOAT3(0.1f, 0.1f, 0.1f);
 }
 
 //çXêV

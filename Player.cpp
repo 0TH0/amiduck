@@ -161,11 +161,11 @@ void Player::Update()
     }
     if (Input::IsKeyDown(DIK_C))
     {
-        speed_ = -0.2f;
+        speed_ = -0.2;
     }
     if (Input::IsKeyDown(DIK_V))
     {
-        speed_ = 0.2f;
+        speed_ = 0.2;
     }
 
     if (!IsBlend())
@@ -176,7 +176,7 @@ void Player::Update()
             EmitterData data;
             data.textureFileName = "Particle\\Cloud.png";
             data.position = transform_.position_;
-            data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+            data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
             data.delay = 0;
             data.number = 5;
             data.lifeTime = 60;
@@ -187,7 +187,7 @@ void Player::Update()
             data.size = XMFLOAT2(2, 2);
             data.sizeErr = XMFLOAT2(0.4, 0.4);
             data.scale = XMFLOAT2(1.03, 1.02);
-            data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1);
+            data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
             pParticle_->Start(data);
         }
     }
@@ -292,7 +292,7 @@ void Player::LadderLottery()
     {
         IsStop_ = false;
         transform_.rotate_ = XMFLOAT3(0, -90, 0);
-        SpeedOnWood_[R] = 0.2f;
+        SpeedOnWood_[R] = 0.2;
         TimeOnWood_[R] += SpeedOnWood_[R];
 
         if (TimeOnWood_[R] >= 6)
@@ -307,7 +307,7 @@ void Player::LadderLottery()
             switch (playerState)
             {
             case Player::EGG:
-                speed_ = 0.2f;
+                speed_ = 0.2;
                 break;
             case Player::LARVA:
                 speed_ = 0.3f;
@@ -359,7 +359,7 @@ void Player::LadderLottery()
         {
             IsStop_ = false;
             transform_.rotate_ = XMFLOAT3(0, 90, 0);
-            SpeedOnWood_[L] = 0.2f;
+            SpeedOnWood_[L] = 0.2;
             TimeOnWood_[L] += SpeedOnWood_[L];
 
             if (TimeOnWood_[L] >= 6)
@@ -374,7 +374,7 @@ void Player::LadderLottery()
                 switch (playerState)
                 {
                 case Player::EGG:
-                    speed_ = 0.2f;
+                    speed_ = 0.2;
                     break;                                                                                    
                 case Player::LARVA:
                     speed_ = 0.3f;

@@ -114,7 +114,7 @@ float4 PS(VS_OUT inData) : SV_Target
 float4 VS_OUTLINE(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL) : SV_POSITION
 {
 	normal.w = 0;
-	pos += normal * 0.1;
+	pos += normal * 0.1f;
 
 	pos = mul(pos, g_matWVP);
 	return pos;

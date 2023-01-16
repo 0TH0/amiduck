@@ -138,7 +138,7 @@ void Enemy::Update()
     //if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
     //{
     //    //初速度
-    //    jump_v0 = 0.2f;
+    //    jump_v0 = 0.2;
     //    //重力
     //    gravity = 0.008f;
 
@@ -191,7 +191,7 @@ void Enemy::Update()
     ////移動べクトル
     //XMVECTOR Length = XMVector3Length(nowMove);
 
-    ////0.1以上の時は実行しない
+    ////0.1f以上の時は実行しない
     //if (XMVectorGetX(Length) > 0.01)
     //{
     //    //角度を求めるのに長さを1にする（正規化）
@@ -217,7 +217,7 @@ void Enemy::Update()
     //    }
 
     //    //その角度回転させる
-    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.14f;
+    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.1f4f;
     //}
 
     //////////////////壁との衝突判定///////////////////////
@@ -276,7 +276,7 @@ void Enemy::Update()
         rotate_.y = -90;
         if (g <= 0)
         {
-            s = 0.2f;
+            s = 0.2;
             t += s;
             if (t >= 6)
             {
@@ -312,7 +312,7 @@ void Enemy::Update()
         if (b)
         {
             rotate_.y = 90;
-            f = 0.2f;
+            f = 0.2;
             g += f;
             if (g >= 6)
             {
@@ -341,11 +341,11 @@ void Enemy::Update()
     //}
     //if (Input::IsKeyDown(DIK_C))
     //{
-    //    SPEED = -0.2f;
+    //    SPEED = -0.2;
     //}
     //if (Input::IsKeyDown(DIK_V))
     //{
-    //    SPEED = 0.2f;
+    //    SPEED = 0.2;
     //}
     //if (IsPress)
     //{
@@ -358,7 +358,7 @@ void Enemy::Update()
 
     //
     ////壁の判定(下)
-    //if (pStage->IsWall((int)objX, (int)(objY + 0.2f)))
+    //if (pStage->IsWall((int)objX, (int)(objY + 0.2)))
     //{
     //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
     //    move_.y = -gravity;
@@ -415,11 +415,11 @@ void Enemy::Update()
     //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 
     ////移動ベクトル
-    //XMFLOAT3 move = { 0, 0, 0.2f };
+    //XMFLOAT3 move = { 0, 0, 0.2 };
     //XMVECTOR vMove = XMLoadFloat3(&move);
     //vMove = XMVector3TransformCoord(vMove, mRotate);
 
-    //XMFLOAT3 X = { 0.2f, 0, 0 };
+    //XMFLOAT3 X = { 0.2, 0, 0 };
     //XMVECTOR vX = XMLoadFloat3(&X);
     //vX = XMVector3TransformCoord(vX, mRotate);
 
