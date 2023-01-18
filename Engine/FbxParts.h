@@ -4,6 +4,7 @@
 #include <DirectXMath.h>
 #include "Texture.h"
 #include "Transform.h"
+#include "Direct3D.h"
 
 using namespace DirectX;
 
@@ -115,6 +116,8 @@ class FbxParts
 	void InitIndex(fbxsdk::FbxMesh * mesh);		//インデックスバッファ準備
 	void InitSkelton(FbxMesh * pMesh);			//骨の情報を準備
 	void IntConstantBuffer();	//コンスタントバッファ（シェーダーに情報を送るやつ）準備
+
+	Direct3D::SHADER_TYPE shaderType_;
 
 public:
 	FbxParts();

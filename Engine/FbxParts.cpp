@@ -378,9 +378,6 @@ void FbxParts::InitSkelton(FbxMesh * pMesh)
 		}
 	}
 
-
-
-
 	// それぞれのボーンに影響を受ける頂点を調べる
 	// そこから逆に、頂点ベースでボーンインデックス・重みを整頓する
 	for (int i = 0; i < numBone_; i++)
@@ -466,6 +463,16 @@ void FbxParts::Draw(Transform& transform)
 
 void FbxParts::Draw(Transform& transform, FLOAT alpha)
 {
+	switch (shaderType_)
+	{
+	case Direct3D::SHADER_3D:
+		break;
+	case Direct3D::SHADER_TOON:
+		break;
+	default:
+		break;
+	}
+
 	//今から描画する頂点情報をシェーダに伝える
 	UINT stride = sizeof(VERTEX);
 	UINT offset = 0;
