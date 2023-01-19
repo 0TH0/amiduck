@@ -706,5 +706,4 @@ namespace Direct3D
 			break;
 		}
 	}
-
 }

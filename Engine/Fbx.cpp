@@ -152,3 +152,12 @@ void Fbx::RayCast(RayCastData * data)
 		parts_[i]->RayCast(data);
 	}
 }
+
+void Fbx::SetShader(Direct3D::SHADER_TYPE shaderType)
+{
+	//‚·‚×‚Ä‚Ìƒp[ƒc‚Æ”»’è
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		parts_[i]->SetShader(shaderType);
+	}
+}

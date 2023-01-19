@@ -12,6 +12,7 @@
 #include "Enemy.h"
 #include "Line.h"
 #include "StartScene.h"
+#include "Water.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -29,20 +30,13 @@ PlayScene::PlayScene(GameObject* parent)
 void PlayScene::Initialize()
 {
 	//ステージ
-	Stage* pStage1;
-	Stage* pStage2;
-	//Instantiate<Stage>(this);
-	pStage2 = Instantiate<Stage>(this);
-	pStage2->SetPosition(XMFLOAT3(0, 0, 0));
-
-	Stage* pStage = (Stage*)FindObject("Stage");
+	Stage* pStage = Instantiate<Stage>(this);
+	
+	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-	//モデルロード
-	//pStage->StageLoad();
-	//pEnemy->EnemyLoad();
-
 	Instantiate<StartScene>(this);
+	Instantiate<Water>(this);
 
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Transform.h"
+#include "Direct3D.h"
 
 class FbxParts;
 
@@ -87,5 +88,6 @@ public:
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(RayCastData *data);
 
+	void SetShader(Direct3D::SHADER_TYPE shaderType);
 };
 

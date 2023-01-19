@@ -202,6 +202,8 @@ void Player::Draw()
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
 
+    Model::SetSahder(hModel_, Direct3D::SHADER_TOON);
+
     switch (playerState)
     {
     case EGG:

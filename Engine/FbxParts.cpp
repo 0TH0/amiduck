@@ -463,6 +463,8 @@ void FbxParts::Draw(Transform& transform)
 
 void FbxParts::Draw(Transform& transform, FLOAT alpha)
 {
+	Direct3D::SetShader(shaderType_);
+
 	switch (shaderType_)
 	{
 	case Direct3D::SHADER_3D:
@@ -668,4 +670,9 @@ void FbxParts::RayCast(RayCastData * data)
 			}
 		}
 	}
+}
+
+void FbxParts::SetShader(Direct3D::SHADER_TYPE shaderType)
+{
+	shaderType_ = shaderType;
 }

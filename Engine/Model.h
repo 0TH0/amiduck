@@ -100,4 +100,6 @@ namespace Model
 	//引数：handle	判定したいモデルの番号
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(int handle, RayCastData *data);
+
+	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_);
 };

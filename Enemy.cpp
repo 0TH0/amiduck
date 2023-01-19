@@ -483,6 +483,7 @@ void Enemy::Update()
 void Enemy::Draw()
 {
     Model::SetTransform(hModel_, transform_);
+    Model::SetSahder(hModel_, Direct3D::SHADER_3D);
 
     if (IsVisibled())
     {
