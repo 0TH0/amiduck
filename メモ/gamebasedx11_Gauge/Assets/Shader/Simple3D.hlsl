@@ -19,8 +19,6 @@ cbuffer global
 	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;// 視点（カメラの位置）
 	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
-	float		g_alpha;			//透明度
-	float		g_scroll;
 	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
 
 };
@@ -81,7 +79,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	//拡散反射光（ディフューズ）
 	//法線と光のベクトルの内積が、そこの明るさになる
 	float4 shade = saturate(dot(inData.normal, -lightDir));
-	shade = 1;	//暗いところが透明になるので、強制的にアルファは1
+	shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
 
 	float4 diffuse;
 	//テクスチャ有無
@@ -99,9 +97,9 @@ float4 PS(VS_OUT inData) : SV_Target
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
 	float4 ambient = g_vecAmbient;
-	float value = 0.0f;
+
 	//鏡面反射光（スペキュラー）
-	float4 speculer = float4(value, value, value, value);	//とりあえずハイライトは無しにしておいて…
+	float4 speculer = float4(0, 0, 0, 0);	//とりあえずハイライトは無しにしておいて…
 	if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
 	{
 		float4 R = reflect(lightDir, inData.normal);			//正反射ベクトル
@@ -109,7 +107,5 @@ float4 PS(VS_OUT inData) : SV_Target
 	}
 
 	//最終的な色
-	float4 result = diffuse * shade + diffuse * ambient + speculer;
-	result.a = g_alpha;
-	return result;
+	return diffuse * shade + diffuse * ambient + speculer;
 }

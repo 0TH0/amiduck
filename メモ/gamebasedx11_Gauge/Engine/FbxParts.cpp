@@ -110,24 +110,6 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 		}
 	}
 
-	//タンジェント取得
-	for (int i = 0; i < polygonCount_; i++)
-	{
-		int startIndex = mesh->GetPolygonVertexIndex(i);
-
-		FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
-
-		if (t != nullptr)
-		{
-			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
-
-			for (int j = 0; j < 3; j++)
-			{
-				int index = mesh->GetPolygonVertices()[startIndex + j];
-				pVertexData_[index].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
-			}
-		}
-	}
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -140,6 +122,8 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 	D3D11_SUBRESOURCE_DATA data_vertex;
 	data_vertex.pSysMem = pVertexData_;
 	Direct3D::pDevice_->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
+
+
 }
 
 //マテリアル準備
@@ -185,6 +169,7 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 
 
 		InitTexture(pMaterial, i);
+
 	}
 
 }
@@ -194,55 +179,29 @@ void FbxParts::InitTexture(fbxsdk::FbxSurfaceMaterial * pMaterial, const DWORD &
 {
 	pMaterial_[i].pTexture = nullptr;
 
-	//普通のテクスチャ
+
+	// テクスチャー情報の取得
+	FbxProperty  lProperty = pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse);
+
+	//テクスチャの数
+	int fileTextureCount = lProperty.GetSrcObjectCount<FbxFileTexture>();
+
+	if (fileTextureCount > 0)
 	{
-		// テクスチャー情報の取得
-		FbxProperty  lProperty = pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse);
+		FbxFileTexture* texture = lProperty.GetSrcObject<FbxFileTexture>(0);
 
-		//テクスチャの数
-		int fileTextureCount = lProperty.GetSrcObjectCount<FbxFileTexture>();
+		//ファイル名+拡張だけにする
+		char name[_MAX_FNAME];	//ファイル名
+		char ext[_MAX_EXT];		//拡張子
+		_splitpath_s(texture->GetRelativeFileName(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+		wsprintf(name, "%s%s", name, ext);
 
-		if (fileTextureCount > 0)
-		{
-			FbxFileTexture* texture = lProperty.GetSrcObject<FbxFileTexture>(0);
 
-			//ファイル名+拡張だけにする
-			char name[_MAX_FNAME];	//ファイル名
-			char ext[_MAX_EXT];		//拡張子
-			_splitpath_s(texture->GetRelativeFileName(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-			wsprintf(name, "%s%s", name, ext);
 
-			pMaterial_[i].pTexture = new Texture;
-			pMaterial_[i].pTexture->Load(name);
-		}
-	}
-	//ノーマルテクスチャ
-	{
-		//テクスチャ情報
-		FbxProperty  lProperty = pMaterial->FindProperty(FbxSurfaceMaterial::sBump);
+		pMaterial_[i].pTexture = new Texture;
+		pMaterial_[i].pTexture->Load(name);
 
-		//テクスチャの数
-		int fileTextureCount = lProperty.GetSrcObjectCount<FbxFileTexture>();
 
-		//テクスチャあり
-		if (fileTextureCount > 0)
-		{
-			FbxFileTexture* texture = lProperty.GetSrcObject<FbxFileTexture>(0);
-
-			//ファイル名+拡張だけにする
-			char name[_MAX_FNAME];	//ファイル名
-			char ext[_MAX_EXT];		//拡張子
-			_splitpath_s(texture->GetRelativeFileName(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-			wsprintf(name, "%s%s", name, ext);
-
-			pMaterial_[i].pNormalTexture = new Texture;
-			pMaterial_[i].pNormalTexture->Load(name);
-		}
-		//テクスチャ無し
-		else
-		{
-			pMaterial_[i].pNormalTexture = nullptr;
-		}
 	}
 }
 
@@ -377,6 +336,9 @@ void FbxParts::InitSkelton(FbxMesh * pMesh)
 		}
 	}
 
+
+
+
 	// それぞれのボーンに影響を受ける頂点を調べる
 	// そこから逆に、頂点ベースでボーンインデックス・重みを整頓する
 	for (int i = 0; i < numBone_; i++)
@@ -457,13 +419,6 @@ void FbxParts::IntConstantBuffer()
 //描画
 void FbxParts::Draw(Transform& transform)
 {
-	Draw(transform, 1);
-}
-
-void FbxParts::Draw(Transform& transform, FLOAT alpha)
-{
-	Direct3D::SetShader(shaderType_);
-
 	//今から描画する頂点情報をシェーダに伝える
 	UINT stride = sizeof(VERTEX);
 	UINT offset = 0;
@@ -486,47 +441,17 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		// パラメータの受け渡し
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;
-		cb.worldVewProj = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
-		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
-		cb.normalTrans = XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
+		cb.worldVewProj =	XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
+		cb.world =		XMMatrixTranspose(transform.GetWorldMatrix());
+		cb.normalTrans =	XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
 		cb.ambient = pMaterial_[i].ambient;
 		cb.diffuse = pMaterial_[i].diffuse;
 		cb.speculer = pMaterial_[i].specular;
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightDirection = XMFLOAT4(1, -1, 1, 0);
-		cb.alpha = alpha;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 
-		{
-			static float nowP = 0;
-			static float saveP = 3;
-			static float scroll = 0.0f;
-
-			switch (shaderType_)
-			{
-			case Direct3D::SHADER_3D:
-				break;
-			case Direct3D::SHADER_2D:
-				break;
-			case Direct3D::SHADER_UNLIT:
-				break;
-			case Direct3D::SHADER_BILLBOARD:
-				break;
-			case Direct3D::SHADER_TOON:
-				break;
-			case Direct3D::SHADER_NORMALMAP:
-				break;
-			case Direct3D::SHADER_WATER:
-				scroll += 0.001f;
-				cb.scroll = scroll;
-				break;
-			case Direct3D::SHADER_MAX:
-				break;
-			default:
-				break;
-			}
-		}
 
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る
@@ -535,26 +460,20 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 
 		// テクスチャをシェーダーに設定
 
-		if (pMaterial_[i].pTexture)
+		if (cb.isTexture)
 		{
-			ID3D11SamplerState* pSampler = pMaterial_[i].pTexture->GetSampler();
+			ID3D11SamplerState*			pSampler = pMaterial_[i].pTexture->GetSampler();
 			Direct3D::pContext_->PSSetSamplers(0, 1, &pSampler);
 
-			ID3D11ShaderResourceView* pSRV = pMaterial_[i].pTexture->GetSRV();
+			ID3D11ShaderResourceView*	pSRV = pMaterial_[i].pTexture->GetSRV();
 			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
 		}
-
-		if (pMaterial_[i].pNormalTexture)
-		{
-			ID3D11ShaderResourceView* pSRV = pMaterial_[i].pNormalTexture->GetSRV();
-			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);
-		}
-
 		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);									// GPUからのリソースアクセスを再開
 
 		 //ポリゴンメッシュを描画する
 		Direct3D::pContext_->DrawIndexed(pMaterial_[i].polygonCount * 3, 0, 0);
 	}
+
 }
 
 //ボーン有りのモデルを描画
@@ -620,7 +539,7 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time)
 
 }
 
-void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene, FLOAT alpha)
+void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene)
 {
 	//// その瞬間の自分の姿勢行列を得る
 	//FbxAnimEvaluator *evaluator = scene->GetAnimationEvaluator();
@@ -635,7 +554,7 @@ void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scen
 	//	}
 	//}
 
-	Draw(transform , alpha);
+	Draw(transform);
 }
 
 bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3 * position)
@@ -688,9 +607,4 @@ void FbxParts::RayCast(RayCastData * data)
 			}
 		}
 	}
-}
-
-void FbxParts::SetShader(Direct3D::SHADER_TYPE shaderType)
-{
-	shaderType_ = shaderType;
 }

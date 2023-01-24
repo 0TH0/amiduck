@@ -115,6 +115,65 @@ void Player::Update()
     // 1フレーム前の座標
     XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
 
+    if (Input::IsKey(DIK_D))
+    {
+        transform_.position_.z -= 0.5f;
+    }
+
+    if (Input::IsKey(DIK_A))
+    {
+        transform_.position_.z += 0.5f;
+    }
+
+    if (Input::IsKey(DIK_W))
+    {
+        transform_.position_.x += 0.5f;
+    }
+
+    if (Input::IsKey(DIK_S))
+    {
+        transform_.position_.x -= 0.5f;
+    }
+
+    //現在の位置ベクトル
+    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
+
+    //今回の移動ベクトル
+    XMVECTOR move = nowPosition - prevPosition;
+
+    //移動ベクトルの長さを測る
+    XMVECTOR length = XMVector3Length(move);
+
+    //0.1以上移動してたなら回転処理
+    if (XMVectorGetX(length) > 0.1f)
+    {
+        //角度を求めるために長さを１にする（正規化）
+        move = XMVector3Normalize(move);
+
+        //基準となる奥向きのベクトル
+        XMVECTOR front = { -1, 0, 0, 0 };
+
+        //frontとmoveの内積を求める
+        XMVECTOR vecDot = XMVector3Dot(front, move);
+        float dot = XMVectorGetX(vecDot);
+
+        //向いてる角度を求める（ラジアン）
+        float angle = acos(dot);
+
+
+        //frontとmoveの外積を求める
+        XMVECTOR cross = XMVector3Cross(front, move);
+
+        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
+        if (XMVectorGetY(cross) < 0)
+        {
+            angle *= -1;
+        }
+
+        //そのぶん回転させる
+        transform_.rotate_.y = angle * 180.0f / 3.14f;
+    }
+
     //停止する
     if (Input::IsKeyDown(DIK_F))
     {
@@ -133,23 +192,49 @@ void Player::Update()
     /////////////////////////移動/////////////////////////
 
     //ジャンプ中の重力
-    //if (IsJump)
-    //{
-    //    //重力
-    //    move_.y -= gravity;
-    //    transform_.position_.y += move_.y;
-    //}
+    if (Input::IsKey(DIK_Q)) //&& (IsJump == 0))
+    {
+        //初速度
+        jump_v0 = 0.2;
+        //重力
+        gravity = 0.008f;
 
-    //ジャンプしてない時の重力
-    //else
-    //{
-    //    //重力
-    //    gravity = 0.1f;
+        //初速度を加える
+        move_.y = jump_v0;
 
-    //    //重力を加える
-    //    move_.y = -gravity;
-    //    transform_.position_.y += move_.y;
-    //}
+        //重力を加える
+        move_.y += gravity;
+
+        //ジャンプフラグ
+        IsJump = 1;
+    }
+
+    if (!IsStop_)
+    {
+        ////ジャンプ中の重力
+        if (IsJump)
+        {
+            //重力
+            move_.y -= gravity;
+            transform_.position_.y += move_.y;
+        }
+        //ジャンプしてない時の重力
+        else
+        {
+            //重力
+            gravity = 0.1f;
+
+            //重力を加える
+            move_.y = -gravity;
+            transform_.position_.y += move_.y;
+        }
+    }
+
+    if (transform_.position_.y <= 0.75f)
+    {
+        transform_.position_.y = 0.75f;
+    }
+
 
     if (Input::IsKeyDown(DIK_Z))
     {
@@ -202,8 +287,6 @@ void Player::Draw()
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
 
-    Model::SetSahder(hModel_, Direct3D::SHADER_TOON);
-
     switch (playerState)
     {
     case EGG:
@@ -244,11 +327,11 @@ void Player::LadderLottery()
     int objZ = transform_.position_.z;
 
     ////壁の判定(上)
-    if (pStage->IsWall(objX, objZ) || pStage->IsBridge(objX, objZ))
-    {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
-    }
+    //if (pStage->IsWall(objX, objZ) || pStage->IsBridge(objX, objZ))
+    //{
+    //    transform_.position_.y = (int)(transform_.position_.y) + 0.8;
+    //    IsJump = 0;
+    //}
 
     if (!IsRight_ && !IsLeft_)
     {

@@ -3,6 +3,7 @@
 //───────────────────────────────────────
 Texture2D		g_texture: register(t0);	//テクスチャー
 SamplerState	g_sampler : register(s0);	//サンプラー
+Texture2D		g_norTex : register(t1);
 
 //───────────────────────────────────────
  // コンスタントバッファ
@@ -46,7 +47,7 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 
 	//ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
 	//スクリーン座標に変換し、ピクセルシェーダーへ
-	outData.pos = mul(pos, g_matWVP);		
+	outData.pos = mul(pos, g_matWVP);
 
 	//法線の変形
 	Normal.w = 0;					//4次元目は使わないので0
@@ -74,9 +75,23 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 lightDir = g_vecLightDir;	//グルーバル変数は変更できないので、いったんローカル変数へ
 	lightDir = normalize(lightDir);	//向きだけが必要なので正規化
 
+	float2 uv1 = inData.uv;
+	uv1.x += g_scroll;
+	float4 normal1 = g_norTex.Sample(g_sampler, uv1) * 2 - 1;
+
+	float2 uv2 = inData.uv;
+	uv2.x -= g_scroll * 0.3;
+	uv2.y *= 1.2;
+	float4 normal2 = g_norTex.Sample(g_sampler, uv2) * 2 - 1;
+
+	float4 normal = normal1 + normal2;
+
+	normal.w = 0;
+	normal = normalize(normal);
+
 	//法線はピクセルシェーダーに持ってきた時点で補完され長さが変わっている
 	//正規化しておかないと面の明るさがおかしくなる
-	inData.normal = normalize(inData.normal);
+	inData.normal = normalize(normal);
 
 	//拡散反射光（ディフューズ）
 	//法線と光のベクトルの内積が、そこの明るさになる

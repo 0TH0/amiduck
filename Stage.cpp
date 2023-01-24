@@ -31,7 +31,7 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csvì«Ç›çûÇ›
-    csv.Load("Csv\\map2.csv");
+    csv.Load("Csv\\map.csv");
 
     //ãÛî†
     //hModel_[empty] = Model::Load("Empty.fbx");
@@ -117,7 +117,7 @@ void Stage::Initialize()
         int randX = (rand() % STAGE_SIZE_X - 1);
         int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-        if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+        if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
         {
             stage_[randX][randZ].type = coin;
             stage_[randX][randZ - 1].type = coin;
@@ -134,7 +134,7 @@ void Stage::Initialize()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+            if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
             {
                 stage_[randX][randZ + 2].type = itembox;
                 a++;
@@ -149,7 +149,7 @@ void Stage::Initialize()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 35 || randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11 || randZ == 5)
+            if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
             {
                 stage_[randX][randZ + 2].type = star;
                 a++;

@@ -4,7 +4,6 @@
 #include <DirectXMath.h>
 #include "Texture.h"
 #include "Transform.h"
-#include "Direct3D.h"
 
 using namespace DirectX;
 
@@ -22,7 +21,6 @@ class FbxParts
 		XMFLOAT3 position;
 		XMFLOAT3 normal;
 		XMFLOAT3 uv;
-		XMFLOAT3 tangent;
 	};
 
 	//【コンスタントバッファー】
@@ -39,8 +37,6 @@ class FbxParts
 		XMFLOAT4 speculer;		//スペキュラー（Lambertの場合は0）
 		XMFLOAT4 cameraPosition;//カメラの位置（ハイライトの計算に必要）
 		FLOAT	 shininess;		//ハイライトの強さ（MayaのCosinePower）
-		FLOAT	 alpha;			//透明度
-		FLOAT	 scroll;		//水面の流れ
 		BOOL	 isTexture;		//テクスチャの有無
 	};
 
@@ -53,7 +49,6 @@ class FbxParts
 		XMFLOAT4	specular;			//鏡面反射光（スペキュラ）への反射強度
 		float		shininess;			//ハイライトの強さ（サイズ）
 		Texture*	pTexture;			//テクスチャ
-		Texture*	pNormalTexture;		//テクスチャ
 	}*pMaterial_;
 
 	// ボーン構造体（関節情報）
@@ -118,8 +113,6 @@ class FbxParts
 	void InitSkelton(FbxMesh * pMesh);			//骨の情報を準備
 	void IntConstantBuffer();	//コンスタントバッファ（シェーダーに情報を送るやつ）準備
 
-	Direct3D::SHADER_TYPE shaderType_;
-
 public:
 	FbxParts();
 	~FbxParts();
@@ -133,7 +126,6 @@ public:
 	//描画
 	//引数：world	ワールド行列
 	void Draw(Transform& transform);
-	void Draw(Transform& transform, FLOAT alpha);
 
 	//ボーン有りのモデルを描画
 	//引数：transform	行列情報
@@ -144,7 +136,7 @@ public:
 	//引数：transform	行列情報
 	//引数：time		フレーム情報（１アニメーション内の今どこか）
 	//引数：scene		Fbxファイルから読み込んだシーン情報
-	void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene, FLOAT alpha);
+	void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene);
 
 	//任意のボーンの位置を取得
 	//引数：boneName	取得したいボーンの位置
@@ -159,7 +151,5 @@ public:
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(RayCastData *data);
-
-	void SetShader(Direct3D::SHADER_TYPE shaderType);
 };
 
