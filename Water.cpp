@@ -18,8 +18,8 @@ void Water::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Water\\Water.fbx");
     assert(hModel_ >= 0);
-    transform_.scale_ = XMFLOAT3(10000, 10, 1000);
-    transform_.position_ = XMFLOAT3(20, -2, 30);
+    transform_.scale_ = XMFLOAT3(1000, 0.1, 1000);
+    transform_.position_ = XMFLOAT3(20, -1, 30);
 }
 
 //更新

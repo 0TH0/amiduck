@@ -5,10 +5,11 @@
 //シーンを管理するクラス
 class ItemBox : public GameObject
 {
-	int coin_count_;
+	int alpha_;
 	int time_;
 	bool IsHit_;
 	Particle* pParticle_;
+
 public:
 
 	int hModel_;
@@ -33,4 +34,6 @@ public:
 	void OnCollision(GameObject* pTarget) override;
 
 	void StarEffect();
+
+	bool GetIsHit() { return IsHit_; };
 };

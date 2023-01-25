@@ -7,6 +7,7 @@
 #include "Empty.h"
 #include "Star.h"
 #include "ItemBox.h"
+#include "ItemUI.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -31,7 +32,7 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csv“Ç‚İ‚İ
-    csv.Load("Csv\\map.csv");
+    csv.Load("Csv\\map2.csv");
 
     //‹ó” 
     //hModel_[empty] = Model::Load("Empty.fbx");
@@ -89,6 +90,7 @@ void Stage::Cloud()
 //‰Šú‰»
 void Stage::Initialize()
 {
+    Instantiate<ItemUI>(this);
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)

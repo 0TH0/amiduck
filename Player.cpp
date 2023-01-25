@@ -64,7 +64,6 @@ void Player::Initialize()
     Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
     //位置
-    //transform_.position_ = XMFLOAT3(0, 0.8, 38);
     transform_.rotate_ = XMFLOAT3(0, 180, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
@@ -87,6 +86,9 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    // 1フレーム前の座標
+    XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
+
     LadderLottery();
 
     if (Input::IsKeyDown(DIK_SPACE))
@@ -96,6 +98,7 @@ void Player::Update()
         {
             IsSpeedUp_ = true;
             Instantiate<Line>(this);
+            hasItem_ = false;
         }
     }
 
@@ -112,27 +115,24 @@ void Player::Update()
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    // 1フレーム前の座標
-    XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
-
     if (Input::IsKey(DIK_D))
     {
-        transform_.position_.z -= 0.5f;
+        transform_.position_.z -= 0.3f;
     }
 
     if (Input::IsKey(DIK_A))
     {
-        transform_.position_.z += 0.5f;
+        transform_.position_.z += 0.3f;
     }
 
     if (Input::IsKey(DIK_W))
     {
-        transform_.position_.x += 0.5f;
+        transform_.position_.x += 0.3f;
     }
 
     if (Input::IsKey(DIK_S))
     {
-        transform_.position_.x -= 0.5f;
+        transform_.position_.x -= 0.3f;
     }
 
     //現在の位置ベクトル
@@ -159,7 +159,6 @@ void Player::Update()
 
         //向いてる角度を求める（ラジアン）
         float angle = acos(dot);
-
 
         //frontとmoveの外積を求める
         XMVECTOR cross = XMVector3Cross(front, move);
@@ -190,7 +189,6 @@ void Player::Update()
     }
 
     /////////////////////////移動/////////////////////////
-
     //ジャンプ中の重力
     if (Input::IsKey(DIK_Q)) //&& (IsJump == 0))
     {
@@ -234,7 +232,6 @@ void Player::Update()
     {
         transform_.position_.y = 0.75f;
     }
-
 
     if (Input::IsKeyDown(DIK_Z))
     {
@@ -286,6 +283,7 @@ void Player::Draw()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
+  
 
     switch (playerState)
     {
@@ -339,15 +337,12 @@ void Player::LadderLottery()
         if (pStage->IsEmpty((float)objX + 3, objZ))
         {
             IsReturn_ = true;
-            transform_.rotate_ = XMFLOAT3(0, 0, 0);
         }
         if (pStage->IsEmpty((float)objX - 3, objZ))
         {
             IsReturn_ = false;
-            transform_.rotate_ = XMFLOAT3(0, 180, 0);
         }
     }
-
 
     if (IsReturn_)
     {
@@ -400,15 +395,6 @@ void Player::LadderLottery()
             default:
                 break;
             }
-
-            if (IsReturn_)
-            {
-                transform_.rotate_ = XMFLOAT3(0, 0, 0);
-            }
-            else
-            {
-                transform_.rotate_ = XMFLOAT3(0, 180, 0);
-            }
         }
         else
         {
@@ -443,7 +429,6 @@ void Player::LadderLottery()
         if (IsLeft_)
         {
             IsStop_ = false;
-            transform_.rotate_ = XMFLOAT3(0, 90, 0);
             SpeedOnWood_[L] = 0.2;
             TimeOnWood_[L] += SpeedOnWood_[L];
 
@@ -466,14 +451,6 @@ void Player::LadderLottery()
                     break;
                 default:
                     break;
-                }
-                if (IsReturn_)
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                }
-                else
-                {
-                    transform_.rotate_ = XMFLOAT3(0, 180, 0);
                 }
             }
             else

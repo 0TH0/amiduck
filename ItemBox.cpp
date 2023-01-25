@@ -1,6 +1,7 @@
 #include "ItemBox.h"
 #include "PlayScene.h"
 #include "Player.h"
+#include "ItemUI.h"
 
 #include "Engine/Model.h"
 #include "Engine/Image.h"
@@ -35,23 +36,11 @@ void ItemBox::Update()
 	if (IsHit_)
 	{
 		time_++;
+		if (time_ >= 30)
+		{
+			IsHit_ = false;
+		}
 	}
-
-	if (time_ >= 300)
-	{
-		Visible();
-		IsHit_ = false;
-		time_ = 0;
-	};
-
-	//RayCastData rDog;
-	//Camera::CalcScreenToWorld(rDog);
-	//Model::RayCast(hModel_, &rDog);
-
-	//if (rDog.hit)
-	//{
-	//	transform_.position_.y++;
-	//}
 }
 
 //描画
@@ -62,6 +51,17 @@ void ItemBox::Draw()
 	if (IsVisibled())
 	{
 		Model::Draw(hModel_);
+	}
+
+	Player* pPlayer = (Player*)FindObject("Player");
+
+	//アイテムボックスに当たってプレイヤーがアイテムを持っていないとき
+	if ((pPlayer->GetHasItem()))
+	{
+		Transform trans;
+		trans.position_ = XMFLOAT3(0.85, 0.75, 0);
+		ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
+		pItemUI->DrawUI(trans);
 	}
 }
 
@@ -80,6 +80,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 		if (IsVisibled())
 		{
 			StarEffect();
+			pPlayer->SetHasItem(true);
 		}
 
 		Invisible();

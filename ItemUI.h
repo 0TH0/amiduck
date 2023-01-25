@@ -2,13 +2,14 @@
 #include "Engine/GameObject.h"
 #include "Player.h"
 #include "Engine/Text.h"
+#include "ItemBox.h"
 
 //■■シーンを管理するクラス
 class ItemUI: public GameObject
 {
 	int hPict_[3];
 	int alpha_;
-	Text* pText;
+	ItemBox* pItemBox_;
 
 public:
 	//コンストラクタ
@@ -22,4 +23,6 @@ public:
 	void Draw() override;
 
 	void Release() override;
+
+	void DrawUI(Transform trs);
 };

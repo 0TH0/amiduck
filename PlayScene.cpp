@@ -34,19 +34,10 @@ void PlayScene::Initialize()
 	Instantiate<Water>(this);
 	//ステージ
 	Stage* pStage = Instantiate<Stage>(this);
+	Instantiate<StartScene>(this);
 	
 	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
-	Instantiate<StartScene>(this);
-	Instantiate<ItemUI>(this);
-
-	//空中コイン仮
-	for (int i = 0; i < 100; i++)
-	{
-		Coin* pCoin = Instantiate<Coin>(this);
-		pCoin->SetPosition(20 + i, 10 + i, 20);
-	}
 
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);

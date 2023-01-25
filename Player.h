@@ -21,7 +21,6 @@ class Player : public GameObject
         LARVA, //幼虫
     } playerState;
 
-
     int hModel_;          //モデル番号
     int hModel2_;          //モデル番号
 
@@ -47,6 +46,7 @@ class Player : public GameObject
     bool IsStop_;       //止まっているか
     bool IsOnBridge_;   //橋の上にいるか
     int starCount_;
+    bool hasItem_;
 
     //定数
     const float DUSHSPEED;    //ダッシュ速度
@@ -83,4 +83,7 @@ public:
 
     //あみだくじの処理
     void LadderLottery();
+
+    void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
+    bool GetHasItem() { return hasItem_; };
 };

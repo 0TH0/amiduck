@@ -19,12 +19,17 @@ void ItemUI::Initialize()
 {
 	hPict_[0] = Image::Load("UI\\ItemFrame.png");
 	assert(hPict_[0] >= 0);
+
+	hPict_[1] = Image::Load("UI\\apple.png");
+	assert(hPict_[1] >= 0);
+
+	hPict_[2] = Image::Load("UI\\komatsuna.png");
+	assert(hPict_[2] >= 0);
 }
 
 //XV
 void ItemUI::Update()
 {
-	//alpha_ -= 1.5;
 }
 
 //•`‰æ
@@ -38,4 +43,10 @@ void ItemUI::Draw()
 //ŠJ•ú
 void ItemUI::Release()
 {
+}
+
+void ItemUI::DrawUI(Transform trs)
+{
+	Image::SetTransform(hPict_[1], trs);
+	Image::Draw(hPict_[1]);
 }
