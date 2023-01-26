@@ -47,6 +47,9 @@ void ItemUI::Release()
 
 void ItemUI::DrawUI(Transform trs)
 {
-	Image::SetTransform(hPict_[1], trs);
-	Image::Draw(hPict_[1]);
+	//Image::SetTransform(hPict_[1], trs);
+	//Image::Draw(hPict_[1]);
+
+	Image::SetTransform(hPict_[2], trs);
+	Image::Draw(hPict_[2]);
 }

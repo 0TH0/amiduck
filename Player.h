@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "Engine/Text.h"
 #include "Engine/Particle.h"
+#include "Engine/PoryLine.h"
 
 //◆◆◆を管理するクラス
 class Player : public GameObject
@@ -57,6 +58,11 @@ class Player : public GameObject
     Text* pText = new Text;
     Particle* pParticle_;
     EmitterData data;
+    PoryLine* pLine;
+
+    int alpha_;
+    int time_;
+    XMVECTOR prevPosition;
 
 public:
     //コンストラクタ
@@ -86,4 +92,6 @@ public:
 
     void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
     bool GetHasItem() { return hasItem_; };
+
+    void  RotateDirMove();
 };

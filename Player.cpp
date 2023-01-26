@@ -13,21 +13,7 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-
-
-//////////////////////////////////////////////////////////////////////
-
-// 215行目の LadderLottery()
-// ルールベースAI
-// プレイヤーの右に橋のオブジェクトがあれば右に
-// 左に橋のオブジェクトがあれば左に行くようになってます
-// ※左右に橋がある場合は右優先(できればランダムでする予定)
-
-//////////////////////////////////////////////////////////////////////
-
-
-
-
+#include "Alpha.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -86,8 +72,20 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    switch (playerState)
+    {
+    case Player::EGG:
+        transform_.rotate_.y += 5;
+        break;
+    case Player::LARVA:
+        break;
+    default:
+        break;
+    }
+
+
     // 1フレーム前の座標
-    XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
+    prevPosition = XMLoadFloat3(&transform_.position_);
 
     LadderLottery();
 
@@ -115,63 +113,29 @@ void Player::Update()
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
+    float s = 0.5f;
+
     if (Input::IsKey(DIK_D))
     {
-        transform_.position_.z -= 0.3f;
+        transform_.position_.z -= s;
     }
 
     if (Input::IsKey(DIK_A))
     {
-        transform_.position_.z += 0.3f;
+        transform_.position_.z += s;
     }
 
     if (Input::IsKey(DIK_W))
     {
-        transform_.position_.x += 0.3f;
+        transform_.position_.x += s;
     }
 
     if (Input::IsKey(DIK_S))
     {
-        transform_.position_.x -= 0.3f;
+        transform_.position_.x -= s;
     }
 
-    //現在の位置ベクトル
-    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
-
-    //今回の移動ベクトル
-    XMVECTOR move = nowPosition - prevPosition;
-
-    //移動ベクトルの長さを測る
-    XMVECTOR length = XMVector3Length(move);
-
-    //0.1以上移動してたなら回転処理
-    if (XMVectorGetX(length) > 0.1f)
-    {
-        //角度を求めるために長さを１にする（正規化）
-        move = XMVector3Normalize(move);
-
-        //基準となる奥向きのベクトル
-        XMVECTOR front = { -1, 0, 0, 0 };
-
-        //frontとmoveの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(front, move);
-        float dot = XMVectorGetX(vecDot);
-
-        //向いてる角度を求める（ラジアン）
-        float angle = acos(dot);
-
-        //frontとmoveの外積を求める
-        XMVECTOR cross = XMVector3Cross(front, move);
-
-        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
-        if (XMVectorGetY(cross) < 0)
-        {
-            angle *= -1;
-        }
-
-        //そのぶん回転させる
-        transform_.rotate_.y = angle * 180.0f / 3.14f;
-    }
+    RotateDirMove();
 
     //停止する
     if (Input::IsKeyDown(DIK_F))
@@ -283,15 +247,14 @@ void Player::Draw()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
-  
 
     switch (playerState)
     {
     case EGG:
-        Model::Draw(hModel_);
+        Alpha::FlashModel(hModel_, 7);
         break;
     case LARVA:
-        Model::Draw(hModel2_);
+        Alpha::FlashModel(hModel2_, 7);
         break;
     }
 }
@@ -306,8 +269,9 @@ void Player::OnCollision(GameObject* pTarget)
     //敵に当たった
     if (pTarget->GetObjectName() == "Enemy")
     {
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+     /*   SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_CLEAR);*/
+        Alpha::SetIsFlash(true);
     }
 
     if (pTarget->GetObjectName() == "Star")
@@ -459,5 +423,46 @@ void Player::LadderLottery()
                 transform_.position_.z += SpeedOnWood_[L];
             }
         }
+    }
+}
+
+void Player::RotateDirMove()
+{
+    //現在の位置ベクトル
+    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
+
+    //今回の移動ベクトル
+    XMVECTOR move = nowPosition - prevPosition;
+
+    //移動ベクトルの長さを測る
+    XMVECTOR length = XMVector3Length(move);
+
+    //0.1以上移動してたなら回転処理
+    if (XMVectorGetX(length) > 0.1f)
+    {
+        //角度を求めるために長さを１にする（正規化）
+        move = XMVector3Normalize(move);
+
+        //基準となる奥向きのベクトル
+        XMVECTOR front = { -1, 0, 0, 0 };
+
+        //frontとmoveの内積を求める
+        XMVECTOR vecDot = XMVector3Dot(front, move);
+        float dot = XMVectorGetX(vecDot);
+
+        //向いてる角度を求める（ラジアン）
+        float angle = acos(dot);
+
+        //frontとmoveの外積を求める
+        XMVECTOR cross = XMVector3Cross(front, move);
+
+        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
+        if (XMVectorGetY(cross) < 0)
+        {
+            angle *= -1;
+        }
+
+        //そのぶん回転させる
+        transform_.rotate_.y = angle * 180.0f / 3.14f;
     }
 }

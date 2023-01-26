@@ -119,6 +119,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="ItemUI.cpp" />
+    <ClCompile Include="Alpha.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -214,6 +215,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="ItemUI.h" />
+    <ClInclude Include="Alpha.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

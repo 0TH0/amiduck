@@ -47,10 +47,9 @@ void Controller::PlayerCamera()
         PlayerPos_ = pPlayer->GetPosition();
         transform_.position_ = PlayerPos_;
 
-        //XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
-        XMFLOAT3 move = { NULL, NULL, Move_ }; //移動距離作り(作るのはfloat)
+        XMFLOAT3 move = { 0, 0, Move_ }; //移動距離作り(作るのはfloat)
         XMVECTOR vMove = XMLoadFloat3(&move); //float->vector変換(直接ベクトルは作れない)
-        XMFLOAT3 lrMove = { Move_, NULL, NULL };	//左右移動
+        XMFLOAT3 lrMove = { Move_, 0, 0 };	//左右移動
         XMVECTOR vlrMove = XMLoadFloat3(&lrMove);
         XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y)); //transform_.rotate_.yをラジアンに変換してぶち込む
         XMVECTOR vPos = XMLoadFloat3(&transform_.position_); //現在位置をベクトルに変換
@@ -68,15 +67,6 @@ void Controller::PlayerCamera()
 
         Camera::SetPosition(cam);
         Camera::SetTarget(camTar);
-
- /*       if (transform_.rotate_.x > (float)LimRot_)
-        {
-            transform_.rotate_.x = (float)LimRot_;
-        }
-        if (transform_.rotate_.x < (float)-LimRot_)
-        {
-            transform_.rotate_.x = (float)-LimRot_;
-        }*/
 
         //カメラ回転
         if (Input::IsKey(DIK_LEFT))
@@ -184,18 +174,17 @@ void Controller::CrickWheel()
 void Controller::EnemyCamera()
 {
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-    if (pEnemy != nullptr)
+    if (pEnemy->GetObjectName() == "Enemy")
     {
-        EnemyPos_ = pEnemy->GetPosition();
-        transform_.position_ = EnemyPos_;
+        EnemyTrans_.position_ = pEnemy->GetPosition();
 
         //回転行列
-        XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-        XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+        XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(EnemyTrans_.rotate_.x));
+        XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(EnemyTrans_.rotate_.y));
         XMMATRIX mRotate = mRotateX * mRotateY;
 
         //現在位置をベクトルにしておく
-        XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
+        XMVECTOR vPos = XMLoadFloat3(&EnemyTrans_.position_);
 
         //移動ベクトル
         XMFLOAT3 move = { 0, 0, 0.2 };
@@ -207,11 +196,11 @@ void Controller::EnemyCamera()
         vX = XMVector3TransformCoord(vX, mRotate);
 
         //カメラ
-        XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
+        XMVECTOR vCam = XMVectorSet(0, 5, -10, 0);
         vCam = XMVector3TransformCoord(vCam, mRotate);
         XMFLOAT3 camPos;
         XMStoreFloat3(&camPos, vPos + vCam);
         Camera::SetPosition(camPos);
-        Camera::SetTarget(transform_.position_);
+        Camera::SetTarget(EnemyTrans_.position_);
     }
 }

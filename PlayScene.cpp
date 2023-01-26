@@ -33,7 +33,9 @@ void PlayScene::Initialize()
 {
 	Instantiate<Water>(this);
 	//ステージ
-	Stage* pStage = Instantiate<Stage>(this);
+	Stage* pStage;
+	pStage = Instantiate<Stage>(this);
+	pStage->StageLoad();
 	Instantiate<StartScene>(this);
 	
 	pStage = (Stage*)FindObject("Stage");

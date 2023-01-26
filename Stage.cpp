@@ -225,7 +225,6 @@ void Stage::Update()
 
     float h = Camera::GetScrHDiv2();
 
-
     XMMATRIX vp = {
         w,  0, 0, 0,
         0, -h, 0, 0,

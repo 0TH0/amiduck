@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alpha.cpp" />
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alpha.h" />
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />

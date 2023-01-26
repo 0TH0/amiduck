@@ -8,7 +8,7 @@ class Controller : public GameObject
 public:
 	int hModel_;
 	XMFLOAT3 PlayerPos_;
-	XMFLOAT3 EnemyPos_;
+	Transform EnemyTrans_;
 	float plus;
 	bool Is;
 
