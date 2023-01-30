@@ -5,6 +5,7 @@
 #include <string>
 #include "Fbx.h"
 #include "Transform.h"
+#include "Alpha.h"
 
 //-----------------------------------------------------------
 //3Dモデル（FBXファイル）を管理する
@@ -19,6 +20,8 @@ namespace Model
 
 		//ロードしたモデルデータのアドレス
 		Fbx*		pFbx;
+
+		Alpha		pAlpha;
 
 		//行列
 		Transform 	transform;
@@ -102,4 +105,8 @@ namespace Model
 	void RayCast(int handle, RayCastData *data);
 
 	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_);
+
+	void FlashModel(int handle, int frame = 5);
+
+	void SetIsFlash(int handle, bool IsFlash = 1);
 };

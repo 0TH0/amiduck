@@ -1,11 +1,15 @@
 #include "Alpha.h"
+#include "Model.h"
 
-int time_;	//時間
-int alpha_;	//透明度
-int frame_;	//何フレーム毎に点滅させるか
-bool IsFlash_;	//フラッシュさせるか
+Alpha::Alpha() : time_(0),alpha_(0),frame_(0),IsFlash_(false)
+{
+}
 
-void Alpha::FlashModel(int handle, int frame)
+Alpha::~Alpha()
+{
+}
+
+void Alpha::FlashModel(int frame)
 {
 	if (IsFlash_)
 	{
@@ -25,12 +29,6 @@ void Alpha::FlashModel(int handle, int frame)
 			IsFlash_ = false;
 			time_ = 0;
 		}
-
-		Model::Draw(handle, alpha_);
-	}
-	else
-	{
-		Model::Draw(handle);
 	}
 }
 

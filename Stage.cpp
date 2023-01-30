@@ -218,7 +218,7 @@ void Stage::Update()
 
     player_pos_.z = (int)pPlayer->GetPosition().z;
 
-    enemyPos_ = pEnemy->GetPosition();
+     enemyPos_ = pEnemy->GetPosition();
 
     //ビューポート行列
     float w = Camera::GetScrWDiv2();

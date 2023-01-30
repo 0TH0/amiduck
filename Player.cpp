@@ -13,7 +13,6 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-#include "Alpha.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -72,18 +71,6 @@ void Player::Initialize()
 
 void Player::Update()
 {
-    switch (playerState)
-    {
-    case Player::EGG:
-        transform_.rotate_.y += 5;
-        break;
-    case Player::LARVA:
-        break;
-    default:
-        break;
-    }
-
-
     // 1フレーム前の座標
     prevPosition = XMLoadFloat3(&transform_.position_);
 
@@ -112,28 +99,6 @@ void Player::Update()
 
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
-    float s = 0.5f;
-
-    if (Input::IsKey(DIK_D))
-    {
-        transform_.position_.z -= s;
-    }
-
-    if (Input::IsKey(DIK_A))
-    {
-        transform_.position_.z += s;
-    }
-
-    if (Input::IsKey(DIK_W))
-    {
-        transform_.position_.x += s;
-    }
-
-    if (Input::IsKey(DIK_S))
-    {
-        transform_.position_.x -= s;
-    }
 
     RotateDirMove();
 
@@ -205,14 +170,6 @@ void Player::Update()
     {
         Camera::SetDefault();
     }
-    if (Input::IsKeyDown(DIK_C))
-    {
-        speed_ = -0.2;
-    }
-    if (Input::IsKeyDown(DIK_V))
-    {
-        speed_ = 0.2;
-    }
 
     if (!IsBlend())
     {
@@ -251,10 +208,10 @@ void Player::Draw()
     switch (playerState)
     {
     case EGG:
-        Alpha::FlashModel(hModel_, 7);
+        Model::FlashModel(hModel_);
         break;
     case LARVA:
-        Alpha::FlashModel(hModel2_, 7);
+        Model::FlashModel(hModel2_);
         break;
     }
 }
@@ -269,9 +226,8 @@ void Player::OnCollision(GameObject* pTarget)
     //敵に当たった
     if (pTarget->GetObjectName() == "Enemy")
     {
-     /*   SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_CLEAR);*/
-        Alpha::SetIsFlash(true);
+        Model::SetIsFlash(hModel_);
+        Model::SetIsFlash(hModel2_);
     }
 
     if (pTarget->GetObjectName() == "Star")

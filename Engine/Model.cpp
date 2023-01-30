@@ -187,7 +187,6 @@ namespace Model
 		return _datas[handle]->transform.GetWorldMatrix();
 	}
 
-
 	//レイキャスト（レイを飛ばして当たり判定）
 	void RayCast(int handle, RayCastData* data)
 	{
@@ -206,5 +205,24 @@ namespace Model
 	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_)
 	{
 		_datas[handle]->pFbx->SetShader(shaderType_);
+	}
+
+	//モデルを点滅させる
+	void FlashModel(int handle, int frame)
+	{
+		if (_datas[handle]->pAlpha.GetIsFlash())
+		{
+			_datas[handle]->pAlpha.FlashModel(frame);
+			Draw(handle, _datas[handle]->pAlpha.GetAlpha());
+		}
+		else
+		{
+			Draw(handle);
+		}
+	}
+
+	void SetIsFlash(int handle, bool IsFlash)
+	{
+		_datas[handle]->pAlpha.SetIsFlash(IsFlash);
 	}
 }
