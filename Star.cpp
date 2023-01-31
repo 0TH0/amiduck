@@ -25,23 +25,42 @@ void Star::Initialize()
 	AddCollider(collision);
 
 	transform_.scale_ = XMFLOAT3(0.1f, 0.1f, 0.1f);
+
+	pParticle_ = Instantiate<Particle>(this);
 }
 
 //çXêV
 void Star::Update()
 {
 	transform_.rotate_.y += 3;
-
-	if (IsHit_)
+	
+	if (time_ <= 60)
 	{
 		time_++;
 	}
 
-	if (time_ >= 300)
+	//if (IsHit_)
+	//{
+	//	time_++;
+	//}
+
+	//if (time_ >= 300)
+	//{
+	//	Visible();
+	//	IsHit_ = false;
+	//	time_ = 0;
+	//}
+	if (transform_.position_.y <= 1.25f)
 	{
-		Visible();
-		IsHit_ = false;
-		time_ = 0;
+		transform_.position_.y = 1.25f;
+	}
+	else
+	{
+		transform_.position_.y -= 0.05f;
+	}
+	if (!IsVisibled() && time_ >= 60)
+	{
+		KillMe();
 	}
 }
 
@@ -64,16 +83,36 @@ void Star::Release()
 void Star::OnCollision(GameObject* pTarget)
 {
 	//ìGÇ…ìñÇΩÇ¡ÇΩ
-	if (pTarget->GetObjectName() == "Player")
+	if (pTarget->GetObjectName() == "Player" || pTarget->GetObjectName() == "Enemy")
 	{
-		Player* pPlayer = (Player*)FindObject("Player");
-
-		if (IsVisibled())
+		if (time_ >= 60 && IsVisibled())
 		{
-			//pPlayer->PlusStarCount(1);
+			Invisible();
+			StarEffect();
+			time_ = 0;
 		}
-
-		Invisible();
-		IsHit_ = true;
 	}
+}
+
+void Star::StarEffect()
+{
+	EmitterData data;
+	data.textureFileName = "Image\\star.png";
+	data.position = transform_.position_;
+	data.delay = 0;
+	data.number = 80;
+	data.lifeTime = 100;
+	data.positionErr = XMFLOAT3(0.4, 0, 0.4);
+	data.dir = XMFLOAT3(0, 1, 0);
+	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.speed = 0.25f;
+	data.speedErr = 1;
+	data.accel = 0.93;
+	data.size = XMFLOAT2(0.4, 0.4);
+	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.scale = XMFLOAT2(1, 1);
+	data.color = XMFLOAT4(1, 1, 1, 1);
+	data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+	data.gravity = 0.003f;
+	pParticle_->Start(data);
 }

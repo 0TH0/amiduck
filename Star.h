@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Particle.h"
 
 //シーンを管理するクラス
 class Star : public GameObject
@@ -7,6 +8,7 @@ class Star : public GameObject
 	int coin_count_;
 	int time_;
 	bool IsHit_;
+	Particle* pParticle_;
 public:
 
 	int hModel_;
@@ -30,9 +32,5 @@ public:
 
 	void OnCollision(GameObject* pTarget) override;
 
-	int GetCoinCount() { return coin_count_; };
-
-	void PlusCoinCount(int count) { coin_count_ += count; };
-
-	void MinCoinCount(int count) { coin_count_ -= count; };
+	void StarEffect();
 };

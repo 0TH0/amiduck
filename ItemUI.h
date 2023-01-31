@@ -7,7 +7,7 @@
 //■■シーンを管理するクラス
 class ItemUI: public GameObject
 {
-	int hPict_[3];
+	int hPict_[5];
 	int alpha_;
 	ItemBox* pItemBox_;
 
@@ -24,5 +24,7 @@ public:
 
 	void Release() override;
 
-	void DrawUI(Transform trs);
+	void DrawWoodUI(Transform tra);
+
+	void DrawUI(Transform tra);
 };

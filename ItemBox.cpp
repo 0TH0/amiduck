@@ -41,6 +41,13 @@ void ItemBox::Update()
 			IsHit_ = false;
 		}
 	}
+
+	if (time_ >= 300)
+	{
+		Visible();
+		IsHit_ = false;
+		time_ = 0;
+	}
 }
 
 //•`‰æ
@@ -79,7 +86,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 
 		if (IsVisibled())
 		{
-			StarEffect();
+			QuestionEffect();
 			pPlayer->SetHasItem(true);
 		}
 
@@ -88,7 +95,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 	}
 }
 
-void ItemBox::StarEffect()
+void ItemBox::QuestionEffect()
 {
 	EmitterData data;
 	data.textureFileName = "Image\\question_white.png";

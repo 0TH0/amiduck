@@ -53,10 +53,10 @@ void SceneManager::Update()
 		currentSceneID_ = nextSceneID_;
 	}
 
-	if (Input::IsKey(DIK_E))
-	{
-		PostQuitMessage(0);	//プログラム終了
-	}
+	//if (Input::IsKey(DIK_E))
+	//{
+	//	PostQuitMessage(0);	//プログラム終了
+	//}
 }
 
 //描画

@@ -30,7 +30,7 @@ public:
 	float g;
 
 	int time;
-
+	int starTime_;
 	Stage* pStage;
 	float speed_;        //ˆÚ“®‘¬“x
 	PoryLine* pLine;

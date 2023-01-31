@@ -38,6 +38,7 @@ class Stage : public GameObject
     int count_ = 1;
     int bridgeCount_;
     int hAudio_;
+    int woodCoolTime_;
 
     std::list<XMFLOAT3> stagePosList_;
 
@@ -75,4 +76,6 @@ public:
 
     static const int GetStageSizeX() { return STAGE_SIZE_X; };
     static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
+
+    int GetWoodCoolTime() { return woodCoolTime_; };
 };

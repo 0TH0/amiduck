@@ -2,13 +2,29 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 #include "Engine/Text.h"
+#include "Engine/Particle.h"
+#include "Engine/PoryLine.h"
 
 //◆◆◆を管理するクラス
 class Enemy : public GameObject
 {
+    enum dir
+    {
+        L = 0,
+        R,
+        DIR_MAX
+    };
+
+    //プレイヤーの状態
+    enum State
+    {
+        EGG = 0,    //卵
+        LARVA, //幼虫
+    } playerState;
+
     int hModel_;          //モデル番号
-    int hModelWood_;
-    int hModelBlock_;
+    int hModel2_;          //モデル番号
+
     float jump_v0;        //ジャンプの初速度
     float gravity;        //重力
     float angle;          //角度
@@ -18,32 +34,33 @@ class Enemy : public GameObject
     bool IsGround;        //地面についているか
     bool IsEnemy;         //敵に当たったか
     int BossHp;           //ボスのHP
+    float speed_;        //移動速度
+    float SpeedOnWood_[DIR_MAX];  //木の上の移動速度
+    float TimeOnWood_[DIR_MAX];    //木の上の時間
+    int SpeedUpTime_;             //スピードUPしている時間
+    bool IsSpeedUp_;        //スピードUPしているか
+    bool IsRight_;      //右に進んでいるか
+    bool IsLeft_;       //左に進んでいるか
+    int delay_;          //遅延
+    int StoppedTime_;   //橋を渡ってからの時間
+    bool IsReturn_;     //戻ってきているか
+    bool IsStop_;       //止まっているか
+    bool IsOnBridge_;   //橋の上にいるか
+    int starNum_;
+    int starTime_;
+    bool hasItem_;
 
     //定数
-    float SPEED;        //移動速度
     const float DUSHSPEED;    //ダッシュ速度
     const float CAMERA_TAR_Y; //カメラの向き
-    const float CAMERA_POS_Y; //カメラの位置
-    float s;
-    float t;
-    float f;
-    float g;
+    const float CAMERA_POS_Y; //カメラの位置 
 
     Stage* pStage;
-
     Text* pText = new Text;
-
-    float a = false;
-    bool c = false;
-    bool b = false;
-    int time1 = 0;
-    int time2;
-    int time3;
-    Transform trans[2];
-    bool IsPress;
-    bool IsReturn;
-
-    XMFLOAT3 rotate_;
+    Particle* pParticle_;
+    EmitterData data;
+    PoryLine* pLine;
+    XMVECTOR prevPosition;
 
 public:
     //コンストラクタ
@@ -63,8 +80,16 @@ public:
 
     //開放
     void Release() override;
-    
-    bool GetReturn() { return IsReturn; };
 
-    void EnemyLoad();
+    void OnCollision(GameObject* pTarget) override;
+
+    bool GetReturn() { return IsReturn_; };
+
+    //あみだくじの処理
+    void LadderLottery();
+
+    void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
+    bool GetHasItem() { return hasItem_; };
+
+    void  RotateDirMove();
 };

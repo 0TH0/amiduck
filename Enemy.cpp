@@ -1,7 +1,9 @@
-#include "Enemy.h"
-#include "Stage.h"
 #include "PlayScene.h"
 #include "StartScene.h"
+#include "Controller.h"
+#include "Enemy.h"
+#include "Line.h"
+#include "Star.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -16,13 +18,13 @@ Enemy::Enemy(GameObject* parent)
 
     //変数
     hModel_(-1),
-    jump_v0(0), gravity(0), angle(0), BossHp(3), hModelBlock_(-1),
+    jump_v0(0), gravity(0), angle(0), BossHp(3),
 
     //フラグ
     IsJump(false), IsGround(false),
 
     //定数
-    SPEED(0.3f), DUSHSPEED(0.05f),
+    speed_(0.3f), DUSHSPEED(0.05f),
     CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
 {
 }
@@ -32,24 +34,20 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::EnemyLoad()
-{
-    hModel_ = Model::Load("Model\\Player\\egg.fbx");
-    assert(hModel_ >= 0);
-}
-
 //初期化
 void Enemy::Initialize()
 {
-    EnemyLoad();
+    hModel_ = Model::Load("Model\\Player\\egg.fbx");
+    assert(hModel_ >= 0);
+
+    hModel2_ = Model::Load("Enemy\\raccoon10.fbx");
+    assert(hModel2_ >= 0);
 
     //アニメーションの設定
-    Model::SetAnimFrame(hModel_, 0, 300, 2.0f);
+    Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
     //位置
-    transform_.position_ = XMFLOAT3(178, 0.5, 38);
-    //transform_.position_ = XMFLOAT3(0, 0.5, 2);
-    transform_.rotate_ = XMFLOAT3(0, rotate_.y, 0);
+    transform_.rotate_ = XMFLOAT3(0, 180, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
     //当たり判定
@@ -59,83 +57,67 @@ void Enemy::Initialize()
     pStage = (Stage*)FindObject("Stage");
     assert(pStage != nullptr);
 
+    Instantiate<Controller>(this);
+
     pText->Initialize();
+
+    pParticle_ = Instantiate<Particle>(this);
+
+    //最初は卵から
+    playerState = EGG;
 }
 
 void Enemy::Update()
 {
-    transform_.rotate_ = XMFLOAT3(0, rotate_.y, 0);
+    // 1フレーム前の座標
+    prevPosition = XMLoadFloat3(&transform_.position_);
+
+    LadderLottery();
+
+    //if (Input::IsKeyDown(DIK_SPACE))
+    //{
+    //    //橋を渡っていなかったら
+    //    if (!(IsOnBridge_))
+    //    {
+    //        IsSpeedUp_ = true;
+    //        Instantiate<Line>(this);
+    //        hasItem_ = false;
+    //    }
+    //}
+
+    //if (IsSpeedUp_)
+    //{
+    //    SpeedUpTime_++;
+    //    speed_ = 0.4;
+    //}
+    //if (SpeedUpTime_ > 30)
+    //{
+    //    IsSpeedUp_ = false;
+    //}
 
     pStage = (Stage*)FindObject("Stage");
+    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    // 1フレーム前の座標
-    XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
+    RotateDirMove();
+
+    //停止する
+    //if (Input::IsKeyDown(DIK_F))
+    //{
+    //    if (!IsStop_)
+    //    {
+    //        speed_ = 0;
+    //        IsStop_ = true;
+    //    }
+    //    else
+    //    {
+    //        speed_ = 0.3f;
+    //        IsStop_ = false;
+    //    }
+    //}
 
     /////////////////////////移動/////////////////////////
-
-    ////左移動
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    transform_.position_.x += SPEED;
-    //}
-
-    ////左移動
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    transform_.position_.x -= SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_A))
-    //{
-    //    transform_.position_.z += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    transform_.position_.z -= SPEED;
-    //}
-
-    ////右移動
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    transform_.position_.x += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    transform_.position_.z += SPEED;
-    //}
-
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    transform_.position_.z -= SPEED;
-    //}
-
-    ////左ダッシュ
-    //if ((Input::IsKey(DIK_A)) && (Input::IsKey(DIK_B)))
-    //{
-    //    transform_.position_.x -= DUSHSPEED;
-    //}
-
-    ////右ダッシュ
-    //if ((Input::IsKey(DIK_D)) && (Input::IsKey(DIK_B)))
-    //{
-    //    transform_.position_.x += DUSHSPEED;
-    //}
-
-    ////カメラ
-    //Camera::SetPosition(XMFLOAT3(transform_.position_.x, 7, CAMERA_POS_Y));
-    //Camera::SetTarget(XMFLOAT3(transform_.position_.x, 7, CAMERA_TAR_Y));
-
-    ////カメラ移動制限
-    //if (transform_.position_.x < 8.0f)
-    //{
-    //    Camera::SetTarget(XMFLOAT3(8, 7, -5));
-    //    Camera::SetPosition(XMFLOAT3(8, 7, -15));
-    //}
-
-    //////////ジャンプ///////
-    //if (Input::IsKeyDown(DIK_SPACE)) //&& (IsJump == 0))
+    //ジャンプ中の重力
+    //if (Input::IsKey(DIK_Q)) //&& (IsJump == 0))
     //{
     //    //初速度
     //    jump_v0 = 0.2;
@@ -152,345 +134,329 @@ void Enemy::Update()
     //    IsJump = 1;
     //}
 
-    ////ジャンプ中の重力
-    if (IsJump == 1)
+    if (!IsStop_)
     {
-        //重力
-        move_.y -= gravity;
-        transform_.position_.y += move_.y;
+        ////ジャンプ中の重力
+        if (IsJump)
+        {
+            //重力
+            move_.y -= gravity;
+            transform_.position_.y += move_.y;
+        }
+        //ジャンプしてない時の重力
+        else
+        {
+            //重力
+            gravity = 0.1f;
+
+            //重力を加える
+            move_.y = -gravity;
+            transform_.position_.y += move_.y;
+        }
     }
 
-    //ジャンプしてない時の重力
-    if (IsJump == 0)
+    if (transform_.position_.y <= 0.75f)
     {
-        //重力
-        gravity = 0.1f;
-
-        //重力を加える
-        move_.y = -gravity;
-        transform_.position_.y += move_.y;
+        transform_.position_.y = 0.75f;
     }
 
-    //if (a)
+    //if (Input::IsKeyDown(DIK_Z))
     //{
-        //if (transform_.position_.y < 1.0)
-        //{
-        //    transform_.position_.y = 1.0;
-        //    IsJump = false;
-        //}
+    //    Camera::SetDual();
+    //}
+    //if (Input::IsKeyDown(DIK_X))
+    //{
+    //    Camera::SetDefault();
     //}
 
-    ///////////// プレイヤーの向き /////////////
-
-    ////現在の位置のベクトル
-    //XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
-
-    ////今回位置のベクトル
-    //XMVECTOR nowMove = nowPosition - prevPosition;
-
-    ////移動べクトル
-    //XMVECTOR Length = XMVector3Length(nowMove);
-
-    ////0.1f以上の時は実行しない
-    //if (XMVectorGetX(Length) > 0.01)
+    //if (!IsBlend())
     //{
-    //    //角度を求めるのに長さを1にする（正規化）
-    //    nowMove = XMVector3Normalize(nowMove);
-
-    //    //基準となる向きのベクトル
-    //    XMVECTOR front = { 0, 0, 1, 0 };
-
-    //    //frontとmoveの外積を求める
-    //    XMVECTOR vecDot = XMVector3Dot(front, nowMove);
-    //    float dot = XMVectorGetX(vecDot);
-
-    //    //向いてる角度を求める(ラジアン)
-    //    angle = acos(dot);
-
-    //    //frontとmoveの外積を求める
-    //    XMVECTOR cross = XMVector3Cross(front, nowMove);
-
-    //    //外積がマイナスだと下向き
-    //    if (XMVectorGetY(cross) < 0)
+    //    if (Input::IsKeyDown(DIK_L))
     //    {
-    //        angle *= -1;
+    //        Blend();
+    //        EmitterData data;
+    //        data.textureFileName = "Particle\\Cloud.png";
+    //        data.position = transform_.position_;
+    //        data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
+    //        data.delay = 0;
+    //        data.number = 5;
+    //        data.lifeTime = 60;
+    //        data.dir = XMFLOAT3(0, 1, 0);
+    //        data.dirErr = XMFLOAT3(0, 0, 0);
+    //        data.speed = 0.01f;
+    //        data.speedErr = 0.0;
+    //        data.size = XMFLOAT2(2, 2);
+    //        data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //        data.scale = XMFLOAT2(1.03, 1.02);
+    //        data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
+    //        pParticle_->Start(data);
     //    }
-
-    //    //その角度回転させる
-    //    transform_.rotate_.y = angle * STAGE_SIZE_X.0f / 3.1f4f;
+    //}
+    //if (Input::IsKeyUp(DIK_L))
+    //{
+    //    Default();
     //}
 
+    if (starTime_ >= 10)
+    {
+        starTime_ = 0;
+    }
+    else if (starTime_ > 0)
+    {
+        starTime_++;
+    }
+    if (starNum_ >= 5)
+    {
+        starNum_ = 5;
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    }
+}
+
+void Enemy::Draw()
+{
+    Model::SetTransform(hModel2_, transform_);
+    Model::SetTransform(hModel_, transform_);
+
+    switch (playerState)
+    {
+    case EGG:
+        Model::FlashModel(hModel_);
+        break;
+    case LARVA:
+        Model::FlashModel(hModel2_);
+        break;
+    }
+
+    pText->Draw(100, 200, "Enemy:");
+    pText->Draw(250, 200, starNum_);
+
+}
+
+void Enemy::Release()
+{
+}
+
+//何かに当たった
+void Enemy::OnCollision(GameObject* pTarget)
+{
+    if (pTarget->GetObjectName() == "Fire" || pTarget->GetObjectName() == "FireFollowGround")
+    {
+        if (starTime_ == 0 && starNum_ > 0)
+        {
+            starTime_++;
+            Model::SetIsFlash(hModel_);
+            Model::SetIsFlash(hModel2_);
+            starNum_--;
+        }
+    }
+
+    //敵に当たった
+    if (pTarget->GetObjectName() == "Player")
+    {
+        if (starTime_ == 0)
+        {
+            starTime_++;
+            Star* pStar = Instantiate<Star>(GetParent());
+            Player* pPlayer = (Player*)FindObject("Player");
+            pStar->SetPosition(pPlayer->GetPosition().x, pPlayer->GetPosition().y + 4, pPlayer->GetPosition().z);
+        }
+    }
+
+    if (pTarget->GetObjectName() == "Star")
+    {
+        if (starTime_ == 0)
+        {
+            starTime_++;
+            playerState = LARVA;
+            starNum_++;
+        }
+    }
+}
+
+//あみだくじ
+void Enemy::LadderLottery()
+{
     //////////////////壁との衝突判定///////////////////////
     int objX = transform_.position_.x;
     int objY = transform_.position_.y;
     int objZ = transform_.position_.z;
 
     ////壁の判定(上)
-    if (pStage->IsWall(objX, objZ))
+    //if (pStage->IsWall(objX, objZ) || pStage->IsBridge(objX, objZ))
+    //{
+    //    transform_.position_.y = (int)(transform_.position_.y) + 0.8;
+    //    IsJump = 0;
+    //}
+
+    if (!IsRight_ && !IsLeft_)
     {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
-    }
-    if (pStage->IsBridge(objX, objZ))
-    {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
+        //進行方向に道がなかったら戻ってくる
+        if (pStage->IsEmpty((float)objX + 3, objZ))
+        {
+            IsReturn_ = true;
+        }
+        if (pStage->IsEmpty((float)objX - 3, objZ))
+        {
+            IsReturn_ = false;
+        }
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 3,  objZ))
+    if (IsReturn_)
     {
-        IsReturn = true;
-    }
-    if (!a && !b && pStage->IsEmpty((float)objX - 2.5,  objZ))
-    {
-        IsReturn = false;
-    }
-
-    if (IsReturn)
-    {
-        transform_.position_.x -= SPEED;
-        rotate_.y = 0;
+        transform_.position_.x -= speed_;
     }
     else
     {
-        transform_.position_.x += SPEED;
-        rotate_.y = Stage::GetStageSizeX();
+        transform_.position_.x += speed_;
     }
 
 
     ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
 
-    if (!b && time2 > 4)
+    if (!IsLeft_ && StoppedTime_ > 4)
     {
-        if (pStage->IsBridge(objX,  objZ - 3))
+        if (pStage->IsBridge(objX, objZ - 3))
         {
-            SPEED = 0;
-            a = true;
-            time2 = 0;
+            speed_ = 0;
+            IsRight_ = true;
+            StoppedTime_ = 0;
+            IsOnBridge_ = true;
         }
     }
 
     //右に行く
-    if (a)
+    if (IsRight_)
     {
-        rotate_.y = -90;
-        if (g <= 0)
+        IsStop_ = false;
+        transform_.rotate_ = XMFLOAT3(0, -90, 0);
+        SpeedOnWood_[R] = 0.2;
+        TimeOnWood_[R] += SpeedOnWood_[R];
+
+        if (TimeOnWood_[R] >= 6)
         {
-            s = 0.2;
-            t += s;
-            if (t >= 6)
+            TimeOnWood_[R] = 0;
+            IsRight_ = false;
+            IsOnBridge_ = false;
+            delay_ = 0;
+            SpeedOnWood_[R] = 0;
+
+
+            switch (playerState)
             {
-                trans[0].position_ = transform_.position_;
-                time1 = 0;
-                s = 0;
-                t = 0;
-                a = false;
-                SPEED = 0.3;
-            }
-            else
-            {
-                transform_.position_.z -= s;
+            case Enemy::EGG:
+                speed_ = 0.2;
+                break;
+            case Enemy::LARVA:
+                speed_ = 0.3f;
+                break;
+            default:
+                break;
             }
         }
+        else
+        {
+            //左に移動
+            transform_.position_.z -= SpeedOnWood_[R];
+        }
     }
+
     //左に行く
     else
     {
-        time2++;
-
-        if (!b) time1++;
-
-        if (time1 > 4)
+        //止まっていなかったら
+        if (!IsStop_)
         {
-            if (pStage->IsBridge(objX,  objZ + 2))
+            StoppedTime_++;
+
+            if (!IsLeft_) delay_++;
+        }
+
+        //右に行ってからすぐに左に行かないように間隔を開ける
+        if (delay_ > 4)
+        {
+            if (pStage->IsBridge(objX, objZ + 2))
             {
-                SPEED = 0;
-                b = true;
+                speed_ = 0;
+
+                IsLeft_ = true;
+                IsOnBridge_ = true;
             }
         }
 
-        if (b)
+        if (IsLeft_)
         {
-            rotate_.y = 90;
-            f = 0.2;
-            g += f;
-            if (g >= 6)
+            IsStop_ = false;
+            SpeedOnWood_[L] = 0.2;
+            TimeOnWood_[L] += SpeedOnWood_[L];
+
+            if (TimeOnWood_[L] >= 6)
             {
-                trans[1].position_ = transform_.position_;
-                time2 = 0;
-                g = 0;
-                f = 0;
-                b = false;
-                SPEED = 0.3;
-                time1 = 0;
+                TimeOnWood_[L] = 0;
+                IsLeft_ = false;
+                IsOnBridge_ = false;
+                delay_ = 0;
+                StoppedTime_ = 0;
+                SpeedOnWood_[L] = 0;
+
+                switch (playerState)
+                {
+                case Enemy::EGG:
+                    speed_ = 0.2;
+                    break;
+                case Enemy::LARVA:
+                    speed_ = 0.3f;
+                    break;
+                default:
+                    break;
+                }
             }
             else
             {
-                transform_.position_.z += f;
+                //右に移動
+                transform_.position_.z += SpeedOnWood_[L];
             }
         }
     }
-
-    //if (Input::IsKeyDown(DIK_Z))
-    //{
-    //    IsPress = true;
-    //}
-    //if (Input::IsKeyDown(DIK_X))
-    //{
-    //    IsPress = false;
-    //}
-    //if (Input::IsKeyDown(DIK_C))
-    //{
-    //    SPEED = -0.2;
-    //}
-    //if (Input::IsKeyDown(DIK_V))
-    //{
-    //    SPEED = 0.2;
-    //}
-    //if (IsPress)
-    //{
-    //}
-
-    //if (pStage->IsBridge(objX, objY, objZ + 2))
-    //{
-    //    transform_.position_.z += 12;
-    //}
-
-    //
-    ////壁の判定(下)
-    //if (pStage->IsWall((int)objX, (int)(objY + 0.2)))
-    //{
-    //    transform_.position_.y = (float)(int)(transform_.position_.y + 0.5f) - 0.4f;
-    //    move_.y = -gravity;
-    //}
-
-    ////壁の判定(右)
-    //if (pStage->IsWall((int)(objX + 0.4f), (int)objY))
-    //{
-    //    transform_.position_.x = (float)(int)(transform_.position_.x + 0.5f) - 0.4f;
-    //}
-
-    ////壁の判定(左)
-    //if (pStage->IsWall((int)(objX - 0.4f), (int)objY))
-    //{
-    //    transform_.position_.x = (float)(int)(transform_.position_.x) + 0.4f;
-    //}
-
-    /////////////////////////　シーン切り替え ///////////////////////////
-
-    ////落ちたらゲームオーバーに戻る
-    //if (transform_.position_.y < 0)
-    //{
-    //    SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-    //}
-
-    // //カメラ回転
-    //if (Input::IsKey(DIK_LEFT))
-    //{
-    //    transform_.rotate_.y -= 1.0f;
-    //}
-
-    //if (Input::IsKey(DIK_RIGHT))
-    //{
-    //    transform_.rotate_.y += 1.0f;
-    //}
-
-    //if (Input::IsKey(DIK_UP))
-    //{
-    //    transform_.rotate_.x += 1.0f;
-    //}
-
-    //if (Input::IsKey(DIK_DOWN))
-    //{
-    //    transform_.rotate_.x -= 1.0f;
-    //}
-
-    ////回転行列
-    //XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-    //XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
-    //XMMATRIX mRotate = mRotateX * mRotateY;
-
-    ////現在位置をベクトルにしておく
-    //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-
-    ////移動ベクトル
-    //XMFLOAT3 move = { 0, 0, 0.2 };
-    //XMVECTOR vMove = XMLoadFloat3(&move);
-    //vMove = XMVector3TransformCoord(vMove, mRotate);
-
-    //XMFLOAT3 X = { 0.2, 0, 0 };
-    //XMVECTOR vX = XMLoadFloat3(&X);
-    //vX = XMVector3TransformCoord(vX, mRotate);
-
-    //////カメラ移動
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    vPos += vMove;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    vPos -= vMove;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_D))
-    //{
-    //    vPos += vX;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    //if (Input::IsKey(DIK_A))
-    //{
-    //    vPos -= vX;
-    //    XMStoreFloat3(&transform_.position_, vPos);
-    //}
-
-    ////カメラ
-    //XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
-    //vCam = XMVector3TransformCoord(vCam, mRotate);
-    //XMFLOAT3 camPos;
-    //XMStoreFloat3(&camPos, vPos + vCam);
-    //Camera::SetPosition(camPos);
-    //Camera::SetTarget(transform_.position_);
-
-
-    //XMFLOAT3 a = Input::GetMousePosition();
-
-    //XMFLOAT3 b = Input::GetMouseMove();
-
-    //float x = b.z - a.z;
-
-    //float y = b.z - a.z;
-
-    //transform_.rotate_.x += x * 0.025;
-
-    //if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-    //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
-
-    //FollowGround();
-
-    if (!(IsVisibled()))
-    {
-        //クリアシーンに切り替え
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_CLEAR);
-    }
 }
 
-void Enemy::Draw()
+void Enemy::RotateDirMove()
 {
-    Model::SetTransform(hModel_, transform_);
-    Model::SetSahder(hModel_, Direct3D::SHADER_3D);
+    //現在の位置ベクトル
+    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
 
-    if (IsVisibled())
+    //今回の移動ベクトル
+    XMVECTOR move = nowPosition - prevPosition;
+
+    //移動ベクトルの長さを測る
+    XMVECTOR length = XMVector3Length(move);
+
+    //0.1以上移動してたなら回転処理
+    if (XMVectorGetX(length) > 0.1f)
     {
-        Model::Draw(hModel_);
-    }
-}
+        //角度を求めるために長さを１にする（正規化）
+        move = XMVector3Normalize(move);
 
-void Enemy::Release()
-{
+        //基準となる奥向きのベクトル
+        XMVECTOR front = { -1, 0, 0, 0 };
+
+        //frontとmoveの内積を求める
+        XMVECTOR vecDot = XMVector3Dot(front, move);
+        float dot = XMVectorGetX(vecDot);
+
+        //向いてる角度を求める（ラジアン）
+        float angle = acos(dot);
+
+        //frontとmoveの外積を求める
+        XMVECTOR cross = XMVector3Cross(front, move);
+
+        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
+        if (XMVectorGetY(cross) < 0)
+        {
+            angle *= -1;
+        }
+
+        //そのぶん回転させる
+        transform_.rotate_.y = angle * 180.0f / 3.14f;
+    }
 }

@@ -20,7 +20,7 @@
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage")
+    :GameObject(parent, "Stage"), woodCoolTime_(300)
 {
 }
 
@@ -114,10 +114,8 @@ void Stage::Initialize()
     //マップの自動生成
     while(bridgeCount_ < 15)
     {
-        //time関数を使った乱数の種の設定
-       // srand((unsigned int)time(NULL));
-        int randX = (rand() % STAGE_SIZE_X - 1);
-        int randZ = (rand() % STAGE_SIZE_Z - 1);
+        int randX = (rand() % (STAGE_SIZE_X - 5) + 5);
+        int randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
 
         if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
         {
@@ -130,8 +128,8 @@ void Stage::Initialize()
 
     //アイテムボックス出現
     {
-        int a = 0;
-        while (a < 10)
+        int count = 0;
+        while (count < 10)
         {
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
@@ -139,14 +137,14 @@ void Stage::Initialize()
             if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
             {
                 stage_[randX][randZ + 2].type = itembox;
-                a++;
+                count++;
             }
         }
     }
 
     {
-        int a = 0;
-        while (a < 5)
+        int count = 0;
+        while (count < 5)
         {
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
@@ -154,7 +152,7 @@ void Stage::Initialize()
             if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
             {
                 stage_[randX][randZ + 2].type = star;
-                a++;
+                count++;
             }
         }
     }
@@ -256,7 +254,7 @@ void Stage::Update()
     bool IsHit = false;
 
 
-    if (Input::IsMouseButtonDown(0))
+    if (Input::IsMouseButtonDown(0) && woodCoolTime_ >= 300)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -306,6 +304,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ + 2;
                     Cloud();
+                    woodCoolTime_ = 0;
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
@@ -315,6 +314,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ + 1;
                     Cloud();
+                    woodCoolTime_ = 0;
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
@@ -324,12 +324,14 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ;
                     Cloud();
+                    woodCoolTime_ = 0;
                 }
                 else if (stage_[bufX][bufZ + 3].type == log)
                 {
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
                     stage_[bufX][bufZ + 2].type = coin;
+                    woodCoolTime_ = 0;
                 }
             }
         }
@@ -341,6 +343,15 @@ void Stage::Update()
         stage_[(int)enemyPos_.x][(int)enemyPos_.z + 1].type = coin;
         stage_[(int)enemyPos_.x][(int)enemyPos_.z + 2].type = coin;
         stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
+    }
+
+    if (woodCoolTime_ >= 300)
+    {
+        woodCoolTime_ = 300;
+    }
+    else
+    {
+        woodCoolTime_++;
     }
 }
 

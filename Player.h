@@ -46,7 +46,8 @@ class Player : public GameObject
     bool IsReturn_;     //–ß‚Á‚Ä‚«‚Ä‚¢‚é‚©
     bool IsStop_;       //~‚Ü‚Á‚Ä‚¢‚é‚©
     bool IsOnBridge_;   //‹´‚Ìã‚É‚¢‚é‚©
-    int starCount_;
+    int starNum_;
+    int starTime_;
     bool hasItem_;
 
     //’è”
@@ -59,9 +60,6 @@ class Player : public GameObject
     Particle* pParticle_;
     EmitterData data;
     PoryLine* pLine;
-
-    int alpha_;
-    int time_;
     XMVECTOR prevPosition;
 
 public:
@@ -94,4 +92,6 @@ public:
     bool GetHasItem() { return hasItem_; };
 
     void  RotateDirMove();
+    
+    int GetStarNum() { return  starNum_; };
 };

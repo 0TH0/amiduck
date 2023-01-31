@@ -51,20 +51,7 @@ void PlayScene::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
 
-	FireFollowGround* pFireFollowGround;
-	Fire* pFire;
-
 	playerTrans.position_ = pPlayer->GetPosition();
-
-	if (Input::IsKeyDown(DIK_3))
-	{
-		pFireFollowGround = Instantiate<FireFollowGround>(this);
-	}
-
-	if (Input::IsKeyDown(DIK_4))
-	{
-		pFire = Instantiate<Fire>(this);
-	}
 
 	//‘€ì•û–@‚ğ•\¦
 	if (Input::IsKey(DIK_M))
@@ -80,7 +67,7 @@ void PlayScene::Update()
 	//}
 
 	//BGMÄ¶
-	Audio::Play(hAudio_);
+	//Audio::Play(hAudio_);
 }
 
 //•`‰æ

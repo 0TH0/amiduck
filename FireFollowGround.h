@@ -44,6 +44,7 @@ class FireFollowGround : public GameObject
     bool IsPress;
     bool IsReturn;
     int time;
+    int starTime_;
     XMFLOAT3 rotate_;
     PoryLine* pLine;
     XMFLOAT3 PlayerPos_;
@@ -69,8 +70,6 @@ public:
     float FireFollowGroundX() { return transform_.position_.x; }
 
     void OnCollision(GameObject* pTarget) override;
-
-    void FollowGround();
 
     bool GetReturn() { return IsReturn; };
 };

@@ -2,7 +2,8 @@
 #include "Stage.h"
 #include "PlayScene.h"
 #include "StartScene.h"
-
+#include "Star.h"
+#include "Enemy.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -252,15 +253,15 @@ void FireFollowGround::Update()
         IsReturn = false;
     }
 
-    if (IsReturn)
+    Player* pPlayer = (Player*)FindObject("Player");
+
+    if (pPlayer->GetReturn())
     {
         transform_.position_.x -= SPEED;
-        rotate_.y = 0;
     }
     else
     {
         transform_.position_.x += SPEED;
-        rotate_.y = Stage::GetStageSizeX();
     }
 
     ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
@@ -476,6 +477,16 @@ void FireFollowGround::Update()
     //if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
 
     //FollowGround();
+
+
+    if (starTime_ >= 7)
+    {
+        starTime_ = 0;
+    }
+    else if (starTime_ > 0)
+    {
+        starTime_++;
+    }
 }
 
 void FireFollowGround::Draw()
@@ -508,6 +519,15 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
     if (pTarget->GetObjectName() == "Enemy")
     {
         pTarget->Invisible();
+
+        if (starTime_ == 0)
+        {
+            starTime_++;
+            Star* pStar = Instantiate<Star>(GetParent());
+            Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+            pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
+        }
+
         KillMe();
     }
 }
@@ -728,48 +748,3 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        }
 //    }
 //}
-
-//地面に沿わせる
-void FireFollowGround::FollowGround()
-{
-    //まだ地面のモデル番号を知らない
-
-    //モデル番号を調べる
-    hModelBlock_ = ((Stage*)FindObject("Stage"))->getModelHandle(1);
-    hModelWood_ = ((Stage*)FindObject("Stage"))->getModelHandle(2);
-
-    //レイを撃つ準備
-    RayCastData data;
-    data.start = transform_.position_;
-    data.start.y = transform_.position_.y + 1;
-    data.dir = XMFLOAT3(0, -1, 0);
-
-    RayCastData xdata;
-    xdata.start = transform_.position_;
-    xdata.start.y = transform_.position_.y + 1;
-    xdata.dir = XMFLOAT3(0, -1, 0);
-    xdata.normal;
-
-    //地面に対してレイを撃つ
-    Model::RayCast(hModelBlock_, &data);
-    Model::RayCast(hModelWood_, &xdata);
-
-    //レイが地面に当たったら
-    if (data.hit)
-    {
-        if (transform_.position_.y - data.dist > 1)
-        {
-            transform_.position_.y = -data.dist;
-        }
-    }
-    if (xdata.hit)
-    {
-        if (transform_.position_.y - xdata.dist > 1)
-        {
-            transform_.position_.y = -xdata.dist;
-        }
-    }
-
-    /*if (xdata.hit) a = true;
-    else a = false;*/
-}

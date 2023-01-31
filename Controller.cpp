@@ -100,7 +100,7 @@ void Controller::PlayerCamera()
 
         if (Input::IsMouseButton(1))	//À¿“I‚È‰Šú‰»
         {
-            CrickWheel();
+            CrickRight();
         }
 
         ////‰ñ“]s—ñ
@@ -146,7 +146,7 @@ void Controller::PlayerCamera()
     }
 }
 
-void Controller::CrickWheel()
+void Controller::CrickRight()
 {
     if (Input::IsMouseButtonDown(1))	//À¿“I‚È‰Šú‰»
     {

@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "StartScene.h"
 #include "Fire.h"
+#include "FireFollowGround.h"
 #include "Controller.h"
 #include "Enemy.h"
 #include "Line.h"
@@ -76,10 +77,20 @@ void Player::Update()
 
     LadderLottery();
 
-    if (Input::IsKeyDown(DIK_SPACE))
+    if (Input::IsKeyDown(DIK_Q))
+    {
+       Instantiate<FireFollowGround>(GetParent());
+    }
+
+    if (Input::IsKeyDown(DIK_E))
+    {
+       Instantiate<Fire>(GetParent());
+    }
+
+    if (Input::IsKeyDown(DIK_W))
     {
         //橋を渡っていなかったら
-        if (!(IsOnBridge_))
+        if (!(IsOnBridge_) && hasItem_)
         {
             IsSpeedUp_ = true;
             Instantiate<Line>(this);
@@ -119,7 +130,7 @@ void Player::Update()
 
     /////////////////////////移動/////////////////////////
     //ジャンプ中の重力
-    if (Input::IsKey(DIK_Q)) //&& (IsJump == 0))
+    if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f) //&& (IsJump == 0))
     {
         //初速度
         jump_v0 = 0.2;
@@ -162,41 +173,57 @@ void Player::Update()
         transform_.position_.y = 0.75f;
     }
 
-    if (Input::IsKeyDown(DIK_Z))
+    //if (Input::IsKeyDown(DIK_Z))
+    //{
+    //    Camera::SetDual();
+    //}
+    //if (Input::IsKeyDown(DIK_X))
+    //{
+    //    Camera::SetDefault();
+    //}
+
+    //if (!IsBlend())
+    //{
+    //    if (Input::IsKeyDown(DIK_L))
+    //    {
+    //        Blend();
+    //        EmitterData data;
+    //        data.textureFileName = "Particle\\Cloud.png";
+    //        data.position = transform_.position_;
+    //        data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
+    //        data.delay = 0;
+    //        data.number = 5;
+    //        data.lifeTime = 60;
+    //        data.dir = XMFLOAT3(0, 1, 0);
+    //        data.dirErr = XMFLOAT3(0, 0, 0);
+    //        data.speed = 0.01f;
+    //        data.speedErr = 0.0;
+    //        data.size = XMFLOAT2(2, 2);
+    //        data.sizeErr = XMFLOAT2(0.4, 0.4);
+    //        data.scale = XMFLOAT2(1.03, 1.02);
+    //        data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
+    //        pParticle_->Start(data);
+    //    }
+    //}
+    //if (Input::IsKeyUp(DIK_L))
+    //{
+    //    Default();
+    //}
+
+    if (starTime_ >= 10)
     {
-        Camera::SetDual();
+        starTime_ = 0;
     }
-    if (Input::IsKeyDown(DIK_X))
+    else if(starTime_ > 0)
     {
-        Camera::SetDefault();
+        starTime_++;
     }
 
-    if (!IsBlend())
+    if (starNum_ >= 5)
     {
-        if (Input::IsKeyDown(DIK_L))
-        {
-            Blend();
-            EmitterData data;
-            data.textureFileName = "Particle\\Cloud.png";
-            data.position = transform_.position_;
-            data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
-            data.delay = 0;
-            data.number = 5;
-            data.lifeTime = 60;
-            data.dir = XMFLOAT3(0, 1, 0);
-            data.dirErr = XMFLOAT3(0, 0, 0);
-            data.speed = 0.01f;
-            data.speedErr = 0.0;
-            data.size = XMFLOAT2(2, 2);
-            data.sizeErr = XMFLOAT2(0.4, 0.4);
-            data.scale = XMFLOAT2(1.03, 1.02);
-            data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
-            pParticle_->Start(data);
-        }
-    }
-    if (Input::IsKeyUp(DIK_L))
-    {
-        Default();
+        starNum_ = 5;
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_CLEAR);
     }
 }
 
@@ -214,6 +241,10 @@ void Player::Draw()
         Model::FlashModel(hModel2_);
         break;
     }
+
+    pText->Draw(100, 100, "Player:");
+    pText->Draw(250, 100, starNum_);
+
 }
 
 void Player::Release()
@@ -228,11 +259,25 @@ void Player::OnCollision(GameObject* pTarget)
     {
         Model::SetIsFlash(hModel_);
         Model::SetIsFlash(hModel2_);
+
+        if (starTime_ == 0)
+        {
+            if (starNum_ > 0)
+            {
+                starTime_++;
+                starNum_--;
+            }
+        }
     }
 
     if (pTarget->GetObjectName() == "Star")
     {
-        playerState = LARVA;
+        if (starTime_ == 0)
+        {
+            starTime_++;
+            playerState = LARVA;
+            starNum_++;
+        }
     }
 }
 

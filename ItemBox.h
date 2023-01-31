@@ -33,7 +33,7 @@ public:
 
 	void OnCollision(GameObject* pTarget) override;
 
-	void StarEffect();
+	void QuestionEffect();
 
 	bool GetIsHit() { return IsHit_; };
 };

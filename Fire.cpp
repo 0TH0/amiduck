@@ -4,6 +4,8 @@
 #include "Engine/Input.h"
 #include "Player.h"
 #include "Engine/Global.h"
+#include "Star.h"
+#include "Enemy.h"
 
 //コンストラクタ
 Fire::Fire(GameObject* parent)
@@ -58,14 +60,28 @@ void Fire::Update()
 	{
 		KillMe();
 	}
+
+	if(pPlayer->GetReturn())
+	{
+        transform_.position_.x--;
+	}
 	else
 	{
-        transform_.position_.x++;
+		transform_.position_.x++;
 	}
 
     //ポリラインに現在の位置を伝える
     pLine->AddPosition(transform_.position_);
     pLine2->AddPosition(transform_.position_);
+
+	if (starTime_ >= 7)
+	{
+		starTime_ = 0;
+	}
+	else if (starTime_ > 0)
+	{
+		starTime_++;
+	}
 }
 
 //描画
@@ -93,5 +109,13 @@ void Fire::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Enemy")
 	{
 		pTarget->Invisible();
+
+		if (starTime_ == 0)
+		{
+			starTime_++;
+			Star* pStar = Instantiate<Star>(GetParent());
+			Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+			pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
+		}
 	}
 }

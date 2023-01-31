@@ -42,9 +42,7 @@ public:
 	float PrevPosX_;
 	float PrevPosY_;
 
-	void CrickMouseRight();	//マウス右クリックによるカメラ操作
-	void IOCamera();		//マウスホイールの回転によるカメラ操作
-	void CrickWheel();		//マウスホイールを押下している時の操作
+	void CrickRight();
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
