@@ -80,7 +80,7 @@ namespace Image
 			return;
 		}
 		_datas[handle]->transform.Calclation();
-		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->color);
+		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->alpha);
 	}
 
 
@@ -166,7 +166,7 @@ namespace Image
 		{
 			return;
 		}
-		_datas[handle]->color.w = (float)alpha / 255.0f;
+		_datas[handle]->alpha = (float)alpha / 255.0f;
 	}
 
 
@@ -191,32 +191,5 @@ namespace Image
 		}
 		return _datas[handle]->transform.GetWorldMatrix();
 	}
-
-	//色をセット
-	void SetColor(int handle, float r, float g, float b)
-	{
-		_datas[handle]->color.x = r;
-		_datas[handle]->color.y = g;
-		_datas[handle]->color.z = b;
-	}
-
-	//モデルを点滅させる
-	void FlashImage(int handle, int frame)
-	{
-		//if (_datas[handle]->Alpha.GetIsFlash())
-		//{
-			_datas[handle]->Alpha.FlashImage(frame);
-			SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
-		//}
-		//else
-		//{
-		//	SetAlpha(handle, 256);
-		//}
-	}
-
-	//void SetIsFlash(int handle, bool IsFlash)
-	//{
-	//	_datas[handle]->Alpha.SetIsFlash(IsFlash);
-	//}
 }
 

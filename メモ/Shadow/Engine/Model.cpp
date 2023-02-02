@@ -1,6 +1,5 @@
 #include "Global.h"
 #include "Model.h"
-#include "RootObject.h"
 
 //3Dモデル（FBXファイル）を管理する
 namespace Model
@@ -68,12 +67,8 @@ namespace Model
 
 
 	//描画
-	void Draw(int handle, FLOAT alpha)
+	void Draw(int handle)
 	{
-		/*	bool visible = false;
-			visible = _datas[handle]->pRootObject->
-				FindObject(_datas[handle]->pRootObject->GetObjectName())->IsVisibled();*/
-
 		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
 		{
 			return;
@@ -90,9 +85,8 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, alpha);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame);
 		}
-
 	}
 
 
@@ -176,10 +170,6 @@ namespace Model
 		_datas[handle]->transform = transform;
 	}
 
-	XMFLOAT3 GetPosition(int handle)
-	{
-		return _datas[handle]->transform.position_;
-	}
 
 	//ワールド行列の取得
 	XMMATRIX GetMatrix(int handle)
@@ -187,42 +177,19 @@ namespace Model
 		return _datas[handle]->transform.GetWorldMatrix();
 	}
 
+
 	//レイキャスト（レイを飛ばして当たり判定）
-	void RayCast(int handle, RayCastData* data)
+	void RayCast(int handle, RayCastData *data)
 	{
-		XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
-		XMMATRIX matInv = XMMatrixInverse(nullptr, _datas[handle]->transform.GetWorldMatrix());
-		XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
-		XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
-		XMVECTOR vecDir = vecTarget - vecStart;
+			XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
+			XMMATRIX matInv = XMMatrixInverse(nullptr, _datas[handle]->transform.GetWorldMatrix());
+			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
+			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+			XMVECTOR vecDir = vecTarget - vecStart;
 
-		XMStoreFloat3(&data->start, vecStart);
-		XMStoreFloat3(&data->dir, vecDir);
+			XMStoreFloat3(&data->start, vecStart);
+			XMStoreFloat3(&data->dir, vecDir);
 
-		_datas[handle]->pFbx->RayCast(data);
-	}
-
-	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_)
-	{
-		_datas[handle]->pFbx->SetShader(shaderType_);
-	}
-
-	//モデルを点滅させる
-	void FlashModel(int handle, int frame)
-	{
-		if (_datas[handle]->Alpha.GetIsFlash())
-		{
-			_datas[handle]->Alpha.FlashModel(frame);
-			Draw(handle, _datas[handle]->Alpha.GetAlpha());
-		}
-		else
-		{
-			Draw(handle);
-		}
-	}
-
-	void SetIsFlash(int handle, bool IsFlash)
-	{
-		_datas[handle]->Alpha.SetIsFlash(IsFlash);
+			_datas[handle]->pFbx->RayCast(data); 
 	}
 }

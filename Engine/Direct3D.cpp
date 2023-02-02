@@ -746,4 +746,9 @@ namespace Direct3D
 			break;
 		}
 	}
+	void NowScrSize(int screenWidth, int screenHeight)
+	{
+		screenWidth_ = screenWidth;
+		screenHeight_ = screenHeight;
+	}
 }

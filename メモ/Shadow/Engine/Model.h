@@ -5,7 +5,6 @@
 #include <string>
 #include "Fbx.h"
 #include "Transform.h"
-#include "Alpha.h"
 
 //-----------------------------------------------------------
 //3Dモデル（FBXファイル）を管理する
@@ -20,8 +19,6 @@ namespace Model
 
 		//ロードしたモデルデータのアドレス
 		Fbx*		pFbx;
-
-		Alpha		Alpha;
 
 		//行列
 		Transform 	transform;
@@ -61,7 +58,7 @@ namespace Model
 	//描画
 	//引数：handle	描画したいモデルの番号
 	//引数：matrix	ワールド行列
-	void Draw(int handle, FLOAT alpha = 1);
+	void Draw(int handle);
 
 	//任意のモデルを開放
 	//引数：handle	開放したいモデルの番号
@@ -92,21 +89,15 @@ namespace Model
 	//引数：matrix	ワールド行列
 	void SetTransform(int handle, Transform& transform);
 
-	XMFLOAT3 GetPosition(int handle);
-
 	//ワールド行列の取得
 	//引数：handle	知りたいモデルの番号
 	//戻値：ワールド行列
 	XMMATRIX GetMatrix(int handle);
+
 
 	//レイキャスト（レイを飛ばして当たり判定）　※未実装
 	//引数：handle	判定したいモデルの番号
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(int handle, RayCastData *data);
 
-	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_);
-
-	void FlashModel(int handle, int frame = 5);
-
-	void SetIsFlash(int handle, bool IsFlash = 1);
 };

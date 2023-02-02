@@ -1,7 +1,13 @@
+
+//
+//　最終更新日：2022/11/22
+//
+
+
+
 #include <Windows.h>
 #include <stdlib.h>
 #include <assert.h>
-//#include <crtdbg.h>
 #include <time.h>
 
 #include "global.h"
@@ -11,25 +17,17 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Audio.h"
-#include "SceneManager.h"
-#include "../Player.h"
-#include "../Controller.h"
 
 #pragma comment(lib,"Winmm.lib")
 
 //定数宣言
-const char* WIN_CLASS_NAME = "Amiduck";	//ウィンドウクラス名
+const char* WIN_CLASS_NAME = "SampleGame";	//ウィンドウクラス名
 
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-RootObject* pRootObject;
-
-RECT winRect;
-int screenWidth;
-int screenHeight;
 
 // エントリーポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -42,10 +40,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetCurrentDirectory("Assets");
 
 	//初期化ファイル（setup.ini）から必要な情報を取得
-	int screenWidth = GetPrivateProfileInt("SCREEN", "Width", 1920, ".\\setup.ini");		//スクリーンの幅
-	int screenHeight = GetPrivateProfileInt("SCREEN", "Height", 1080, ".\\setup.ini");	//スクリーンの高さ
+	int screenWidth = GetPrivateProfileInt("SCREEN", "Width", 800, ".\\setup.ini");		//スクリーンの幅
+	int screenHeight = GetPrivateProfileInt("SCREEN", "Height", 600, ".\\setup.ini");	//スクリーンの高さ
 	int fpsLimit = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");				//FPS（画面更新速度）
 	int isDrawFps = GetPrivateProfileInt("DEBUG", "ViewFps", 0, ".\\setup.ini");		//キャプションに現在のFPSを表示するかどうか
+
+
 
 
 	//ウィンドウを作成
@@ -63,9 +63,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//オーディオ（効果音）の準備
 	Audio::Initialize();
 
+
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
-	pRootObject = new RootObject;
+	RootObject* pRootObject = new RootObject;
 	pRootObject->Initialize();
 
 
@@ -90,7 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			static DWORD lastFpsResetTime = timeGetTime();	//最後にキャプションにFPSを表示した
 			static DWORD lastUpdateTime = timeGetTime();	//最後に画面を更新した時間
 			DWORD nowTime = timeGetTime();					//現在の時間
-			
+
 			//キャプションに現在のFPSを表示する
 			if (isDrawFps)
 			{
@@ -105,7 +106,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					lastFpsResetTime = nowTime;
 				}
 			}
-			
+
 
 			//指定した時間（FPSを60に設定した場合は60分の1秒）経過していたら更新処理
 			if ((nowTime - lastUpdateTime) * fpsLimit > 1000.0f)
@@ -124,51 +125,42 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->UpdateSub();
 
-				//カメラを更新
+				
+				
+				//シャドウマップ作成
+				//ライトの位置から見た画像を、遠くは白、近くは黒のグレースケールで表す
+				Camera::SetPosition(XMFLOAT3(-15, 20, -1));
+				Camera::SetTarget(XMFLOAT3(0, 0, 0));
+				Camera::Update();
+				Direct3D::lightView_ = Camera::GetViewMatrix();
+
+				Direct3D::BeginDrawToTexture();
+
+				pRootObject->DrawSub();
+
+				//描画終了
+				Direct3D::EndDraw();
+
+
+
+
+				//通常の描画
+				Camera::SetPosition(XMFLOAT3(0, 5, -8));
+				Camera::SetTarget(XMFLOAT3(0, 0, 0));
 				Camera::Update();
 
 				//このフレームの描画開始
 				Direct3D::BeginDraw();
 
-				////全オブジェクトを描画
-				////ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+				//全オブジェクトを描画
+				//ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->DrawSub();
-
-				//プレイシーンだったら
-				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY)
-				{
-					//★画面分割
-					switch (Camera::GetDual())
-					{
-					case 1:
-						Direct3D::SetViewPort(Direct3D::SCREEN_DEFAULT);
-						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
-						Camera::Update();
-
-						break;
-
-					case 2:
-					//左画面描画
-					{
-						Direct3D::SetViewPort(Direct3D::SCREEN_LEFT);
-
-						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
-						Camera::Update();
-						pRootObject->DrawSub();
-					}
-
-					//右画面描画
-					{
-						Direct3D::SetViewPort(Direct3D::SCREEN_RIGHT);
-
-						((Controller*)pRootObject->FindObject("Controller"))->EnemyCamera();
-					}
-						break;
-					}
-				}
 
 				//描画終了
 				Direct3D::EndDraw();
+
+
+
 				
 				//ちょっと休ませる
 				Sleep(1);
@@ -211,9 +203,8 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 	RegisterClassEx(&wc);
 
 	//ウィンドウサイズの計算
-	winRect = { 0, 0, screenWidth, screenHeight };
+	RECT winRect = { 0, 0, screenWidth, screenHeight };
 	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
-
 
 	//タイトルバーに表示する内容
 	char caption[64];
@@ -246,24 +237,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	case WM_CREATE:
-		//ShowCursor(false);
-		return 0;
 	//ウィンドウを閉じた
 	case WM_DESTROY:
 		PostQuitMessage(0);	//プログラム終了
 		return 0;
+
 	//マウスが動いた
 	case WM_MOUSEMOVE:
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
-		return 0;
-	//ウィンドウのサイズが変更された
-	case WM_SIZE:
-		//現在のスクリーンサイズを入れる
-		GetWindowRect(hWnd, &winRect);
-		screenHeight = winRect.bottom - winRect.top;
-		screenWidth = winRect.right - winRect.left;
-		Direct3D::NowScrSize(screenWidth, screenHeight);
 		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);

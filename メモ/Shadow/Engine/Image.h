@@ -6,13 +6,10 @@
 #include <string>
 #include "Sprite.h"
 #include "Transform.h"
-#include "Math.h"
-#include "Alpha.h"
 
 //-----------------------------------------------------------
 //2D画像を管理する
 //-----------------------------------------------------------
-
 namespace Image
 {
 	//画像情報
@@ -28,24 +25,20 @@ namespace Image
 		RECT		rect;
 
 		//アルファ
-		Alpha		Alpha;
+		float		alpha;
 
 		//行列
 		Transform transform;
-
-		XMFLOAT4 color;
 
 		//コンストラクタ
 		ImageData() : pSprite(nullptr)
 		{
 			fileName = "";
+			alpha = 1.0f;
 			pSprite = nullptr;
-			color.x = 1.0f;
-			color.y = 1.0f;
-			color.z = 1.0f;
-			color.w = 1.0f;
 		}
 	};
+
 
 	//初期化
 	void Initialize();
@@ -95,15 +88,4 @@ namespace Image
 	//引数：handle	知りたい画像の番号
 	//戻値：ワールド行列
 	XMMATRIX GetMatrix(int handle);
-
-	//色をセット
-	//引数：handle	色を変えたい画像の番号
-	//引数：r　赤
-	//引数：g　緑
-	//引数：b　青
-	void SetColor(int handle, float r, float g, float b);
-
-	void FlashImage(int handle, int frame = 5);
-
-	/*void SetIsFlash(int handle, bool IsFlash = 1);*/
 }

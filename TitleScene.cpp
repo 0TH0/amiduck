@@ -28,23 +28,23 @@ void TitleScene::Update()
 		pSceneManager->ChangeScene(SCENE_ID_PLAY);
 	}
 
-	if (alpha_ >= 256)
-	{
-		Is_ = true;
-	}
-	else if (alpha_ <= 0)
-	{
-		Is_ = false;
-	}
+	//if (alpha_ >= 256)
+	//{
+	//	Is_ = true;
+	//}
+	//else if (alpha_ <= 0)
+	//{
+	//	Is_ = false;
+	//}
 
-	if (Is_)
-	{
-		alpha_ -= 5;
-	}
-	else
-	{
-		alpha_ += 5;
-	}
+	//if (Is_)
+	//{
+	//	alpha_ -= 5;
+	//}
+	//else
+	//{
+	//	alpha_ += 5;
+	//}
 }
 
 //•`‰æ
@@ -58,7 +58,7 @@ void TitleScene::Draw()
 
 	Image::SetTransform(hPictCh_, trans);
 	Image::Draw(hPictCh_);
-	Image::SetAlpha(hPictCh_, alpha_);
+	Image::FlashImage(hPictCh_, 5);
 }
 
 //ŠJ•ú

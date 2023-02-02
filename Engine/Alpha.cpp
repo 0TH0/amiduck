@@ -32,6 +32,27 @@ void Alpha::FlashModel(int frame)
 	}
 }
 
+void Alpha::FlashImage(int frame)
+{
+	if (alpha_ >= 256)
+	{
+		IsFlash_ = true;
+	}
+	else if (alpha_ <= 0)
+	{
+		IsFlash_ = false;
+	}
+
+	if (IsFlash_)
+	{
+		alpha_ -= 5;
+	}
+	else
+	{
+		alpha_ += 5;
+	}
+}
+
 void Alpha::SetIsFlash(bool IsFlash)
 {
 	IsFlash_ = IsFlash;

@@ -13,6 +13,8 @@ public:
 
 	void FlashModel(int frame);
 
+	void FlashImage(int frame);
+
 	void SetIsFlash(bool IsFlash);
 
 	bool GetIsFlash() { return IsFlash_; };

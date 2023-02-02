@@ -49,6 +49,11 @@ void Camera::Update()
 	//http://marupeke296.com/DXG_No11_ComeOnBillboard.html
 	_billBoard = XMMatrixLookAtLH(XMVectorSet(0, 0, 0, 0), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), XMVectorSet(0, 1, 0, 0));
 	_billBoard = XMMatrixInverse(nullptr, _billBoard);
+
+	_w = (FLOAT)Direct3D::screenWidth_;
+	_h = (FLOAT)Direct3D::screenHeight_;
+	_wDiv2 = _w / 2.0f;
+	_hDiv2 = _h / 2.0f;
 }
 
 //è≈ì_Çê›íË
