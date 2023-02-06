@@ -7,6 +7,7 @@
 #include "Controller.h"
 #include "Enemy.h"
 #include "Line.h"
+#include "Mushroom.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -277,6 +278,50 @@ void Player::OnCollision(GameObject* pTarget)
             starTime_++;
             playerState = LARVA;
             starNum_++;
+        }
+    }
+
+    XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
+    XMVECTOR Down = { 0,-1,0,0 };
+
+    //敵に当たった
+    if (pTarget->GetObjectName() == "Mushroom")
+    {
+        //敵の位置
+        XMFLOAT3 EnemyPos = pTarget->GetPosition();
+        XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
+
+        //プレイヤーの位置
+        XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
+        XMVector3Normalize(PlayerPos);
+
+        //Downとプレイヤーの外積を求める
+        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
+        float Dot = XMVectorGetY(vDot);
+
+        //角度を求める
+        angle = acos(Dot) * (180.0 / 3.14f);
+
+        if (angle <= 90)
+        {
+            //初速度
+            jump_v0 = 0.15f;
+            //重力
+            gravity = 0.003f;
+
+            //初速度を加える
+            move_.y = jump_v0;
+            transform_.position_.y += move_.y;
+
+            //重力を加える
+            move_.y += gravity;
+            transform_.position_.y += move_.y;
+        }
+        else
+        {
+            //横から当たったらプレイヤーを消す
+            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
         }
     }
 }

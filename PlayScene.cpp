@@ -15,6 +15,7 @@
 #include "Water.h"
 #include "ItemUI.h"
 #include "Coin.h"
+#include "Mushroom.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -36,6 +37,7 @@ void PlayScene::Initialize()
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
 	pStage->StageLoad();
+	Instantiate<Mushroom>(this);
 	Instantiate<StartScene>(this);
 	
 	pStage = (Stage*)FindObject("Stage");
