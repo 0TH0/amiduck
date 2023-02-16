@@ -4,7 +4,6 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Coin.h"
-#include "Empty.h"
 #include "Star.h"
 #include "ItemBox.h"
 #include "ItemUI.h"
@@ -20,7 +19,7 @@
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), woodCoolTime_(300)
+    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr)
 {
 }
 
@@ -211,10 +210,10 @@ void Stage::Update()
     Player* pPlayer = (Player*)FindObject("Player");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    if (!pPlayer->GetReturn()) player_pos_.x = (int)pPlayer->GetPosition().x + 1;
-    else player_pos_.x = (int)pPlayer->GetPosition().x - 1;
+    if (!pPlayer->GetReturn()) player_pos_.x = pPlayer->GetPosition().x + 1;
+    else player_pos_.x = pPlayer->GetPosition().x - 1;
 
-    player_pos_.z = (int)pPlayer->GetPosition().z;
+    player_pos_.z = pPlayer->GetPosition().z;
 
      enemyPos_ = pEnemy->GetPosition();
 
@@ -269,9 +268,9 @@ void Stage::Update()
 
                     int type = stage_[x][z].type;
                     Transform trans;
-                    trans.position_.x = x;
-                    trans.position_.y = y;
-                    trans.position_.z = z;
+                    trans.position_.x = (float)x;
+                    trans.position_.y = (float)y;
+                    trans.position_.z = (float)z;
                     Model::SetTransform(hModel_[stage_[x][z].type], trans);
                     Model::RayCast(hModel_[stage_[x][z].type], &ray);
 
@@ -364,8 +363,9 @@ void Stage::Draw()
             {
                 for (int y = 0; y < stage_[x][z].height; y++)
                 {
+                    stagePos_ = XMFLOAT3((float)x,(float)y, (float)z);
                     int type = stage_[x][z].type;
-                    transform_.position_ = XMFLOAT3(x, 0, z + 1);
+                    transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z + 1);
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);
                     transform_.scale_ = XMFLOAT3(1, 1, 1);
                     Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);

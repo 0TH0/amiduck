@@ -32,8 +32,7 @@ class Stage : public GameObject
     int hModel_[20];
     XMFLOAT3 player_pos_;
     XMFLOAT3 enemyPos_;
-    int PlayerPosX_;
-    int PlayerPosZ_;
+    XMFLOAT3 stagePos_;
     int time_;
     int count_ = 1;
     int bridgeCount_;

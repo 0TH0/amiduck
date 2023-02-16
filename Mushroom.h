@@ -1,10 +1,12 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Particle.h"
 
 //テストシーンを管理するクラス
 class Mushroom : public GameObject
 {
 	int hModel_;
+	Particle* pParticle_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

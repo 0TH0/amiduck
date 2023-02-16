@@ -85,7 +85,7 @@ void Star::OnCollision(GameObject* pTarget)
 	//“G‚É“–‚½‚Á‚½
 	if (pTarget->GetObjectName() == "Player" || pTarget->GetObjectName() == "Enemy")
 	{
-		if (time_ >= 60 && IsVisibled())
+		if (time_ >= 10 && IsVisibled())
 		{
 			Invisible();
 			StarEffect();

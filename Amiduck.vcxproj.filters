@@ -113,7 +113,6 @@
     <ClCompile Include="Engine\Math.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Empty.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -212,7 +211,6 @@
     <ClInclude Include="Engine\Math.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Empty.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="TitleScene.h" />
