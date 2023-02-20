@@ -126,8 +126,12 @@ void Sprite::Draw(Transform& transform, RECT rect, XMFLOAT4 color)
 	//表示するサイズに合わせる
 	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom ,1);
 
+	//初期化ファイル（setup.ini）から必要な情報を取得
+	int screenWidth = GetPrivateProfileInt("SCREEN", "Width", 1920, ".\\setup.ini");	//スクリーンの幅
+	int screenHeight = GetPrivateProfileInt("SCREEN", "Height", 1080, ".\\setup.ini");	//スクリーンの高さ
+
 	//画面に合わせる
-	XMMATRIX view = XMMatrixScaling(1.0f / Direct3D::screenWidth_, 1.0f / Direct3D::screenHeight_, 1.0f);
+	XMMATRIX view = XMMatrixScaling(1.0f / screenWidth, 1.0f / screenHeight, 1.0f);
 
 	//最終的な行列
 	XMMATRIX world = cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
@@ -141,7 +145,6 @@ void Sprite::Draw(Transform& transform, RECT rect, XMFLOAT4 color)
 	XMMATRIX mTexel = mTexScale * mTexTrans;
 	cb.uvTrans = XMMatrixTranspose(mTexel);
 	
-
 	// テクスチャ合成色情報を渡す
 	cb.color = color;
 
@@ -163,5 +166,4 @@ void Sprite::Draw(Transform& transform, RECT rect, XMFLOAT4 color)
 	Direct3D::SetShader(Direct3D::SHADER_3D);
 
 	Direct3D::SetDepthBafferWriteEnable(true);
-
 }

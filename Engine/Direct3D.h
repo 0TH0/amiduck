@@ -139,4 +139,3 @@ namespace Direct3D
 	//現在のスクリーンサイズ
 	void NowScrSize(int screenWidth, int screenHeight);
 };
-

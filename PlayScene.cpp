@@ -65,7 +65,7 @@ void PlayScene::Update()
 	//{
 	//	//クリアシーンに切り替え
 	//	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-	//	pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	//	pSceneManager->ChangeScene(SceneManager::SCENE_ID_CLEAR);
 	//}
 
 	//BGM再生

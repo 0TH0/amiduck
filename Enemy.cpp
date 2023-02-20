@@ -40,7 +40,7 @@ void Enemy::Initialize()
     hModel_ = Model::Load("Model\\Player\\egg.fbx");
     assert(hModel_ >= 0);
 
-    hModel2_ = Model::Load("Enemy\\raccoon10.fbx");
+    hModel2_ = Model::Load("Model\\Enemy\\raccoon.fbx");
     assert(hModel2_ >= 0);
 
     //アニメーションの設定

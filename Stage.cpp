@@ -19,7 +19,7 @@
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr)
+    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_()
 {
 }
 
@@ -77,8 +77,8 @@ void Stage::Cloud()
     data.speed = 0.01f;
     data.speedErr = 0.5;
     data.size = XMFLOAT2(2, 2);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.03, 1.02);
+    data.sizeErr = XMFLOAT2(0.4f, 0.4f);
+    data.scale = XMFLOAT2(1.03f, 1.02f);
     float color = 0.5;
     data.color = XMFLOAT4(color, color, color, 0.1f);
     pParticle_->Start(data);
@@ -171,31 +171,31 @@ void Stage::Initialize()
             if (stage_[x][z].type == coin)
             {
                 Coin* pCoin = Instantiate<Coin>(GetParent());
-                pCoin->SetPosition(x + 0.25, 1, z + 1);
+                pCoin->SetPosition(x + 0.25f, 1, z + 1.f);
             }
 
             //エネミー登場
             if (stage_[x][z].type == enemy)
             {
                 Enemy* pEnemy = Instantiate<Enemy>(GetParent());
-                pEnemy->SetPosition(x, 1, z + 1);
+                pEnemy->SetPosition((float)x, 1, z + 1.f);
             }
 
             //プレイヤー登場
             if (stage_[x][z].type == player)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
-                pPlayer->SetPosition(x, 0, z + 1);
+                pPlayer->SetPosition((float)x, 0, z + 1.f);
             }
             if (stage_[x][z].type == star)
             {
                 Star* pStar = Instantiate<Star>(GetParent());
-                pStar->SetPosition(x, 1.25, z + 1);
+                pStar->SetPosition((float)x, 1.25f, z + 1.f);
             }
             if (stage_[x][z].type == itembox)
             {
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
-                pItemBox->SetPosition(x, 1.25, z + 1);
+                pItemBox->SetPosition((float)x, 1.25f, z + 1.f);
             }
         }
     }

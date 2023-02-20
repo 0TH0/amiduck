@@ -388,7 +388,7 @@ void FireFollowGround::Update()
     //if (transform_.position_.y < 0)
     //{
     //    SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //    pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+    //    pSceneManager->ChangeScene(SceneManager::SCENE_ID_GAMEOVER);
     //}
 
     // //カメラ回転
@@ -593,7 +593,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        else
 //        {
 //            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+//            pSceneManager->ChangeScene(SceneManager::SCENE_ID_GAMEOVER);
 //            KillMe();
 //        }
 //    }
@@ -695,7 +695,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        {
 //            //横から当たったらプレイヤーを消す
 //            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+//            pSceneManager->ChangeScene(SceneManager::SCENE_ID_GAMEOVER);
 //            KillMe();
 //        }
 //    }
@@ -743,7 +743,7 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 //        {
 //            //横から当たったらプレイヤーを消す
 //            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-//            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+//            pSceneManager->ChangeScene(SceneManager::SCENE_ID_GAMEOVER);
 //            KillMe();
 //        }
 //    }

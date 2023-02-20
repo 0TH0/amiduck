@@ -60,6 +60,7 @@ class Player : public GameObject
     Particle* pParticle_;
     EmitterData data;
     PoryLine* pLine;
+    PoryLine* pLine2;
     XMVECTOR prevPosition;
 
 public:

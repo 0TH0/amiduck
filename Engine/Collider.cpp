@@ -6,7 +6,7 @@
 
 //コンストラクタ
 Collider::Collider():
-	pGameObject_(nullptr)
+	pGameObject_(nullptr),center_(), hDebugModel_(),size_(),type_()
 {
 }
 

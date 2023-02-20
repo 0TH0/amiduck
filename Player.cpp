@@ -69,6 +69,13 @@ void Player::Initialize()
 
     //最初は卵から
     playerState = EGG;
+
+    //ポリライン初期化
+    pLine = new PoryLine;
+    pLine->Load("tex_red.png");
+
+    pLine2 = new PoryLine;
+    pLine2->Load("tex_orange.png");
 }
 
 void Player::Update()
@@ -104,9 +111,10 @@ void Player::Update()
         SpeedUpTime_++;
         speed_ = 0.4;
     }
-    if (SpeedUpTime_ > 30)
+    if (SpeedUpTime_ > 60)
     {
         IsSpeedUp_ = false;
+        SpeedUpTime_ = 0;
     }
 
     pStage = (Stage*)FindObject("Stage");
@@ -145,7 +153,7 @@ void Player::Update()
         move_.y += gravity;
 
         //ジャンプフラグ
-        IsJump = 1;
+        IsJump = true;
     }
 
     if (!IsStop_)
@@ -246,10 +254,18 @@ void Player::Draw()
     pText->Draw(100, 100, "Player:");
     pText->Draw(250, 100, starNum_);
 
+    if (IsSpeedUp_)
+    {
+        pLine2->AddPosition(transform_.position_);
+        pLine2->Draw();
+    }
 }
 
 void Player::Release()
 {
+    //ポリライン解放
+    pLine->Release();
+    pLine2->Release();
 }
 
 //何かに当たった

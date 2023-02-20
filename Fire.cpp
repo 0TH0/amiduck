@@ -23,7 +23,7 @@ Fire::~Fire()
 void Fire::Initialize()
 {
 	//画像データのロード
-	hModel_ = Model::Load("Enemy\\raccoon10.fbx");
+	hModel_ = Model::Load("Model\\Enemy\\raccoon.fbx");
 	assert(hModel_ >= 0);
 
 	//当たり判定

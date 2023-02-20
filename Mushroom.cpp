@@ -28,7 +28,7 @@ void Mushroom::Initialize()
 
 		//‰Š
 		data.textureFileName = "Image\\Cloud.png";
-		data.position = transform_.position_;
+		
 		data.positionErr = XMFLOAT3(0.1, 0, 0.1);
 		data.delay = 5;
 		data.number = 1;
@@ -43,7 +43,14 @@ void Mushroom::Initialize()
 		data.scale = XMFLOAT2(1.01, 1.01);
 		data.color = XMFLOAT4(1, 1, 0, 1);
 		data.deltaColor = XMFLOAT4(0, -0.03, 0, -0.02);
-		pParticle_->Start(data);
+
+		for (int i = 0; i < 5; i++)
+		{
+			transform_.position_ = XMFLOAT3(29, 1, 32 + i);
+			data.position = transform_.position_;
+
+			pParticle_->Start(data);
+		}
 
 		//‰Î‚Ì•²
 		data.number = 3;
@@ -62,14 +69,19 @@ void Mushroom::Initialize()
 //XV
 void Mushroom::Update()
 {
-	transform_.rotate_.y++;
+	transform_.rotate_.z++;
 }
 
 //•`‰æ
 void Mushroom::Draw()
 {
-	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+	for (int i = 0; i < 5; i++)
+	{
+		transform_.position_ = XMFLOAT3(29, 1, 32 + i);
+		transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5f);
+		Model::SetTransform(hModel_, transform_);
+		Model::Draw(hModel_);
+	}
 }
 
 //ŠJ•ú
