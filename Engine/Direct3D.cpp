@@ -626,7 +626,6 @@ namespace Direct3D
 		pSwapChain_->Present(0, 0);
 	}
 
-
 	//ŠJ•úˆ—
 	void Release()
 	{
@@ -735,7 +734,7 @@ namespace Direct3D
 	{
 		switch (scr)
 		{
-		case SCREEN_DEFAULT:
+		case SCREEN_FULL:
 			pContext_->RSSetViewports(1, &vp);
 			break;
 		case SCREEN_RIGHT:

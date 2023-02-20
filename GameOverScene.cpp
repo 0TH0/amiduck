@@ -15,7 +15,7 @@ GameoverScene::GameoverScene(GameObject* parent)
 void GameoverScene::Initialize()
 {
 	//全画面表示する
-	Direct3D::SetViewPort(Direct3D::SCREEN_DEFAULT);
+	Direct3D::SetViewPort(Direct3D::SCREEN_FULL);
 	Camera::SetDefault();
 
 	//画像データのロード

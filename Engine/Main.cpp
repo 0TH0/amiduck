@@ -141,7 +141,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					switch (Camera::GetDual())
 					{
 					case 1:
-						Direct3D::SetViewPort(Direct3D::SCREEN_DEFAULT);
+						Direct3D::SetViewPort(Direct3D::SCREEN_FULL);
 						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
 						Camera::Update();
 
