@@ -16,3 +16,8 @@ void Math::SetXMFLOAT3(XMFLOAT3 xmf3, float x, float y, float z)
     xmf3.y = y;
     xmf3.z = z;
 }
+
+XMINT3 Math::ToXMINT(XMFLOAT3 vec)
+{
+    return { (int)vec.x, (int)vec.y, (int)vec.z };
+}

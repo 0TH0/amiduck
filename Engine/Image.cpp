@@ -203,20 +203,14 @@ namespace Image
 	//ƒ‚ƒfƒ‹‚ð“_–Å‚³‚¹‚é
 	void FlashImage(int handle, int frame)
 	{
-		//if (_datas[handle]->Alpha.GetIsFlash())
-		//{
-			_datas[handle]->Alpha.FlashImage(frame);
-			SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
-		//}
-		//else
-		//{
-		//	SetAlpha(handle, 256);
-		//}
+		_datas[handle]->Alpha.FlashImage(frame);
+		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
-	//void SetIsFlash(int handle, bool IsFlash)
-	//{
-	//	_datas[handle]->Alpha.SetIsFlash(IsFlash);
-	//}
+	void FadeoutImage(int handle, int frame)
+	{
+		_datas[handle]->Alpha.FadeOutImage(frame);
+		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
+	}
 }
 

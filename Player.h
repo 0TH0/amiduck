@@ -16,7 +16,7 @@ class Player : public GameObject
     };
 
     //プレイヤーの状態
-    enum State
+    enum class State
     {
         EGG = 0,    //卵
         LARVA, //幼虫
@@ -30,10 +30,8 @@ class Player : public GameObject
     float angle;          //角度
     XMFLOAT3 move_;       //初速度
     bool IsJump;          //ジャンプしたか
-    bool IsCamera;        //カメラを動かすか
     bool IsGround;        //地面についているか
     bool IsEnemy;         //敵に当たったか
-    int BossHp;           //ボスのHP
     float speed_;        //移動速度
     float SpeedOnWood_[DIR_MAX];  //木の上の移動速度
     float TimeOnWood_[DIR_MAX];    //木の上の時間

@@ -1,7 +1,7 @@
 #include "Alpha.h"
 #include "Model.h"
 
-Alpha::Alpha() : time_(0),alpha_(0),frame_(0),IsFlash_(false)
+Alpha::Alpha() : time_(0),alpha_(256),frame_(0),IsFlash_(false)
 {
 }
 
@@ -56,4 +56,16 @@ void Alpha::FlashImage(int frame)
 void Alpha::SetIsFlash(bool IsFlash)
 {
 	IsFlash_ = IsFlash;
+}
+
+void Alpha::FadeOutImage(int frame)
+{
+	if (alpha_ <= 0)
+	{
+		alpha_ = 0;
+	}
+	else
+	{
+		alpha_ -= frame;
+	}
 }

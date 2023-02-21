@@ -137,7 +137,7 @@ void Controller::PlayerCamera()
 
         float y = b.z - a.z;
 
-        transform_.rotate_.x += x * 0.025;
+        transform_.rotate_.x += x * 0.025f;
 
         mousePos_ = Input::GetMousePosition();
 
@@ -154,7 +154,8 @@ void Controller::CrickRight()
         //PrevPosY_ = Input::GetMousePosition().y;
     }
 
-    float moveX, moveY;
+    float moveX;
+    //float moveY;
     moveX = (Input::GetMousePosition().x - PrevPosX_) / 2;
     //moveY = (PrevPosY_ - Input::GetMousePosition().y) / 2;
 
@@ -187,11 +188,11 @@ void Controller::EnemyCamera()
         XMVECTOR vPos = XMLoadFloat3(&EnemyTrans_.position_);
 
         //ˆÚ“®ƒxƒNƒgƒ‹
-        XMFLOAT3 move = { 0, 0, 0.2 };
+        XMFLOAT3 move = { 0, 0, 0.2f };
         XMVECTOR vMove = XMLoadFloat3(&move);
         vMove = XMVector3TransformCoord(vMove, mRotate);
 
-        XMFLOAT3 X = { 0.2, 0, 0 };
+        XMFLOAT3 X = { 0.2f, 0, 0 };
         XMVECTOR vX = XMLoadFloat3(&X);
         vX = XMVector3TransformCoord(vX, mRotate);
 

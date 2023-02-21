@@ -19,8 +19,9 @@ cbuffer global
 	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;// 視点（カメラの位置）
 	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
+	float		g_alpha;			//透明度
+	float		g_scroll;
 	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
-
 };
 
 //───────────────────────────────────────

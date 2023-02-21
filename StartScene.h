@@ -7,7 +7,6 @@
 class StartScene : public GameObject
 {
 	int hPict_[3];
-	int alpha_;
 	Text* pText;
 	
 public:

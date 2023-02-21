@@ -218,7 +218,7 @@ void Stage::Update()
 
     player_pos_.z = pPlayer->GetPosition().z;
 
-     enemyPos_ = pEnemy->GetPosition();
+    enemyPos_ = pEnemy->GetPosition();
 
     //ビューポート行列
     float w = Camera::GetScrWDiv2();
@@ -254,7 +254,6 @@ void Stage::Update()
     int bufX, bufY, bufZ = 0;
     float minDistance = 9999999;
     bool IsHit = false;
-
 
     if (Input::IsMouseButtonDown(0) && woodCoolTime_ >= 300)
     {
@@ -432,7 +431,7 @@ void Stage::Release()
 {
 }
 
-////そこは壁か
+//そこは壁か
 bool Stage::IsWall(int x,  int z)
 {
     return (stage_[x][z].type == 1);

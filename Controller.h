@@ -12,24 +12,6 @@ public:
 	float plus;
 	bool Is;
 
-
-	float a = false;
-	bool c = false;
-	bool b = false;
-	int time1 = 0;
-	int time2;
-	int time3;
-	Transform trans[2];
-	bool IsPress;
-	bool IsReturn;
-	bool IsStop;
-	float s;
-	float t;
-	float f;
-	float g;
-
-	int time;
-
 	Stage* pStage;
 	float speed_;        //ˆÚ“®‘¬“x
 	XMFLOAT3 mousePos_;

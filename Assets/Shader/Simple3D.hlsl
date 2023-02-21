@@ -85,7 +85,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	float4 diffuse;
 	//テクスチャ有無
-	if (g_isTexture == true)
+	if (g_isTexture)
 	{
 		//テクスチャの色
 		diffuse = g_texture.Sample(g_sampler, inData.uv);

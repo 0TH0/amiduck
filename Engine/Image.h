@@ -105,5 +105,7 @@ namespace Image
 
 	void FlashImage(int handle, int frame = 5);
 
+	void FadeoutImage(int handle, int frame = 5);
+
 	/*void SetIsFlash(int handle, bool IsFlash = 1);*/
 }

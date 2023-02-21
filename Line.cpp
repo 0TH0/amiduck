@@ -19,26 +19,12 @@ void Line::Initialize()
 void Line::Update()
 {
 	time_++;
-
-	if (time_ > 50)
-	{
-		KillMe();
-	}
-	else if (time_ % 10 == 0)
-	{
-		alpha_ = 64;
-	}
-	else if (time_ % 5 == 0)
-	{
-		alpha_ = 128;
-	}
 }
 
 //•`‰æ
 void Line::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
-	//Image::SetColor(hPict_, 0, 0, 0);
 	Image::SetAlpha(hPict_, alpha_);
 	Image::Draw(hPict_);
 }

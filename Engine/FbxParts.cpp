@@ -482,7 +482,6 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		UINT    offset = 0;
 		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
-
 		// ƒpƒ‰ƒ[ƒ^‚ÌŽó‚¯“n‚µ
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;

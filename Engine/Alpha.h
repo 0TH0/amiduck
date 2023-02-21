@@ -17,7 +17,11 @@ public:
 
 	void SetIsFlash(bool IsFlash);
 
+	void FadeOutImage(int frame = 5);
+
 	bool GetIsFlash() { return IsFlash_; };
 
 	int GetAlpha() { return alpha_; };
+
+	int GetTime() { return time_; };
 };

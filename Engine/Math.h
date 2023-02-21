@@ -10,4 +10,6 @@ namespace Math
 
 	//XMFLOAT3をセットする
 	void SetXMFLOAT3(XMFLOAT3 xmf4, float x, float y, float z);
+
+	XMINT3 ToXMINT(XMFLOAT3 vec);
 };

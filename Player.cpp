@@ -15,17 +15,18 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
+#include "Engine/Math.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameObject(parent, "Player"),
 
     //変数
-    hModel_(-1),
-    jump_v0(0), gravity(0), angle(0), BossHp(3),
+    hModel_(-1), hModel2_(-1),
+    jump_v0(0), gravity(0), angle(0), delay_(0),
 
     //フラグ
-    IsJump(false), IsGround(false),
+    IsJump(false), IsGround(false), hasItem_(false),IsLeft_(false),IsRight_(false),
 
     //定数
     speed_(0.3f), DUSHSPEED(0.05f),
@@ -68,7 +69,7 @@ void Player::Initialize()
     pParticle_ = Instantiate<Particle>(this);
 
     //最初は卵から
-    playerState = EGG;
+    playerState = State::EGG;
 
     //ポリライン初期化
     pLine = new PoryLine;
@@ -101,7 +102,7 @@ void Player::Update()
     if (Input::IsKeyDown(DIK_W))
     {
         //橋を渡っていなかったら
-       // if (!(IsOnBridge_) && hasItem_)
+        if (!(IsOnBridge_) && hasItem_)
         {
             IsSpeedUp_ = true;
             Instantiate<Line>(this);
@@ -263,10 +264,10 @@ void Player::Draw()
 
     switch (playerState)
     {
-    case EGG:
+    case State::EGG:
         Model::FlashModel(hModel_);
         break;
-    case LARVA:
+    case State::LARVA:
         Model::FlashModel(hModel2_);
         break;
     }
@@ -278,7 +279,7 @@ void Player::Draw()
     {
         pLine->AddPosition(transform_.position_);
         pLine->SetWidth(0.1f);
-        pLine->SetColor(XMFLOAT4(1, 1, 1, 0.5));
+        pLine->SetColor(XMFLOAT4(1, 1, 1, 0.9));
         pLine->Draw();
 
         Transform trans;
@@ -286,7 +287,7 @@ void Player::Draw()
         trans.position_.z = transform_.position_.z + 0.5f;
         pLine2->AddPosition(trans.position_);
         pLine2->SetWidth(0.1f);
-        pLine2->SetColor(XMFLOAT4(1, 1, 1, 0.5));
+        pLine2->SetColor(XMFLOAT4(1, 1, 1, 0.9));
         pLine2->Draw();
 
         Transform trans2;
@@ -294,7 +295,7 @@ void Player::Draw()
         trans2.position_.z = transform_.position_.z - 0.5f;
         pLine3->AddPosition(trans2.position_);
         pLine3->SetWidth(0.1f);
-        pLine3->SetColor(XMFLOAT4(1, 1, 1, 0.5));
+        pLine3->SetColor(XMFLOAT4(1, 1, 1, 0.9));
         pLine3->Draw();
     }
 }
@@ -331,7 +332,7 @@ void Player::OnCollision(GameObject* pTarget)
         if (starTime_ == 0)
         {
             starTime_++;
-            playerState = LARVA;
+            playerState = State::LARVA;
             starNum_++;
         }
     }
@@ -385,25 +386,17 @@ void Player::OnCollision(GameObject* pTarget)
 void Player::LadderLottery()
 {
     //////////////////壁との衝突判定///////////////////////
-    int objX = transform_.position_.x;
-    int objY = transform_.position_.y;
-    int objZ = transform_.position_.z;
+    XMINT3 obj = Math::ToXMINT(transform_.position_);
 
-    ////壁の判定(上)
-    //if (pStage->IsWall(objX, objZ) || pStage->IsBridge(objX, objZ))
-    //{
-    //    transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-    //    IsJump = 0;
-    //}
-
+    //壁の判定(上)
     if (!IsRight_ && !IsLeft_)
     {
         //進行方向に道がなかったら戻ってくる
-        if (pStage->IsEmpty(objX + 2, objZ))
+        if (pStage->IsEmpty(obj.x + 2, obj.z))
         {
             IsReturn_ = true;
         }
-        if (pStage->IsEmpty(objX - 2, objZ))
+        if (pStage->IsEmpty(obj.x - 2, obj.z))
         {
             IsReturn_ = false;
         }
@@ -423,7 +416,7 @@ void Player::LadderLottery()
 
     if (!IsLeft_ && StoppedTime_ > 4)
     {
-        if (pStage->IsBridge(objX, objZ - 4))
+        if (pStage->IsBridge(obj.x, obj.z - 4))
         {
             speed_ = 0;
             IsRight_ = true;
@@ -447,14 +440,14 @@ void Player::LadderLottery()
             IsOnBridge_ = false;
             delay_ = 0;
             SpeedOnWood_[R] = 0;
-            
+
 
             switch (playerState)
             {
-            case Player::EGG:
+            case Player::State::EGG:
                 speed_ = 0.2;
                 break;
-            case Player::LARVA:
+            case Player::State::LARVA:
                 speed_ = 0.3f;
                 break;
             default:
@@ -482,7 +475,7 @@ void Player::LadderLottery()
         //右に行ってからすぐに左に行かないように間隔を開ける
         if (delay_ > 4)
         {
-            if (pStage->IsBridge(objX, objZ + 3))
+            if (pStage->IsBridge(obj.x, obj.z + 3))
             {
                 speed_ = 0;
 
@@ -508,10 +501,10 @@ void Player::LadderLottery()
 
                 switch (playerState)
                 {
-                case Player::EGG:
+                case Player::State::EGG:
                     speed_ = 0.2;
-                    break;                                                                                    
-                case Player::LARVA:
+                    break;
+                case Player::State::LARVA:
                     speed_ = 0.3f;
                     break;
                 default:
