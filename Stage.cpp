@@ -19,7 +19,8 @@
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_()
+    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),
+    bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_()
 {
 }
 
@@ -31,7 +32,7 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csv読み込み
-    csv.Load("Csv\\map2.csv");
+    csv.Load("Csv\\map3.csv");
 
     //空箱
     //hModel_[empty] = Model::Load("Empty.fbx");
@@ -118,9 +119,11 @@ void Stage::Initialize()
 
         if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
         {
-            stage_[randX][randZ].type = coin;
+            stage_[randX][randZ + 1].type = coin;
+            stage_[randX][randZ].type     = coin;
             stage_[randX][randZ - 1].type = coin;
             stage_[randX][randZ - 2].type = coin;
+            stage_[randX][randZ - 3].type = coin;
             bridgeCount_++;
         }
     }
@@ -300,6 +303,8 @@ void Stage::Update()
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
                     stage_[bufX][bufZ + 2].type = coin;
+                    stage_[bufX][bufZ + 3].type = coin;
+                    stage_[bufX][bufZ + 4].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ + 2;
                     Cloud();
@@ -310,6 +315,8 @@ void Stage::Update()
                     stage_[bufX][bufZ - 1].type = coin;
                     stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
+                    stage_[bufX][bufZ + 3].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ + 1;
                     Cloud();
@@ -317,7 +324,9 @@ void Stage::Update()
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
-                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ + 2].type = coin;
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ].type =     coin;
                     stage_[bufX][bufZ - 1].type = coin;
                     stage_[bufX][bufZ - 2].type = coin;
                     data.position.x = bufX;

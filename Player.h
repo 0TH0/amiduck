@@ -61,6 +61,7 @@ class Player : public GameObject
     EmitterData data;
     PoryLine* pLine;
     PoryLine* pLine2;
+    PoryLine* pLine3;
     XMVECTOR prevPosition;
 
 public:

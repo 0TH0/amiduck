@@ -72,10 +72,13 @@ void Player::Initialize()
 
     //ポリライン初期化
     pLine = new PoryLine;
-    pLine->Load("tex_red.png");
+    pLine->Load("tex_orange.png");
 
     pLine2 = new PoryLine;
     pLine2->Load("tex_orange.png");
+    
+    pLine3 = new PoryLine;
+    pLine3->Load("tex_orange.png");
 }
 
 void Player::Update()
@@ -98,12 +101,29 @@ void Player::Update()
     if (Input::IsKeyDown(DIK_W))
     {
         //橋を渡っていなかったら
-        if (!(IsOnBridge_) && hasItem_)
+       // if (!(IsOnBridge_) && hasItem_)
         {
             IsSpeedUp_ = true;
             Instantiate<Line>(this);
             hasItem_ = false;
         }
+    }
+
+    if (Input::IsKey(DIK_I))
+    {
+        transform_.position_.x += 0.25;
+    }
+    if (Input::IsKey(DIK_K))
+    {
+        transform_.position_.x -= 0.25;
+    }
+    if (Input::IsKey(DIK_L))
+    {
+        transform_.position_.z -= 0.25;
+    }
+    if (Input::IsKey(DIK_J))
+    {
+        transform_.position_.z += 0.25;
     }
 
     if (IsSpeedUp_)
@@ -256,8 +276,26 @@ void Player::Draw()
 
     if (IsSpeedUp_)
     {
-        pLine2->AddPosition(transform_.position_);
+        pLine->AddPosition(transform_.position_);
+        pLine->SetWidth(0.1f);
+        pLine->SetColor(XMFLOAT4(1, 1, 1, 0.5));
+        pLine->Draw();
+
+        Transform trans;
+        trans = transform_;
+        trans.position_.z = transform_.position_.z + 0.5f;
+        pLine2->AddPosition(trans.position_);
+        pLine2->SetWidth(0.1f);
+        pLine2->SetColor(XMFLOAT4(1, 1, 1, 0.5));
         pLine2->Draw();
+
+        Transform trans2;
+        trans2 = transform_;
+        trans2.position_.z = transform_.position_.z - 0.5f;
+        pLine3->AddPosition(trans2.position_);
+        pLine3->SetWidth(0.1f);
+        pLine3->SetColor(XMFLOAT4(1, 1, 1, 0.5));
+        pLine3->Draw();
     }
 }
 
@@ -266,6 +304,7 @@ void Player::Release()
     //ポリライン解放
     pLine->Release();
     pLine2->Release();
+    pLine3->Release();
 }
 
 //何かに当たった
@@ -360,11 +399,11 @@ void Player::LadderLottery()
     if (!IsRight_ && !IsLeft_)
     {
         //進行方向に道がなかったら戻ってくる
-        if (pStage->IsEmpty((float)objX + 3, objZ))
+        if (pStage->IsEmpty(objX + 2, objZ))
         {
             IsReturn_ = true;
         }
-        if (pStage->IsEmpty((float)objX - 3, objZ))
+        if (pStage->IsEmpty(objX - 2, objZ))
         {
             IsReturn_ = false;
         }
@@ -384,7 +423,7 @@ void Player::LadderLottery()
 
     if (!IsLeft_ && StoppedTime_ > 4)
     {
-        if (pStage->IsBridge(objX, objZ - 3))
+        if (pStage->IsBridge(objX, objZ - 4))
         {
             speed_ = 0;
             IsRight_ = true;
@@ -443,7 +482,7 @@ void Player::LadderLottery()
         //右に行ってからすぐに左に行かないように間隔を開ける
         if (delay_ > 4)
         {
-            if (pStage->IsBridge(objX, objZ + 2))
+            if (pStage->IsBridge(objX, objZ + 3))
             {
                 speed_ = 0;
 

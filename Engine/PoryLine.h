@@ -23,8 +23,8 @@ class PoryLine
 		XMFLOAT3 uv;
 	};
 
-	const float WIDTH_;		//‘¾‚³
-	const int LENGTH_;		//’·‚³
+	float width_;		//‘¾‚³
+	int length_;		//’·‚³
 
 
 
@@ -58,5 +58,7 @@ public:
 	void SetColor(XMFLOAT4 color);
 
 	XMFLOAT4 GetColor() { return cb.color; };
+
+	void SetWidth(float w);
 };
 
