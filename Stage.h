@@ -12,7 +12,7 @@ class Stage : public GameObject
 
     enum StageModelNum
     {
-        empty = 0,
+        empty,
         log,
         coin,
         enemy,

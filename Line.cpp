@@ -18,14 +18,17 @@ void Line::Initialize()
 //XV
 void Line::Update()
 {
-	time_++;
+	if (Image::GetTime(hPict_) >= 60)
+	{
+		KillMe();
+	}
 }
 
 //•`‰æ
 void Line::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
-	Image::SetAlpha(hPict_, alpha_);
+	Image::FlashImage2(hPict_);
 	Image::Draw(hPict_);
 }
 

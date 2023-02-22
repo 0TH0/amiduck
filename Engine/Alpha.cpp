@@ -53,6 +53,20 @@ void Alpha::FlashImage(int frame)
 	}
 }
 
+void Alpha::FlashImage2(int frame)
+{
+	time_++;
+
+	if (time_ % 10 == 0)
+	{
+		alpha_ = 64;
+	}
+	else if (time_ % 5 == 0)
+	{
+		alpha_ = 128;
+	}
+}
+
 void Alpha::SetIsFlash(bool IsFlash)
 {
 	IsFlash_ = IsFlash;

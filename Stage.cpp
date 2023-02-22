@@ -35,7 +35,7 @@ void Stage::StageLoad()
     csv.Load("Csv\\map3.csv");
 
     //空箱
-    //hModel_[empty] = Model::Load("Empty.fbx");
+    //hModel_[-1] = Model::Load("-1.fbx");
     //assert(hModel_[0] >= 0);
 
     //ブロック
@@ -165,9 +165,9 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            if (stage_[x][z].type == empty)
+            if (stage_[x][z].type == -1)
             {
-                //Empty* pEmpty = Instantiate<Empty>(this);
+                //-1* p-1 = Instantiate<-1>(this);
             }
 
             //コイン登場
@@ -295,7 +295,7 @@ void Stage::Update()
         if (IsHit)
         {
             //クリックしたところが何もなかったら
-            if (stage_[bufX][bufZ].type == empty)
+            if (stage_[bufX][bufZ].type == -1)
             {
                 if (stage_[bufX][bufZ - 1].type == log)
                 {
@@ -381,7 +381,7 @@ void Stage::Draw()
 
                     switch (stage_[x][z].type)
                     {
-                    case empty:
+                    case -1:
                         break;
                     case log:
                         transform_.rotate_.y = 90;

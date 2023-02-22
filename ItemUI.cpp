@@ -41,6 +41,19 @@ void ItemUI::Initialize()
 //XV
 void ItemUI::Update()
 {
+	if (Image::IsHitCursor(hPict_[2]))
+	{
+		Image::SetColor(hPict_[2], 0.6f, 0.6f, 0.6f);
+		//if (Input::IsMouseButtonDown(0))
+		//{
+		//	Player* pPlayer = (Player*)FindObject("Player");
+		//	pPlayer->SetHasItem(true);
+		//}
+	}
+	else
+	{
+		Image::SetColor(hPict_[2], 1.f, 1.f, 1.f);
+	}
 }
 
 //•`‰æ

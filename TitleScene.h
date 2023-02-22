@@ -7,6 +7,7 @@ class TitleScene : public GameObject
 {
 	int hPict_;
 	int hPictCh_;
+	int hPictStart_;
 	int alpha_ = 256;
 	bool Is_;
 	Text* pText;

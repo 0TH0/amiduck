@@ -84,6 +84,16 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    switch (playerState)
+    {
+    case Player::State::EGG:
+        transform_.rotate_.z += 10;
+        break;
+    case Player::State::LARVA:
+        transform_.rotate_ = XMFLOAT3(0, 180, 0);
+        break;
+    }
+
     // 1フレーム前の座標
     prevPosition = XMLoadFloat3(&transform_.position_);
 
@@ -429,7 +439,6 @@ void Player::LadderLottery()
     if (IsRight_)
     {
         IsStop_ = false;
-        transform_.rotate_ = XMFLOAT3(0, -90, 0);
         SpeedOnWood_[R] = 0.2;
         TimeOnWood_[R] += SpeedOnWood_[R];
 

@@ -2,6 +2,7 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
+
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
 	: GameObject(parent, "TestScene")
@@ -27,24 +28,6 @@ void TitleScene::Update()
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_PLAY);
 	}
-
-	//if (alpha_ >= 256)
-	//{
-	//	Is_ = true;
-	//}
-	//else if (alpha_ <= 0)
-	//{
-	//	Is_ = false;
-	//}
-
-	//if (Is_)
-	//{
-	//	alpha_ -= 5;
-	//}
-	//else
-	//{
-	//	alpha_ += 5;
-	//}
 }
 
 //描画

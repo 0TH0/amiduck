@@ -2,7 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 #include "Engine/PoryLine.h"
-
+#include "Engine/Particle.h"
 
 //シーンを管理するクラス
 class Fire : public GameObject
@@ -12,7 +12,8 @@ public:
 	Transform PlayerTrans_;
 	float plus;
 	bool Is;
-
+	Particle* pParticle_;
+	EmitterData data;
 
 	float a = false;
 	bool c = false;

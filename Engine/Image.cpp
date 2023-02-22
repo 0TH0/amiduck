@@ -1,5 +1,6 @@
 #include "Global.h"
 #include "Image.h"
+#include "Input.h"
 
 //3D‰æ‘œ‚ðŠÇ—‚·‚é
 namespace Image
@@ -207,10 +208,37 @@ namespace Image
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
+	void FlashImage2(int handle, int frame)
+	{
+		_datas[handle]->Alpha.FlashImage2(frame);
+		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
+	}
+
 	void FadeoutImage(int handle, int frame)
 	{
 		_datas[handle]->Alpha.FadeOutImage(frame);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
+	}
+
+	int GetTime(int handle)
+	{
+		return _datas[handle]->Alpha.GetTime();
+	}
+
+	bool IsHitCursor(int hPict)
+	{
+		UINT wid = (UINT)(_datas[hPict]->pSprite->GetTextureSize().x * _datas[hPict]->transform.scale_.x / 2);
+		UINT hgt = (UINT)(_datas[hPict]->pSprite->GetTextureSize().y * _datas[hPict]->transform.scale_.y / 2);
+		float Left = (_datas[hPict]->transform.position_.x + 1) * (Direct3D::screenWidth_ / 2) - wid;
+		float Right = (_datas[hPict]->transform.position_.x + 1) * (Direct3D::screenWidth_ / 2) + wid;
+		float Top = (-_datas[hPict]->transform.position_.y + 1) * (Direct3D::screenHeight_ / 2) - hgt;
+		float Bottom = (-_datas[hPict]->transform.position_.y + 1) * (Direct3D::screenHeight_ / 2) + hgt;
+		if (Left <= Input::GetMousePosition().x && Input::GetMousePosition().x <= Right &&
+			Top <= Input::GetMousePosition().y && Input::GetMousePosition().y <= Bottom)
+		{
+			return true;
+		}
+		return false;
 	}
 }
 

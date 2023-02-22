@@ -15,6 +15,8 @@ public:
 
 	void FlashImage(int frame);
 
+	void FlashImage2(int frame);
+
 	void SetIsFlash(bool IsFlash);
 
 	void FadeOutImage(int frame = 5);
