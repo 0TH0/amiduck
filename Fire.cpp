@@ -63,8 +63,6 @@ void Fire::Initialize()
     data.color = XMFLOAT4(1, 0, 0, 1);
     data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
     data.gravity = 0.003f;
-    pParticle_->Start(data);
-
     data.color = XMFLOAT4(0.5, 0.5, 0, 1);
 }
 

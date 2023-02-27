@@ -489,7 +489,14 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.normalTrans = XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
 		cb.ambient = pMaterial_[i].ambient;
-		cb.diffuse = pMaterial_[i].diffuse;
+		if (IsSetDiffuse_)
+		{
+			cb.diffuse = GetDiffuse();
+		}
+		else
+		{
+			cb.diffuse = pMaterial_[i].diffuse;
+		}
 		cb.speculer = pMaterial_[i].specular;
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);

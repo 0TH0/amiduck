@@ -17,7 +17,7 @@ Star::Star(GameObject* parent)
 //‰Šú‰»
 void Star::Initialize()
 {
-	hModel_ = Model::Load("Model\\star.fbx");
+	hModel_ = Model::Load("Model\\star_white.fbx");
 	assert(hPict_ >= 0);
 
 	//“–‚½‚è”»’è
@@ -68,7 +68,7 @@ void Star::Update()
 void Star::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-
+	Model::SetColor(hModel_, XMFLOAT4(1, 1, 0, 1));
 	if (IsVisibled())
 	{
 		Model::Draw(hModel_);

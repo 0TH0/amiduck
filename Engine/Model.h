@@ -109,4 +109,6 @@ namespace Model
 	void FlashModel(int handle, int frame = 5);
 
 	void SetIsFlash(int handle, bool IsFlash = 1);
+
+	void SetColor(int handle, XMFLOAT4 diffuse);
 };

@@ -225,4 +225,10 @@ namespace Model
 	{
 		_datas[handle]->Alpha.SetIsFlash(IsFlash);
 	}
+
+	void SetColor(int handle, XMFLOAT4 diffuse)
+	{
+		_datas[handle]->pFbx->SetIsDiffuse(true);
+		_datas[handle]->pFbx->SetDiffuse(diffuse);
+	}
 }

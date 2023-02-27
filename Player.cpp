@@ -94,6 +94,16 @@ void Player::Update()
         break;
     }
 
+    //星の数が０以下で卵
+    if (starNum_ <= 0)
+    {
+        playerState = State::EGG;
+    }
+    else
+    {
+        playerState = State::LARVA;
+    }
+
     // 1フレーム前の座標
     prevPosition = XMLoadFloat3(&transform_.position_);
 
@@ -271,7 +281,8 @@ void Player::Draw()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
-
+    //モデルの色
+    Model::SetColor(hModel_, XMFLOAT4(1, 0.5, 1, 1));
     switch (playerState)
     {
     case State::EGG:
@@ -342,7 +353,6 @@ void Player::OnCollision(GameObject* pTarget)
         if (starTime_ == 0)
         {
             starTime_++;
-            playerState = State::LARVA;
             starNum_++;
         }
     }

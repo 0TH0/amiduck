@@ -161,3 +161,19 @@ void Fbx::SetShader(Direct3D::SHADER_TYPE shaderType)
 		parts_[i]->SetShader(shaderType);
 	}
 }
+
+void Fbx::SetDiffuse(XMFLOAT4 diffuse)
+{
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		parts_[i]->SetDiffuse(diffuse);
+	}
+}
+
+void Fbx::SetIsDiffuse(bool IsSetDiffuse)
+{
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		parts_[i]->SetIsDiffuse(IsSetDiffuse);
+	}
+}

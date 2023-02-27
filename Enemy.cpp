@@ -218,6 +218,8 @@ void Enemy::Draw()
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
 
+    //ƒ‚ƒfƒ‹‚ÌF
+    Model::SetColor(hModel_, XMFLOAT4(1, 1, 1, 1));
     switch (playerState)
     {
     case EGG:

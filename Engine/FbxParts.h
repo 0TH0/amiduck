@@ -108,7 +108,9 @@ class FbxParts
 	Bone*			pBoneArray_;	// 各関節の情報
 	Weight*			pWeightArray_;	// ウェイト情報（頂点の対する各関節の影響度合い）
 
-
+	// 色を変える
+	bool		IsSetDiffuse_;
+	XMFLOAT4	 diffuse_;
 
 	/////////privateな関数（Init関数から呼ばれる）//////////////////////////
 	void InitVertex(fbxsdk::FbxMesh * mesh);	//頂点バッファ準備
@@ -161,5 +163,10 @@ public:
 	void RayCast(RayCastData *data);
 
 	void SetShader(Direct3D::SHADER_TYPE shaderType);
-};
 
+	//色を変える
+	void SetIsDiffuse(bool Is) { IsSetDiffuse_ = Is; };
+	bool GetIsDiffuse() { return IsSetDiffuse_; };
+	void SetDiffuse(XMFLOAT4 diffuse) { diffuse_ = diffuse; };
+	XMFLOAT4 GetDiffuse() { return diffuse_; };
+};

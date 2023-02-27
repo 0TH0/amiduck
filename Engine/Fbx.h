@@ -89,5 +89,10 @@ public:
 	void RayCast(RayCastData *data);
 
 	void SetShader(Direct3D::SHADER_TYPE shaderType);
+
+	//F‚ğ•Ï‚¦‚é
+	void SetDiffuse(XMFLOAT4 diffuse);
+
+	void SetIsDiffuse(bool IsSetDiffuse);
 };
 

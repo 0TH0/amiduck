@@ -194,6 +194,7 @@ void Stage::Initialize()
             {
                 Star* pStar = Instantiate<Star>(GetParent());
                 pStar->SetPosition((float)x, 1.25f, z + 1.f);
+
             }
             if (stage_[x][z].type == itembox)
             {
