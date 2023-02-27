@@ -39,26 +39,26 @@ void Stage::StageLoad()
     //assert(hModel_[0] >= 0);
 
     //ブロック
-    hModel_[log] = Model::Load("log.fbx");
+    hModel_[log] = Model::Load("Stage\\log.fbx");
     assert(hModel_[log] >= 0);
 
     //旗先端
-    hModel_[coin] = Model::Load("wood2.fbx");
+    hModel_[coin] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[coin] >= 0);
 
-    hModel_[bridge] = Model::Load("wood2.fbx");
+    hModel_[bridge] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[bridge] >= 0);
 
-    hModel_[enemy] = Model::Load("log.fbx");
+    hModel_[enemy] = Model::Load("Stage\\log.fbx");
     assert(hModel_[enemy] >= 0);
 
-    hModel_[player] = Model::Load("log.fbx");
+    hModel_[player] = Model::Load("Stage\\log.fbx");
     assert(hModel_[player] >= 0);
 
-    hModel_[star] = Model::Load("log.fbx");
+    hModel_[star] = Model::Load("Stage\\log.fbx");
     assert(hModel_[star] >= 0);
 
-    hModel_[itembox] = Model::Load("log.fbx");
+    hModel_[itembox] = Model::Load("Stage\\log.fbx");
     assert(hModel_[itembox] >= 0);
     
     //煙の音
