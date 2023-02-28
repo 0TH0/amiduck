@@ -15,8 +15,11 @@ void TitleScene::Initialize()
 	hPict_ = Image::Load("Title\\TitleLogo.png");
 	assert(hPict_ >= 0);
 
-	hPictCh_ = Image::Load("Title\\start.png");
+	hPictCh_ = Image::Load("Title\\playBt.png");
 	assert(hPictCh_ >= 0);
+
+	hPictTuto_ = Image::Load("Title\\tutorialBt.png");
+	assert(hPictTuto_ >= 0);
 }
 
 //XV
@@ -40,24 +43,43 @@ void TitleScene::Update()
 	}
 	else
 	{
-		Image::SetColor(hPictCh_, 1.f, 1.f, 1.f);
+		Image::SetColor(hPictCh_);
+	}
+
+	if (Image::IsHitCursor(hPictTuto_))
+	{
+		Image::SetColor(hPictTuto_, 0.7f, 0.7f, 0.7f);
+		if (Input::IsMouseButtonDown(0))
+		{
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
+		}
+	}
+	else
+	{
+		Image::SetColor(hPictTuto_);
 	}
 }
 
 //•`‰æ
 void TitleScene::Draw()
 {
-	transform_.position_.y = 0.25f;
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 
 	Transform trans;
-	trans.position_.y = -0.6;
+	trans.position_ = XMFLOAT3(0.4f, -0.6f, 0);
 	trans.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
 
 	Image::SetTransform(hPictCh_, trans);
 	Image::Draw(hPictCh_);
-	/*Image::FlashImage(hPictCh_, 5);*/
+
+	Transform trans2;
+	trans2.position_ = XMFLOAT3(-0.4f, -0.6f, 0);
+	trans2.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
+
+	Image::SetTransform(hPictTuto_, trans2);
+	Image::Draw(hPictTuto_);
 }
 
 //ŠJ•ú

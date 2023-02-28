@@ -101,7 +101,7 @@ namespace Image
 	//引数：r　赤
 	//引数：g　緑
 	//引数：b　青
-	void SetColor(int handle, float r, float g, float b);
+	void SetColor(int handle, float r = 1.f, float g = 1.f, float b = 1.f);
 
 	void FlashImage(int handle, int frame = 5);
 

@@ -407,7 +407,7 @@ void Player::LadderLottery()
 {
     //////////////////ï«Ç∆ÇÃè’ìÀîªíË///////////////////////
     XMINT3 obj = Math::ToXMINT(transform_.position_);
-
+    
     //ï«ÇÃîªíË(è„)
     if (!IsRight_ && !IsLeft_)
     {
