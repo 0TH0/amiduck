@@ -9,9 +9,18 @@ class TitleScene : public GameObject
 	int hPictCh_;
 	int hPictTuto_;
 	int hPictStart_;
+	int hPictPlay_;
 	int alpha_ = 256;
 	bool Is_;
 	Text* pText;
+
+	enum class BtState
+	{
+		NONE = 0,
+		PLAY,
+		Tutorial
+	} btState_;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
