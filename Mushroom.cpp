@@ -27,7 +27,7 @@ void Mushroom::Initialize()
 		EmitterData data;
 
 		//âä
-		data.textureFileName = "Image\\Cloud.png";
+		/*data.textureFileName = "Image\\Cloud.png";
 		
 		data.positionErr = XMFLOAT3(0.1, 0, 0.1);
 		data.delay = 5;
@@ -42,18 +42,18 @@ void Mushroom::Initialize()
 		data.sizeErr = XMFLOAT2(0.4, 0.4);
 		data.scale = XMFLOAT2(1.01, 1.01);
 		data.color = XMFLOAT4(1, 1, 0, 1);
-		data.deltaColor = XMFLOAT4(0, -0.03, 0, -0.02);
+		data.deltaColor = XMFLOAT4(0, -0.03, 0, -0.02);*/
 
-		for (int i = 0; i < 5; i++)
+		//for (int i = 0; i < 5; i++)
 		{
-			transform_.position_ = XMFLOAT3(29, 1, 32 + i);
-			data.position = transform_.position_;
+			transform_.position_ = XMFLOAT3(29, 1, 32);
+			//data.position = transform_.position_;
 
-			pParticle_->Start(data);
+			//pParticle_->Start(data);
 		}
 
 		//âŒÇÃï≤
-		data.number = 3;
+	/*	data.number = 3;
 		data.positionErr = XMFLOAT3(0.8, 0, 0.8);
 		data.dir = XMFLOAT3(0, 1, 0);
 		data.dirErr = XMFLOAT3(10, 10, 10);
@@ -62,22 +62,22 @@ void Mushroom::Initialize()
 		data.lifeTime = 120;
 		data.speed = 0.1f;
 		data.gravity = 0;
-		pParticle_->Start(data);
+		pParticle_->Start(data);*/
 	}
 }
 
 //çXêV
 void Mushroom::Update()
 {
-	transform_.rotate_.z++;
+	transform_.rotate_.y += 5;
 }
 
 //ï`âÊ
 void Mushroom::Draw()
 {
-	for (int i = 0; i < 5; i++)
+	//for (int i = 0; i < 5; i++)
 	{
-		transform_.position_ = XMFLOAT3(29, 1, 32 + i);
+		transform_.position_ = XMFLOAT3(29, 1, 32);
 		transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5f);
 		Model::SetTransform(hModel_, transform_);
 		Model::Draw(hModel_);

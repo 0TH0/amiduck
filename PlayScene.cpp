@@ -37,7 +37,7 @@ void PlayScene::Initialize()
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
 	pStage->StageLoad();
-	//Instantiate<Mushroom>(this);
+	Instantiate<Mushroom>(this);
 	Instantiate<StartScene>(this);
 	
 	pStage = (Stage*)FindObject("Stage");
