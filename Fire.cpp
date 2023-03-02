@@ -74,7 +74,7 @@ void Fire::Update()
 
 	time++;
 
-	if (time >= 90)
+	//if (time >= 90)
 	{
 		//‰Š
 		{
@@ -105,14 +105,14 @@ void Fire::Update()
 		KillMe();
 	}
 
-	//if(pPlayer->GetReturn())
-	//{
- //       transform_.position_.x--;
-	//}
-	//else
-	//{
-	//	transform_.position_.x++;
-	//}
+	if(pPlayer->GetReturn())
+	{
+        transform_.position_.x--;
+	}
+	else
+	{
+		transform_.position_.x++;
+	}
 
     //ƒ|ƒŠƒ‰ƒCƒ“‚ÉŒ»Ý‚ÌˆÊ’u‚ð“`‚¦‚é
     pLine->AddPosition(transform_.position_);

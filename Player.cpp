@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Line.h"
 #include "Mushroom.h"
+#include "ItemUI.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -107,26 +108,38 @@ void Player::Update()
     // 1フレーム前の座標
     prevPosition = XMLoadFloat3(&transform_.position_);
 
+    //あみだくじの処理
     LadderLottery();
 
-    if (Input::IsKeyDown(DIK_Q))
-    {
-       Instantiate<FireFollowGround>(GetParent());
-    }
-
-    if (Input::IsKeyDown(DIK_E))
-    {
-       Instantiate<Fire>(GetParent());
-    }
-
+    //アイテム使用
     if (Input::IsKeyDown(DIK_W))
     {
-        //橋を渡っていなかったら
-        if (!(IsOnBridge_) && hasItem_)
+        ItemUI* pItemUI =(ItemUI*)FindObject("ItemUI");
+        switch (pItemUI->GetItem())
         {
-            IsSpeedUp_ = true;
-            Instantiate<Line>(this);
+            //ボール出す
+        case ItemUI::Item::BALL:
+            Instantiate<FireFollowGround>(GetParent());
             hasItem_ = false;
+            pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+            break;
+            //爆弾出す
+        case ItemUI::Item::BOMB:
+            Instantiate<Fire>(GetParent());
+            hasItem_ = false;
+            pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+            break;
+        case ItemUI::Item::WING:
+            //橋を渡っていなかったら
+            if (!(IsOnBridge_) && hasItem_)
+            {
+                //ダッシュ
+                IsSpeedUp_ = true;
+                Instantiate<Line>(this);
+                hasItem_ = false;
+                pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+            }
+            break;
         }
     }
 
@@ -222,43 +235,6 @@ void Player::Update()
     {
         transform_.position_.y = 0.75f;
     }
-
-    //if (Input::IsKeyDown(DIK_Z))
-    //{
-    //    Camera::SetDual();
-    //}
-    //if (Input::IsKeyDown(DIK_X))
-    //{
-    //    Camera::SetDefault();
-    //}
-
-    //if (!IsBlend())
-    //{
-    //    if (Input::IsKeyDown(DIK_L))
-    //    {
-    //        Blend();
-    //        EmitterData data;
-    //        data.textureFileName = "Particle\\Cloud.png";
-    //        data.position = transform_.position_;
-    //        data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
-    //        data.delay = 0;
-    //        data.number = 5;
-    //        data.lifeTime = 60;
-    //        data.dir = XMFLOAT3(0, 1, 0);
-    //        data.dirErr = XMFLOAT3(0, 0, 0);
-    //        data.speed = 0.01f;
-    //        data.speedErr = 0.0;
-    //        data.size = XMFLOAT2(2, 2);
-    //        data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //        data.scale = XMFLOAT2(1.03, 1.02);
-    //        data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
-    //        pParticle_->Start(data);
-    //    }
-    //}
-    //if (Input::IsKeyUp(DIK_L))
-    //{
-    //    Default();
-    //}
 
     if (starTime_ >= 10)
     {

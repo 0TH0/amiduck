@@ -36,13 +36,9 @@ void ItemBox::Update()
 	if (IsHit_)
 	{
 		time_++;
-		if (time_ >= 30)
-		{
-			IsHit_ = false;
-		}
 	}
 
-	if (time_ >= 300)
+	if (time_ >= 600)
 	{
 		Visible();
 		IsHit_ = false;
@@ -68,7 +64,7 @@ void ItemBox::Draw()
 		Transform trans;
 		trans.position_ = XMFLOAT3(0.85, 0.75, 0);
 		ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
-		pItemUI->DrawUI(trans);
+		pItemUI->DrawItem(trans);
 	}
 }
 
@@ -79,7 +75,6 @@ void ItemBox::Release()
 
 void ItemBox::OnCollision(GameObject* pTarget)
 {
-	//“G‚É“–‚½‚Á‚½
 	if (pTarget->GetObjectName() == "Player")
 	{
 		Player* pPlayer = (Player*)FindObject("Player");
@@ -88,8 +83,10 @@ void ItemBox::OnCollision(GameObject* pTarget)
 		{
 			QuestionEffect();
 			pPlayer->SetHasItem(true);
+			//ƒAƒCƒeƒ€‚ð“üŽè‚µ‚½Žž‚Ìˆ—
+			ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
+			pItemUI->SetIsItem(true);
 		}
-
 		Invisible();
 		IsHit_ = true;
 	}

@@ -91,21 +91,21 @@ void TitleScene::Draw()
 	Image::Draw(hPict_);
 
 	Transform trans;
-	trans.position_ = XMFLOAT3(0.4f, -0.6f, 0);
+	trans.position_ = XMFLOAT3(0.4f, -0.4f, 0);
 	trans.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
 
 	Image::SetTransform(hPictPlay_, trans);
 	Image::Draw(hPictPlay_);
 
 	Transform trans2;
-	trans2.position_ = XMFLOAT3(-0.4f, -0.6f, 0);
+	trans2.position_ = XMFLOAT3(-0.4f, -0.4f, 0);
 	trans2.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
 
 	Image::SetTransform(hPictTuto_, trans2);
 	Image::Draw(hPictTuto_);
 
 	Transform trans3;
-	trans3.position_ = XMFLOAT3(0, -0.2f, 0);
+	trans3.position_ = XMFLOAT3(0, -0.8f, 0);
 
 	Image::SetTransform(hPictCh_, trans3);
 	Image::Draw(hPictCh_);

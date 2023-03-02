@@ -21,3 +21,10 @@ XMINT3 Math::ToXMINT(XMFLOAT3 vec)
 {
     return { (int)vec.x, (int)vec.y, (int)vec.z };
 }
+
+int Math::RandInt(int a, int b)
+{
+    int num = (b - a) + 1;
+
+    return (rand() % num) + a;
+}

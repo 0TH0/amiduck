@@ -306,7 +306,7 @@ void Stage::Update()
                     stage_[bufX][bufZ + 3].type = coin;
                     stage_[bufX][bufZ + 4].type = coin;
                     data.position.x = bufX;
-                    data.position.z = bufZ + 2;
+                    data.position.z = bufZ + 3;
                     Cloud();
                     woodCoolTime_ = 0;
                 }
@@ -318,7 +318,7 @@ void Stage::Update()
                     stage_[bufX][bufZ + 2].type = coin;
                     stage_[bufX][bufZ + 3].type = coin;
                     data.position.x = bufX;
-                    data.position.z = bufZ + 1;
+                    data.position.z = bufZ + 2;
                     Cloud();
                     woodCoolTime_ = 0;
                 }
@@ -326,19 +326,36 @@ void Stage::Update()
                 {
                     stage_[bufX][bufZ + 2].type = coin;
                     stage_[bufX][bufZ + 1].type = coin;
-                    stage_[bufX][bufZ].type =     coin;
+                    stage_[bufX][bufZ].type = coin;
                     stage_[bufX][bufZ - 1].type = coin;
                     stage_[bufX][bufZ - 2].type = coin;
+                    data.position.x = bufX;
+                    data.position.z = bufZ + 1;
+                    Cloud();
+                    woodCoolTime_ = 0;
+                }
+                else if (stage_[bufX][bufZ - 4].type == log)
+                {
+                    stage_[bufX][bufZ + 1].type = coin;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ].type = coin;
+                    stage_[bufX][bufZ - 3].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ;
                     Cloud();
                     woodCoolTime_ = 0;
                 }
-                else if (stage_[bufX][bufZ + 3].type == log)
+                else if (stage_[bufX][bufZ - 5].type == log)
                 {
                     stage_[bufX][bufZ].type = coin;
-                    stage_[bufX][bufZ + 1].type = coin;
-                    stage_[bufX][bufZ + 2].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ - 2].type = coin;
+                    stage_[bufX][bufZ - 1].type = coin;
+                    stage_[bufX][bufZ - 4].type = coin;
+                    data.position.x = bufX;
+                    data.position.z = bufZ - 1;
+                    Cloud();
                     woodCoolTime_ = 0;
                 }
             }

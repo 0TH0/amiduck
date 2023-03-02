@@ -23,7 +23,7 @@ FireFollowGround::FireFollowGround(GameObject* parent)
     IsJump(false), IsGround(false),
 
     //定数
-    SPEED(0.5f), DUSHSPEED(0.05f),
+    SPEED(0.6f), DUSHSPEED(0.05f),
     CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
 {
 }
@@ -160,23 +160,23 @@ void FireFollowGround::Update()
     //}
 
     ////ジャンプ中の重力
-    if (IsJump == 1)
-    {
-        //重力
-        move_.y -= gravity;
-        transform_.position_.y += move_.y;
-    }
+    //if (IsJump == 1)
+    //{
+    //    //重力
+    //    move_.y -= gravity;
+    //    transform_.position_.y += move_.y;
+    //}
 
-    //ジャンプしてない時の重力
-    if (IsJump == 0)
-    {
-        //重力
-        gravity = 0.1f;
+    ////ジャンプしてない時の重力
+    //if (IsJump == 0)
+    //{
+    //    //重力
+    //    gravity = 0.1f;
 
-        //重力を加える
-        move_.y = -gravity;
-        transform_.position_.y += move_.y;
-    }
+    //    //重力を加える
+    //    move_.y = -gravity;
+    //    transform_.position_.y += move_.y;
+    //}
 
     //if (a)
     //{
