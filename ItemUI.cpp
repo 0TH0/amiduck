@@ -63,19 +63,10 @@ void ItemUI::Update()
 //•`‰æ
 void ItemUI::Draw()
 {
-	for (int i = 0; i < 2; i++)
-	{
-		if (i > 0)
-		{
-			transform_.position_ = XMFLOAT3(0.85f, 0.75f, 0);
-		}
-		else
-		{
-			transform_.position_ = XMFLOAT3(0.85f, -0.75f, 0);
-		}
-		Image::SetTransform(hPict_, transform_);
-		Image::Draw(hPict_);
-	}
+	transform_.position_ = XMFLOAT3(0.85f, 0.75f, 0);
+
+	Image::SetTransform(hPict_, transform_);
+	Image::Draw(hPict_);
 
 	Stage* pStage = (Stage*)FindObject("Stage");
 	transform_.position_ = XMFLOAT3(0.85f, -0.75f, 0);
@@ -93,8 +84,13 @@ void ItemUI::Release()
 
 void ItemUI::DrawWoodUI(Transform tra)
 {
-	Image::SetTransform(hPictWood_, tra);
-	Image::Draw(hPictWood_);
+	for (int i = 0; i < 3; i++)
+	{
+		tra.scale_ = XMFLOAT3(0.75f, 0.75f, 0.75f);
+		if(i != 0) tra.position_.x -= 0.2f;
+		Image::SetTransform(hPictWood_, tra);
+		Image::Draw(hPictWood_);
+	}
 }
 
 void ItemUI::DrawItem(Transform tra)

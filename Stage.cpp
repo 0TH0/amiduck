@@ -17,6 +17,9 @@
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
 
+XMINT3 pos;
+int a = 6;
+
 //コンストラクタ
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),
@@ -211,13 +214,13 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
-    Player* pPlayer = (Player*)FindObject("Player");
+    pPlayer_ = (Player*)FindObject("Player");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    if (!pPlayer->GetReturn()) player_pos_.x = pPlayer->GetPosition().x + 1;
-    else player_pos_.x = pPlayer->GetPosition().x - 1;
+    if (!pPlayer_->GetReturn()) player_pos_.x = pPlayer_->GetPosition().x + 1;
+    else player_pos_.x = pPlayer_->GetPosition().x - 1;
 
-    player_pos_.z = pPlayer->GetPosition().z;
+    player_pos_.z = pPlayer_->GetPosition().z;
 
     enemyPos_ = pEnemy->GetPosition();
 
@@ -256,7 +259,7 @@ void Stage::Update()
     float minDistance = 9999999;
     bool IsHit = false;
 
-    if (Input::IsMouseButtonDown(0) && woodCoolTime_ >= 300)
+    if (Input::IsMouseButtonDown(0) /*&& woodCoolTime_ >= 300*/)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -378,6 +381,18 @@ void Stage::Update()
     {
         woodCoolTime_++;
     }
+
+    if (!(pPlayer_->GetIsOnBridge()))
+    {
+        SetGuidePopBridgePos();
+
+        if (Input::IsKeyDown(DIK_SPACE))
+        {
+            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 1].type = coin;
+            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 2].type = coin;
+            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 3].type = coin;
+        }
+    }
 }
 
 //描画
@@ -407,7 +422,7 @@ void Stage::Draw()
                         Model::Draw(hModel_[type]);
                         break;
                     case coin:
-                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
+                        transform_.position_ = XMFLOAT3(x, 0.5, z + 1);
                         transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type]);
@@ -442,11 +457,44 @@ void Stage::Draw()
                 }
         }
     }
+
+    //ガイド表示(透明のやつ)
+    if (!(pPlayer_->GetIsOnBridge()))
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            transform_.position_ = GuidePopBridgePos = XMFLOAT3(player_pos_.x + pos.x, 0.5f, player_pos_.z + pos.z + i);
+            transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+            Model::SetTransform(hModel_[coin], transform_);
+            Model::Draw(hModel_[coin], 0.5f);
+        }
+    }
 }
 
 //開放
 void Stage::Release()
 {
+}
+
+void Stage::SetGuidePopBridgePos()
+{
+    if (Input::IsKeyDown(DIK_D))
+    {
+        pos.z -= a;
+    }
+    if (Input::IsKeyDown(DIK_A))
+    {
+        pos.z += a;
+    }
+    if (Input::IsKeyDown(DIK_S))
+    {
+        pos.x -= a;
+    }
+    if (Input::IsKeyDown(DIK_W))
+    {
+        pos.x += a;
+    }
+    //GuidePopBridgePos = XMFLOAT3(player_pos_.x + 0.25f + pos.x, 0.5f, player_pos_.z + pos.z + 6);
 }
 
 //そこは壁か

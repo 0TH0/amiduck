@@ -94,4 +94,6 @@ public:
     void  RotateDirMove();
     
     int GetStarNum() { return  starNum_; };
+
+    bool GetIsOnBridge() { return IsOnBridge_; };
 };

@@ -4,6 +4,8 @@
 #include "Engine/Particle.h"
 #include "Engine/CsvReader.h"
 
+class Player;
+
 class Stage : public GameObject
 {
     //íËêî
@@ -38,13 +40,13 @@ class Stage : public GameObject
     int bridgeCount_;
     int hAudio_;
     int woodCoolTime_;
-
-    std::list<XMFLOAT3> stagePosList_;
+    XMFLOAT3 GuidePopBridgePos;
 
     Text* pText = new Text;
     CsvReader csv;
     Particle* pParticle_;
     EmitterData data;
+    Player* pPlayer_;
 
 public: 
 
@@ -77,4 +79,6 @@ public:
     static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
 
     int GetWoodCoolTime() { return woodCoolTime_; };
+
+    void SetGuidePopBridgePos();
 };

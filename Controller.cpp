@@ -59,7 +59,7 @@ void Controller::PlayerCamera()
         vlrMove = XMVector3TransformCoord(vlrMove, mRotate);
 
         XMFLOAT3 cam = this->transform_.position_;
-        XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
+        XMVECTOR vCam = XMVectorSet(0, 17, -14, 0);
         vCam = XMVector3TransformCoord(vCam, xRotate);
         XMFLOAT3 camTar = transform_.position_;
 
@@ -71,22 +71,22 @@ void Controller::PlayerCamera()
         //カメラ回転
         if (Input::IsKey(DIK_LEFT))
         {
-            transform_.rotate_.y -= 1.0f;
+            transform_.rotate_.y -= 2.0f;
         }
 
         if (Input::IsKey(DIK_RIGHT))
         {
-            transform_.rotate_.y += 1.0f;
+            transform_.rotate_.y += 2.0f;
         }
 
         if (Input::IsKey(DIK_UP))
         {
-            transform_.rotate_.x += 1.0f;
+            transform_.rotate_.x += 2.0f;
         }
 
         if (Input::IsKey(DIK_DOWN))
         {
-            transform_.rotate_.x -= 1.0f;
+            transform_.rotate_.x -= 2.0f;
         }
 
         if (Input::IsKey(DIK_1))
@@ -102,32 +102,6 @@ void Controller::PlayerCamera()
         {
             CrickRight();
         }
-
-        ////回転行列
-        //XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-        //XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
-        //XMMATRIX mRotate = mRotateX * mRotateY;
-
-        ////現在位置をベクトルにしておく
-        //XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-
-        ////移動ベクトル
-        //XMFLOAT3 move = { 0, 0, 0.2 };
-        //XMVECTOR vMove = XMLoadFloat3(&move);
-        //vMove = XMVector3TransformCoord(vMove, mRotate);
-
-        //XMFLOAT3 X = { 0.2, 0, 0 };
-        //XMVECTOR vX = XMLoadFloat3(&X);
-        //vX = XMVector3TransformCoord(vX, mRotate);
-
-        ////カメラ
-        //XMVECTOR vCam = XMVectorSet(0, 10, -10, 0);
-        //vCam = XMVector3TransformCoord(vCam, mRotate);
-        //XMFLOAT3 camPos;
-        //XMStoreFloat3(&camPos, vPos + vCam);
-        //Camera::SetPosition(camPos);
-        //Camera::SetTarget(transform_.position_);
-
 
         XMFLOAT3 a = Input::GetMousePosition();
 
@@ -151,24 +125,18 @@ void Controller::CrickRight()
     if (Input::IsMouseButtonDown(1))	//実質的な初期化
     {
         PrevPosX_ = Input::GetMousePosition().x;
-        //PrevPosY_ = Input::GetMousePosition().y;
     }
 
     float moveX;
-    //float moveY;
     moveX = (Input::GetMousePosition().x - PrevPosX_) / 2;
-    //moveY = (PrevPosY_ - Input::GetMousePosition().y) / 2;
-
     if (PrevPosY_ < Direct3D::screenHeight_ / 2)
     {
         moveX = -moveX;
     }
 
-    //transform_.rotate_.x += moveY;
     transform_.rotate_.y -= moveX * 1.1f;
 
     PrevPosX_ = Input::GetMousePosition().x;
-    //PrevPosY_ = Input::GetMousePosition().y;
 }
 
 
