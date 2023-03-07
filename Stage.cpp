@@ -17,8 +17,9 @@
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
 
-XMINT3 pos;
+XMFLOAT3 pos;
 int a = 6;
+class ItemUI;
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -109,7 +110,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            stage_[x][z].type = csv.GetValue(x, -z + 38);
+            stage_[x][z].type = csv.GetValue(x, z);
         }
     }
 
@@ -177,32 +178,32 @@ void Stage::Initialize()
             if (stage_[x][z].type == coin)
             {
                 Coin* pCoin = Instantiate<Coin>(GetParent());
-                pCoin->SetPosition(x + 0.25f, 1, z + 1.f);
+                pCoin->SetPosition(x + 0.25f, 1, z);
             }
 
             //エネミー登場
             if (stage_[x][z].type == enemy)
             {
                 Enemy* pEnemy = Instantiate<Enemy>(GetParent());
-                pEnemy->SetPosition((float)x, 1, z + 1.f);
+                pEnemy->SetPosition(x, 1, z);
             }
 
             //プレイヤー登場
             if (stage_[x][z].type == player)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
-                pPlayer->SetPosition((float)x, 0, z + 1.f);
+                pPlayer->SetPosition(x, 0, z);
             }
             if (stage_[x][z].type == star)
             {
                 Star* pStar = Instantiate<Star>(GetParent());
-                pStar->SetPosition((float)x, 1.25f, z + 1.f);
+                pStar->SetPosition(x, 1.25f, z);
 
             }
             if (stage_[x][z].type == itembox)
             {
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
-                pItemBox->SetPosition((float)x, 1.25f, z + 1.f);
+                pItemBox->SetPosition(x, 1.25f, z);
             }
         }
     }
@@ -259,7 +260,9 @@ void Stage::Update()
     float minDistance = 9999999;
     bool IsHit = false;
 
-    if (Input::IsMouseButtonDown(0) /*&& woodCoolTime_ >= 300*/)
+    ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
+
+    if (Input::IsMouseButtonDown(0) && pItemUI->GetwoodCount() > 0)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -311,7 +314,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ + 3;
                     Cloud();
-                    woodCoolTime_ = 0;
+                    pItemUI->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
@@ -323,7 +326,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ + 2;
                     Cloud();
-                    woodCoolTime_ = 0;
+                    pItemUI->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
@@ -335,7 +338,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ + 1;
                     Cloud();
-                    woodCoolTime_ = 0;
+                    pItemUI->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 4].type == log)
                 {
@@ -347,7 +350,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ;
                     Cloud();
-                    woodCoolTime_ = 0;
+                    pItemUI->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 5].type == log)
                 {
@@ -359,7 +362,7 @@ void Stage::Update()
                     data.position.x = bufX;
                     data.position.z = bufZ - 1;
                     Cloud();
-                    woodCoolTime_ = 0;
+                    pItemUI->MinWoodCount();
                 }
             }
         }
@@ -373,26 +376,18 @@ void Stage::Update()
         stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
     }
 
-    if (woodCoolTime_ >= 300)
-    {
-        woodCoolTime_ = 300;
-    }
-    else
-    {
-        woodCoolTime_++;
-    }
+    //if (!(pPlayer_->GetIsOnBridge()))
+    //{
+    //    SetGuidePopBridgePos();
 
-    if (!(pPlayer_->GetIsOnBridge()))
-    {
-        SetGuidePopBridgePos();
-
-        if (Input::IsKeyDown(DIK_SPACE))
-        {
-            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 1].type = coin;
-            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 2].type = coin;
-            stage_[(int)GuidePopBridgePos.x][(int)GuidePopBridgePos.z - 3].type = coin;
-        }
-    }
+    //    if (Input::IsKeyDown(DIK_SPACE))
+    //    {
+    //        for (int i = 1; i < 5; i++)
+    //        {
+    //            stage_[(int)(player_pos_.x + pos.x)][(int)(player_pos_.z + pos.z + i)].type = coin;
+    //        }
+    //    }
+    //}
 }
 
 //描画
@@ -406,7 +401,7 @@ void Stage::Draw()
                 {
                     stagePos_ = XMFLOAT3((float)x,(float)y, (float)z);
                     int type = stage_[x][z].type;
-                    transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z + 1);
+                    transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z);
                     transform_.rotate_ = XMFLOAT3(0, 0, 0);
                     transform_.scale_ = XMFLOAT3(1, 1, 1);
                     Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
@@ -422,13 +417,13 @@ void Stage::Draw()
                         Model::Draw(hModel_[type]);
                         break;
                     case coin:
-                        transform_.position_ = XMFLOAT3(x, 0.5, z + 1);
+                        transform_.position_ = XMFLOAT3(x, 0.5, z);
                         transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type]);
                         break;
                     case bridge:
-                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z + 1);
+                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z);
                         transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                         Model::SetTransform(hModel_[type], transform_);
                         Model::Draw(hModel_[type], 0.3);
@@ -486,15 +481,14 @@ void Stage::SetGuidePopBridgePos()
     {
         pos.z += a;
     }
-    if (Input::IsKeyDown(DIK_S))
+    if (Input::IsKey(DIK_S))
     {
-        pos.x -= a;
+        pos.x -= 0.5f;
     }
-    if (Input::IsKeyDown(DIK_W))
+    if (Input::IsKey(DIK_W))
     {
-        pos.x += a;
+        pos.x += 0.5f;
     }
-    //GuidePopBridgePos = XMFLOAT3(player_pos_.x + 0.25f + pos.x, 0.5f, player_pos_.z + pos.z + 6);
 }
 
 //そこは壁か

@@ -22,6 +22,7 @@ ItemUI::ItemUI(GameObject* parent)
 	alpha_ = 0;
 	pItemBox_ = nullptr;
 	item_ = Item::ITEM_MAX;
+	woodCount_ = (int)WoodCount::THREE;
 }
 
 //èâä˙âª
@@ -58,6 +59,19 @@ void ItemUI::Update()
 		item_ = (Item)Math::RandInt((int)Item::BOMB, (int)Item::ITEM_MAX - 1);
 		IsItem_ = false;
 	}
+
+	if (woodCount_ < 3)
+	{
+		if (woodCoolTime_ >= 300)
+		{
+			woodCoolTime_ = 0;
+			PluswoodCount();
+		}
+		else
+		{
+			woodCoolTime_++;
+		}
+	}
 }
 
 //ï`âÊ
@@ -69,9 +83,9 @@ void ItemUI::Draw()
 	Image::Draw(hPict_);
 
 	Stage* pStage = (Stage*)FindObject("Stage");
-	transform_.position_ = XMFLOAT3(0.85f, -0.75f, 0);
+	transform_.position_ = XMFLOAT3(0.5f, -0.75f, 0);
 
-	if (pStage->GetWoodCoolTime() >= 300)
+	if (woodCount_ > 0)
 	{
 		DrawWoodUI(transform_);
 	}
@@ -84,10 +98,10 @@ void ItemUI::Release()
 
 void ItemUI::DrawWoodUI(Transform tra)
 {
-	for (int i = 0; i < 3; i++)
+	tra.scale_ = XMFLOAT3(0.75f, 0.75f, 0.75f);
+	for (int i = 0; i < woodCount_; i++)
 	{
-		tra.scale_ = XMFLOAT3(0.75f, 0.75f, 0.75f);
-		if(i != 0) tra.position_.x -= 0.2f;
+		if(i != 0) tra.position_.x += 0.2f;
 		Image::SetTransform(hPictWood_, tra);
 		Image::Draw(hPictWood_);
 	}

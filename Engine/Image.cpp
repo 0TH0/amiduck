@@ -214,7 +214,13 @@ namespace Image
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
-	void FadeoutImage(int handle, int frame)
+	void FadeInImage(int handle, float frame)
+	{
+		_datas[handle]->Alpha.FadeInImage(frame);
+		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
+	}
+
+	void FadeoutImage(int handle, float frame)
 	{
 		_datas[handle]->Alpha.FadeOutImage(frame);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());

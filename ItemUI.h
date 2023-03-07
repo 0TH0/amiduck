@@ -4,6 +4,8 @@
 #include "Engine/Text.h"
 #include "ItemBox.h"
 
+class Itembox;
+
 //■■シーンを管理するクラス
 class ItemUI: public GameObject
 {
@@ -14,7 +16,8 @@ class ItemUI: public GameObject
 	int alpha_;
 	ItemBox* pItemBox_;
 	bool IsItem_;
-
+	int woodCoolTime_;
+	int woodCount_;
 public:
 	//何のアイテムを持っているか
 	enum class Item
@@ -24,6 +27,14 @@ public:
 		WING,
 		ITEM_MAX
 	} item_;
+
+	enum class WoodCount
+	{
+		NONE,
+		ONE,
+		TWO,
+		THREE
+	};
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -46,4 +57,8 @@ public:
 
 	void SetIsItem(bool IsItem) { IsItem_ = IsItem; };
 	bool IsItem() { return IsItem_; };
+
+	void MinWoodCount() { woodCount_ -= 1;};
+	void PluswoodCount() { woodCount_ += 1; };
+	int GetwoodCount() { return woodCount_; };
 };

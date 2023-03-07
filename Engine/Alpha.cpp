@@ -72,7 +72,19 @@ void Alpha::SetIsFlash(bool IsFlash)
 	IsFlash_ = IsFlash;
 }
 
-void Alpha::FadeOutImage(int frame)
+void Alpha::FadeOutImage(float frame)
+{
+	if (alpha_ <= 0)
+	{
+		alpha_ = 0;
+	}
+	else
+	{
+		alpha_ -= frame;
+	}
+}
+
+void Alpha::FadeInImage(float frame)
 {
 	if (alpha_ <= 0)
 	{

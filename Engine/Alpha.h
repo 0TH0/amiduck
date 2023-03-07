@@ -7,6 +7,7 @@ public:
 	int alpha_;	//透明度
 	int frame_;	//何フレーム毎に点滅させるか
 	bool IsFlash_;	//フラッシュさせるか
+	bool Zero_; //アルファ値を０にするか
 
 	Alpha();
 	~Alpha();
@@ -19,7 +20,9 @@ public:
 
 	void SetIsFlash(bool IsFlash);
 
-	void FadeOutImage(int frame = 5);
+	void FadeOutImage(float frame = 0.05f);
+
+	void FadeInImage(float frame = 0.05f);
 
 	bool GetIsFlash() { return IsFlash_; };
 

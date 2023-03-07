@@ -107,7 +107,8 @@ namespace Image
 
 	void FlashImage2(int handle, int frame = 5);
 
-	void FadeoutImage(int handle, int frame = 5);
+	void FadeInImage(int handle, float frame = 0.05f);
+	void FadeoutImage(int handle, float frame = 0.05f);
 
 	int GetTime(int handle);
 
