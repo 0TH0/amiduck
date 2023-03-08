@@ -99,7 +99,14 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            stage_[x][z].height = 1;
+            if (x == STAGE_SIZE_X - 1)
+            {
+                stage_[x][z].height = 30;
+            }
+            else
+            {
+                stage_[x][z].height = 1;
+            }
             stage_[x][z].type = 0;
         }
     }
@@ -395,61 +402,65 @@ void Stage::Draw()
 {
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
-            for (int z = 0; z < STAGE_SIZE_Z; z++)
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
+            for (int y = 0; y < stage_[x][z].height; y++)
             {
-                for (int y = 0; y < stage_[x][z].height; y++)
-                {
-                    stagePos_ = XMFLOAT3((float)x,(float)y, (float)z);
-                    int type = stage_[x][z].type;
-                    transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z);
-                    transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                    transform_.scale_ = XMFLOAT3(1, 1, 1);
-                    Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
-                    Direct3D::SetShader(Direct3D::SHADER_3D);
+                stagePos_ = XMFLOAT3((float)x, (float)y, (float)z);
+                int type = stage_[x][z].type;
+                transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
+                transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                transform_.scale_ = XMFLOAT3(1, 1, 1);
+                Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+                Direct3D::SetShader(Direct3D::SHADER_3D);
 
-                    switch (stage_[x][z].type)
+                switch (stage_[x][z].type)
+                {
+                case -1:
+                    break;
+                case log:
+                    transform_.rotate_.y = 90;
+                    if (x == STAGE_SIZE_X - 1)
                     {
-                    case -1:
-                        break;
-                    case log:
-                        transform_.rotate_.y = 90;
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
-                    case coin:
-                        transform_.position_ = XMFLOAT3(x, 0.5, z);
-                        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
-                    case bridge:
-                        transform_.position_ = XMFLOAT3(x + 0.25, 0.5, z);
-                        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type], 0.3);
-                        break;
-                    case enemy:
-                        transform_.rotate_.y = 90;
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
-                    case player:
-                        transform_.rotate_.y = 90;
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
-                    case star:
-                        transform_.rotate_.y = 90;
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
-                    case itembox:
-                        transform_.rotate_.y = 90;
-                        Model::SetTransform(hModel_[type], transform_);
-                        Model::Draw(hModel_[type]);
-                        break;
+                        transform_.rotate_ = XMFLOAT3(90, 0, 0);
                     }
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case coin:
+                    transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
+                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case bridge:
+                    transform_.position_ = XMFLOAT3(x + 0.25, 0.5 + y, z);
+                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type], 0.3);
+                    break;
+                case enemy:
+                    transform_.rotate_.y = 90;
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case player:
+                    transform_.rotate_.y = 90;
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case star:
+                    transform_.rotate_.y = 90;
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case itembox:
+                    transform_.rotate_.y = 90;
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
                 }
+            }
         }
     }
 
