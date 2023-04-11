@@ -122,6 +122,7 @@
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="Pose.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -220,6 +221,7 @@
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="Pose.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

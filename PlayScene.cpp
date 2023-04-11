@@ -22,6 +22,7 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
+#include "Pose.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -36,11 +37,12 @@ void PlayScene::Initialize()
 	//ステージ
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
-	pStage->StageLoad();;
+	pStage->StageLoad();
 
 	Instantiate<Mushroom>(this);
 	Instantiate<StartScene>(this);
-	
+	Instantiate<Pose>(this);
+
 	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
