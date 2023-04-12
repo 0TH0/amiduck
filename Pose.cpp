@@ -17,7 +17,7 @@ void Pose::Initialize()
 	hPict2_ = Image::Load("UI\\black.png");
 	assert(hPict2_ >= 0);
 
-	transform_.position_ = XMFLOAT3(-0.8, 0.75, 0);
+	transform_.position_ = XMFLOAT3(-0.85, 0.75, 0);
 }
 
 //çXêV
@@ -39,9 +39,9 @@ void Pose::Update()
 //ï`âÊ
 void Pose::Draw()
 {
-	//Image::SetAlpha(hPict2_, 156.f);
-	//Image::SetTransform(hPict2_, transform_);
-	//Image::Draw(hPict2_);
+	Image::SetAlpha(hPict2_, 156.f);
+	Image::SetTransform(hPict2_, transform_);
+	Image::Draw(hPict2_);
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 }

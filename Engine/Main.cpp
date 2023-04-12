@@ -14,12 +14,12 @@
 #include "SceneManager.h"
 #include "../Player.h"
 #include "../Controller.h"
+#include "../Pose.h"
 
 #pragma comment(lib,"Winmm.lib")
 
 //定数宣言
 const char* WIN_CLASS_NAME = "Amiduck";	//ウィンドウクラス名
-
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
@@ -47,7 +47,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int fpsLimit = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");				//FPS（画面更新速度）
 	int isDrawFps = GetPrivateProfileInt("DEBUG", "ViewFps", 0, ".\\setup.ini");		//キャプションに現在のFPSを表示するかどうか
 
-
 	//ウィンドウを作成
 	HWND hWnd = InitApp(hInstance, screenWidth, screenHeight, nCmdShow);
 
@@ -67,7 +66,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//すべてのゲームオブジェクトの親となるオブジェクト
 	pRootObject = new RootObject;
 	pRootObject->Initialize();
-
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -113,8 +111,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//時間計測関連
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
 				FPS++;						//画面更新回数をカウントする
-
-
 
 
 				//入力（キーボード、マウス、コントローラー）情報を更新

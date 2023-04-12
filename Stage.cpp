@@ -16,10 +16,12 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
+#include "Mushroom.h"
 
 XMFLOAT3 pos;
 int a = 6;
 class ItemUI;
+Mushroom* pMushroom;
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -64,7 +66,16 @@ void Stage::StageLoad()
 
     hModel_[itembox] = Model::Load("Stage\\log.fbx");
     assert(hModel_[itembox] >= 0);
-    
+
+    hModel_[itembox] = Model::Load("Stage\\log.fbx");
+    assert(hModel_[itembox] >= 0);
+
+    hModel_[fire] = Model::Load("Model\\fire\\fireball.fbx");
+    assert(hModel_[fire] >= 0);
+
+    hModel_[fire_right] = Model::Load("Model\\fire\\fireball.fbx");
+    assert(hModel_[fire_right] >= 0);
+
     //煙の音
     hAudio_ = Audio::Load("Audio\\smoke.wav", 5);
     assert(hAudio_ >= 0);
@@ -121,6 +132,9 @@ void Stage::Initialize()
         }
     }
 
+    stage_[29][10].type = fire;
+    stage_[48][20].type = fire_right;
+
     //あとで関数作る
     //マップの自動生成
     while(bridgeCount_ < 15)
@@ -176,11 +190,6 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            if (stage_[x][z].type == -1)
-            {
-                //-1* p-1 = Instantiate<-1>(this);
-            }
-
             //コイン登場
             if (stage_[x][z].type == coin)
             {
@@ -212,6 +221,17 @@ void Stage::Initialize()
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
                 pItemBox->SetPosition(x, 1.25f, z);
             }
+            if (stage_[x][z].type == fire)
+            {
+                pMushroom = Instantiate<Mushroom>(GetParent());
+                pMushroom->SetPosition(x, 1.25f, z);
+            }
+            if (stage_[x][z].type == fire_right)
+            {
+                pMushroom = Instantiate<Mushroom>(GetParent());
+                pMushroom->SetPosition(x, 1.25f, z);
+                pMushroom->SetRight(true);
+            }
         }
     }
 
@@ -222,6 +242,7 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
+
     pPlayer_ = (Player*)FindObject("Player");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
@@ -376,12 +397,12 @@ void Stage::Update()
     }
 
     //卵のAI予定
-    if(Input::IsKeyDown(DIK_J))
-    {
-        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 1].type = coin;
-        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 2].type = coin;
-        stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
-    }
+    //if(Input::IsKeyDown(DIK_J))
+    //{
+    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 1].type = coin;
+    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 2].type = coin;
+    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
+    //}
 
     //if (!(pPlayer_->GetIsOnBridge()))
     //{
@@ -416,13 +437,14 @@ void Stage::Draw()
 
                 switch (stage_[x][z].type)
                 {
-                case -1:
-                    break;
                 case log:
-                    transform_.rotate_.y = 90;
                     if (x == STAGE_SIZE_X - 1)
                     {
-                        transform_.rotate_ = XMFLOAT3(90, 0, 0);
+                        transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                    }
+                    else
+                    {
+                        transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     }
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
@@ -440,22 +462,22 @@ void Stage::Draw()
                     Model::Draw(hModel_[type], 0.3);
                     break;
                 case enemy:
-                    transform_.rotate_.y = 90;
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;
                 case player:
-                    transform_.rotate_.y = 90;
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;
                 case star:
-                    transform_.rotate_.y = 90;
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;
                 case itembox:
-                    transform_.rotate_.y = 90;
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;

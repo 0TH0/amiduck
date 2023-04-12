@@ -39,7 +39,6 @@ void PlayScene::Initialize()
 	pStage = Instantiate<Stage>(this);
 	pStage->StageLoad();
 
-	Instantiate<Mushroom>(this);
 	Instantiate<StartScene>(this);
 	Instantiate<Pose>(this);
 

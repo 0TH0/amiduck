@@ -257,8 +257,7 @@ void Player::Draw()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
-    //ƒ‚ƒfƒ‹‚ÌF
-    Model::SetColor(hModel_, XMFLOAT4(1, 0.5, 1, 1));
+
     switch (playerState)
     {
     case State::EGG:
@@ -269,8 +268,8 @@ void Player::Draw()
         break;
     }
 
-    pText->Draw(100, 100, "Player:");
-    pText->Draw(250, 100, starNum_);
+    //pText->Draw(100, 100, "Player:");
+    //pText->Draw(250, 100, starNum_);
 
     if (IsSpeedUp_)
     {

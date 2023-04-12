@@ -65,6 +65,8 @@ void Enemy::Initialize()
 
     //Å‰‚Í—‘‚©‚ç
     playerState = EGG;
+
+    Model::SetColor(hModel_, XMFLOAT4(1, 1, 1, 1));
 }
 
 void Enemy::Update()
@@ -219,7 +221,6 @@ void Enemy::Draw()
     Model::SetTransform(hModel_, transform_);
 
     //ƒ‚ƒfƒ‹‚ÌF
-    Model::SetColor(hModel_, XMFLOAT4(1, 1, 1, 1));
     switch (playerState)
     {
     case EGG:
@@ -230,9 +231,8 @@ void Enemy::Draw()
         break;
     }
 
-    pText->Draw(100, 200, "Enemy:");
-    pText->Draw(250, 200, starNum_);
-
+    //pText->Draw(100, 200, "Enemy:");
+    //pText->Draw(250, 200, starNum_);
 }
 
 void Enemy::Release()

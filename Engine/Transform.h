@@ -46,4 +46,7 @@ public:
 		pos.y = y;
 		pos.z = z;
 	}
+
+	//‰~‰ñ“]
+	static XMFLOAT3 RotateAround(XMFLOAT3 center, float dis, float speed = 1.0f, bool right = false);
 };

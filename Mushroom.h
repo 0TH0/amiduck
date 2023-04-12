@@ -7,6 +7,9 @@ class Mushroom : public GameObject
 {
 	int hModel_;
 	Particle* pParticle_;
+	Transform trans;
+	bool first_;
+	bool right_; //右周りにするか
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -23,4 +26,6 @@ public:
 
 	//開放
 	void Release() override;
+
+	void SetRight(bool right) { right_ = right; };
 };
