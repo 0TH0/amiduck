@@ -28,3 +28,23 @@ int Math::RandInt(int a, int b)
 
     return (rand() % num) + a;
 }
+
+XMFLOAT3 Math::SubXMFLOAT3(XMFLOAT3 vec, XMFLOAT3 vec2)
+{
+    return XMFLOAT3(vec.x - vec2.x, vec.y - vec2.y, vec.z - vec2.z);
+}
+
+float Math::CalcDist(XMFLOAT3 vec, XMFLOAT3 vec2)
+{
+    XMFLOAT3 vec3 = SubXMFLOAT3(vec, vec2);
+
+    return sqrtf((vec3.x * vec3.x) + (vec3.y * vec3.y) + (vec3.z * vec3.z));
+}
+
+XMFLOAT3 Math::VectorToFloat3(XMVECTOR v)
+{
+    XMFLOAT3 xmf3;
+    XMStoreFloat3(&xmf3, v);
+
+    return xmf3;
+}
