@@ -122,6 +122,7 @@
     </ClCompile>
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Pose.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -220,6 +221,7 @@
     </ClInclude>
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Pose.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

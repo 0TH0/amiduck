@@ -19,7 +19,7 @@ void GameoverScene::Initialize()
 	Camera::SetDefault();
 
 	//画像データのロード
-	hPict_ = Image::Load("GameOver.png");
+	hPict_ = Image::Load("Image\\GameOver.png");
 	assert(hPict_ >= 0);
 }
 
