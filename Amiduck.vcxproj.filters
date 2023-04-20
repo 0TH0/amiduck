@@ -90,7 +90,6 @@
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
@@ -188,7 +187,6 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="Sky.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="Instructions.h" />

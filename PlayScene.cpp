@@ -2,7 +2,6 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Sky.h"
 #include "StartScene.h"
 #include "GameoverScene.h"
 #include "Instructions.h"

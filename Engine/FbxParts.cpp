@@ -550,7 +550,7 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
 		}
 
-		if (pMaterial_[i].pNormalTexture)
+		if (pMaterial_[i].pNormalTexture && shaderType_ == Direct3D::SHADER_WATER)
 		{
 			ID3D11ShaderResourceView* pSRV = pMaterial_[i].pNormalTexture->GetSRV();
 			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);

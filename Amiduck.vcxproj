@@ -165,7 +165,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Pose.cpp" />
-    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StartScene.cpp" />
@@ -214,7 +213,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Pose.h" />
-    <ClInclude Include="Sky.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="StartScene.h" />
