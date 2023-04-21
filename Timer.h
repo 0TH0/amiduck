@@ -7,6 +7,7 @@ class Timer : public GameObject
 {
 	Text* pText_;
 	int rimit_;	//残り時間
+	int a_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

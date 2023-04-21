@@ -18,8 +18,6 @@
 #include "Engine/Audio.h"
 #include "Mushroom.h"
 
-XMFLOAT3 pos;
-int a = 6;
 class ItemUI;
 Mushroom* pMushroom;
 
@@ -40,9 +38,8 @@ void Stage::StageLoad()
     //Csv読み込み
     csv.Load("Csv\\map3.csv");
 
-    //空箱
-    //hModel_[-1] = Model::Load("-1.fbx");
-    //assert(hModel_[0] >= 0);
+    hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
+    assert(hModel_[-1] >= 0);
 
     //ブロック
     hModel_[log] = Model::Load("Stage\\log.fbx");
@@ -142,7 +139,7 @@ void Stage::Initialize()
         int randX = (rand() % (STAGE_SIZE_X - 5) + 5);
         int randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
 
-        if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
+        if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
         {
             stage_[randX][randZ + 1].type = coin;
             stage_[randX][randZ].type     = coin;
@@ -161,7 +158,7 @@ void Stage::Initialize()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
+            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
             {
                 stage_[randX][randZ + 2].type = itembox;
                 count++;
@@ -176,7 +173,7 @@ void Stage::Initialize()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 29 || randZ == 23 || randZ == 17 || randZ == 11)
+            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
             {
                 stage_[randX][randZ + 2].type = star;
                 count++;
@@ -239,10 +236,13 @@ void Stage::Initialize()
     pParticle_ = Instantiate<Particle>(this);
 }
 
+static int bufX, bufY, bufZ;
+static XMINT3 buf[5];
+static bool IsHit = false;
+
 //更新
 void Stage::Update()
 {
-
     pPlayer_ = (Player*)FindObject("Player");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
@@ -284,13 +284,13 @@ void Stage::Update()
     XMVECTOR vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
     XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
 
-    int bufX, bufY, bufZ = 0;
+    bufX, bufY, bufZ = 0;
     float minDistance = 9999999;
-    bool IsHit = false;
+    IsHit = false;
 
     ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
 
-    if (Input::IsMouseButtonDown(0) && pItemUI->GetwoodCount() > 0)
+    if (Input::IsMouseButtonDown(0) /*&& pItemUI->GetwoodCount() > 0*/)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -395,27 +395,131 @@ void Stage::Update()
             }
         }
     }
+    else
+    {
+        for (int x = 0; x < STAGE_SIZE_X; x++)
+        {
+            for (int z = 0; z < STAGE_SIZE_Z; z++)
+            {
+                for (int y = 0; y < stage_[x][z].height; y++)
+                {
+                    RayCastData ray;
 
-    //卵のAI予定
-    //if(Input::IsKeyDown(DIK_J))
-    //{
-    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 1].type = coin;
-    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 2].type = coin;
-    //    stage_[(int)enemyPos_.x][(int)enemyPos_.z + 3].type = coin;
-    //}
+                    XMStoreFloat3(&ray.start, vStart);
+                    XMStoreFloat3(&ray.dir, vTarget - vStart);
 
-    //if (!(pPlayer_->GetIsOnBridge()))
-    //{
-    //    SetGuidePopBridgePos();
+                    int type = stage_[x][z].type;
+                    Transform trans;
+                    trans.position_.x = (float)x;
+                    trans.position_.y = (float)y;
+                    trans.position_.z = (float)z;
+                    Model::SetTransform(hModel_[stage_[x][z].type], trans);
+                    Model::RayCast(hModel_[stage_[x][z].type], &ray);
 
-    //    if (Input::IsKeyDown(DIK_SPACE))
-    //    {
-    //        for (int i = 1; i < 5; i++)
-    //        {
-    //            stage_[(int)(player_pos_.x + pos.x)][(int)(player_pos_.z + pos.z + i)].type = coin;
-    //        }
-    //    }
-    //}
+                    if (ray.hit)
+                    {
+                        IsHit = true;
+                        if (minDistance > ray.dist)
+                        {
+                            minDistance = ray.dist;
+                            bufX = x;
+                            bufY = y;
+                            bufZ = z;
+                        }
+                    }
+                }
+            }
+        }
+
+        //マウスの位置にブロックがあったら
+        if (IsHit)
+        {
+            //クリックしたところが何もなかったら
+            if (stage_[bufX][bufZ].type == -1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    stage_[buf[i].x][buf[i].z].type = -1;
+                }
+
+                if (stage_[bufX][bufZ - 1].type == log)
+                {
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ + 2].type = bridge;
+                    stage_[bufX][bufZ + 3].type = bridge;
+                    stage_[bufX][bufZ + 4].type = bridge;
+
+                    buf[0] = XMINT3(bufX, 1, bufZ);
+                    buf[1] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[2] = XMINT3(bufX, 1, bufZ + 2);
+                    buf[3] = XMINT3(bufX, 1, bufZ + 3);
+                    buf[4] = XMINT3(bufX, 1, bufZ + 4);
+                }
+                else if (stage_[bufX][bufZ - 2].type == log)
+                {
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ + 2].type = bridge;
+                    stage_[bufX][bufZ + 3].type = bridge;
+
+                    buf[0] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[1] = XMINT3(bufX, 1, bufZ);
+                    buf[2] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[3] = XMINT3(bufX, 1, bufZ + 2);
+                    buf[4] = XMINT3(bufX, 1, bufZ + 3);
+                }
+                else if (stage_[bufX][bufZ - 3].type == log)
+                {
+                    stage_[bufX][bufZ + 2].type = bridge;
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ - 2].type = bridge;
+                    
+                    buf[0] = XMINT3(bufX, 1, bufZ + 2);
+                    buf[1] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[2] = XMINT3(bufX, 1, bufZ);
+                    buf[3] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[4] = XMINT3(bufX, 1, bufZ - 2);
+                }
+                else if (stage_[bufX][bufZ - 4].type == log)
+                {
+                    stage_[bufX][bufZ + 1].type = bridge;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ - 3].type = bridge;
+
+                    buf[0] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[1] = XMINT3(bufX, 1, bufZ);
+                    buf[2] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[3] = XMINT3(bufX, 1, bufZ);
+                    buf[4] = XMINT3(bufX, 1, bufZ - 3);
+                }
+                else if (stage_[bufX][bufZ - 5].type == log)
+                {
+                    stage_[bufX][bufZ].type = bridge;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ - 2].type = bridge;
+                    stage_[bufX][bufZ - 1].type = bridge;
+                    stage_[bufX][bufZ - 4].type = bridge;
+
+                    buf[0] = XMINT3(bufX, 1, bufZ);
+                    buf[1] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[2] = XMINT3(bufX, 1, bufZ - 2);
+                    buf[3] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[4] = XMINT3(bufX, 1, bufZ - 4);
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    stage_[bufX][bufZ].type = -1;
+                }
+            }
+        }
+    }
 }
 
 //描画
@@ -437,6 +541,10 @@ void Stage::Draw()
 
                 switch (stage_[x][z].type)
                 {
+                case -1:
+                    Model::SetTransform(hModel_[type], transform_);
+                    //Model::Draw(hModel_[type]);
+                    break;
                 case log:
                     if (x == STAGE_SIZE_X - 1)
                     {
@@ -486,17 +594,18 @@ void Stage::Draw()
         }
     }
 
+
     //ガイド表示(透明のやつ)
-    if (!(pPlayer_->GetIsOnBridge()))
-    {
-        for (int i = 1; i <= 5; i++)
-        {
-            transform_.position_ = GuidePopBridgePos = XMFLOAT3(player_pos_.x + pos.x, 0.5f, player_pos_.z + pos.z + i);
-            transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-            Model::SetTransform(hModel_[coin], transform_);
-            Model::Draw(hModel_[coin], 0.5f);
-        }
-    }
+    //if (!(pPlayer_->GetIsOnBridge()))
+    //{
+    //    for (int i = 1; i <= 5; i++)
+    //    {
+    //        transform_.position_ = GuidePopBridgePos = XMFLOAT3(player_pos_.x + pos.x, 0.5f, player_pos_.z + pos.z + i);
+    //        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+    //        Model::SetTransform(hModel_[coin], transform_);
+    //        Model::Draw(hModel_[coin], 0.5f);
+    //    }
+    //}
 }
 
 //開放
@@ -506,22 +615,22 @@ void Stage::Release()
 
 void Stage::SetGuidePopBridgePos()
 {
-    if (Input::IsKeyDown(DIK_D))
-    {
-        pos.z -= a;
-    }
-    if (Input::IsKeyDown(DIK_A))
-    {
-        pos.z += a;
-    }
-    if (Input::IsKey(DIK_S))
-    {
-        pos.x -= 0.5f;
-    }
-    if (Input::IsKey(DIK_W))
-    {
-        pos.x += 0.5f;
-    }
+    //if (Input::IsKeyDown(DIK_D))
+    //{
+    //    pos.z -= a;
+    //}
+    //if (Input::IsKeyDown(DIK_A))
+    //{
+    //    pos.z += a;
+    //}
+    //if (Input::IsKey(DIK_S))
+    //{
+    //    pos.x -= 0.5f;
+    //}
+    //if (Input::IsKey(DIK_W))
+    //{
+    //    pos.x += 0.5f;
+    //}
 }
 
 //そこは壁か
