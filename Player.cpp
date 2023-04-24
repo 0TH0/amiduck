@@ -73,14 +73,11 @@ void Player::Initialize()
     playerState = State::EGG;
 
     //ポリライン初期化
-    pLine = new PoryLine;
-    pLine->Load("tex_orange.png");
-
-    pLine2 = new PoryLine;
-    pLine2->Load("tex_orange.png");
-    
-    pLine3 = new PoryLine;
-    pLine3->Load("tex_orange.png");
+    for (int i = 0; i < 3; i++)
+    {
+        pLine[i] = new PoryLine;
+        pLine[i]->Load("tex_orange.png");
+    }
 }
 
 void Player::Update()
@@ -193,7 +190,7 @@ void Player::Update()
 
     /////////////////////////移動/////////////////////////
     //ジャンプ中の重力
-    if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f) //&& (IsJump == 0))
+    if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
     {
         //初速度
         jump_v0 = 0.2;
@@ -273,35 +270,27 @@ void Player::Draw()
 
     if (IsSpeedUp_)
     {
-        pLine->AddPosition(transform_.position_);
-        pLine->SetWidth(0.1f);
-        pLine->SetColor(XMFLOAT4(1, 1, 1, 0.9));
-        pLine->Draw();
-
-        Transform trans;
-        trans = transform_;
-        trans.position_.z = transform_.position_.z + 0.5f;
-        pLine2->AddPosition(trans.position_);
-        pLine2->SetWidth(0.1f);
-        pLine2->SetColor(XMFLOAT4(1, 1, 1, 0.9));
-        pLine2->Draw();
-
-        Transform trans2;
-        trans2 = transform_;
-        trans2.position_.z = transform_.position_.z - 0.5f;
-        pLine3->AddPosition(trans2.position_);
-        pLine3->SetWidth(0.1f);
-        pLine3->SetColor(XMFLOAT4(1, 1, 1, 0.9));
-        pLine3->Draw();
+        float pos = -0.5f;
+        for (int i = 0; i < 3; i++)
+        {
+            Transform trans = transform_;
+            trans.position_.z += pos;
+            pLine[i]->AddPosition(trans.position_);
+            pLine[i]->SetWidth(0.1f);
+            pLine[i]->SetColor(XMFLOAT4(1, 1, 1, 0.9));
+            pLine[i]->Draw();
+            pos += 0.5f;
+        }
     }
 }
 
 void Player::Release()
 {
     //ポリライン解放
-    pLine->Release();
-    pLine2->Release();
-    pLine3->Release();
+    for (int i = 0; i < 3; i++)
+    {
+        pLine[i]->Release();
+    }
 }
 
 //何かに当たった
@@ -370,7 +359,7 @@ void Player::OnCollision(GameObject* pTarget)
         }
         else
         {
-            //横から当たったらプレイヤーを消す
+            //横から当たったらゲームオーバー
             SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
             pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
         }
@@ -514,6 +503,7 @@ void Player::LadderLottery()
     }
 }
 
+//進む方向を向く
 void Player::RotateDirMove()
 {
     //現在の位置ベクトル

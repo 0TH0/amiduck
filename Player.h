@@ -57,9 +57,7 @@ class Player : public GameObject
     Text* pText = new Text;
     Particle* pParticle_;
     EmitterData data;
-    PoryLine* pLine;
-    PoryLine* pLine2;
-    PoryLine* pLine3;
+    PoryLine* pLine[3];
     XMVECTOR prevPosition;
 
 public:
@@ -91,6 +89,7 @@ public:
     void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
     bool GetHasItem() { return hasItem_; };
 
+    //i‚Ş•ûŒü‚ğŒü‚­
     void  RotateDirMove();
     
     int GetStarNum() { return  starNum_; };

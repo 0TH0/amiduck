@@ -18,7 +18,7 @@ void Water::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Water\\Water.fbx");
     assert(hModel_ >= 0);
-    //transform_.scale_ = XMFLOAT3(1000, 0.1, 1000);
+    transform_.scale_ = XMFLOAT3(1000, 0.1, 1000);
     //transform_.position_ = XMFLOAT3(-500, -1, -500);
 }
 
@@ -43,7 +43,7 @@ void Water::Draw()
     //    }
     //}
 
-    Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
+    //Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 }

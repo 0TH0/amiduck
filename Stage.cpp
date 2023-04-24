@@ -20,6 +20,13 @@
 
 class ItemUI;
 Mushroom* pMushroom;
+static int bufX, bufY, bufZ;
+static XMINT3 buf[5];
+static bool IsHit = false;
+ItemUI* pItemUI;
+static float minDistance;
+static XMVECTOR vStart;
+static XMVECTOR vTarget;
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -38,6 +45,7 @@ void Stage::StageLoad()
     //Csv読み込み
     csv.Load("Csv\\map3.csv");
 
+    //判定
     hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
     assert(hModel_[-1] >= 0);
 
@@ -234,11 +242,8 @@ void Stage::Initialize()
 
     pText->Initialize();
     pParticle_ = Instantiate<Particle>(this);
+    pItemUI = (ItemUI*)FindObject("ItemUI");
 }
-
-static int bufX, bufY, bufZ;
-static XMINT3 buf[5];
-static bool IsHit = false;
 
 //更新
 void Stage::Update()
@@ -281,16 +286,99 @@ void Stage::Update()
     //逆行列の合成
     XMMATRIX invTransform = invVP * invPrj * invView;
 
-    XMVECTOR vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
-    XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
+    vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
+    vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
 
     bufX, bufY, bufZ = 0;
-    float minDistance = 9999999.f;
+    minDistance = 9999999.f;
     IsHit = false;
 
-    ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
+    PopBridge();
+}
 
-    if (Input::IsMouseButtonDown(0) /*&& pItemUI->GetwoodCount() > 0*/)
+//描画
+void Stage::Draw()
+{
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
+            for (int y = 0; y < stage_[x][z].height; y++)
+            {
+                stagePos_ = XMFLOAT3((float)x, (float)y, (float)z);
+                int type = stage_[x][z].type;
+                transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
+                transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                transform_.scale_ = XMFLOAT3(1, 1, 1);
+                Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+                Direct3D::SetShader(Direct3D::SHADER_3D);
+
+                switch (stage_[x][z].type)
+                {
+                case -1:
+                    Model::SetTransform(hModel_[type], transform_);
+                    //Model::Draw(hModel_[type]);
+                    break;
+                case log:
+                    if (x == STAGE_SIZE_X - 1)
+                    {
+                        transform_.rotate_ = XMFLOAT3(0, 0, 0);
+                    }
+                    else
+                    {
+                        transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    }
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case coin:
+                    transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
+                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case bridge:
+                    transform_.position_ = XMFLOAT3(x + 0.25, 0.5 + y, z);
+                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type], 0.3);
+                    break;
+                case enemy:
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case player:
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case star:
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                case itembox:
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Model::SetTransform(hModel_[type], transform_);
+                    Model::Draw(hModel_[type]);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+//開放
+void Stage::Release()
+{
+}
+
+//橋を出現させる
+void Stage::PopBridge()
+{
+    //マウスを左クリックして、橋の残りの数が0より多いとき
+    if (Input::IsMouseButtonDown(0) && pItemUI->GetwoodCount() > 0)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -478,7 +566,7 @@ void Stage::Update()
                     stage_[bufX][bufZ].type = bridge;
                     stage_[bufX][bufZ - 1].type = bridge;
                     stage_[bufX][bufZ - 2].type = bridge;
-                    
+
                     buf[0] = XMINT3(bufX, 1, bufZ + 2);
                     buf[1] = XMINT3(bufX, 1, bufZ + 1);
                     buf[2] = XMINT3(bufX, 1, bufZ);
@@ -516,104 +604,6 @@ void Stage::Update()
             }
         }
     }
-}
-
-//描画
-void Stage::Draw()
-{
-    for (int x = 0; x < STAGE_SIZE_X; x++)
-    {
-        for (int z = 0; z < STAGE_SIZE_Z; z++)
-        {
-            for (int y = 0; y < stage_[x][z].height; y++)
-            {
-                stagePos_ = XMFLOAT3((float)x, (float)y, (float)z);
-                int type = stage_[x][z].type;
-                transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
-                transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                transform_.scale_ = XMFLOAT3(1, 1, 1);
-                Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
-                Direct3D::SetShader(Direct3D::SHADER_3D);
-
-                switch (stage_[x][z].type)
-                {
-                case -1:
-                    Model::SetTransform(hModel_[type], transform_);
-                    //Model::Draw(hModel_[type]);
-                    break;
-                case log:
-                    if (x == STAGE_SIZE_X - 1)
-                    {
-                        transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                    }
-                    else
-                    {
-                        transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    }
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case coin:
-                    transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
-                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case bridge:
-                    transform_.position_ = XMFLOAT3(x + 0.25, 0.5 + y, z);
-                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type], 0.3);
-                    break;
-                case enemy:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case player:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case star:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case itembox:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-//開放
-void Stage::Release()
-{
-}
-
-void Stage::SetGuidePopBridgePos()
-{
-    //if (Input::IsKeyDown(DIK_D))
-    //{
-    //    pos.z -= a;
-    //}
-    //if (Input::IsKeyDown(DIK_A))
-    //{
-    //    pos.z += a;
-    //}
-    //if (Input::IsKey(DIK_S))
-    //{
-    //    pos.x -= 0.5f;
-    //}
-    //if (Input::IsKey(DIK_W))
-    //{
-    //    pos.x += 0.5f;
-    //}
 }
 
 //そこは壁か

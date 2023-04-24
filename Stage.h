@@ -82,5 +82,6 @@ public:
 
     int GetWoodCoolTime() { return woodCoolTime_; };
 
-    void SetGuidePopBridgePos();
+    //左クリックで橋を出現させる
+    void PopBridge();
 };
