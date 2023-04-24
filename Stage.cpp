@@ -285,7 +285,7 @@ void Stage::Update()
     XMVECTOR vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
 
     bufX, bufY, bufZ = 0;
-    float minDistance = 9999999;
+    float minDistance = 9999999.f;
     IsHit = false;
 
     ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
@@ -397,6 +397,11 @@ void Stage::Update()
     }
     else
     {
+        for (int i = 0; i < 5; i++)
+        {
+            stage_[buf[i].x][buf[i].z].type = -1;
+        }
+
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
             for (int z = 0; z < STAGE_SIZE_Z; z++)
@@ -437,10 +442,6 @@ void Stage::Update()
             //クリックしたところが何もなかったら
             if (stage_[bufX][bufZ].type == -1)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    stage_[buf[i].x][buf[i].z].type = -1;
-                }
 
                 if (stage_[bufX][bufZ - 1].type == log)
                 {
@@ -511,11 +512,6 @@ void Stage::Update()
                     buf[2] = XMINT3(bufX, 1, bufZ - 2);
                     buf[3] = XMINT3(bufX, 1, bufZ - 1);
                     buf[4] = XMINT3(bufX, 1, bufZ - 4);
-                }
-
-                for (int i = 0; i < 5; i++)
-                {
-                    stage_[bufX][bufZ].type = -1;
                 }
             }
         }
@@ -593,19 +589,6 @@ void Stage::Draw()
             }
         }
     }
-
-
-    //ガイド表示(透明のやつ)
-    //if (!(pPlayer_->GetIsOnBridge()))
-    //{
-    //    for (int i = 1; i <= 5; i++)
-    //    {
-    //        transform_.position_ = GuidePopBridgePos = XMFLOAT3(player_pos_.x + pos.x, 0.5f, player_pos_.z + pos.z + i);
-    //        transform_.scale_ = XMFLOAT3(0.5, 1, 2);
-    //        Model::SetTransform(hModel_[coin], transform_);
-    //        Model::Draw(hModel_[coin], 0.5f);
-    //    }
-    //}
 }
 
 //開放
