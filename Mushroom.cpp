@@ -1,13 +1,12 @@
 #include "Mushroom.h"
 #include "Engine/Model.h"
 
+EmitterData data;
 //コンストラクタ
 Mushroom::Mushroom(GameObject* parent)
 	: GameObject(parent, "Mushroom"), hModel_(-1)
 {
 }
-
-EmitterData data;
 
 //初期化
 void Mushroom::Initialize()
@@ -53,6 +52,11 @@ void Mushroom::Update()
 
 	//回す
 	transform_.position_ = Transform::RotateAround(trans.position_, 10.f, 2.f, right_);
+	//transform_.position_ =
+	//	XMFLOAT3(
+	//		Transform::RotateAround(trans.position_, (dir += rotateSpeed), 2.f, right_).x,
+	//		transform_.position_.y += 0.05f,
+	//		Transform::RotateAround(trans.position_, (dir += rotateSpeed), 2.f, right_).z);
 	transform_.rotate_.y += 5;
 
 	//炎の更新

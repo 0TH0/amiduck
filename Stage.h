@@ -9,7 +9,7 @@ class Player;
 class Stage : public GameObject
 {
     //íËêî
-    static const int STAGE_SIZE_X = 180;
+    static const int STAGE_SIZE_X = 100;
     static const int STAGE_SIZE_Z = 37;
 
     enum StageModelNum

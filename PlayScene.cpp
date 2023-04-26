@@ -23,6 +23,7 @@
 #include "Engine/Audio.h"
 #include "Pose.h"
 #include "Timer.h"
+#include "Duck.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -42,6 +43,7 @@ void PlayScene::Initialize()
 	Instantiate<StartScene>(this);
 	Instantiate<Pose>(this);
 	Instantiate<Timer>(this);
+	Instantiate<Duck>(this);
 
 	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");

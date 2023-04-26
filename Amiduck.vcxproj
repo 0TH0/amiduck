@@ -128,6 +128,7 @@
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Alpha.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Duck.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Alpha.h" />
     <ClInclude Include="Engine\Audio.h" />

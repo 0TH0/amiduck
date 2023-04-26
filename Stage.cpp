@@ -115,14 +115,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            if (x == STAGE_SIZE_X - 1)
-            {
-                stage_[x][z].height = 30;
-            }
-            else
-            {
-                stage_[x][z].height = 1;
-            }
+            stage_[x][z].height = 1;
             stage_[x][z].type = 0;
         }
     }
@@ -139,7 +132,6 @@ void Stage::Initialize()
 
     stage_[29][10].type = fire;
     stage_[48][20].type = fire_right;
-
     //あとで関数作る
     //マップの自動生成
     while(bridgeCount_ < 15)
@@ -156,6 +148,11 @@ void Stage::Initialize()
             stage_[randX][randZ - 3].type = coin;
             bridgeCount_++;
         }
+        else
+        {
+            randX = (rand() % (STAGE_SIZE_X - 5) + 5);
+            randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
+        }
     }
 
     //アイテムボックス出現
@@ -170,6 +167,11 @@ void Stage::Initialize()
             {
                 stage_[randX][randZ + 2].type = itembox;
                 count++;
+            }
+            else
+            {
+                randX = (rand() % STAGE_SIZE_X - 1);
+                randZ = (rand() % STAGE_SIZE_Z - 1);
             }
         }
     }
@@ -186,6 +188,11 @@ void Stage::Initialize()
                 stage_[randX][randZ + 2].type = star;
                 count++;
             }
+            else
+            {
+                randX = (rand() % STAGE_SIZE_X - 1);
+                randZ = (rand() % STAGE_SIZE_Z - 1);
+            }
         }
     }
 
@@ -195,13 +202,6 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            //コイン登場
-            if (stage_[x][z].type == coin)
-            {
-                Coin* pCoin = Instantiate<Coin>(GetParent());
-                pCoin->SetPosition(x + 0.25f, 1, z);
-            }
-
             //エネミー登場
             if (stage_[x][z].type == enemy)
             {
@@ -307,7 +307,7 @@ void Stage::Draw()
             {
                 stagePos_ = XMFLOAT3((float)x, (float)y, (float)z);
                 int type = stage_[x][z].type;
-                transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
+                transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z);
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
                 Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
@@ -320,14 +320,7 @@ void Stage::Draw()
                     //Model::Draw(hModel_[type]);
                     break;
                 case log:
-                    if (x == STAGE_SIZE_X - 1)
-                    {
-                        transform_.rotate_ = XMFLOAT3(0, 0, 0);
-                    }
-                    else
-                    {
-                        transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    }
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;
@@ -341,7 +334,7 @@ void Stage::Draw()
                     transform_.position_ = XMFLOAT3(x + 0.25, 0.5 + y, z);
                     transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                     Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type], 0.3);
+                    Model::Draw(hModel_[type], 0.5);
                     break;
                 case enemy:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
