@@ -253,8 +253,6 @@ void FbxParts::InitIndex(fbxsdk::FbxMesh * mesh)
 	ppIndexBuffer_ = new ID3D11Buffer*[materialCount_];
 	ppIndexData_ = new DWORD*[materialCount_];
 
-	
-
 	int count = 0;
 
 	// マテリアルから「ポリゴン平面」の情報を抽出する
@@ -463,27 +461,12 @@ void FbxParts::Draw(Transform& transform)
 void FbxParts::Draw(Transform& transform, FLOAT alpha)
 {
 	Direct3D::SetShader(shaderType_);
-
-	//今から描画する頂点情報をシェーダに伝える
-	UINT stride = sizeof(VERTEX);
-	UINT offset = 0;
-	Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
-
-	//使用するコンスタントバッファをシェーダに伝える
-	Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);
-	Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);
-
+	transform.Calclation();
 
 	//シェーダーのコンスタントバッファーに各種データを渡す
 	for (DWORD i = 0; i < materialCount_; i++)
 	{
-		// インデックスバッファーをセット
-		UINT    stride = sizeof(int);
-		UINT    offset = 0;
-		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
-
 		// パラメータの受け渡し
-		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;
 		cb.worldVewProj = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
 		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
@@ -534,13 +517,11 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 			}
 		}
 
+		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る
 
-
-
 		// テクスチャをシェーダーに設定
-
 		if (pMaterial_[i].pTexture)
 		{
 			ID3D11SamplerState* pSampler = pMaterial_[i].pTexture->GetSampler();
@@ -550,13 +531,27 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
 		}
 
-		if (pMaterial_[i].pNormalTexture && shaderType_ == Direct3D::SHADER_WATER)
+		if (pMaterial_[i].pNormalTexture)
 		{
 			ID3D11ShaderResourceView* pSRV = pMaterial_[i].pNormalTexture->GetSRV();
 			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);
 		}
 
-		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);									// GPUからのリソースアクセスを再開
+		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);// GPUからのリソースアクセスを再開
+
+		//今から描画する頂点情報をシェーダに伝える
+		UINT stride = sizeof(VERTEX);
+		UINT offset = 0;
+		Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+
+		// インデックスバッファーをセット
+		stride = sizeof(int);
+		offset = 0;
+		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
+
+		//使用するコンスタントバッファをシェーダに伝える
+		Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);
+		Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);
 
 		 //ポリゴンメッシュを描画する
 		Direct3D::pContext_->DrawIndexed(pMaterial_[i].polygonCount * 3, 0, 0);

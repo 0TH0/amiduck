@@ -50,7 +50,7 @@ void Stage::StageLoad()
     assert(hModel_[-1] >= 0);
 
     //ブロック
-    hModel_[log] = Model::Load("Stage\\log.fbx");
+    hModel_[log] = Model::Load("Model\\brick.fbx");
     assert(hModel_[log] >= 0);
 
     //旗先端
@@ -60,19 +60,19 @@ void Stage::StageLoad()
     hModel_[bridge] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[bridge] >= 0);
 
-    hModel_[enemy] = Model::Load("Stage\\log.fbx");
+    hModel_[enemy] = Model::Load("Model\\brick.fbx");
     assert(hModel_[enemy] >= 0);
 
-    hModel_[player] = Model::Load("Stage\\log.fbx");
+    hModel_[player] = Model::Load("Model\\brick.fbx");
     assert(hModel_[player] >= 0);
 
-    hModel_[star] = Model::Load("Stage\\log.fbx");
+    hModel_[star] = Model::Load("Model\\brick.fbx");
     assert(hModel_[star] >= 0);
 
-    hModel_[itembox] = Model::Load("Stage\\log.fbx");
+    hModel_[itembox] = Model::Load("Model\\brick.fbx");
     assert(hModel_[itembox] >= 0);
 
-    hModel_[itembox] = Model::Load("Stage\\log.fbx");
+    hModel_[itembox] = Model::Load("Model\\brick.fbx");
     assert(hModel_[itembox] >= 0);
 
     hModel_[fire] = Model::Load("Model\\fire\\fireball.fbx");
@@ -321,6 +321,7 @@ void Stage::Draw()
                     break;
                 case log:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Direct3D::SetShader(Direct3D::SHADER_NORMALMAP);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;

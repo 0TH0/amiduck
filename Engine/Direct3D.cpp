@@ -753,7 +753,7 @@ namespace Direct3D
 		}
 	}
 
-	//★
+	//２画面
 	void SetViewPort(SCREEN_SPLIT scr)
 	{
 		switch (scr)
@@ -769,6 +769,8 @@ namespace Direct3D
 			break;
 		}
 	}
+
+	//現在のスクリーンサイズを入れる
 	void NowScrSize(int screenWidth, int screenHeight)
 	{
 		screenWidth_ = screenWidth;
