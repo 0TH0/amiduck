@@ -1,7 +1,7 @@
 #include "ItemBox.h"
 #include "PlayScene.h"
 #include "Player.h"
-#include "ItemUI.h"
+#include "Item.h"
 
 #include "Engine/Model.h"
 #include "Engine/Image.h"
@@ -63,8 +63,8 @@ void ItemBox::Draw()
 	{
 		Transform trans;
 		trans.position_ = XMFLOAT3(0.85, 0.75, 0);
-		ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
-		pItemUI->DrawItem(trans);
+		Item* pItem = (Item*)FindObject("Item");
+		pItem->DrawItem(trans);
 	}
 }
 
@@ -84,8 +84,8 @@ void ItemBox::OnCollision(GameObject* pTarget)
 			QuestionEffect();
 			pPlayer->SetHasItem(true);
 			//ƒAƒCƒeƒ€‚ð“üŽè‚µ‚½Žž‚Ìˆ—
-			ItemUI* pItemUI = (ItemUI*)FindObject("ItemUI");
-			pItemUI->SetIsItem(true);
+			Item* pItem = (Item*)FindObject("Item");
+			pItem->SetIsItem(true);
 		}
 		Invisible();
 		IsHit_ = true;

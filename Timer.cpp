@@ -27,7 +27,7 @@ void Timer::Update()
 //•`‰æ
 void Timer::Draw()
 {
-	//pText_->Draw(700, 100, a_ % 60);
+	pText_->Draw(700, 100, a_ % 60);
 }
 
 //ŠJ•ú

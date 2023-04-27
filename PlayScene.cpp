@@ -12,9 +12,11 @@
 #include "Line.h"
 #include "StartScene.h"
 #include "Water.h"
-#include "ItemUI.h"
+#include "Item.h"
 #include "Coin.h"
 #include "Mushroom.h"
+#include "StarUI.h"
+#include "Duck.h"
 
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -23,7 +25,6 @@
 #include "Engine/Audio.h"
 #include "Pose.h"
 #include "Timer.h"
-#include "Duck.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -44,6 +45,7 @@ void PlayScene::Initialize()
 	Instantiate<Pose>(this);
 	Instantiate<Timer>(this);
 	Instantiate<Duck>(this);
+	Instantiate<StarUI>(this);
 
 	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");

@@ -116,7 +116,7 @@
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Water.cpp" />
-    <ClCompile Include="ItemUI.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
@@ -124,6 +124,7 @@
     <ClCompile Include="Pose.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Duck.cpp" />
+    <ClCompile Include="StarUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -216,7 +217,7 @@
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Water.h" />
-    <ClInclude Include="ItemUI.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
     </ClInclude>
@@ -224,6 +225,7 @@
     <ClInclude Include="Pose.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Duck.h" />
+    <ClInclude Include="StarUI.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

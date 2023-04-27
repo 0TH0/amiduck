@@ -6,7 +6,7 @@
 #include "Coin.h"
 #include "Star.h"
 #include "ItemBox.h"
-#include "ItemUI.h"
+#include "Item.h"
 
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
@@ -18,12 +18,12 @@
 #include "Engine/Audio.h"
 #include "Mushroom.h"
 
-class ItemUI;
+class Item;
 Mushroom* pMushroom;
 static int bufX, bufY, bufZ;
 static XMINT3 buf[5];
 static bool IsHit = false;
-ItemUI* pItemUI;
+Item* pItem;
 static float minDistance;
 static XMVECTOR vStart;
 static XMVECTOR vTarget;
@@ -110,7 +110,7 @@ void Stage::Cloud()
 //初期化
 void Stage::Initialize()
 {
-    Instantiate<ItemUI>(this);
+    Instantiate<Item>(this);
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
@@ -242,7 +242,7 @@ void Stage::Initialize()
 
     pText->Initialize();
     pParticle_ = Instantiate<Particle>(this);
-    pItemUI = (ItemUI*)FindObject("ItemUI");
+    pItem = (Item*)FindObject("Item");
 }
 
 //更新
@@ -372,7 +372,7 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(0) && pItemUI->GetwoodCount() > 0)
+    if (Input::IsMouseButtonDown(0) && pItem->GetwoodCount() > 0)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -424,7 +424,7 @@ void Stage::PopBridge()
                     data.position.x = bufX;
                     data.position.z = bufZ + 3;
                     Cloud();
-                    pItemUI->MinWoodCount();
+                    pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
                 {
@@ -436,7 +436,7 @@ void Stage::PopBridge()
                     data.position.x = bufX;
                     data.position.z = bufZ + 2;
                     Cloud();
-                    pItemUI->MinWoodCount();
+                    pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
                 {
@@ -448,7 +448,7 @@ void Stage::PopBridge()
                     data.position.x = bufX;
                     data.position.z = bufZ + 1;
                     Cloud();
-                    pItemUI->MinWoodCount();
+                    pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 4].type == log)
                 {
@@ -460,7 +460,7 @@ void Stage::PopBridge()
                     data.position.x = bufX;
                     data.position.z = bufZ;
                     Cloud();
-                    pItemUI->MinWoodCount();
+                    pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 5].type == log)
                 {
@@ -472,7 +472,7 @@ void Stage::PopBridge()
                     data.position.x = bufX;
                     data.position.z = bufZ - 1;
                     Cloud();
-                    pItemUI->MinWoodCount();
+                    pItem->MinWoodCount();
                 }
             }
         }

@@ -18,7 +18,7 @@ void Mushroom::Initialize()
 
 	//“–‚½‚è”»’è
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 1.f);
-	//AddCollider(collision);
+	AddCollider(collision);
 
 	pParticle_ = Instantiate<Particle>(this);
 

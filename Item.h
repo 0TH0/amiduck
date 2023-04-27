@@ -7,7 +7,7 @@
 class Itembox;
 
 //■■シーンを管理するクラス
-class ItemUI: public GameObject
+class Item: public GameObject
 {
 	int hItemPict_[4];
 	int hPict_;
@@ -20,7 +20,7 @@ class ItemUI: public GameObject
 	int woodCount_;
 public:
 	//何のアイテムを持っているか
-	enum class Item
+	enum class ItemNum
 	{
 		BOMB,
 		BALL,
@@ -38,7 +38,7 @@ public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	ItemUI(GameObject* parent);
+	Item(GameObject* parent);
 
 	void Initialize() override;
 
@@ -52,8 +52,8 @@ public:
 
 	void DrawItem(Transform tra);
 
-	void SetItem(Item item) { item_ = item; };
-	Item GetItem() { return item_; };
+	void SetItem(ItemNum item) { item_ = item; };
+	ItemNum GetItem() { return item_; };
 
 	void SetIsItem(bool IsItem) { IsItem_ = IsItem; };
 	bool IsItem() { return IsItem_; };

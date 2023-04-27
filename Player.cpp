@@ -8,7 +8,7 @@
 #include "Enemy.h"
 #include "Line.h"
 #include "Mushroom.h"
-#include "ItemUI.h"
+#include "Item.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -109,24 +109,24 @@ void Player::Update()
     LadderLottery();
 
     //アイテム使用
-    if (Input::IsKeyDown(DIK_W))
+    if (Input::IsKeyDown(DIK_E))
     {
-        ItemUI* pItemUI =(ItemUI*)FindObject("ItemUI");
-        switch (pItemUI->GetItem())
+        Item* pItem =(Item*)FindObject("Item");
+        switch (pItem->GetItem())
         {
             //ボール出す
-        case ItemUI::Item::BALL:
+        case Item::ItemNum::BALL:
             Instantiate<FireFollowGround>(GetParent());
             hasItem_ = false;
-            pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+            pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;
             //爆弾出す
-        case ItemUI::Item::BOMB:
+        case Item::ItemNum::BOMB:
             Instantiate<Fire>(GetParent());
             hasItem_ = false;
-            pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+            pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;
-        case ItemUI::Item::WING:
+        case Item::ItemNum::WING:
             //橋を渡っていなかったら
             if (!(IsOnBridge_) && hasItem_)
             {
@@ -134,28 +134,28 @@ void Player::Update()
                 IsSpeedUp_ = true;
                 Instantiate<Line>(this);
                 hasItem_ = false;
-                pItemUI->SetItem(ItemUI::Item::ITEM_MAX);
+                pItem->SetItem(Item::ItemNum::ITEM_MAX);
             }
             break;
         }
     }
 
-    if (Input::IsKey(DIK_I))
-    {
-        transform_.position_.x += 0.25;
-    }
-    if (Input::IsKey(DIK_K))
-    {
-        transform_.position_.x -= 0.25;
-    }
-    if (Input::IsKey(DIK_L))
-    {
-        transform_.position_.z -= 0.25;
-    }
-    if (Input::IsKey(DIK_J))
-    {
-        transform_.position_.z += 0.25;
-    }
+    //if (Input::IsKey(DIK_I))
+    //{
+    //    transform_.position_.x += 0.25;
+    //}
+    //if (Input::IsKey(DIK_K))
+    //{
+    //    transform_.position_.x -= 0.25;
+    //}
+    //if (Input::IsKey(DIK_L))
+    //{
+    //    transform_.position_.z -= 0.25;
+    //}
+    //if (Input::IsKey(DIK_J))
+    //{
+    //    transform_.position_.z += 0.25;
+    //}
 
     if (IsSpeedUp_)
     {
@@ -297,7 +297,7 @@ void Player::Release()
 void Player::OnCollision(GameObject* pTarget)
 {
     //敵に当たった
-    if (pTarget->GetObjectName() == "Enemy")
+    if (pTarget->GetObjectName() == "Enemy" )
     {
         Model::SetIsFlash(hModel_);
         Model::SetIsFlash(hModel2_);

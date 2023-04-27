@@ -1,4 +1,4 @@
-#include "ItemUI.h"
+#include "Item.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/GameObject.h"
@@ -11,8 +11,8 @@
 #include "Engine/Math.h"
 
 //コンストラクタ
-ItemUI::ItemUI(GameObject* parent)
-	: GameObject(parent, "ItemUI")
+Item::Item(GameObject* parent)
+	: GameObject(parent, "Item")
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -21,12 +21,12 @@ ItemUI::ItemUI(GameObject* parent)
 	
 	alpha_ = 0;
 	pItemBox_ = nullptr;
-	item_ = Item::ITEM_MAX;
+	item_ = ItemNum::ITEM_MAX;
 	woodCount_ = (int)WoodCount::THREE;
 }
 
 //初期化
-void ItemUI::Initialize()
+void Item::Initialize()
 {
 	hPict_= Image::Load("UI\\ItemFrame.png");
 	assert(hPict_ >= 0);
@@ -42,7 +42,7 @@ void ItemUI::Initialize()
 		"UI\\wing.png",
 	};
 
-	for (int i = (int)Item::BOMB; i < (int)Item::ITEM_MAX; i++)
+	for (int i = (int)ItemNum::BOMB; i < (int)ItemNum::ITEM_MAX; i++)
 	{
 		std::string fn = fileName[i];
 		hItemPict_[i] = Image::Load(fn);
@@ -51,12 +51,12 @@ void ItemUI::Initialize()
 }
 
 //更新
-void ItemUI::Update()
+void Item::Update()
 {
 	//アイテムを拾ったら１回だけ実行
 	if (IsItem_)
 	{
-		item_ = (Item)Math::RandInt((int)Item::BOMB, (int)Item::ITEM_MAX - 1);
+		item_ = (ItemNum)Math::RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
 		IsItem_ = false;
 	}
 
@@ -75,7 +75,7 @@ void ItemUI::Update()
 }
 
 //描画
-void ItemUI::Draw()
+void Item::Draw()
 {
 	transform_.position_ = XMFLOAT3(0.85f, 0.75f, 0);
 
@@ -92,11 +92,11 @@ void ItemUI::Draw()
 }
 
 //開放
-void ItemUI::Release()
+void Item::Release()
 {
 }
 
-void ItemUI::DrawWoodUI(Transform tra)
+void Item::DrawWoodUI(Transform tra)
 {
 	tra.scale_ = XMFLOAT3(0.75f, 0.75f, 0.75f);
 	for (int i = 0; i < woodCount_; i++)
@@ -107,7 +107,7 @@ void ItemUI::DrawWoodUI(Transform tra)
 	}
 }
 
-void ItemUI::DrawItem(Transform tra)
+void Item::DrawItem(Transform tra)
 {
 	Image::SetTransform(hItemPict_[(int)item_], tra);
 	Image::Draw(hItemPict_[(int)item_]);
