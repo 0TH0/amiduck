@@ -28,7 +28,7 @@ https://youtu.be/_SBLDdfRG20
 
 SPACE:ジャンプ
 
-W:アイテム使用  
+E:アイテム使用  
 
 左クリック：木の板を出す
 
