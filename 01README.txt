@@ -2,6 +2,9 @@
 
 ●ジャンル：3Dあみだくじ
 
+●動画URL
+https://youtu.be/_SBLDdfRG20
+
 ●開発環境
 ・ハードウェア : Windows(i7、メモリ32GB)
 ・開発用ＯＳ   : Windows10
