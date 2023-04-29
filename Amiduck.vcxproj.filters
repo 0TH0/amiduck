@@ -94,7 +94,7 @@
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PoryLine.cpp">
@@ -120,7 +120,7 @@
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Pose.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Duck.cpp" />
@@ -195,7 +195,7 @@
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="Fire.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PoryLine.h">
@@ -221,7 +221,7 @@
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="Pose.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Duck.h" />

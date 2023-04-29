@@ -16,11 +16,10 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
-#include "Mushroom.h"
-
+#include "Fire.h"
 
 class Item;
-Mushroom* pMushroom;
+Fire* pFire;
 static int bufX, bufY, bufZ;
 static XMINT3 buf[5];
 static bool IsHit = false;
@@ -229,14 +228,14 @@ void Stage::Initialize()
             }
             if (stage_[x][z].type == fire)
             {
-                pMushroom = Instantiate<Mushroom>(GetParent());
-                pMushroom->SetPosition(x, 1.25f, z);
+                pFire = Instantiate<Fire>(GetParent());
+                pFire->SetPosition(x, 1.25f, z);
             }
             if (stage_[x][z].type == fire_right)
             {
-                pMushroom = Instantiate<Mushroom>(GetParent());
-                pMushroom->SetPosition(x, 1.25f, z);
-                pMushroom->SetRight(true);
+                pFire = Instantiate<Fire>(GetParent());
+                pFire->SetPosition(x, 1.25f, z);
+                pFire->SetRight(true);
             }
         }
     }

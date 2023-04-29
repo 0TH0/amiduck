@@ -41,9 +41,9 @@ void Pose::Draw()
 {
 	Image::SetAlpha(hPict2_, 156.f);
 	Image::SetTransform(hPict2_, transform_);
-	Image::Draw(hPict2_);
+	//Image::Draw(hPict2_);
 	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
+	//Image::Draw(hPict_);
 }
 
 //ŠJ•ú

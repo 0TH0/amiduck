@@ -35,7 +35,7 @@ void StartScene::Draw()
 {
 	Image::SetTransform(hPict_[0], transform_);
 	Image::Draw(hPict_[0]);
-	Image::FadeoutImage(hPict_[0], 3);
+	Image::FadeoutImage(hPict_[0]);
 }
 
 //ŠJ•ú

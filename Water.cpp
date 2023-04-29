@@ -33,29 +33,8 @@ void Water::Update()
 //•`‰æ
 void Water::Draw()
 {
-    //for (int x = 0; x <= 200; x += 5)
-    //{
-    //    for (int z = 0; z <= 200; z += 5)
-    //    {
-    //        transform_.position_.x = -10 + x;
-    //        transform_.position_.z = -10 + z;
-    //        Model::SetSahder(hModel_, Direct3D::SHADER_3D);
-    //        Model::SetTransform(hModel_, transform_);
-    //        Model::Draw(hModel_);
-    //    }
-    //}
-
-    //for (int x = 0; x <= 50; x += 10)
-    {
-        //for (int z = 0; z <= 50; z += 10)
-        {
-           // transform_.position_.x = -10 + x;
-           // transform_.position_.z = -10 + z;
-
-            Model::SetTransform(hModel_, transform_);
-            Model::Draw(hModel_);
-        }
-    }
+    Model::SetTransform(hModel_, transform_);
+    Model::Draw(hModel_);
 }
 
 //ŠJ•ú

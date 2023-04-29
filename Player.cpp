@@ -7,7 +7,7 @@
 #include "Controller.h"
 #include "Enemy.h"
 #include "Line.h"
-#include "Mushroom.h"
+#include "Bomb.h"
 #include "Item.h"
 
 #include "Engine/Model.h"
@@ -82,6 +82,9 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    pStage = (Stage*)FindObject("Stage");
+    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
     switch (playerState)
     {
     case Player::State::EGG:
@@ -108,6 +111,9 @@ void Player::Update()
     //あみだくじの処理
     LadderLottery();
 
+    //進行方向に回転する
+    RotateDirMove();
+
     //アイテム使用
     if (Input::IsKeyDown(DIK_E))
     {
@@ -122,7 +128,7 @@ void Player::Update()
             break;
             //爆弾出す
         case Item::ItemNum::BOMB:
-            Instantiate<Fire>(GetParent());
+            Instantiate<Bomb>(GetParent());
             hasItem_ = false;
             pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;
@@ -140,23 +146,6 @@ void Player::Update()
         }
     }
 
-    //if (Input::IsKey(DIK_I))
-    //{
-    //    transform_.position_.x += 0.25;
-    //}
-    //if (Input::IsKey(DIK_K))
-    //{
-    //    transform_.position_.x -= 0.25;
-    //}
-    //if (Input::IsKey(DIK_L))
-    //{
-    //    transform_.position_.z -= 0.25;
-    //}
-    //if (Input::IsKey(DIK_J))
-    //{
-    //    transform_.position_.z += 0.25;
-    //}
-
     if (IsSpeedUp_)
     {
         SpeedUpTime_++;
@@ -168,25 +157,21 @@ void Player::Update()
         SpeedUpTime_ = 0;
     }
 
-    pStage = (Stage*)FindObject("Stage");
-    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
-    RotateDirMove();
 
     //停止する
-    if (Input::IsKeyDown(DIK_F))
-    {
-        if (!IsStop_)
-        {
-            speed_ = 0;
-            IsStop_ = true;
-        }
-        else
-        {
-            speed_ = 0.3f;
-            IsStop_ = false;
-        }
-    }
+    //if (Input::IsKeyDown(DIK_F))
+    //{
+    //    if (!IsStop_)
+    //    {
+    //        speed_ = 0;
+    //        IsStop_ = true;
+    //    }
+    //    else
+    //    {
+    //        speed_ = 0.3f;
+    //        IsStop_ = false;
+    //    }
+    //}
 
     /////////////////////////移動/////////////////////////
     //ジャンプ中の重力
@@ -245,6 +230,8 @@ void Player::Update()
     if (starNum_ >= 5)
     {
         starNum_ = 5;
+
+        //星が５つならクリアシーンへ
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
         pSceneManager->ChangeScene(SCENE_ID_CLEAR);
     }
@@ -297,7 +284,7 @@ void Player::Release()
 void Player::OnCollision(GameObject* pTarget)
 {
     //敵に当たった
-    if (pTarget->GetObjectName() == "Enemy" )
+    if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Fire")
     {
         Model::SetIsFlash(hModel_);
         Model::SetIsFlash(hModel2_);
@@ -311,7 +298,7 @@ void Player::OnCollision(GameObject* pTarget)
             }
         }
     }
-
+    
     if (pTarget->GetObjectName() == "Star")
     {
         if (starTime_ == 0)
@@ -325,7 +312,7 @@ void Player::OnCollision(GameObject* pTarget)
     XMVECTOR Down = { 0,-1,0,0 };
 
     //敵に当たった
-    if (pTarget->GetObjectName() == "Mushroom")
+    if (pTarget->GetObjectName() == "Fire")
     {
         //敵の位置
         XMFLOAT3 EnemyPos = pTarget->GetPosition();
@@ -360,8 +347,8 @@ void Player::OnCollision(GameObject* pTarget)
         else
         {
             //横から当たったらゲームオーバー
-            SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+            /*SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);*/
         }
     }
 }

@@ -15,23 +15,19 @@ Instructions::Instructions(GameObject* parent)
 void Instructions::Initialize()
 {
 	//画像データのロード
-	hPict_ = Image::Load("Instructions.png");
+	hPict_ = Image::Load("Image\\Instruction.png");
 	assert(hPict_ >= 0);
+	transform_.position_ = XMFLOAT3(0, -0.95f, 0);
 }
 
 //更新
 void Instructions::Update()
 {
-	if (Input::IsKey(DIK_K))
-	{
-		KillMe();
-	}
 }
 
 //描画
 void Instructions::Draw()
 {
-	Image::SetAlpha(hPict_, 150);
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 }

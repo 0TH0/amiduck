@@ -14,7 +14,7 @@
 #include "Water.h"
 #include "Item.h"
 #include "Coin.h"
-#include "Mushroom.h"
+#include "Fire.h"
 #include "StarUI.h"
 #include "Duck.h"
 
@@ -46,6 +46,7 @@ void PlayScene::Initialize()
 	Instantiate<Timer>(this);
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);
+	Instantiate<Instructions>(this);
 
 	pStage = (Stage*)FindObject("Stage");
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
@@ -58,18 +59,8 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {
-	//Player* pPlayer_ = (Player*)FindObject("Player");
-
-	//playerTrans.position_ = pPlayer_->GetPosition();
-
-	//操作方法を表示
-	//if (Input::IsKey(DIK_M))
-	//{
-	//	Instantiate<Instructions>(this);
-	//}
-
 	//BGM再生
-	//Audio::Play(hAudio_);
+	Audio::Play(hAudio_);
 }
 
 //描画

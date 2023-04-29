@@ -1,47 +1,19 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
-#include "Engine/PoryLine.h"
 #include "Engine/Particle.h"
 
-//シーンを管理するクラス
+//テストシーンを管理するクラス
 class Fire : public GameObject
 {
-public:
-	int hModel_; 
-	Transform PlayerTrans_;
-	float plus;
-	bool Is;
+	int hModel_;
 	Particle* pParticle_;
-	EmitterData data;
-
-	float a = false;
-	bool c = false;
-	bool b = false;
-	int time1 = 0;
-	int time2;
-	int time3;
-	Transform trans[2];
-	bool IsPress;
-	bool IsReturn;
-	bool IsStop;
-	float s;
-	float t;
-	float f;
-	float g;
-
-	int time;
-	int starTime_;
-	Stage* pStage;
-	float speed_;        //移動速度
-	PoryLine* pLine;
-	PoryLine* pLine2;
-
+	Transform trans;
+	bool first_;
+	bool right_; //右周りにするか
+public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Fire(GameObject* parent);
-
-	~Fire() override;
 
 	//初期化
 	void Initialize() override;
@@ -55,6 +27,5 @@ public:
 	//開放
 	void Release() override;
 
-	void OnCollision(GameObject* pTarget) override;
-
+	void SetRight(bool right) { right_ = right; };
 };
