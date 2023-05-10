@@ -2,29 +2,33 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
+#include "UI.h"
 
 SceneManager* pSceneManager;
+UI* pUI[(int)TitleScene::UIName::UI_MAX];
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TestScene")
+	: GameObject(parent, "TitleScne"), btState_()
 {
 }
 
 //初期化
 void TitleScene::Initialize()
 {
-	hPict_ = Image::Load("Title\\TitleLogo.png");
-	assert(hPict_ >= 0);
+	std::string filename[] = {
+		"Title\\playBt.png",
+		"Title\\tutorialBt.png",
+		"Title\\TitleLogo.png",
+		"Title\\title_ch.png"
+	};
 
-	hPictPlay_= Image::Load("Title\\playBt.png");
-	assert(hPictPlay_ >= 0);
-
-	hPictTuto_ = Image::Load("Title\\tutorialBt.png");
-	assert(hPictTuto_ >= 0);
-
-	hPictCh_ = Image::Load("Title\\title_ch.png");
-	assert(hPictCh_ >= 0);
+	for (int i = (int)TitleScene::UIName::PLAY; i < (int)TitleScene::UIName::UI_MAX; i++)
+	{
+		std::string fn = filename[i];
+		pUI[i] = Instantiate<UI>(this);
+		pUI[i]->Load(fn);
+	};
 }
 
 //更新
@@ -34,82 +38,65 @@ void TitleScene::Update()
 	{
 		switch (btState_)
 		{
-		case TitleScene::BtState::NONE:
+		case TitleScene::UIName::UI_MAX:
 			break;
-		case TitleScene::BtState::PLAY:
+		case TitleScene::UIName::PLAY:
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 			break;
-		case TitleScene::BtState::Tutorial:
+		case TitleScene::UIName::Tutorial:
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
 			break;
 		}
 	}
-
 	switch (btState_)
 	{
-	case TitleScene::BtState::NONE:
-		Image::SetColor(hPictTuto_);
-		Image::SetColor(hPictPlay_);
+	case TitleScene::UIName::UI_MAX:
+		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
 		break;
-	case TitleScene::BtState::PLAY:
-		Image::SetColor(hPictPlay_, 0.7f, 0.7f, 0.7f);
-		Image::SetColor(hPictTuto_);
+	case TitleScene::UIName::PLAY:
+		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle(), 0.7f, 0.7f, 0.7f);
+		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle());
 		break;
-	case TitleScene::BtState::Tutorial:
-		Image::SetColor(hPictTuto_, 0.7f, 0.7f, 0.7f);
-		Image::SetColor(hPictPlay_);
+	case TitleScene::UIName::Tutorial:
+		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle(), 0.7f, 0.7f, 0.7f);
+		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
 		break;
 	}
 
 	//プレイ画面
-	if (Image::IsHitCursor(hPictPlay_))
+	if (Image::IsHitCursor(pUI[(int)UIName::PLAY]->GetHandle()))
 	{
-		btState_ = BtState::PLAY;
+		btState_ = UIName::PLAY;
 	}
 	else
 	{
-		if(btState_ == BtState::PLAY) btState_ = BtState::NONE;
+		if(btState_ == UIName::PLAY) btState_ = UIName::UI_MAX;
 	}
 
 	//チュートリアル画面
-	if (Image::IsHitCursor(hPictTuto_))
+	if (Image::IsHitCursor(pUI[(int)UIName::Tutorial]->GetHandle()))
 	{
-		btState_ = BtState::Tutorial;
+		btState_ = UIName::Tutorial;
 	}
 	else
 	{
-		if (btState_ == BtState::Tutorial) btState_ = BtState::NONE;
+		if (btState_ == UIName::Tutorial) btState_ = UIName::UI_MAX;
 	}
 }
 
 //描画
 void TitleScene::Draw()
 {
-	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
+	//UIの位置
+	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
+	pUI[(int)UIName::Tutorial]->SetPosition(-0.4f, -0.4f, 0);
+	pUI[(int)UIName::Char]->SetPosition(0, -0.8f, 0);
 
-	Transform trans;
-	trans.position_ = XMFLOAT3(0.4f, -0.4f, 0);
-	//trans.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
-
-	Image::SetTransform(hPictPlay_, trans);
-	Image::Draw(hPictPlay_);
-
-	Transform trans2;
-	trans2.position_ = XMFLOAT3(-0.4f, -0.4f, 0);
-	//trans2.scale_ = XMFLOAT3(0.7, 0.7, 0.7);
-
-	Image::SetTransform(hPictTuto_, trans2);
-	Image::Draw(hPictTuto_);
-
-	Transform trans3;
-	trans3.position_ = XMFLOAT3(0, -0.8f, 0);
-
-	Image::SetTransform(hPictCh_, trans3);
-	Image::Draw(hPictCh_);
-	Image::FlashImage(hPictCh_);
+	//文字を点滅させる
+	Image::FlashImage(pUI[(int)UIName::Char]->GetHandle());
 }
 
 //開放

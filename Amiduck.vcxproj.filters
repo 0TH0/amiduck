@@ -125,6 +125,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -226,6 +227,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

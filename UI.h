@@ -1,24 +1,15 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Text.h"
 
 //テストシーンを管理するクラス
-class TitleScene : public GameObject
+class UI : public GameObject
 {
+	int hPict_;
+	std::string fileName_;
 public:
-
-	enum class UIName
-	{
-		PLAY = 0,
-		Tutorial,
-		Title,
-		Char,
-		UI_MAX
-	} btState_;
-
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	UI(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -31,4 +22,8 @@ public:
 
 	//開放
 	void Release() override;
+
+	virtual void Load(std::string fileName);
+
+	int GetHandle() { return hPict_; };
 };
