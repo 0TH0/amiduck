@@ -14,7 +14,7 @@ public:
 		Title,
 		Char,
 		UI_MAX
-	} btState_;
+	} UIName_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

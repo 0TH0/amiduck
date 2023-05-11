@@ -36,6 +36,11 @@ public:
 	//引数：value	表示したい値
 	void Draw(int x, int y, int value);
 
+	//描画（整数値）
+	//引数：x, y	表示位置（左上）
+	//引数：string	表示したい値
+	void Draw(int x, int y, std::string str);
+
 	//解放
 	void Release();
 };

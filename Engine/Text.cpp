@@ -86,6 +86,12 @@ void Text::Draw(int x, int y, int value)
 	Draw(x, y, str);
 }
 
+void Text::Draw(int x, int y, std::string str)
+{
+	const char* chr = str.c_str();
+	Draw(x, y, chr);
+}
+
 //‰ð•ú
 void Text::Release()
 {

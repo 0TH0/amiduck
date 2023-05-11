@@ -159,19 +159,19 @@ void Player::Update()
 
 
     //í‚é~Ç∑ÇÈ
-    //if (Input::IsKeyDown(DIK_F))
-    //{
-    //    if (!IsStop_)
-    //    {
-    //        speed_ = 0;
-    //        IsStop_ = true;
-    //    }
-    //    else
-    //    {
-    //        speed_ = 0.3f;
-    //        IsStop_ = false;
-    //    }
-    //}
+    if (Input::IsKeyDown(DIK_F))
+    {
+        if (!IsStop_)
+        {
+            speed_ = 0;
+            IsStop_ = true;
+        }
+        else
+        {
+            speed_ = 0.3f;
+            IsStop_ = false;
+        }
+    }
 
     /////////////////////////à⁄ìÆ/////////////////////////
     //ÉWÉÉÉìÉvíÜÇÃèdóÕ

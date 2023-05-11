@@ -18,16 +18,24 @@ void Timer::Update()
 {
 	rimit_ -= 1;
 
-	if (rimit_ % 60 == 0)
+	//ˆê•b–ˆ‚É
+	if (rimit_ % 60 == 0 && rimit_ >= 0)
 	{
 		a_ -= 1;
 	}
+
+	minutes = std::to_string(a_ / 60);
+	seconds = std::to_string(a_ % 60);
+
+	if (minutes == "0") minutes = "00";
+	if (seconds == "0") seconds = "00";
+	if (seconds.length() == 1) seconds = seconds.replace(0 , 2, "0" + seconds);
 }
 
 //•`‰æ
 void Timer::Draw()
 {
-	//pText_->Draw(700, 100, a_ % 60);
+	pText_->Draw(700, 100, minutes + " : " + seconds);
 }
 
 //ŠJ•ú

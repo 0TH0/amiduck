@@ -9,7 +9,7 @@ UI* pUI[(int)TitleScene::UIName::UI_MAX];
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScne"), btState_()
+	: GameObject(parent, "TitleScne"), UIName_()
 {
 }
 
@@ -36,7 +36,7 @@ void TitleScene::Update()
 {
 	if (Input::IsMouseButtonDown(0))
 	{
-		switch (btState_)
+		switch (UIName_)
 		{
 		case TitleScene::UIName::UI_MAX:
 			break;
@@ -50,7 +50,7 @@ void TitleScene::Update()
 			break;
 		}
 	}
-	switch (btState_)
+	switch (UIName_)
 	{
 	case TitleScene::UIName::UI_MAX:
 		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle());
@@ -69,21 +69,21 @@ void TitleScene::Update()
 	//プレイ画面
 	if (Image::IsHitCursor(pUI[(int)UIName::PLAY]->GetHandle()))
 	{
-		btState_ = UIName::PLAY;
+		UIName_ = UIName::PLAY;
 	}
 	else
 	{
-		if(btState_ == UIName::PLAY) btState_ = UIName::UI_MAX;
+		if(UIName_ == UIName::PLAY) UIName_ = UIName::UI_MAX;
 	}
 
 	//チュートリアル画面
 	if (Image::IsHitCursor(pUI[(int)UIName::Tutorial]->GetHandle()))
 	{
-		btState_ = UIName::Tutorial;
+		UIName_ = UIName::Tutorial;
 	}
 	else
 	{
-		if (btState_ == UIName::Tutorial) btState_ = UIName::UI_MAX;
+		if (UIName_ == UIName::Tutorial) UIName_ = UIName::UI_MAX;
 	}
 }
 
