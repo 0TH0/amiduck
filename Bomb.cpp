@@ -27,7 +27,7 @@ void Bomb::Initialize()
 	assert(hModel_ >= 0);
 
 	//当たり判定
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.0f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
 	AddCollider(collision);
 
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
@@ -39,7 +39,7 @@ void Bomb::Initialize()
     pLine->Load("tex_red.png");
 
     pLine2 = new PoryLine;
-    pLine2->Load("tex_orange.png");
+    pLine2->Load("Image\\tex_orange.png");
 
     //初期位置はプレイヤーの位置のｙ＋１
     Player* pPlayer = (Player*)FindObject("Player");

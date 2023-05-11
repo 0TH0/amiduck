@@ -89,13 +89,19 @@ void Controller::PlayerCamera()
             transform_.rotate_.x -= 2.0f;
         }
 
-        if (Input::IsKey(DIK_1))
+        if (Input::IsKeyDown(DIK_TAB))
         {
-            transform_.rotate_.y = -90;
-        }
-        if (Input::IsKey(DIK_2))
-        {
-            transform_.rotate_.y = 90;
+            switch (cameraState_)
+            {
+            case Controller::cameraState::camera1:
+                transform_.rotate_.y = -90;
+                cameraState_ = cameraState::camera2;
+                break;
+            case Controller::cameraState::camera2:
+                transform_.rotate_.y = 90;
+                cameraState_ = cameraState::camera1;
+                break;
+            }
         }
 
         if (Input::IsMouseButton(1))	//ŽÀŽ¿“I‚È‰Šú‰»
@@ -115,8 +121,8 @@ void Controller::PlayerCamera()
 
         mousePos_ = Input::GetMousePosition();
 
-        if (transform_.rotate_.x > 40)  transform_.rotate_.x = 40;
-        if (transform_.rotate_.x < -40) transform_.rotate_.x = -40;
+        if (transform_.rotate_.x > 35)  transform_.rotate_.x = 35;
+        if (transform_.rotate_.x < -35) transform_.rotate_.x = -35;
     }
 }
 

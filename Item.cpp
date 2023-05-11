@@ -53,11 +53,11 @@ void Item::Initialize()
 //更新
 void Item::Update()
 {
+	Player* pPlayer = (Player*)FindObject("Player");
 	//アイテムを拾ったら１回だけ実行
-	if (IsItem_)
+	if (!(pPlayer->GetHasItem()))
 	{
 		item_ = (ItemNum)Math::RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
-		IsItem_ = false;
 	}
 
 	if (woodCount_ < 3)

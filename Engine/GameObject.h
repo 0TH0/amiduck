@@ -29,7 +29,9 @@ protected:
 	std::string				objectName_;
 
 	//衝突判定リスト
-	std::list<Collider*>	colliderList_;	
+	std::list<Collider*>	colliderList_;
+
+	unsigned int			time_;
 
 public:
 	//コンストラクタ

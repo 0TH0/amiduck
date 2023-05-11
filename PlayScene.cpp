@@ -26,6 +26,8 @@
 #include "Pose.h"
 #include "Timer.h"
 
+Timer* pTimer;
+
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
@@ -43,7 +45,11 @@ void PlayScene::Initialize()
 
 	Instantiate<StartScene>(this);
 	Instantiate<Pose>(this);
-	Instantiate<Timer>(this);
+
+	//タイマー表示
+	pTimer = Instantiate<Timer>(this);
+	pTimer->SetRimit(180);
+
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);

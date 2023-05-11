@@ -2,7 +2,7 @@
 
 //コンストラクタ
 Timer::Timer(GameObject* parent)
-	: GameObject(parent, "Timer"),rimit_(10800), a_(180)
+	: GameObject(parent, "Timer"),frame_(0), rimit_(0)
 {
 }
 
@@ -11,31 +11,40 @@ void Timer::Initialize()
 {
 	pText_ = new Text;
 	pText_->Initialize();
+	float scale = 2.5f;
+	pText_->SetScale({ scale,scale,scale });
 }
 
 //更新
 void Timer::Update()
 {
-	rimit_ -= 1;
+	frame_++;
 
 	//一秒毎に
-	if (rimit_ % 60 == 0 && rimit_ >= 0)
+	if (frame_ % 60 == 0 && rimit_ > 0)
 	{
-		a_ -= 1;
+		rimit_--;
 	}
 
-	minutes = std::to_string(a_ / 60);
-	seconds = std::to_string(a_ % 60);
+	//分を求める
+	minStr_ = std::to_string(rimit_ / 60);
+	//秒を求める
+	secStr_ = std::to_string(rimit_ % 60);
 
-	if (minutes == "0") minutes = "00";
-	if (seconds == "0") seconds = "00";
-	if (seconds.length() == 1) seconds = seconds.replace(0 , 2, "0" + seconds);
+	//0を00にする
+	if (minStr_ == "0") minStr_ = "00";
+	if (secStr_ == "0") secStr_ = "00";
+
+	//残りの時間（分）が一桁になったら
+	if (minStr_.length() == 1) minStr_ = minStr_.replace(0, 2, "0" + minStr_);
+	//残りの時間（秒）が一桁になったら
+	if (secStr_.length() == 1) secStr_ = secStr_.replace(0 , 2, "0" + secStr_);
 }
 
 //描画
 void Timer::Draw()
 {
-	pText_->Draw(700, 100, minutes + " : " + seconds);
+	pText_->Draw(700, 100, minStr_ + " : " + secStr_);
 }
 
 //開放

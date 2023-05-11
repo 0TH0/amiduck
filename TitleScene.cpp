@@ -4,8 +4,8 @@
 #include "Engine/Input.h"
 #include "UI.h"
 
-SceneManager* pSceneManager;
-UI* pUI[(int)TitleScene::UIName::UI_MAX];
+static SceneManager* pSceneManager;
+static UI* pUI[(int)TitleScene::UIName::UI_MAX];
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
@@ -94,6 +94,11 @@ void TitleScene::Draw()
 	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
 	pUI[(int)UIName::Tutorial]->SetPosition(-0.4f, -0.4f, 0);
 	pUI[(int)UIName::Char]->SetPosition(0, -0.8f, 0);
+
+	for (int i = (int)TitleScene::UIName::PLAY; i < (int)TitleScene::UIName::UI_MAX; i++)
+	{
+		Image::Draw(pUI[i]->GetHandle());
+	}
 
 	//文字を点滅させる
 	Image::FlashImage(pUI[(int)UIName::Char]->GetHandle());

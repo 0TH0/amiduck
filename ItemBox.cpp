@@ -58,7 +58,7 @@ void ItemBox::Draw()
 
 	Player* pPlayer = (Player*)FindObject("Player");
 
-	//アイテムボックスに当たってプレイヤーがアイテムを持っていないとき
+	//アイテムボックスに当たってプレイヤーがアイテムを持っているとき
 	if ((pPlayer->GetHasItem()))
 	{
 		Transform trans;
@@ -85,7 +85,6 @@ void ItemBox::OnCollision(GameObject* pTarget)
 			pPlayer->SetHasItem(true);
 			//アイテムを入手した時の処理
 			Item* pItem = (Item*)FindObject("Item");
-			pItem->SetIsItem(true);
 		}
 		Invisible();
 		IsHit_ = true;

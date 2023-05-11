@@ -1,11 +1,20 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Text.h"
 
-//シーンを管理するクラス
+//テストシーンを管理するクラス
 class ClearScene : public GameObject
 {
 public:
-	int hPict_;    //画像番号
+
+	enum class UIName
+	{
+		FINISH = 0,
+		RETRY,
+		CLEAR,
+		BACK_TITLE,
+		UI_MAX
+	} UIName_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

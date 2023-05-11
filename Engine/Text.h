@@ -8,6 +8,7 @@ class Text
 	unsigned int width_, height_;	//1•¶š•ª‚Ì•‚Æ‚‚³
 	char fileName_[MAX_PATH];
 	unsigned int rowLength_;
+	XMFLOAT3 scale_;
 
 public:
 	Text();
@@ -43,5 +44,8 @@ public:
 
 	//‰ğ•ú
 	void Release();
+
+	//‘å‚«‚³•ÏX
+	void SetScale(XMFLOAT3 scale);
 };
 

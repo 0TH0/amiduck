@@ -26,6 +26,12 @@ public:
 
 	void CrickRight();
 
+	enum class cameraState
+	{
+		camera1 = 0,
+		camera2
+	}cameraState_;
+
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Controller(GameObject* parent);

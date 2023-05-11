@@ -2,24 +2,32 @@
 #include "Engine/Image.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "UI.h"
 
-Player* pPlayer;
-Enemy* pEnemy;
-static int hPict;
+static Player* pPlayer;
+static Enemy* pEnemy;
+static UI* pUI[5];
 static int playerStarNum;
 static int enemyStarNum;
+static int starMax = 5;
 
 //コンストラクタ
 StarUI::StarUI(GameObject* parent)
-	: GameObject(parent, "TestScene")
+	: GameObject(parent, "StarUI")
 {
 }
 
 //初期化
 void StarUI::Initialize()
 {
-	hPict = Image::Load("Image\\star_white.png");
-	assert(hPict >= 0);
+	for (int i = 0; i < starMax; i++)
+	{
+		pUI[i] = Instantiate<UI>(this);
+		pUI[i]->Load("Image\\star_white.png");
+		pUI[i]->SetScale(0.4f, 0.4f, 0.4f);
+		Image::SetColor(pUI[i]->GetHandle(), 1, 1, 0);
+		pUI[i]->SetPosition(-0.9f + (i * 0.1f), 0.85f, 0);
+	}
 }
 
 //更新
@@ -37,11 +45,7 @@ void StarUI::Draw()
 {
 	for (int i = 0; i < playerStarNum; i++)
 	{
-		transform_.position_ = XMFLOAT3(-0.6f + (i * 0.15f), 0.85f ,0);
-		transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5f);
-		Image::SetColor(hPict, 1, 1, 0);
-		Image::SetTransform(hPict, transform_);
-		Image::Draw(hPict);
+		Image::Draw(pUI[i]->GetHandle());
 	}
 }
 

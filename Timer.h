@@ -6,10 +6,10 @@
 class Timer : public GameObject
 {
 	Text* pText_;
-	int rimit_;	//残り時間
-	int a_;
-	std::string minutes;
-	std::string seconds;
+	unsigned int frame_;	//残り時間
+	unsigned int rimit_;
+	std::string minStr_;
+	std::string secStr_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -26,4 +26,6 @@ public:
 
 	//開放
 	void Release() override;
+
+	void SetRimit(int rimit) { rimit_ = rimit; };
 };

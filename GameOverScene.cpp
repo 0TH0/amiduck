@@ -1,48 +1,132 @@
-#include "GameoverScene.h"
+#include "GameOverScene.h"
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
-#include "Engine/Camera.h"
+#include "UI.h"
 
+static SceneManager* pSceneManager;
+static UI* pUI[(int)GameOverScene::UIName::UI_MAX];
 
 //コンストラクタ
-GameoverScene::GameoverScene(GameObject* parent)
-	: GameObject(parent, "GameoverScene"), hPict_(-1)
+GameOverScene::GameOverScene(GameObject* parent)
+	: GameObject(parent, "GameOverScene"), UIName_()
 {
 }
 
 //初期化
-void GameoverScene::Initialize()
+void GameOverScene::Initialize()
 {
-	//全画面表示する
-	Direct3D::SetViewPort(Direct3D::SCREEN_FULL);
-	Camera::SetDefault();
+	std::string filename[] = {
+		"Clear\\finish.png",
+		"Clear\\retry.png",
+		"Clear\\GameOver.png",
+		"Clear\\BackTitle.png",
+	};
 
-	//画像データのロード
-	hPict_ = Image::Load("Image\\GameOver.png");
-	assert(hPict_ >= 0);
+	float scale = 0.8f;
+	for (int i = (int)GameOverScene::UIName::FINISH; i < (int)GameOverScene::UIName::UI_MAX; i++)
+	{
+		std::string fn = filename[i];
+		pUI[i] = Instantiate<UI>(this);
+		pUI[i]->Load(fn);
+		pUI[i]->SetScale(scale * 1.1f, scale, scale);
+	};
+
+
+	//UIの位置
+	pUI[(int)UIName::FINISH]->SetPosition(0, -0.8, 0);
+	pUI[(int)UIName::RETRY]->SetPosition(0, 0, 0);
+	pUI[(int)UIName::BACK_TITLE]->SetPosition(0, -0.4f, 0);
+	pUI[(int)UIName::GAMEOVER]->SetPosition(0, 0.2f, 0);
 }
 
 //更新
-void GameoverScene::Update()
+void GameOverScene::Update()
 {
-	if (Input::IsKey(DIK_RETURN))
+	if (Input::IsMouseButtonDown(0))
 	{
-		//プレイシーンに切り替え
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+		switch (UIName_)
+		{
+		case GameOverScene::UIName::UI_MAX:
+			break;
+		case GameOverScene::UIName::FINISH:
+			PostQuitMessage(0);
+			break;
+		case GameOverScene::UIName::RETRY:
+			pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_PLAY);
+			break;
+		case GameOverScene::UIName::BACK_TITLE:
+			pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_TITLE);
+			break;
+		}
+	}
+	switch (UIName_)
+	{
+	case GameOverScene::UIName::UI_MAX:
+		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
+		break;
+	case GameOverScene::UIName::FINISH:
+		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle(), 0.7f, 0.7f, 0.7f);
+		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
+		break;
+	case GameOverScene::UIName::RETRY:
+		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle(), 0.7f, 0.7f, 0.7f);
+		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
+		break;
+	case GameOverScene::UIName::BACK_TITLE:
+		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle(), 0.7f, 0.7f, 0.7f);
+		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
+		break;
+	}
+
+	//プレイ画面
+	if (Image::IsHitCursor(pUI[(int)UIName::FINISH]->GetHandle()))
+	{
+		UIName_ = UIName::FINISH;
+	}
+	else
+	{
+		if (UIName_ == UIName::FINISH) UIName_ = UIName::UI_MAX;
+	}
+
+	//チュートリアル画面
+	if (Image::IsHitCursor(pUI[(int)UIName::RETRY]->GetHandle()))
+	{
+		UIName_ = UIName::RETRY;
+	}
+	else
+	{
+		if (UIName_ == UIName::RETRY) UIName_ = UIName::UI_MAX;
+	}
+
+	//タイトルへ
+	if (Image::IsHitCursor(pUI[(int)UIName::BACK_TITLE]->GetHandle()))
+	{
+		UIName_ = UIName::BACK_TITLE;
+	}
+	else
+	{
+		if (UIName_ == UIName::BACK_TITLE) UIName_ = UIName::UI_MAX;
 	}
 }
 
 //描画
-void GameoverScene::Draw()
+void GameOverScene::Draw()
 {
-	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
+	for (int i = (int)GameOverScene::UIName::FINISH; i < (int)GameOverScene::UIName::UI_MAX; i++)
+	{
+		Image::Draw(pUI[i]->GetHandle());
+	}
 }
 
 //開放
-void GameoverScene::Release()
+void GameOverScene::Release()
 {
 }
-

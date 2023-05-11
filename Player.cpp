@@ -61,8 +61,6 @@ void Player::Initialize()
     AddCollider(collision);
 
     pStage = (Stage*)FindObject("Stage");
-    assert(pStage != nullptr);
-
     Instantiate<Controller>(this);
 
     pText->Initialize();
@@ -76,7 +74,7 @@ void Player::Initialize()
     for (int i = 0; i < 3; i++)
     {
         pLine[i] = new PoryLine;
-        pLine[i]->Load("tex_orange.png");
+        pLine[i]->Load("Image\\tex_orange.png");
     }
 }
 
@@ -115,7 +113,7 @@ void Player::Update()
     RotateDirMove();
 
     //アイテム使用
-    if (Input::IsKeyDown(DIK_E))
+    if (Input::IsKeyDown(DIK_E) && hasItem_)
     {
         Item* pItem =(Item*)FindObject("Item");
         switch (pItem->GetItem())

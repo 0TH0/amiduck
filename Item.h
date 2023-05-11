@@ -56,7 +56,7 @@ public:
 	ItemNum GetItem() { return item_; };
 
 	void SetIsItem(bool IsItem) { IsItem_ = IsItem; };
-	bool IsItem() { return IsItem_; };
+	bool GetIsItem() { return IsItem_; };
 
 	void MinWoodCount() { woodCount_ -= 1;};
 	void PluswoodCount() { woodCount_ += 1; };

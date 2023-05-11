@@ -24,7 +24,6 @@ void UI::Update()
 void UI::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
 }
 
 //ŠJ•ú
