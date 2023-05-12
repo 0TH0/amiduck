@@ -24,6 +24,9 @@
       <UniqueIdentifier>{47a6a3f5-8cfd-436b-8d58-beccd108f3f3}</UniqueIdentifier>
       <Extensions>hlsl</Extensions>
     </Filter>
+    <Filter Include="01Scene">
+      <UniqueIdentifier>{ad577d30-f6c8-4e18-9f47-a61f88a52a35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -87,13 +90,9 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -108,13 +107,11 @@
     </ClCompile>
     <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Engine\Math.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="ItemBox.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Engine\Alpha.cpp">
@@ -126,6 +123,22 @@
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -188,14 +201,10 @@
     <ClInclude Include="Engine\Text.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="StartScene.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
@@ -210,13 +219,11 @@
     </ClInclude>
     <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Engine\Math.h">
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Star.h" />
     <ClInclude Include="ItemBox.h" />
-    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Engine\Alpha.h">
@@ -228,6 +235,22 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="PlayScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

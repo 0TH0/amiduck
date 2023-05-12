@@ -207,12 +207,6 @@ void Enemy::Update()
     {
         starTime_++;
     }
-    if (starNum_ >= 5)
-    {
-        starNum_ = 5;
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
-    }
 }
 
 void Enemy::Draw()

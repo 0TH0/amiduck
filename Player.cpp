@@ -9,6 +9,9 @@
 #include "Line.h"
 #include "Bomb.h"
 #include "Item.h"
+#include "Timer.h"
+#include "Enemy.h"
+#include "Observer.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -17,6 +20,8 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Math.h"
+
+static Timer* pTimer;
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -80,6 +85,7 @@ void Player::Initialize()
 
 void Player::Update()
 {
+    pTimer = (Timer*)FindObject("Timer");
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
@@ -225,13 +231,23 @@ void Player::Update()
         starTime_++;
     }
 
-    if (starNum_ >= 5)
+    //星を5個取るか一定時間が経過したら
+    if (starNum_ >= 5 || pTimer->GetRimit() <= 0)
     {
-        starNum_ = 5;
+        Enemy* pEnemy= (Enemy*)FindObject("Enemy");
 
-        //星が５つならクリアシーンへ
+        //敵の星の数の方が多かったら
+        if (pEnemy->GetStarNum() >= starNum_)
+        {
+            Observer::SetIsWin(false);
+        }
+        else
+        {
+            Observer::SetIsWin(true);
+        }
+        //リザルトシーンへ
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+        pSceneManager->ChangeScene(SCENE_ID_RESULT);
     }
 }
 

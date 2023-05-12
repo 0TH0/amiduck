@@ -3,7 +3,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "StartScene.h"
-#include "GameoverScene.h"
 #include "Instructions.h"
 #include "Controller.h"
 #include "FireFollowGround.h"
@@ -48,7 +47,7 @@ void PlayScene::Initialize()
 
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
-	pTimer->SetRimit(180);
+	pTimer->SetRimit(10);
 
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);
@@ -67,6 +66,7 @@ void PlayScene::Update()
 {
 	//BGM再生
 	Audio::Play(hAudio_);
+
 }
 
 //描画

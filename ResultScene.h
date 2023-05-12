@@ -3,22 +3,21 @@
 #include "Engine/Text.h"
 
 //テストシーンを管理するクラス
-class GameOverScene : public GameObject
+class ResultScene : public GameObject
 {
 public:
-
 	enum class UIName
 	{
 		FINISH = 0,
 		RETRY,
-		GAMEOVER,
 		BACK_TITLE,
+		RESULT,
 		UI_MAX
 	} UIName_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	GameOverScene(GameObject* parent);
+	ResultScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;

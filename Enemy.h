@@ -92,4 +92,6 @@ public:
     bool GetHasItem() { return hasItem_; };
 
     void  RotateDirMove();
+
+    int GetStarNum() { return starNum_; };
 };

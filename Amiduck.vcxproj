@@ -125,7 +125,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Duck.cpp" />
@@ -157,15 +156,16 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="FireFollowGround.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Pose.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StartScene.cpp" />
@@ -177,7 +177,6 @@
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Duck.h" />
@@ -209,15 +208,16 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="FireFollowGround.h" />
-    <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Fire.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Pose.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="StartScene.h" />

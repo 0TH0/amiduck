@@ -28,4 +28,6 @@ public:
 	void Release() override;
 
 	void SetRimit(int rimit) { rimit_ = rimit; };
+
+	int GetRimit() { return rimit_; };
 };
