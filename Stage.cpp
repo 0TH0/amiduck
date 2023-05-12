@@ -129,73 +129,7 @@ void Stage::Initialize()
             stage_[x][z].type = csv.GetValue(x, z);
         }
     }
-
-    stage_[29][10].type = fire;
-    stage_[48][20].type = fire_right;
-    //あとで関数作る
-    //マップの自動生成
-    while(bridgeCount_ < 15)
-    {
-        int randX = (rand() % (STAGE_SIZE_X - 5) + 5);
-        int randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
-
-        if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
-        {
-            stage_[randX][randZ + 1].type = coin;
-            stage_[randX][randZ].type     = coin;
-            stage_[randX][randZ - 1].type = coin;
-            stage_[randX][randZ - 2].type = coin;
-            stage_[randX][randZ - 3].type = coin;
-            bridgeCount_++;
-        }
-        else
-        {
-            randX = (rand() % (STAGE_SIZE_X - 5) + 5);
-            randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
-        }
-    }
-
-    //アイテムボックス出現
-    {
-        int count = 0;
-        while (count < 10)
-        {
-            int randX = (rand() % STAGE_SIZE_X - 1);
-            int randZ = (rand() % STAGE_SIZE_Z - 1);
-
-            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
-            {
-                stage_[randX][randZ + 2].type = itembox;
-                count++;
-            }
-            else
-            {
-                randX = (rand() % STAGE_SIZE_X - 1);
-                randZ = (rand() % STAGE_SIZE_Z - 1);
-            }
-        }
-    }
-
-    {
-        int count = 0;
-        while (count < 5)
-        {
-            int randX = (rand() % STAGE_SIZE_X - 1);
-            int randZ = (rand() % STAGE_SIZE_Z - 1);
-
-            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
-            {
-                stage_[randX][randZ + 2].type = star;
-                count++;
-            }
-            else
-            {
-                randX = (rand() % STAGE_SIZE_X - 1);
-                randZ = (rand() % STAGE_SIZE_Z - 1);
-            }
-        }
-    }
-
+    RandStage();
 
     //読み込んだモデルの初期化
     for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -595,6 +529,75 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ - 1);
                     buf[4] = XMINT3(bufX, 1, bufZ - 4);
                 }
+            }
+        }
+    }
+}
+
+void Stage::RandStage()
+{
+     stage_[29][10].type = fire;
+    stage_[48][20].type = fire_right;
+    //あとで関数作る
+    //マップの自動生成
+    while(bridgeCount_ < 15)
+    {
+        int randX = (rand() % (STAGE_SIZE_X - 5) + 5);
+        int randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
+
+        if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+        {
+            stage_[randX][randZ + 1].type = coin;
+            stage_[randX][randZ].type     = coin;
+            stage_[randX][randZ - 1].type = coin;
+            stage_[randX][randZ - 2].type = coin;
+            stage_[randX][randZ - 3].type = coin;
+            bridgeCount_++;
+        }
+        else
+        {
+            randX = (rand() % (STAGE_SIZE_X - 5) + 5);
+            randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
+        }
+    }
+
+    //アイテムボックス出現
+    {
+        int count = 0;
+        while (count < 10)
+        {
+            int randX = (rand() % STAGE_SIZE_X - 1);
+            int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+            {
+                stage_[randX][randZ + 2].type = itembox;
+                count++;
+            }
+            else
+            {
+                randX = (rand() % STAGE_SIZE_X - 1);
+                randZ = (rand() % STAGE_SIZE_Z - 1);
+            }
+        }
+    }
+
+    {
+        int count = 0;
+        while (count < 5)
+        {
+            int randX = (rand() % STAGE_SIZE_X - 1);
+            int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+            {
+                stage_[randX][randZ + 2].type = star;
+                count++;
+            }
+            else
+            {
+                randX = (rand() % STAGE_SIZE_X - 1);
+                randZ = (rand() % STAGE_SIZE_Z - 1);
             }
         }
     }

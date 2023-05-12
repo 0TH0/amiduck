@@ -10,9 +10,9 @@ public:
 	enum class UIName
 	{
 		PLAY = 0,
-		Tutorial,
-		Title,
-		Char,
+		TUTORIAL,
+		TITLE,
+		CHAR,
 		UI_MAX
 	} UIName_;
 

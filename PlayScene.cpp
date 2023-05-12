@@ -47,7 +47,7 @@ void PlayScene::Initialize()
 
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
-	pTimer->SetRimit(10);
+	pTimer->SetRimit(180);
 
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);
@@ -66,7 +66,6 @@ void PlayScene::Update()
 {
 	//BGM再生
 	Audio::Play(hAudio_);
-
 }
 
 //描画

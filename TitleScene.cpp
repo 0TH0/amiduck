@@ -29,6 +29,11 @@ void TitleScene::Initialize()
 		pUI[i] = Instantiate<UI>(this);
 		pUI[i]->Load(fn);
 	};
+
+	//UIの位置
+	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
+	pUI[(int)UIName::TUTORIAL]->SetPosition(-0.4f, -0.4f, 0);
+	pUI[(int)UIName::CHAR]->SetPosition(0, -0.8f, 0);
 }
 
 //更新
@@ -44,7 +49,7 @@ void TitleScene::Update()
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 			break;
-		case TitleScene::UIName::Tutorial:
+		case TitleScene::UIName::TUTORIAL:
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
 			break;
@@ -53,15 +58,15 @@ void TitleScene::Update()
 	switch (UIName_)
 	{
 	case TitleScene::UIName::UI_MAX:
-		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle());
 		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
 		break;
 	case TitleScene::UIName::PLAY:
 		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle());
+		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle());
 		break;
-	case TitleScene::UIName::Tutorial:
-		Image::SetColor(pUI[(int)UIName::Tutorial]->GetHandle(), 0.7f, 0.7f, 0.7f);
+	case TitleScene::UIName::TUTORIAL:
+		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle(), 0.7f, 0.7f, 0.7f);
 		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
 		break;
 	}
@@ -77,31 +82,26 @@ void TitleScene::Update()
 	}
 
 	//チュートリアル画面
-	if (Image::IsHitCursor(pUI[(int)UIName::Tutorial]->GetHandle()))
+	if (Image::IsHitCursor(pUI[(int)UIName::TUTORIAL]->GetHandle()))
 	{
-		UIName_ = UIName::Tutorial;
+		UIName_ = UIName::TUTORIAL;
 	}
 	else
 	{
-		if (UIName_ == UIName::Tutorial) UIName_ = UIName::UI_MAX;
+		if (UIName_ == UIName::TUTORIAL) UIName_ = UIName::UI_MAX;
 	}
 }
 
 //描画
 void TitleScene::Draw()
 {
-	//UIの位置
-	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
-	pUI[(int)UIName::Tutorial]->SetPosition(-0.4f, -0.4f, 0);
-	pUI[(int)UIName::Char]->SetPosition(0, -0.8f, 0);
-
 	for (int i = (int)TitleScene::UIName::PLAY; i < (int)TitleScene::UIName::UI_MAX; i++)
 	{
 		Image::Draw(pUI[i]->GetHandle());
 	}
 
 	//文字を点滅させる
-	Image::FlashImage(pUI[(int)UIName::Char]->GetHandle());
+	Image::FlashImage(pUI[(int)UIName::CHAR]->GetHandle());
 }
 
 //開放

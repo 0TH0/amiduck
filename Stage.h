@@ -84,4 +84,5 @@ public:
 
     //左クリックで橋を出現させる
     void PopBridge();
+    void RandStage();
 };

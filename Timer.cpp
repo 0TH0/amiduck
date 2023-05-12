@@ -50,4 +50,5 @@ void Timer::Draw()
 //ŠJ•ú
 void Timer::Release()
 {
+	pText_->Release();
 }

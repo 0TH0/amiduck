@@ -220,11 +220,12 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
     {
         pTarget->Invisible();
 
-        if (starTime_ == 0)
+        Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
+        if (starTime_ == 0 && pEnemy->GetStarNum() > 0)
         {
             starTime_++;
             Star* pStar = Instantiate<Star>(GetParent());
-            Enemy* pEnemy = (Enemy*)FindObject("Enemy");
             pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
         }
         KillMe();

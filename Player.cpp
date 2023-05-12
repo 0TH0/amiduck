@@ -266,9 +266,6 @@ void Player::Draw()
         break;
     }
 
-    //pText->Draw(100, 100, "Player:");
-    //pText->Draw(250, 100, starNum_);
-
     if (IsSpeedUp_)
     {
         float pos = -0.5f;

@@ -161,44 +161,6 @@ void Enemy::Update()
     {
         transform_.position_.y = 0.75f;
     }
-
-    //if (Input::IsKeyDown(DIK_Z))
-    //{
-    //    Camera::SetDual();
-    //}
-    //if (Input::IsKeyDown(DIK_X))
-    //{
-    //    Camera::SetDefault();
-    //}
-
-    //if (!IsBlend())
-    //{
-    //    if (Input::IsKeyDown(DIK_L))
-    //    {
-    //        Blend();
-    //        EmitterData data;
-    //        data.textureFileName = "Particle\\Cloud.png";
-    //        data.position = transform_.position_;
-    //        data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
-    //        data.delay = 0;
-    //        data.number = 5;
-    //        data.lifeTime = 60;
-    //        data.dir = XMFLOAT3(0, 1, 0);
-    //        data.dirErr = XMFLOAT3(0, 0, 0);
-    //        data.speed = 0.01f;
-    //        data.speedErr = 0.0;
-    //        data.size = XMFLOAT2(2, 2);
-    //        data.sizeErr = XMFLOAT2(0.4, 0.4);
-    //        data.scale = XMFLOAT2(1.03, 1.02);
-    //        data.color = XMFLOAT4(0.7, 0.7, 0.7, 0.1f);
-    //        pParticle_->Start(data);
-    //    }
-    //}
-    //if (Input::IsKeyUp(DIK_L))
-    //{
-    //    Default();
-    //}
-
     if (starTime_ >= 10)
     {
         starTime_ = 0;
@@ -250,11 +212,12 @@ void Enemy::OnCollision(GameObject* pTarget)
     //“G‚É“–‚½‚Á‚½
     if (pTarget->GetObjectName() == "Player")
     {
-        if (starTime_ == 0)
+        Player* pPlayer = (Player*)FindObject("Player");
+        if (starTime_ == 0 && pPlayer->GetStarNum() > 0)
         {
             starTime_++;
             Star* pStar = Instantiate<Star>(GetParent());
-            Player* pPlayer = (Player*)FindObject("Player");
+            
             pStar->SetPosition(pPlayer->GetPosition().x, pPlayer->GetPosition().y + 4, pPlayer->GetPosition().z);
         }
     }
