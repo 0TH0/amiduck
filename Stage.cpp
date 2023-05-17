@@ -43,7 +43,7 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csvì«Ç›çûÇ›
-    csv.Load("Csv\\map3.csv");
+    csv.Load("Csv\\map4.csv");
 
     //îªíË
     hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
