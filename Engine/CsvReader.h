@@ -29,7 +29,6 @@ public:
 	//戻値：成功→true　失敗→false
 	bool Load(std::string fileName);
 
-
 	//指定した位置のデータを文字列で取得
 	//引数：x,y　取得したい位置
 	//戻値：取得した文字列
@@ -43,11 +42,11 @@ public:
 	//ファイルの列数を取得
 	//引数：なし
 	//戻値：列数
-	size_t GetWidth();
+	unsigned int GetWidth();
 
 	//ファイルの行数を取得
 	//引数：なし
 	//戻値：行数
-	size_t GetHeight();
+	unsigned int GetHeight();
 };
 

@@ -357,9 +357,6 @@ void Player::OnCollision(GameObject* pTarget)
         }
         else
         {
-            //横から当たったらゲームオーバー
-            /*SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-            pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);*/
         }
     }
 }

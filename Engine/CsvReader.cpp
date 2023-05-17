@@ -119,13 +119,13 @@ int CsvReader::GetValue(DWORD x, DWORD y)
 }
 
 //ファイルの列数を取得
-size_t CsvReader::GetWidth()
+unsigned int CsvReader::GetWidth()
 {
 	return data_[0].size();
 }
 
 //ファイルの行数を取得
-size_t CsvReader::GetHeight()
+unsigned int CsvReader::GetHeight()
 {
 	return data_.size();
 }
