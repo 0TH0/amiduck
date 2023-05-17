@@ -44,7 +44,7 @@ void Timer::Update()
 //•`‰æ
 void Timer::Draw()
 {
-	pText_->Draw(700, 100, minStr_ + " : " + secStr_);
+	pText_->Draw(transform_.position_.x, transform_.position_.z, minStr_ + " : " + secStr_);
 }
 
 //ŠJ•ú

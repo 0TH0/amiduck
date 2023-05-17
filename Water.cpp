@@ -19,8 +19,6 @@ void Water::Initialize()
     hModel_ = Model::Load("Water\\Water.fbx");
     assert(hModel_ >= 0);
     transform_.scale_ = XMFLOAT3(500, 0.1, 500);
-    //transform_.position_ = XMFLOAT3(-500, -1, -500);
-    //transform_.scale_ = XMFLOAT3(2, 2, 2);
     Model::SetSahder(hModel_, Direct3D::SHADER_3D);
 }
 

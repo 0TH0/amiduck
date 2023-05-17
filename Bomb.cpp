@@ -70,53 +70,30 @@ void Bomb::Initialize()
 void Bomb::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
-    transform_.rotate_.x += 5;
+	transform_.rotate_.x += 5;
 
 	time++;
 
-	//if (time >= 90)
-	{
-		//炎
-		{
-            data.position = transform_.position_;
-            pParticle_->Start(data);
-
-            //data.delay = 0;
-            //data.number = 80;
-            //data.lifeTime = 100;
-            //data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-            //data.dir = XMFLOAT3(0, 1, 0);
-            //data.dirErr = XMFLOAT3(180, 180, 180);
-            //data.speed = 0.5f;
-            //data.speedErr = 1;
-            //data.accel = 0.93;
-            //data.size = XMFLOAT2(0.1, 0.1);
-            //data.sizeErr = XMFLOAT2(0.4, 0.4);
-            //data.scale = XMFLOAT2(0.99, 0.99);
-            //data.color = XMFLOAT4(1, 1, 0.1, 1);
-            //data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-            //data.gravity = 0.003f;
-            //pParticle_->Start(data);
-		}
-	}
+	data.position = transform_.position_;
+	pParticle_->Start(data);
 
 	if (time >= 180)
 	{
 		KillMe();
 	}
 
-	if(pPlayer->GetReturn())
+	if (pPlayer->GetReturn())
 	{
-        transform_.position_.x--;
+		transform_.position_.x--;
 	}
 	else
 	{
 		transform_.position_.x++;
 	}
 
-    //ポリラインに現在の位置を伝える
-    pLine->AddPosition(transform_.position_);
-    pLine2->AddPosition(transform_.position_);
+	//ポリラインに現在の位置を伝える
+	pLine->AddPosition(transform_.position_);
+	pLine2->AddPosition(transform_.position_);
 
 	if (starTime_ >= 7)
 	{

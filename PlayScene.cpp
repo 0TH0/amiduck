@@ -48,6 +48,7 @@ void PlayScene::Initialize()
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
 	pTimer->SetRimit(180);
+	pTimer->SetPosition(700, 0, 100);
 
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);

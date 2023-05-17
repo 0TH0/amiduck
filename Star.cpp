@@ -39,17 +39,6 @@ void Star::Update()
 		time_++;
 	}
 
-	//if (IsHit_)
-	//{
-	//	time_++;
-	//}
-
-	//if (time_ >= 300)
-	//{
-	//	Visible();
-	//	IsHit_ = false;
-	//	time_ = 0;
-	//}
 	if (transform_.position_.y <= 1.25f)
 	{
 		transform_.position_.y = 1.25f;
