@@ -19,14 +19,16 @@
 #include "Fire.h"
 
 class Item;
-Fire* pFire;
+Item* pItem;
+static Fire* pFire;
 static int bufX, bufY, bufZ;
 static XMINT3 buf[5];
 static bool IsHit = false;
-Item* pItem;
 static float minDistance;
 static XMVECTOR vStart;
 static XMVECTOR vTarget;
+static Transform trans;
+static int bridgeMax = 5;
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -320,7 +322,7 @@ void Stage::PopBridge()
                     XMStoreFloat3(&ray.dir, vTarget - vStart);
 
                     int type = stage_[x][z].type;
-                    Transform trans;
+                    
                     trans.position_.x = (float)x;
                     trans.position_.y = (float)y;
                     trans.position_.z = (float)z;

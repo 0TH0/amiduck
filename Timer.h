@@ -6,10 +6,10 @@
 class Timer : public GameObject
 {
 	Text* pText_;
-	unsigned int frame_;	//残り時間
-	unsigned int rimit_;
-	std::string minStr_;
-	std::string secStr_;
+	unsigned int frame_;	//何フレーム経ったか
+	unsigned int rimit_;	//残り時間
+	std::string minStr_;	//残り分
+	std::string secStr_;	//残り秒
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

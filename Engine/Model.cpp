@@ -231,4 +231,11 @@ namespace Model
 		_datas[handle]->pFbx->SetIsDiffuse(true);
 		_datas[handle]->pFbx->SetDiffuse(diffuse);
 	}
+
+	bool IsHit(int handle)
+	{
+		return true;
+
+		return false;
+	}
 }

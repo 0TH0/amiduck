@@ -2,7 +2,7 @@
 
 //コンストラクタ
 Timer::Timer(GameObject* parent)
-	: GameObject(parent, "Timer"),frame_(0), rimit_(0)
+	: GameObject(parent, "Timer"),frame_(0), rimit_(0),pText_()
 {
 }
 
@@ -11,7 +11,7 @@ void Timer::Initialize()
 {
 	pText_ = new Text;
 	pText_->Initialize();
-	float scale = 2.5f;
+	float scale = 3.f;
 	pText_->SetScale({ scale,scale,scale });
 }
 
@@ -38,7 +38,7 @@ void Timer::Update()
 	//残りの時間（分）が一桁になったら
 	if (minStr_.length() == 1) minStr_ = minStr_.replace(0, 2, "0" + minStr_);
 	//残りの時間（秒）が一桁になったら
-	if (secStr_.length() == 1) secStr_ = secStr_.replace(0 , 2, "0" + secStr_);
+	if (secStr_.length() == 1) secStr_ = secStr_.replace(0, 2, "0" + secStr_);
 }
 
 //描画
