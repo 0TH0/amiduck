@@ -1,4 +1,5 @@
-#include "Player.h"
+#include "CharacterBase.h"
+#include "CharacterBase.h"
 #include "Stage.h"
 #include "PlayScene.h"
 #include "StartScene.h"
@@ -11,6 +12,7 @@
 #include "Item.h"
 #include "Timer.h"
 #include "Enemy.h"
+#include "Observer/ResultObserver.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -23,15 +25,15 @@
 static Timer* pTimer;
 
 //コンストラクタ
-Player::Player(GameObject* parent)
-    :GameObject(parent, "Player"),
+CharacterBase::CharacterBase(GameObject* parent)
+    :GameObject(parent, "CharacterBase"),
 
     //変数
     hModel_(-1), hModel2_(-1),
     jump_v0(0), gravity(0), angle(0), delay_(0),
 
     //フラグ
-    IsJump(false), IsGround(false), hasItem_(false),IsLeft_(false),IsRight_(false),
+    IsJump(false), IsGround(false), hasItem_(false), IsLeft_(false), IsRight_(false),
 
     //定数
     speed_(0.3f), DUSHSPEED(0.05f),
@@ -40,18 +42,21 @@ Player::Player(GameObject* parent)
 }
 
 //デストラクタ
-Player::~Player()
+CharacterBase::~CharacterBase()
 {
 }
 
 //初期化
-void Player::Initialize()
+void CharacterBase::Initialize()
 {
-    hModel_ = Model::Load("Model\\Player\\egg.fbx");
+    hModel_ = Model::Load("Model\\CharacterBase\\egg.fbx");
     assert(hModel_ >= 0);
 
-    hModel2_ = Model::Load("Model\\Player\\duck.fbx");
+    hModel2_ = Model::Load("Model\\CharacterBase\\duck.fbx");
     assert(hModel2_ >= 0);
+
+    //アニメーションの設定
+    Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
 
     //位置
     transform_.rotate_ = XMFLOAT3(0, 180, 0);
@@ -61,15 +66,12 @@ void Player::Initialize()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
 
-    pStage = (Stage*)FindObject("Stage");
     Instantiate<Controller>(this);
-
-    pText->Initialize();
 
     pParticle_ = Instantiate<Particle>(this);
 
     //最初は卵から
-    playerState = State::EGG;
+    CharacterBaseState = State::EGG;
 
     //ポリライン初期化
     for (int i = 0; i < 3; i++)
@@ -79,18 +81,18 @@ void Player::Initialize()
     }
 }
 
-void Player::Update()
+void CharacterBase::Update()
 {
     pTimer = (Timer*)FindObject("Timer");
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    switch (playerState)
+    switch (CharacterBaseState)
     {
-    case Player::State::EGG:
+    case CharacterBase::State::EGG:
         transform_.rotate_.z += 10;
         break;
-    case Player::State::LARVA:
+    case CharacterBase::State::LARVA:
         transform_.rotate_ = XMFLOAT3(0, 180, 0);
         break;
     }
@@ -98,11 +100,11 @@ void Player::Update()
     //星の数が０以下で卵
     if (starNum_ <= 0)
     {
-        playerState = State::EGG;
+        CharacterBaseState = State::EGG;
     }
     else
     {
-        playerState = State::LARVA;
+        CharacterBaseState = State::LARVA;
     }
 
     // 1フレーム前の座標
@@ -117,7 +119,7 @@ void Player::Update()
     //アイテム使用
     if (Input::IsKeyDown(DIK_E) && hasItem_)
     {
-        Item* pItem =(Item*)FindObject("Item");
+        Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
         {
             //ボール出す
@@ -157,7 +159,6 @@ void Player::Update()
         SpeedUpTime_ = 0;
     }
 
-
     //停止する
     if (Input::IsKeyDown(DIK_F))
     {
@@ -172,7 +173,6 @@ void Player::Update()
             IsStop_ = false;
         }
     }
-
     /////////////////////////移動/////////////////////////
     //ジャンプ中の重力
     if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
@@ -191,7 +191,6 @@ void Player::Update()
         //ジャンプフラグ
         IsJump = true;
     }
-
     if (!IsStop_)
     {
         ////ジャンプ中の重力
@@ -212,28 +211,44 @@ void Player::Update()
             transform_.position_.y += move_.y;
         }
     }
-
     if (transform_.position_.y <= 0.75f)
     {
         transform_.position_.y = 0.75f;
     }
-
     if (starTime_ >= 10)
     {
         starTime_ = 0;
     }
-    else if(starTime_ > 0)
+    else if (starTime_ > 0)
     {
         starTime_++;
     }
+    //星を5個取るか一定時間が経過したら
+    if (starNum_ >= 5 || pTimer->GetRimit() <= 0)
+    {
+        Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
+        //敵の星の数の方が多かったら
+        if (pEnemy->GetStarNum() >= starNum_)
+        {
+            ResultObserver::SetIsWin(false);
+        }
+        else
+        {
+            ResultObserver::SetIsWin(true);
+        }
+        //リザルトシーンへ
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_RESULT);
+    }
 }
 
-void Player::Draw()
+void CharacterBase::Draw()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
 
-    switch (playerState)
+    switch (CharacterBaseState)
     {
     case State::EGG:
         Model::FlashModel(hModel_);
@@ -242,7 +257,6 @@ void Player::Draw()
         Model::FlashModel(hModel2_);
         break;
     }
-
     if (IsSpeedUp_)
     {
         float pos = -0.5f;
@@ -259,7 +273,7 @@ void Player::Draw()
     }
 }
 
-void Player::Release()
+void CharacterBase::Release()
 {
     //ポリライン解放
     for (int i = 0; i < 3; i++)
@@ -269,14 +283,13 @@ void Player::Release()
 }
 
 //何かに当たった
-void Player::OnCollision(GameObject* pTarget)
+void CharacterBase::OnCollision(GameObject* pTarget)
 {
     //敵に当たった
     if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Fire")
     {
         Model::SetIsFlash(hModel_);
         Model::SetIsFlash(hModel2_);
-
         if (starTime_ == 0)
         {
             if (starNum_ > 0)
@@ -286,7 +299,7 @@ void Player::OnCollision(GameObject* pTarget)
             }
         }
     }
-    
+
     if (pTarget->GetObjectName() == "Star")
     {
         if (starTime_ == 0)
@@ -296,7 +309,7 @@ void Player::OnCollision(GameObject* pTarget)
         }
     }
 
-    XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
+    XMVECTOR vCharacterBasePos = XMLoadFloat3(&transform_.position_);
     XMVECTOR Down = { 0,-1,0,0 };
 
     //敵に当たった
@@ -307,11 +320,11 @@ void Player::OnCollision(GameObject* pTarget)
         XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
 
         //プレイヤーの位置
-        XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
-        XMVector3Normalize(PlayerPos);
+        XMVECTOR CharacterBasePos = vEnemyPos - vCharacterBasePos;
+        XMVector3Normalize(CharacterBasePos);
 
         //Downとプレイヤーの外積を求める
-        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
+        XMVECTOR vDot = XMVector3Dot(Down, CharacterBasePos);
         float Dot = XMVectorGetY(vDot);
 
         //角度を求める
@@ -339,11 +352,11 @@ void Player::OnCollision(GameObject* pTarget)
 }
 
 //あみだくじ
-void Player::LadderLottery()
+void CharacterBase::LadderLottery()
 {
     //////////////////壁との衝突判定///////////////////////
     XMINT3 obj = Math::ToXMINT(transform_.position_);
-    
+
     //壁の判定(上)
     if (!IsRight_ && !IsLeft_)
     {
@@ -397,12 +410,12 @@ void Player::LadderLottery()
             SpeedOnWood_[R] = 0;
 
 
-            switch (playerState)
+            switch (CharacterBaseState)
             {
-            case Player::State::EGG:
+            case CharacterBase::State::EGG:
                 speed_ = 0.2;
                 break;
-            case Player::State::LARVA:
+            case CharacterBase::State::LARVA:
                 speed_ = 0.3f;
                 break;
             default:
@@ -454,12 +467,12 @@ void Player::LadderLottery()
                 StoppedTime_ = 0;
                 SpeedOnWood_[L] = 0;
 
-                switch (playerState)
+                switch (CharacterBaseState)
                 {
-                case Player::State::EGG:
+                case CharacterBase::State::EGG:
                     speed_ = 0.2;
                     break;
-                case Player::State::LARVA:
+                case CharacterBase::State::LARVA:
                     speed_ = 0.3f;
                     break;
                 default:
@@ -476,7 +489,7 @@ void Player::LadderLottery()
 }
 
 //進む方向を向く
-void Player::RotateDirMove()
+void CharacterBase::RotateDirMove()
 {
     //現在の位置ベクトル
     XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);

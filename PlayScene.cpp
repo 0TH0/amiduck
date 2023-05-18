@@ -24,8 +24,9 @@
 #include "Engine/Audio.h"
 #include "Pose.h"
 #include "Timer.h"
+#include "Observer/ResultObserver.h"
 
-Timer* pTimer;
+static Timer* pTimer;
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -47,7 +48,7 @@ void PlayScene::Initialize()
 
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
-	pTimer->SetRimit(180);
+	pTimer->SetRimit(5);
 	pTimer->SetPosition(700, 0, 100);
 
 	Instantiate<Duck>(this);
@@ -65,6 +66,29 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {
+	Player* pPlayer = (Player*)FindObject("Player");
+
+	//星を5個取るか一定時間が経過したら
+	if (pPlayer->GetStarNum() >= 5 || pTimer->GetRimit() <= 0)
+	{
+		Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+
+		//敵の星の数の方が多かったら
+		if (pEnemy->GetStarNum() >= pPlayer->GetStarNum())
+		{
+			//プレイヤーの負け
+			ResultObserver::SetIsWin(false);
+		}
+		else
+		{
+			//プレイヤーの勝ち
+			ResultObserver::SetIsWin(true);
+		}
+		//リザルトシーンへ
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_RESULT);
+	}
+
 	//BGM再生
 	Audio::Play(hAudio_);
 }

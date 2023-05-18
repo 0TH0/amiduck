@@ -131,7 +131,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				pRootObject->DrawSub();
 
 				//プレイシーンだったら
-				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY)
+				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY ||
+					((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_TUTORIAL)
 				{
 					//★画面分割
 					switch (Camera::GetDual())

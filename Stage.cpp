@@ -33,7 +33,7 @@ static int bridgeMax = 5;
 //コンストラクタ
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),
-    bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_()
+    bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true)
 {
 }
 
@@ -129,15 +129,7 @@ void Stage::Initialize()
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
             stage_[x][z].type = csv.GetValue(x, z);
-        }
-    }
-    RandStage();
 
-    //読み込んだモデルの初期化
-    for (int x = 0; x < STAGE_SIZE_X; x++)
-    {
-        for (int z = 0; z < STAGE_SIZE_Z; z++)
-        {
             //エネミー登場
             if (stage_[x][z].type == enemy)
             {
@@ -175,6 +167,9 @@ void Stage::Initialize()
             }
         }
     }
+
+    //ランダムなステージを出すか
+    if(ShouldPoPRandStage_) RandStage();
 
     pText->Initialize();
     pParticle_ = Instantiate<Particle>(this);

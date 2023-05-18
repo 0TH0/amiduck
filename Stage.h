@@ -42,6 +42,7 @@ class Stage : public GameObject
     int bridgeCount_;
     int hAudio_;
     int woodCoolTime_;
+    bool ShouldPoPRandStage_;
     XMFLOAT3 GuidePopBridgePos;
 
     Text* pText = new Text;
@@ -77,10 +78,12 @@ public:
 
     void Cloud();
 
+    //セッターゲッター
     static const int GetStageSizeX() { return STAGE_SIZE_X; };
     static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
-
     int GetWoodCoolTime() { return woodCoolTime_; };
+    void SetShouldPoPRandStage(bool ShouldPoPRandStage) { ShouldPoPRandStage_ = ShouldPoPRandStage; };
+    bool GetShouldPoPRandStage() { return ShouldPoPRandStage_; };
 
     //左クリックで橋を出現させる
     void PopBridge();

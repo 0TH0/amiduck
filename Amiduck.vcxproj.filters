@@ -146,6 +146,9 @@
     <ClCompile Include="Engine\UI.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -261,6 +264,9 @@
     </ClInclude>
     <ClInclude Include="Engine\UI.h">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>01Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
