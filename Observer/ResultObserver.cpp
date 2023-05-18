@@ -1,11 +1,11 @@
-#include "Observer.h"
+#include "ResultObserver.h"
 
 namespace
 {
     bool IsWin = false;
 }
 
-namespace Observer
+namespace ResultObserver
 {
     void SetIsWin(bool result)
     {

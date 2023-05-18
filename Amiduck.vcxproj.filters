@@ -27,6 +27,9 @@
     <Filter Include="01Scene">
       <UniqueIdentifier>{ad577d30-f6c8-4e18-9f47-a61f88a52a35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03Observer">
+      <UniqueIdentifier>{fcdf85af-73b7-4e2b-a4d7-b60d489b54d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -122,8 +125,6 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlayScene.cpp">
       <Filter>01Scene</Filter>
     </ClCompile>
@@ -138,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="ResultScene.cpp">
       <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer\ResultObserver.cpp">
+      <Filter>03Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UI.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,8 +241,6 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="Observer.h" />
     <ClInclude Include="PlayScene.h">
       <Filter>01Scene</Filter>
     </ClInclude>
@@ -250,6 +255,12 @@
     </ClInclude>
     <ClInclude Include="ResultScene.h">
       <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer\ResultObserver.h">
+      <Filter>03Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UI.h">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

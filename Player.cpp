@@ -11,7 +11,7 @@
 #include "Item.h"
 #include "Timer.h"
 #include "Enemy.h"
-#include "Observer.h"
+#include "Observer/ResultObserver.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -239,11 +239,11 @@ void Player::Update()
         //敵の星の数の方が多かったら
         if (pEnemy->GetStarNum() >= starNum_)
         {
-            Observer::SetIsWin(false);
+            ResultObserver::SetIsWin(false);
         }
         else
         {
-            Observer::SetIsWin(true);
+            ResultObserver::SetIsWin(true);
         }
         //リザルトシーンへ
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");

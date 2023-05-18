@@ -1,6 +1,6 @@
 #include "UI.h"
-#include "Engine/Image.h"
-#include "Engine/Input.h"
+#include "Image.h"
+#include "Input.h"
 
 //コンストラクタ
 UI::UI(GameObject* parent)

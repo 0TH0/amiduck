@@ -1,5 +1,5 @@
 #pragma once
-namespace Observer
+namespace ResultObserver
 {
 	void SetIsWin(bool result);
 	bool GetIsWin();

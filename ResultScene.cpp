@@ -2,8 +2,8 @@
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
-#include "UI.h"
-#include "Observer.h"
+#include "Engine/UI.h"
+#include "Observer/ResultObserver.h"
 
 static SceneManager* pSceneManager;
 static UI* pUI[(int)ResultScene::UIName::UI_MAX];
@@ -20,7 +20,7 @@ void ResultScene::Initialize()
 	std::string resultStr = "";
 
 	//Ÿ•‰‚É‚æ‚Á‚Ä•Ï‚¦‚é
-	if (Observer::GetIsWin()) resultStr = "Clear\\win.png";
+	if (ResultObserver::GetIsWin()) resultStr = "Clear\\win.png";
 	else resultStr = "Clear\\lose.png";
 	assert(resultStr != "");
 

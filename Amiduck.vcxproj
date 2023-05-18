@@ -155,13 +155,14 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="Engine\UI.cpp" />
     <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Observer\ResultObserver.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Pose.cpp" />
@@ -173,7 +174,6 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -207,13 +207,14 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Engine\UI.h" />
     <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Fire.h" />
-    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Observer\ResultObserver.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Pose.h" />
@@ -225,7 +226,6 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
