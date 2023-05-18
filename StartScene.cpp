@@ -21,8 +21,6 @@ void StartScene::Initialize()
 
 	hPict_[0] = Image::Load("Image\\start.png");
 	assert(hPict_[0] >= 0);
-
-	transform_.position_.y = 0.5;
 }
 
 //XV

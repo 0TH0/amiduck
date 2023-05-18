@@ -24,6 +24,7 @@ class Stage : public GameObject
         itembox,
         fire,
         fire_right,
+        enemy_ai,
         STAGE_MODEL_MAX
     };
 

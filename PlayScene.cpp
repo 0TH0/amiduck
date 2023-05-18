@@ -26,6 +26,7 @@
 #include "Timer.h"
 #include "Observer/ResultObserver.h"
 
+
 static Timer* pTimer;
 
 //コンストラクタ
@@ -42,13 +43,14 @@ void PlayScene::Initialize()
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
 	pStage->StageLoad();
+	pStage->SetShouldPoPRandStage(true);
 
 	Instantiate<StartScene>(this);
 	Instantiate<Pose>(this);
 
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
-	pTimer->SetRimit(5);
+	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
 	Instantiate<Duck>(this);

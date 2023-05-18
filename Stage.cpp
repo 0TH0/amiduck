@@ -17,6 +17,7 @@
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
 #include "Fire.h"
+#include "EnemyMob.h"
 
 class Item;
 Item* pItem;
@@ -129,7 +130,16 @@ void Stage::Initialize()
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
             stage_[x][z].type = csv.GetValue(x, z);
+        }
+    }
 
+    //ランダムなステージを出すか
+    if (ShouldPoPRandStage_) RandStage();
+
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
             //エネミー登場
             if (stage_[x][z].type == enemy)
             {
@@ -165,11 +175,13 @@ void Stage::Initialize()
                 pFire->SetPosition(x, 1.25f, z);
                 pFire->SetRight(true);
             }
+            if (stage_[x][z].type == enemy_ai)
+            {
+                EnemyMob* pEnemyMob = Instantiate<EnemyMob>(GetParent());
+                pEnemyMob->SetPosition(x, 1.25f, z);
+            }
         }
     }
-
-    //ランダムなステージを出すか
-    if(ShouldPoPRandStage_) RandStage();
 
     pText->Initialize();
     pParticle_ = Instantiate<Particle>(this);

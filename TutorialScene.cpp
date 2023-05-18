@@ -41,8 +41,7 @@ void TutorialScene::Initialize()
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
 	pStage->SetShouldPoPRandStage(false);
-	Instantiate<Controller>(this);
-
+	
 	//Instantiate<StartScene>(this);
 	//Instantiate<Pose>(this);
 

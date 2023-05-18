@@ -129,7 +129,9 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyMob.cpp" />
     <ClCompile Include="Engine\Alpha.cpp" />
+    <ClCompile Include="Engine\Astar.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BillBoard.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
@@ -182,7 +184,9 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyMob.h" />
     <ClInclude Include="Engine\Alpha.h" />
+    <ClInclude Include="Engine\Astar.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BillBoard.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
