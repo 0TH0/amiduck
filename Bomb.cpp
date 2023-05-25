@@ -9,14 +9,12 @@
 
 //コンストラクタ
 Bomb::Bomb(GameObject* parent)
-	: GameObject(parent, "Fire"), hModel_(-1), pLine(nullptr)
+	: GameObject(parent, "Fire"), hModel_(-1)
 {
 }
 
 Bomb::~Bomb()
 {
-	SAFE_DELETE(pLine);
-	SAFE_DELETE(pLine2);
 }
 
 //初期化
@@ -33,13 +31,6 @@ void Bomb::Initialize()
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
     transform_.rotate_ = XMFLOAT3(0, 0, 0);
-
-    //ポリライン初期化
-    pLine = new PoryLine;
-    pLine->Load("tex_red.png");
-
-    pLine2 = new PoryLine;
-    pLine2->Load("Image\\tex_orange.png");
 
     //初期位置はプレイヤーの位置のｙ＋１
     Player* pPlayer = (Player*)FindObject("Player");
@@ -91,10 +82,6 @@ void Bomb::Update()
 		transform_.position_.x++;
 	}
 
-	//ポリラインに現在の位置を伝える
-	pLine->AddPosition(transform_.position_);
-	pLine2->AddPosition(transform_.position_);
-
 	if (starTime_ >= 7)
 	{
 		starTime_ = 0;
@@ -110,18 +97,11 @@ void Bomb::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
-
-    //ポリラインを描画
-    pLine->Draw();
-    pLine2->Draw();
 }
 
 //開放
 void Bomb::Release()
 {
-    //ポリライン解放
-    pLine->Release();
-    pLine2->Release();
 }
 
 void Bomb::OnCollision(GameObject* pTarget)

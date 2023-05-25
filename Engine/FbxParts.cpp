@@ -167,8 +167,6 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 		ambient = pPhong->Ambient;
 		diffuse = pPhong->Diffuse;
 
-
-
 		// 環境光＆拡散反射光＆鏡面反射光の反射成分値をマテリアルバッファにコピー
 		pMaterial_[i].ambient = XMFLOAT4((float)ambient[0], (float)ambient[1], (float)ambient[2], 1.0f);
 		pMaterial_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);

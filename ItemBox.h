@@ -9,6 +9,7 @@ class ItemBox : public GameObject
 	int time_;
 	bool IsHit_;
 	Particle* pParticle_;
+	EmitterData data;
 
 public:
 

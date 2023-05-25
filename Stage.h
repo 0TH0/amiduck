@@ -77,8 +77,6 @@ public:
 
     void StageLoad();
 
-    void Cloud();
-
     //セッターゲッター
     static const int GetStageSizeX() { return STAGE_SIZE_X; };
     static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
@@ -89,4 +87,7 @@ public:
     //左クリックで橋を出現させる
     void PopBridge();
     void RandStage();
+
+    void CloudIni();
+    void CloudStart();
 };

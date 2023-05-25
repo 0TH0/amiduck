@@ -12,7 +12,6 @@
 #include "StartScene.h"
 #include "Water.h"
 #include "Item.h"
-#include "Coin.h"
 #include "Fire.h"
 #include "StarUI.h"
 #include "Duck.h"

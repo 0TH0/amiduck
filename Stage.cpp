@@ -3,7 +3,6 @@
 #include "PlayScene.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "Coin.h"
 #include "Star.h"
 #include "ItemBox.h"
 #include "Item.h"
@@ -89,27 +88,6 @@ void Stage::StageLoad()
     assert(hAudio_ >= 0);
 }
 
-void Stage::Cloud()
-{
-    data.textureFileName = "Particle\\Cloud.png";
-    data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
-    data.delay = 0;
-    data.number = 5;
-    data.lifeTime = 60;
-    data.dir = XMFLOAT3(0, 1, 0);
-    data.dirErr = XMFLOAT3(0, 0, 0);
-    data.speed = 0.01f;
-    data.speedErr = 0.5;
-    data.size = XMFLOAT2(2, 2);
-    data.sizeErr = XMFLOAT2(0.4f, 0.4f);
-    data.scale = XMFLOAT2(1.03f, 1.02f);
-    float color = 0.5;
-    data.color = XMFLOAT4(color, color, color, 0.1f);
-    pParticle_->Start(data);
-
-    Audio::Play(hAudio_);
-}
-
 //‰Šú‰»
 void Stage::Initialize()
 {
@@ -123,6 +101,7 @@ void Stage::Initialize()
         }
     }
 
+    CloudIni();
     StageLoad();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -366,7 +345,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 4].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ + 3;
-                    Cloud();
+                    CloudStart();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 2].type == log)
@@ -378,7 +357,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 3].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ + 2;
-                    Cloud();
+                    CloudStart();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 3].type == log)
@@ -390,7 +369,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 2].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ + 1;
-                    Cloud();
+                    CloudStart();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 4].type == log)
@@ -402,7 +381,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 3].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ;
-                    Cloud();
+                    CloudStart();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 5].type == log)
@@ -414,7 +393,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 4].type = coin;
                     data.position.x = bufX;
                     data.position.z = bufZ - 1;
-                    Cloud();
+                    CloudStart();
                     pItem->MinWoodCount();
                 }
             }
@@ -610,6 +589,30 @@ void Stage::RandStage()
             }
         }
     }
+}
+
+void Stage::CloudIni()
+{
+    data.textureFileName = "Particle\\Cloud.png";
+    data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
+    data.delay = 0;
+    data.number = 5;
+    data.lifeTime = 60;
+    data.dir = XMFLOAT3(0, 1, 0);
+    data.dirErr = XMFLOAT3(0, 0, 0);
+    data.speed = 0.01f;
+    data.speedErr = 0.5;
+    data.size = XMFLOAT2(2, 2);
+    data.sizeErr = XMFLOAT2(0.4f, 0.4f);
+    data.scale = XMFLOAT2(1.03f, 1.02f);
+    float color = 0.5;
+    data.color = XMFLOAT4(color, color, color, 0.1f);
+}
+
+void Stage::CloudStart()
+{
+    pParticle_->Start(data);
+    Audio::Play(hAudio_);
 }
 
 //‚»‚±‚Í•Ç‚©

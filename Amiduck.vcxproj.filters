@@ -97,7 +97,6 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PoryLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -220,7 +219,6 @@
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bomb.h" />
-    <ClInclude Include="Coin.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PoryLine.h">
       <Filter>01Engine\ResourceManager</Filter>

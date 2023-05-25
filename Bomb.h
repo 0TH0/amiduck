@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
-#include "Engine/PoryLine.h"
 #include "Engine/Particle.h"
 
 //シーンを管理するクラス
@@ -18,8 +17,6 @@ public:
 	int starTime_;
 	Stage* pStage;
 	float speed_;        //移動速度
-	PoryLine* pLine;
-	PoryLine* pLine2;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
