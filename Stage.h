@@ -14,17 +14,17 @@ class Stage : public GameObject
 
     enum StageModelNum
     {
-        empty,
-        log,
-        coin,
-        enemy,
-        player,
-        star,
-        bridge,
-        itembox,
-        fire,
-        fire_right,
-        enemy_ai,
+        EMPTY,
+        BLOCK,
+        BRIDGE,
+        ENEMY,
+        PLAYER,
+        STAR,
+        BRIDGE_FADE,
+        ITEMBOX,
+        FIRE,
+        FIRE_RIGHT,
+        ENEMY_AI,
         STAGE_MODEL_MAX
     };
 
@@ -90,4 +90,6 @@ public:
 
     void CloudIni();
     void CloudStart();
+
+    int GetStageType(int x, int z) { return stage_[x][z].type; };
 };

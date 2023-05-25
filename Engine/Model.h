@@ -111,6 +111,4 @@ namespace Model
 	void SetIsFlash(int handle, bool IsFlash = 1);
 
 	void SetColor(int handle, XMFLOAT4 diffuse);
-
-	bool IsHit(int handle);
 };

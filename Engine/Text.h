@@ -9,6 +9,7 @@ class Text
 	char fileName_[MAX_PATH];
 	unsigned int rowLength_;
 	XMFLOAT3 scale_;
+	bool isVisible_;	//ï\é¶Ç∑ÇÈÇ©
 
 public:
 	Text();
@@ -47,5 +48,7 @@ public:
 
 	//ëÂÇ´Ç≥ïœçX
 	void SetScale(XMFLOAT3 scale);
+
+	void SetIsVisible(bool IsVisible) { isVisible_ = IsVisible; };
 };
 

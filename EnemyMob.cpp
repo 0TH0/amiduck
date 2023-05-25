@@ -25,6 +25,7 @@ void EnemyMob::Initialize()
 
 void EnemyMob::Update()
 {
+    transform_.rotate_.y+=10;
     Action();
 }
 
@@ -46,19 +47,16 @@ void EnemyMob::Action()
     {
         if (totalCell >= 0)
         {
-            XMVECTOR v = { (float)AI_.GetToGoalCell(totalCell).x + 0.5f, 0.0f, (float)AI_.GetToGoalCell(totalCell).z + 0.5f,0 };
+            XMVECTOR v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z,0 };
 
             XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
 
-            if (Math::CalcDist(transform_.position_, Math::VectorToFloat3(v)) < 1.f)
-            {
-                transform_.position_ = Math::VectorToFloat3(v);
-            }
+            transform_.position_ = Math::VectorToFloat3(v);
         }
     }
 
     //‰½ƒtƒŒ[ƒ€–ˆ‚Éi‚Þ‚©
-    int frame = 20;
+    int frame = 5;
 
     if (count_ > frame)
     {

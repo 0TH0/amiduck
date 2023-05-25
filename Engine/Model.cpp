@@ -19,7 +19,6 @@ namespace Model
 	{
 			ModelData* pData = new ModelData;
 
-
 			//開いたファイル一覧から同じファイル名のものが無いか探す
 			bool isExist = false;
 			for (int i = 0; i < _datas.size(); i++)
@@ -70,10 +69,6 @@ namespace Model
 	//描画
 	void Draw(int handle, FLOAT alpha)
 	{
-		/*	bool visible = false;
-			visible = _datas[handle]->pRootObject->
-				FindObject(_datas[handle]->pRootObject->GetObjectName())->IsVisibled();*/
-
 		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
 		{
 			return;
@@ -230,12 +225,5 @@ namespace Model
 	{
 		_datas[handle]->pFbx->SetIsDiffuse(true);
 		_datas[handle]->pFbx->SetDiffuse(diffuse);
-	}
-
-	bool IsHit(int handle)
-	{
-		return true;
-
-		return false;
 	}
 }

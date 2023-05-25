@@ -2,7 +2,7 @@
 #include "Direct3D.h"
 #include "Text.h"
 
-Text::Text() : hPict_(-1), width_(16), height_(32), fileName_("Image\\char2.png"), rowLength_(16),scale_({1,1,1})
+Text::Text() : hPict_(-1), width_(16), height_(32), fileName_("Image\\char2.png"), rowLength_(16),scale_({1,1,1}), isVisible_(true)
 {
 }
 
@@ -84,13 +84,13 @@ void Text::Draw(int x, int y, int value)
 	char str[256];
 	sprintf_s(str, "%d", value);
 
-	Draw(x, y, str);
+	if (isVisible_) Draw(x, y, str);
 }
 
 void Text::Draw(int x, int y, std::string str)
 {
 	const char* chr = str.c_str();
-	Draw(x, y, chr);
+	if (isVisible_) Draw(x, y, chr);
 }
 
 //‰ð•ú

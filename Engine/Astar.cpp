@@ -30,7 +30,7 @@ bool Astar::Search(std::string name, CELL startCell, CELL goalCell)
             {
                 costmap[x][z] = -1;
             }
-            else if (map_[x][z] > 0)
+            else
             {
                 costmap[x][z] = 1;
             }
