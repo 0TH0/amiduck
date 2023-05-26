@@ -79,22 +79,22 @@ void Player::Initialize()
     }
 }
 
-static float sp = 0.3f;
+static float sp = 6.f;
 void Player::Update()
 {
-    if (Input::IsKey(DIK_W))
+    if (Input::IsKeyDown(DIK_W))
     {
         transform_.position_.x += sp;
     }
-    if (Input::IsKey(DIK_S))
+    if (Input::IsKeyDown(DIK_S))
     {
         transform_.position_.x -= sp;
     }
-    if (Input::IsKey(DIK_A))
+    if (Input::IsKeyDown(DIK_A))
     {
         transform_.position_.z += sp;
     }
-    if (Input::IsKey(DIK_D))
+    if (Input::IsKeyDown(DIK_D))
     {
         transform_.position_.z -= sp;
     }
