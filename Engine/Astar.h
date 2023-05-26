@@ -93,11 +93,15 @@ public:
     //デストラクタ
     ~Astar();
 
+    void CsvLoad(std::string name);
+
+    void mapTypeLoad(int type);
+
     //スタート位置の設定
     //name      ：読み込むファイル名
     //startCell ：startのCELL
     //goalCell  ：goalのCELL
-    bool Search(std::string name, CELL startCell, CELL goalCell);
+    bool Search(CELL startCell, CELL goalCell);
 
     //周りをOpenする
     //引数：startのCELL

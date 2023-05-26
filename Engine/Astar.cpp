@@ -2,7 +2,8 @@
 #include "Model.h"
 
 //コンストラクタ
-Astar::Astar()
+Astar::Astar():
+    costmap(),goalCell_(),map_(),minNode(),startCell_(),totalCosts()
 {
 }
 
@@ -11,8 +12,7 @@ Astar::~Astar()
 {
 }
 
-//最短経路を探索
-bool Astar::Search(std::string name, CELL startCell, CELL goalCell)
+void Astar::CsvLoad(std::string name)
 {
     csv.Load(name);
 
@@ -20,10 +20,31 @@ bool Astar::Search(std::string name, CELL startCell, CELL goalCell)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
+            map_[x][z] = csv.GetValue(x, z);
+        }
+    }
+}
+
+void Astar::mapTypeLoad(int type)
+{
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
+            map_[x][z] = type;
+        }
+    }
+}
+
+//最短経路を探索
+bool Astar::Search(CELL startCell, CELL goalCell)
+{
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
             //Node設定(posと推定コストの計算だけしておく)
             mapNode[x][z] = Node({ x,z }, NONE, 0, abs((goalCell.x - x) + (goalCell.z - z)), 0, nullptr);
-
-            map_[x][z] = csv.GetValue(x, z);
 
             //コストの初期値
             if (map_[x][z] == -1)

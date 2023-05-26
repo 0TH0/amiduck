@@ -116,7 +116,7 @@ void Stage::Initialize()
     }
 
     //ランダムなステージを出すか
-    if (ShouldPoPRandStage_) RandStage();
+    //if (ShouldPoPRandStage_) RandStage();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
@@ -160,7 +160,7 @@ void Stage::Initialize()
             if (stage_[x][z].type == ENEMY_AI)
             {
                 EnemyMob* pEnemyMob = Instantiate<EnemyMob>(GetParent());
-                pEnemyMob->SetPosition(x, 5.f, z);
+                pEnemyMob->SetPosition(x, 1.5f, z);
             }
         }
     }

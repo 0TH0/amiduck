@@ -79,8 +79,25 @@ void Player::Initialize()
     }
 }
 
+static float sp = 0.3f;
 void Player::Update()
 {
+    if (Input::IsKey(DIK_W))
+    {
+        transform_.position_.x += sp;
+    }
+    if (Input::IsKey(DIK_S))
+    {
+        transform_.position_.x -= sp;
+    }
+    if (Input::IsKey(DIK_A))
+    {
+        transform_.position_.z += sp;
+    }
+    if (Input::IsKey(DIK_D))
+    {
+        transform_.position_.z -= sp;
+    }
     pTimer = (Timer*)FindObject("Timer");
     pStage = (Stage*)FindObject("Stage");
     Enemy* pEnemy = (Enemy*)FindObject("Enemy");
