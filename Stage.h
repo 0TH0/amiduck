@@ -28,7 +28,7 @@ class Stage : public GameObject
         STAGE_MODEL_MAX
     };
 
-    struct
+    struct stageInfo
     {
         int type;
         int height;

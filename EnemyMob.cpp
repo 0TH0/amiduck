@@ -24,7 +24,7 @@ void EnemyMob::Initialize()
     //transform_.scale_ = XMFLOAT3(2.f, 2.f, 2.f);
 
     //csvì«Ç›çûÇ›
-    //AI_.CsvLoad("Csv\\map4.csv");
+    AI_.CsvLoad("Csv\\map4.csv");
 }
 
 void EnemyMob::Update()

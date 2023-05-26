@@ -116,7 +116,7 @@ void Stage::Initialize()
     }
 
     //ランダムなステージを出すか
-    //if (ShouldPoPRandStage_) RandStage();
+    if (ShouldPoPRandStage_) RandStage();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
@@ -281,6 +281,11 @@ void Stage::Draw()
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
+                    break;
+                case ENEMY_AI:
+                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
+                    Model::SetTransform(hModel_[BLOCK], transform_);
+                    Model::Draw(hModel_[BLOCK]);
                     break;
                 }
             }
