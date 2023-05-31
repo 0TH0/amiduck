@@ -22,22 +22,19 @@ void EnemyMob::Initialize()
     hModel_ = Model::Load("Model\\fire\\fireball.fbx");
     transform_.position_ = { 0, 1.5f, 10.f };
     //transform_.scale_ = XMFLOAT3(2.f, 2.f, 2.f);
-
-    //csvì«Ç›çûÇ›
-    AI_.CsvLoad("Csv\\map4.csv");
 }
 
 void EnemyMob::Update()
 {
-    //Stage* pStage = (Stage*)FindObject("Stage");
+    Stage* pStage = (Stage*)FindObject("Stage");
 
-    //for (int x = 0; x < STAGE_SIZE_X; x++)
-    //{
-    //    for (int z = 0; z < STAGE_SIZE_Z; z++)
-    //    {
-    //        AI_.mapTypeLoad(pStage->GetStageType(x, z));
-    //    }
-    //}
+    for (int x = 0; x < STAGE_SIZE_X; x++)
+    {
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
+        {
+            AI_.SetMapType(pStage->GetStageType(x, z), x, z);
+        }
+    }
 
     transform_.rotate_.y += 5;
     Action();
@@ -70,7 +67,7 @@ void EnemyMob::Action()
     }
 
     //âΩÉtÉåÅ[ÉÄñàÇ…êiÇﬁÇ©
-    int frame = 3;
+    int frame = 15;
 
     if (count_ > frame)
     {

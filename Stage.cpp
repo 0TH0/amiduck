@@ -262,27 +262,12 @@ void Stage::Draw()
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type], 0.5);
                     break;
-                case ENEMY:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
+                case FIRE:
+                case FIRE_RIGHT:
+                //case ENEMY_AI:
+                    //‰½‚à‚µ‚È‚¢
                     break;
-                case PLAYER:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case STAR:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case ITEMBOX:
-                    transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[type], transform_);
-                    Model::Draw(hModel_[type]);
-                    break;
-                case ENEMY_AI:
+                default:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[BLOCK], transform_);
                     Model::Draw(hModel_[BLOCK]);

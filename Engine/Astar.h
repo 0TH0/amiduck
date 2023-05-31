@@ -95,7 +95,7 @@ public:
 
     void CsvLoad(std::string name);
 
-    void mapTypeLoad(int type);
+    void SetMapType(int type, int x, int z);
 
     //スタート位置の設定
     //name      ：読み込むファイル名

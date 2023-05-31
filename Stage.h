@@ -15,12 +15,12 @@ class Stage : public GameObject
     enum StageModelNum
     {
         EMPTY,
-        BLOCK,
+        BRIDGE_FADE,
         BRIDGE,
+        BLOCK,
         ENEMY,
         PLAYER,
         STAR,
-        BRIDGE_FADE,
         ITEMBOX,
         FIRE,
         FIRE_RIGHT,

@@ -25,15 +25,9 @@ void Astar::CsvLoad(std::string name)
     }
 }
 
-void Astar::mapTypeLoad(int type)
+void Astar::SetMapType(int type, int x, int z)
 {
-    for (int x = 0; x < STAGE_SIZE_X; x++)
-    {
-        for (int z = 0; z < STAGE_SIZE_Z; z++)
-        {
-            map_[x][z] = type;
-        }
-    }
+    map_[x][z] = type;
 }
 
 //Å’ZŒo˜H‚ð’Tõ
@@ -47,7 +41,7 @@ bool Astar::Search(CELL startCell, CELL goalCell)
             mapNode[x][z] = Node({ x,z }, NONE, 0, abs((goalCell.x - x) + (goalCell.z - z)), 0, nullptr);
 
             //ƒRƒXƒg‚Ì‰Šú’l
-            if (map_[x][z] == -1)
+            if (map_[x][z] < 2)
             {
                 costmap[x][z] = -1;
             }
