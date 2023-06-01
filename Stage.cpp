@@ -49,7 +49,7 @@ void Stage::StageLoad()
 {
     //Csv“Ç‚Ýž‚Ý
     csv = new CsvReader();
-    csv->Load("Csv\\map4.csv");
+    csv->Load("Csv\\map4.txt");
 
     //”»’è
     hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
