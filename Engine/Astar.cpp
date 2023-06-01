@@ -14,13 +14,14 @@ Astar::~Astar()
 
 void Astar::CsvLoad(std::string name)
 {
-    csv.Load(name);
+    csv = new CsvReader();
+    csv->Load(name);
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            map_[x][z] = csv.GetValue(x, z);
+            map_[x][z] = csv->GetValue(x, z);
         }
     }
 }

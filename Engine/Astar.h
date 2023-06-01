@@ -81,7 +81,7 @@ class Astar
     std::list<CELL>StartToGoalCell;
 
     //マップ読み込み
-    CsvReader csv;
+    CsvReader* csv;
 
     //最小コスト
     Node* minNode;

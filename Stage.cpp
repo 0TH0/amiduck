@@ -48,7 +48,8 @@ Stage::~Stage()
 void Stage::StageLoad()
 {
     //Csv“Ç‚Ýž‚Ý
-    csv.Load("Csv\\map4.csv");
+    csv = new CsvReader();
+    csv->Load("Csv\\map4.csv");
 
     //”»’è
     hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
@@ -111,7 +112,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            stage_[x][z].type = csv.GetValue(x, z);
+            stage_[x][z].type = csv->GetValue(x, z);
         }
     }
 

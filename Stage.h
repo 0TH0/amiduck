@@ -47,7 +47,7 @@ class Stage : public GameObject
     XMFLOAT3 GuidePopBridgePos;
 
     Text* pText = new Text;
-    CsvReader csv;
+    CsvReader* csv;
     Particle* pParticle_;
     EmitterData data;
     Player* pPlayer_;
