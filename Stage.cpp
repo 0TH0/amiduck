@@ -78,9 +78,6 @@ void Stage::StageLoad()
     hModel_[ITEMBOX] = Model::Load("Model\\brick.fbx");
     assert(hModel_[ITEMBOX] >= 0);
 
-    hModel_[ITEMBOX] = Model::Load("Model\\brick.fbx");
-    assert(hModel_[ITEMBOX] >= 0);
-
     hModel_[FIRE] = Model::Load("Model\\fire\\fireball.fbx");
     assert(hModel_[FIRE] >= 0);
 
