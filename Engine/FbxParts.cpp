@@ -98,7 +98,7 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 			///////////////////////////頂点の接戦/////////////////////////////////////
 			int startIndex = mesh->GetPolygonVertexIndex(poly);
 			FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
-			if (t == nullptr)continue;
+			if (t == nullptr) continue;
 			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
 			pVertexData_[mesh->GetPolygonVertices()[startIndex + vertex]].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
 		}
@@ -117,23 +117,6 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 		}
 	}
 
-	//タンジェント取得
-	//for (int i = 0; i < polygonCount_; i++)
-	//{
-	//	int startIndex = mesh->GetPolygonVertexIndex(i);
-
-	//	FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
-
-	//	FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
-
-	//	for (int j = 0; j < 3; j++)
-	//	{
-	//		int index = mesh->GetPolygonVertices()[startIndex + j];
-	//		pVertexData_[index].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
-	//	}
-
-	//}
-
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
 	bd_vertex.ByteWidth = sizeof(VERTEX) * mesh->GetControlPointsCount();
@@ -150,7 +133,6 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 //マテリアル準備
 void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 {
-
 	// マテリアルバッファの生成
 	materialCount_ = pNode->GetMaterialCount();
 	pMaterial_ = new MATERIAL[materialCount_];
@@ -169,6 +151,7 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 		FbxDouble3  ambient = FbxDouble3(0, 0, 0);
 		FbxDouble3  diffuse = FbxDouble3(0, 0, 0);
 		FbxDouble3  specular = FbxDouble3(0, 0, 0);
+		FbxDouble3  transparent = FbxDouble3(0, 0, 0);
 		ambient = pPhong->Ambient;
 		diffuse = pPhong->Diffuse;
 
@@ -186,8 +169,8 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 			pMaterial_[i].shininess = (float)pPhong->Shininess;
 		}
 
-
 		InitTexture(pMaterial, i);
+
 	}
 
 }
@@ -470,14 +453,30 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 
 	transform.Calclation();
 
+	//今から描画する頂点情報をシェーダに伝える
+	UINT stride = sizeof(VERTEX);
+	UINT offset = 0;
+	Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+
+	//使用するコンスタントバッファをシェーダに伝える
+	Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);
+	Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);
+
 	//シェーダーのコンスタントバッファーに各種データを渡す
 	for (DWORD i = 0; i < materialCount_; i++)
 	{
+		// インデックスバッファーをセット
+		UINT    stride = sizeof(int);
+		UINT    offset = 0;
+		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
+
 		// パラメータの受け渡し
+		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;
 		cb.worldVewProj = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
 		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.normalTrans = XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
+
 		cb.ambient = pMaterial_[i].ambient;
 		if (IsSetDiffuse_)
 		{
@@ -487,6 +486,7 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		{
 			cb.diffuse = pMaterial_[i].diffuse;
 		}
+
 		cb.speculer = pMaterial_[i].specular;
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
@@ -525,7 +525,6 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		//	}
 		//}
 
-		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る
 
@@ -545,23 +544,9 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);
 		}
 
-		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);// GPUからのリソースアクセスを再開
+		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);									// GPUからのリソースアクセスを再開
 
-		//今から描画する頂点情報をシェーダに伝える
-		UINT stride = sizeof(VERTEX);
-		UINT offset = 0;
-		Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
-
-		// インデックスバッファーをセット
-		stride = sizeof(int);
-		offset = 0;
-		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
-
-		//使用するコンスタントバッファをシェーダに伝える
-		Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);
-		Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);
-
-		 //ポリゴンメッシュを描画する
+		//ポリゴンメッシュを描画する
 		Direct3D::pContext_->DrawIndexed(pMaterial_[i].polygonCount * 3, 0, 0);
 	}
 }

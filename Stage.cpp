@@ -56,7 +56,7 @@ void Stage::StageLoad()
     assert(hModel_[-1] >= 0);
 
     //ブロック
-    hModel_[BLOCK] = Model::Load("Model\\brick.fbx");
+    hModel_[BLOCK] = Model::Load("Stage\\log.fbx");
     assert(hModel_[BLOCK] >= 0);
 
     //旗先端
@@ -66,16 +66,16 @@ void Stage::StageLoad()
     hModel_[BRIDGE_FADE] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[BRIDGE_FADE] >= 0);
 
-    hModel_[ENEMY] = Model::Load("Model\\brick.fbx");
+    hModel_[ENEMY] = Model::Load("Stage\\log.fbx");
     assert(hModel_[ENEMY] >= 0);
 
-    hModel_[PLAYER] = Model::Load("Model\\brick.fbx");
+    hModel_[PLAYER] = Model::Load("Stage\\log.fbx");
     assert(hModel_[PLAYER] >= 0);
 
-    hModel_[STAR] = Model::Load("Model\\brick.fbx");
+    hModel_[STAR] = Model::Load("Stage\\log.fbx");
     assert(hModel_[STAR] >= 0);
 
-    hModel_[ITEMBOX] = Model::Load("Model\\brick.fbx");
+    hModel_[ITEMBOX] = Model::Load("Stage\\log.fbx");
     assert(hModel_[ITEMBOX] >= 0);
 
     hModel_[FIRE] = Model::Load("Model\\fire\\fireball.fbx");

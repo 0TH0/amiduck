@@ -1,9 +1,10 @@
 //───────────────────────────────────────
  // テクスチャ＆サンプラーデータのグローバル変数定義
 //───────────────────────────────────────
-Texture2D tex : register(t0);
-SamplerState smp : register(s0);
-Texture2D normalTex : register(t1);
+Texture2D		g_texture: register(t0);	//テクスチャー
+SamplerState	g_sampler : register(s0);	//サンプラー
+Texture2D g_textureNormal : register(t1);   //ノーマルテクスチャー
+
 
 //───────────────────────────────────────
  // コンスタントバッファ
@@ -19,41 +20,53 @@ cbuffer global
 	float4		g_vecAmbient;		// アンビエントカラー（影の色）
 	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;// 視点（カメラの位置）
-	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
+	float		g_shininess;		// ハイライトの強さ（テカリ具合）
 	float		g_alpha;			//透明度
 	float		g_scroll;
 	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
 };
 
+//───────────────────────────────────────
+// 頂点シェーダー出力＆ピクセルシェーダー入力データ構造体
+//───────────────────────────────────────
 struct VS_OUT
 {
-	float4 pos : SV_POSITION;
-	float2 uv  : TEXCOORD;
-	float4 V : TEXCOORD1;
-	float4 light : TEXCOORD2;
+	float4 pos    : SV_POSITION;	//位置
+	float2 uv	  : TEXCOORD1;		//UV座標
+	float4 light  : TEXCOORD2;		//ライトの方向
+	float4 V      : TEXCOORD3;		//頂点からカメラに向かうベクトル
 };
 
-//頂点シェーダー
-VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, float4 tangent : TANGENT)
+//───────────────────────────────────────
+// 頂点シェーダ
+//───────────────────────────────────────
+VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, float4 tangent : TANGENT)
 {
+	//ピクセルシェーダーへ渡す情報
 	VS_OUT outData;
+
+	//ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
+	//スクリーン座標に変換し、ピクセルシェーダーへ
 	outData.pos = mul(pos, g_matWVP);
-	outData.uv = uv;
 
-	float3 binormal = cross(normal, tangent);
+	//UV「座標
+	outData.uv = uv;	//そのままピクセルシェーダーへ
 
+	//法線
 	normal.w = 0;
 	normal = mul(normal, g_matNormalTrans);
 	normal = normalize(normal);
 
+	//タンジェント
 	tangent.w = 0;
 	tangent = mul(tangent, g_matNormalTrans);
 	tangent = normalize(tangent);
 
-	binormal = mul(binormal, g_matNormalTrans);
+	//バイノーマル
+	float3 binormal = cross(normal, tangent);
 	binormal = normalize(binormal);
 
-
+	//頂点からカメラに向かうベクトル(正規化)
 	float4 eye = normalize(mul(pos, g_matWorld) - g_vecCameraPosition);
 	outData.V.x = dot(eye, tangent);
 	outData.V.y = dot(eye, binormal);
@@ -67,58 +80,63 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 	outData.light.z = dot(light, normal);
 	outData.light.w = 0;
 
+	//まとめて出力
 	return outData;
 }
 
-//ピクセルシェーダー
-float4 PS(VS_OUT inData) : SV_TARGET
+//───────────────────────────────────────
+// ピクセルシェーダ
+//───────────────────────────────────────
+float4 PS(VS_OUT inData) : SV_Target
 {
-	inData.light = normalize(inData.light);
 
-	float4 diffuse;
-	float4 ambient;
-	float4 specular;
+	//正規化しておく
+	inData.light = normalize(inData.light);
+	float alpha = 0;
 
 	float2 uv1 = inData.uv;
 	uv1.x += g_scroll;
-	float4 normal1 = normalTex.Sample(smp, uv1) * 2 - 1;
+	float4 normal1 = g_textureNormal.Sample(g_sampler, uv1) * 2 - 1;
 
 	float2 uv2 = inData.uv;
 	uv2.x -= g_scroll * 0.3;
-	uv2.y *= 1.2;
-	float4 normal2 = normalTex.Sample(smp, uv2) * 2 - 1;
+	float4 normal2 = g_textureNormal.Sample(g_sampler, uv2) * 2 - 1;
 
 	float4 normal = normal1 + normal2;
-
 	normal.w = 0;
 	normal = normalize(normal);
 
+	float4 shade = dot(normal, inData.light);
+	shade = clamp(shade, 0, 1);
 
-	float4 S = dot(inData.light,normal);
-	S = clamp(S, 0, 1);
-
-
-	float4 R = reflect(inData.light, normal);
-	specular = pow(clamp(dot(R, inData.V), 0, 1), 5) * 3;
-
-	float alpha;
-
-	if (g_isTexture)
+	float4 diffuse;
+	//テクスチャ有無
+	if (g_isTexture == true)
 	{
-		diffuse = tex.Sample(smp, inData.uv) * S;
-		ambient = tex.Sample(smp, inData.uv) * 0.2;
-		alpha = tex.Sample(smp, inData.uv).a;
+		//テクスチャの色
+		diffuse = g_texture.Sample(g_sampler, inData.uv);
+		alpha = g_texture.Sample(g_sampler, inData.uv).a;
 	}
 	else
 	{
-		diffuse = g_vecDiffuse * S;
-		ambient = g_vecDiffuse * 0.2;
-		alpha = g_vecDiffuse.a;
+		//マテリアルの色
+		diffuse = g_vecDiffuse;
 	}
 
-	float4 result = diffuse + ambient + specular;
+	//環境光（アンビエント）
+	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
+	float4 	ambient = float4(0.5, 0.5, 0.5, 1); g_vecAmbient;
 
-	result.a = 1;
+	//鏡面反射光（スペキュラー）
+	float4 speculer = float4(1, 1, 1, 1);
 
-	return result;
+	float4 R = reflect(inData.light, normal);		//正反射ベクトル
+	speculer = pow(saturate(dot(R, inData.V)), 5) * 3;//ハイライトを求める
+
+
+	//最終的な色
+	float4 color = diffuse * shade + diffuse * ambient + speculer;
+	color.a = alpha;
+
+	return color;
 }
