@@ -33,9 +33,11 @@ namespace Model
 		float nowFrame, animSpeed;
 		int startFrame, endFrame;
 
+		float uvScroll;
+
 
 		//èâä˙âª
-		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),shaderType(Direct3D::SHADER_3D)
+		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),shaderType(Direct3D::SHADER_3D),uvScroll(0)
 		{
 		}
 
@@ -108,6 +110,8 @@ namespace Model
 	void RayCast(int handle, RayCastData *data);
 
 	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType = Direct3D::SHADER_3D);
+
+	void SetUvScroll(int handle, float scroll);
 
 	void FlashModel(int handle, int frame = 5);
 

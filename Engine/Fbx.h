@@ -74,7 +74,7 @@ public:
 
 	//描画
 	//引数：World	ワールド行列
-	void    Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType, FLOAT alpha = 1);
+	void    Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType, FLOAT alpha, FLOAT scroll);
 
 	//解放
 	void    Release();

@@ -85,7 +85,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->shaderType, alpha);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->shaderType, alpha , _datas[handle]->uvScroll);
 		}
 
 	}
@@ -204,6 +204,16 @@ namespace Model
 			return;
 		}
 		_datas[handle]->shaderType = shaderType;
+	}
+
+	void SetUvScroll(int handle, float scroll)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->uvScroll = scroll;
 	}
 
 	//ƒ‚ƒfƒ‹‚ð“_–Å‚³‚¹‚é

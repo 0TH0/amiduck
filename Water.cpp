@@ -22,10 +22,16 @@ void Water::Initialize()
     Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
 }
 
+static float scroll;
+
 //çXêV
 void Water::Update()
 {
     //transform_.rotate_.y += 0.5f;
+    scroll += 0.002f;
+
+    Model::SetUvScroll(hModel_, scroll);
+
 }
 
 //ï`âÊ

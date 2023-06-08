@@ -118,7 +118,7 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType, FLOAT alpha)
+void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType, FLOAT alpha, FLOAT scroll)
 {
 	Direct3D::SetShader(shaderType);
 
@@ -129,6 +129,7 @@ void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType
 		FbxTime     time;
 		time.SetTime(0, 0, 0, frame, 0, 0, _frameRate);
 
+		parts_[k]->SetUVScroll(scroll);
 
 		//スキンアニメーション（ボーン有り）の場合
 		if (parts_[k]->GetSkinInfo() != nullptr)
