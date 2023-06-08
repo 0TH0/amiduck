@@ -118,8 +118,10 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-void Fbx::Draw(Transform& transform, int frame, FLOAT alpha)
+void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType, FLOAT alpha)
 {
+	Direct3D::SetShader(shaderType);
+
 	//パーツを1個ずつ描画
 	for (int k = 0; k < parts_.size(); k++)
 	{
@@ -150,15 +152,6 @@ void Fbx::RayCast(RayCastData * data)
 	for (int i = 0; i < parts_.size(); i++)
 	{
 		parts_[i]->RayCast(data);
-	}
-}
-
-void Fbx::SetShader(Direct3D::SHADER_TYPE shaderType)
-{
-	//すべてのパーツと判定
-	for (int i = 0; i < parts_.size(); i++)
-	{
-		parts_[i]->SetShader(shaderType);
 	}
 }
 

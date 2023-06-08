@@ -47,7 +47,7 @@ namespace Direct3D
 	int						screenWidth_ = 0;
 	int						screenHeight_ = 0;
 
-
+	SHADER_TYPE shaderType_;
 
 	//初期化処理
 	HRESULT Direct3D::Initialize(HWND hWnd, int screenWidth, int screenHeight)
@@ -557,7 +557,17 @@ namespace Direct3D
 			return hr;
 		}
 
-
+		// ピクセルシェーダの作成（コンパイル）
+		ID3DBlob* pCompilePS = nullptr;
+		D3DCompileFromFile(L"Shader/WaterShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+		assert(pCompilePS != nullptr);
+		hr = pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_WATER].pPixelShader);
+		SAFE_RELEASE(pCompilePS);
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "ピクセルシェーダの作成に失敗しました", "エラー", MB_OK);
+			return hr;
+		}
 
 		//頂点インプットレイアウト
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
@@ -575,18 +585,6 @@ namespace Direct3D
 		}
 		SAFE_RELEASE(pCompileVS);
 
-		// ピクセルシェーダの作成（コンパイル）
-		ID3DBlob* pCompilePS = nullptr;
-		D3DCompileFromFile(L"Shader/WaterShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
-		assert(pCompilePS != nullptr);
-		hr = pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_WATER].pPixelShader);
-		SAFE_RELEASE(pCompilePS);
-		if (FAILED(hr))
-		{
-			MessageBox(NULL, "ピクセルシェーダの作成に失敗しました", "エラー", MB_OK);
-			return hr;
-		}
-
 		//ラスタライザ作成
 		D3D11_RASTERIZER_DESC rdc = {};
 		rdc.CullMode = D3D11_CULL_BACK;
@@ -601,10 +599,15 @@ namespace Direct3D
 		return S_OK;
 	}
 
+	SHADER_TYPE GetShader()
+	{
+		return shaderType_;
+	}
 
 	//今から描画するShaderBundleを設定
 	void SetShader(SHADER_TYPE type)
 	{
+		shaderType_ = type;
 		pContext_->RSSetState(shaderBundle[type].pRasterizerState);
 		pContext_->VSSetShader(shaderBundle[type].pVertexShader, NULL, 0);                         // 頂点シェーダをセット
 		pContext_->PSSetShader(shaderBundle[type].pPixelShader, NULL, 0);                          // ピクセルシェーダをセット

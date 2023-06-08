@@ -41,7 +41,7 @@ class FbxParts
 		FLOAT	 shininess;		//ハイライトの強さ（MayaのCosinePower）
 		FLOAT	 alpha;			//透明度
 		FLOAT	 scroll;		//水面の流れ
-		BOOL	 isTexture;		//テクスチャの有無
+		INT	 isTexture;		//テクスチャの有無
 	};
 
 	// マテリアル情報（質感の情報）
@@ -121,6 +121,7 @@ class FbxParts
 	void IntConstantBuffer();	//コンスタントバッファ（シェーダーに情報を送るやつ）準備
 
 	Direct3D::SHADER_TYPE shaderType_;
+	float scroll_;
 
 public:
 	FbxParts();
@@ -169,4 +170,6 @@ public:
 	bool GetIsDiffuse() { return IsSetDiffuse_; };
 	void SetDiffuse(XMFLOAT4 diffuse) { diffuse_ = diffuse; };
 	XMFLOAT4 GetDiffuse() { return diffuse_; };
+
+	void SetUVScroll(float scroll) { scroll_ = scroll; }
 };

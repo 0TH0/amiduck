@@ -39,6 +39,7 @@ namespace Direct3D
 		SHADER_WATER,
 		SHADER_MAX
 	};	//3タイプ（3D用、2D用、当たり判定枠表示用）
+
 	struct SHADER_BUNDLE
 	{
 		//【頂点入力レイアウト情報】
@@ -104,6 +105,8 @@ namespace Direct3D
 	//今から描画するShaderBundleを設定
 	//引数：type	SHADER_3D, SHADER_2D, SHADER_UNLITのどれか
 	void SetShader(SHADER_TYPE type);
+
+	SHADER_TYPE GetShader();
 
 
 	//ブレンドモードの変更

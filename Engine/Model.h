@@ -23,6 +23,9 @@ namespace Model
 
 		Alpha		Alpha;
 
+		//どのシェーダを使うか
+		Direct3D::SHADER_TYPE  shaderType;
+
 		//行列
 		Transform 	transform;
 
@@ -32,7 +35,7 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0)
+		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),shaderType(Direct3D::SHADER_3D)
 		{
 		}
 
@@ -104,7 +107,7 @@ namespace Model
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(int handle, RayCastData *data);
 
-	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_);
+	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType = Direct3D::SHADER_3D);
 
 	void FlashModel(int handle, int frame = 5);
 

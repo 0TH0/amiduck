@@ -85,7 +85,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, alpha);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->shaderType, alpha);
 		}
 
 	}
@@ -197,9 +197,13 @@ namespace Model
 		_datas[handle]->pFbx->RayCast(data);
 	}
 
-	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType_)
+	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType)
 	{
-		_datas[handle]->pFbx->SetShader(shaderType_);
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+		_datas[handle]->shaderType = shaderType;
 	}
 
 	//ƒ‚ƒfƒ‹‚ð“_–Å‚³‚¹‚é

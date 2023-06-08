@@ -18,14 +18,14 @@ void Water::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Water\\Water.fbx");
     assert(hModel_ >= 0);
-    transform_.scale_ = XMFLOAT3(500, 0.1, 500);
-    Model::SetSahder(hModel_, Direct3D::SHADER_3D);
+    //transform_.scale_ = XMFLOAT3(500, 0.1, 500);
+    Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
 }
 
 //更新
 void Water::Update()
 {
-    transform_.rotate_.y += 0.5f;
+    //transform_.rotate_.y += 0.5f;
 }
 
 //描画

@@ -94,6 +94,13 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 			int uvIndex = mesh->GetTextureUVIndex(poly, vertex, FbxLayerElement::eTextureDiffuse);
 			FbxVector2  uv = pUV->GetDirectArray().GetAt(uvIndex);
 			pVertexData_[index].uv = XMFLOAT3((float)uv.mData[0], (float)(1.0f - uv.mData[1]), 0.0f);
+
+			///////////////////////////頂点の接戦/////////////////////////////////////
+			int startIndex = mesh->GetPolygonVertexIndex(poly);
+			FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
+			if (t == nullptr)continue;
+			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
+			pVertexData_[mesh->GetPolygonVertices()[startIndex + vertex]].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
 		}
 	}
 
@@ -111,23 +118,21 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 	}
 
 	//タンジェント取得
-	for (int i = 0; i < polygonCount_; i++)
-	{
-		int startIndex = mesh->GetPolygonVertexIndex(i);
+	//for (int i = 0; i < polygonCount_; i++)
+	//{
+	//	int startIndex = mesh->GetPolygonVertexIndex(i);
 
-		FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
+	//	FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
 
-		if (t != nullptr)
-		{
-			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
+	//	FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
 
-			for (int j = 0; j < 3; j++)
-			{
-				int index = mesh->GetPolygonVertices()[startIndex + j];
-				pVertexData_[index].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
-			}
-		}
-	}
+	//	for (int j = 0; j < 3; j++)
+	//	{
+	//		int index = mesh->GetPolygonVertices()[startIndex + j];
+	//		pVertexData_[index].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
+	//	}
+
+	//}
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -458,7 +463,11 @@ void FbxParts::Draw(Transform& transform)
 
 void FbxParts::Draw(Transform& transform, FLOAT alpha)
 {
-	Direct3D::SetShader(shaderType_);
+	//シェーダを保存しておく
+	Direct3D::SHADER_TYPE type = Direct3D::GetShader();
+
+	Direct3D::SetShader(type);
+
 	transform.Calclation();
 
 	//シェーダーのコンスタントバッファーに各種データを渡す
