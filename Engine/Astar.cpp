@@ -3,7 +3,7 @@
 
 //コンストラクタ
 Astar::Astar():
-    costmap(),goalCell_(),map_(),minNode(),startCell_(),totalCosts()
+    costmap(),goalCell_(),map_(),minNode(),startCell_(),totalCosts(),csv()
 {
 }
 
@@ -21,7 +21,7 @@ void Astar::CsvLoad(std::string name)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            map_[x][z] = csv->GetValue(x, z);
+            SetMapType(csv->GetValue(x, z), x, z);
         }
     }
 }
@@ -140,6 +140,7 @@ void Astar::OpenNode(CELL cell)
             }
         }
 
+        //ゴールしている
         if (minNode == nullptr)
         {
             return;

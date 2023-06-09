@@ -93,8 +93,10 @@ public:
     //デストラクタ
     ~Astar();
 
+    //csvファイルで読み込む
     void CsvLoad(std::string name);
 
+    //マップのタイプをセット
     void SetMapType(int type, int x, int z);
 
     //スタート位置の設定
