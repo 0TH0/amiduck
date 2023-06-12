@@ -6,20 +6,12 @@
 class Controller : public GameObject
 {
 public:
-	int hModel_;
-	XMFLOAT3 PlayerPos_;
 	Transform EnemyTrans_;
-	float plus;
-	bool Is;
-
-	Stage* pStage;
-	float speed_;        //ˆÚ“®‘¬“x
 	XMFLOAT3 mousePos_;
 
-	const char InitialState_ = 7;	//‰Šú’l
-	const float Move_ = 0.01f;		//ˆÚ“®‘¬“x
-	const char Rotate_ = 0.01;			//‰ñ“]‘¬“x
-	const char LimRot_ = 30;		//‰ñ“]‚ÌŒÀŠE’l
+	const float Move_;		//ˆÚ“®‘¬“x
+	const char Rotate_;		//‰ñ“]‘¬“x
+	const char LimRot_;		//‰ñ“]‚ÌŒÀŠE’l
 
 	float PrevPosX_;
 	float PrevPosY_;

@@ -9,7 +9,7 @@
 
 //コンストラクタ
 Bomb::Bomb(GameObject* parent)
-	: GameObject(parent, "Fire"), hModel_(-1)
+	: GameObject(parent, "Bomb"), hModel_(-1)
 {
 }
 

@@ -49,15 +49,15 @@ void Stage::StageLoad()
 {
     //Csv読み込み
     csv = new CsvReader();
-    csv->Load("Csv\\map4.txt");
+    csv->Load("Csv\\map4.csv");
 
     //判定
-    hModel_[-1] = Model::Load("DebugCollision\\BoxCollider.fbx");
-    assert(hModel_[-1] >= 0);
+    hModel_[EMPTY] = Model::Load("DebugCollision\\BoxCollider.fbx");
+    assert(hModel_[EMPTY] >= 0);
 
     //ブロック
-    hModel_[BLOCK] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[BLOCK] >= 0);
+    hModel_[LOG] = Model::Load("Stage\\log.fbx");
+    assert(hModel_[LOG] >= 0);
 
     //旗先端
     hModel_[BRIDGE] = Model::Load("Stage\\wood_board.fbx");
@@ -83,6 +83,9 @@ void Stage::StageLoad()
 
     hModel_[FIRE_RIGHT] = Model::Load("Model\\fire\\fireball.fbx");
     assert(hModel_[FIRE_RIGHT] >= 0);
+
+    hModel_[15] = Model::Load("Stage\\log.fbx");
+    assert(hModel_[15] >= 0);
 
     //煙の音
     hAudio_ = Audio::Load("Audio\\smoke.wav", 5);
@@ -172,14 +175,11 @@ void Stage::Initialize()
 void Stage::Update()
 {
     pPlayer_ = (Player*)FindObject("Player");
-    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
+    
     if (!pPlayer_->GetReturn()) player_pos_.x = pPlayer_->GetPosition().x + 1;
     else player_pos_.x = pPlayer_->GetPosition().x - 1;
 
     player_pos_.z = pPlayer_->GetPosition().z;
-
-    enemyPos_ = pEnemy->GetPosition();
 
     //ビューポート行列
     float w = Camera::GetScrWDiv2();
@@ -238,11 +238,11 @@ void Stage::Draw()
 
                 switch (stage_[x][z].type)
                 {
-                case -1:
+                case EMPTY:
                     Model::SetTransform(hModel_[type], transform_);
                     //Model::Draw(hModel_[type]);
                     break;
-                case BLOCK:
+                case LOG:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Direct3D::SetShader(Direct3D::SHADER_NORMALMAP);
                     Model::SetTransform(hModel_[type], transform_);
@@ -260,15 +260,16 @@ void Stage::Draw()
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type], 0.5);
                     break;
+                //何もしない
                 case FIRE:
                 case FIRE_RIGHT:
-                //case ENEMY_AI:
-                    //何もしない
+                case CORNER:
                     break;
+
                 default:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
-                    Model::SetTransform(hModel_[BLOCK], transform_);
-                    Model::Draw(hModel_[BLOCK]);
+                    Model::SetTransform(hModel_[LOG], transform_);
+                    Model::Draw(hModel_[LOG]);
                     break;
                 }
             }
@@ -325,9 +326,9 @@ void Stage::PopBridge()
         if (IsHit)
         {
             //クリックしたところが何もなかったら
-            if (stage_[bufX][bufZ].type == -1)
+            if (stage_[bufX][bufZ].type == EMPTY)
             {
-                if (stage_[bufX][bufZ - 1].type == BLOCK)
+                if (stage_[bufX][bufZ - 1].type == LOG)
                 {
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ + 1].type = BRIDGE;
@@ -339,7 +340,7 @@ void Stage::PopBridge()
                     CloudStart();
                     pItem->MinWoodCount();
                 }
-                else if (stage_[bufX][bufZ - 2].type == BLOCK)
+                else if (stage_[bufX][bufZ - 2].type == LOG)
                 {
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ].type = BRIDGE;
@@ -351,7 +352,7 @@ void Stage::PopBridge()
                     CloudStart();
                     pItem->MinWoodCount();
                 }
-                else if (stage_[bufX][bufZ - 3].type == BLOCK)
+                else if (stage_[bufX][bufZ - 3].type == LOG)
                 {
                     stage_[bufX][bufZ + 2].type = BRIDGE;
                     stage_[bufX][bufZ + 1].type = BRIDGE;
@@ -363,7 +364,7 @@ void Stage::PopBridge()
                     CloudStart();
                     pItem->MinWoodCount();
                 }
-                else if (stage_[bufX][bufZ - 4].type == BLOCK)
+                else if (stage_[bufX][bufZ - 4].type == LOG)
                 {
                     stage_[bufX][bufZ + 1].type = BRIDGE;
                     stage_[bufX][bufZ].type = BRIDGE;
@@ -375,7 +376,7 @@ void Stage::PopBridge()
                     CloudStart();
                     pItem->MinWoodCount();
                 }
-                else if (stage_[bufX][bufZ - 5].type == BLOCK)
+                else if (stage_[bufX][bufZ - 5].type == LOG)
                 {
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ - 1].type = BRIDGE;
@@ -438,7 +439,7 @@ void Stage::PopBridge()
             if (stage_[bufX][bufZ].type == -1)
             {
 
-                if (stage_[bufX][bufZ - 1].type == BLOCK)
+                if (stage_[bufX][bufZ - 1].type == LOG)
                 {
                     stage_[bufX][bufZ].type = BRIDGE_FADE;
                     stage_[bufX][bufZ + 1].type = BRIDGE_FADE;
@@ -452,7 +453,7 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ + 3);
                     buf[4] = XMINT3(bufX, 1, bufZ + 4);
                 }
-                else if (stage_[bufX][bufZ - 2].type == BLOCK)
+                else if (stage_[bufX][bufZ - 2].type == LOG)
                 {
                     stage_[bufX][bufZ - 1].type = BRIDGE_FADE;
                     stage_[bufX][bufZ].type = BRIDGE_FADE;
@@ -466,7 +467,7 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ + 2);
                     buf[4] = XMINT3(bufX, 1, bufZ + 3);
                 }
-                else if (stage_[bufX][bufZ - 3].type == BLOCK)
+                else if (stage_[bufX][bufZ - 3].type == LOG)
                 {
                     stage_[bufX][bufZ + 2].type = BRIDGE_FADE;
                     stage_[bufX][bufZ + 1].type = BRIDGE_FADE;
@@ -480,7 +481,7 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ - 1);
                     buf[4] = XMINT3(bufX, 1, bufZ - 2);
                 }
-                else if (stage_[bufX][bufZ - 4].type == BLOCK)
+                else if (stage_[bufX][bufZ - 4].type == LOG)
                 {
                     stage_[bufX][bufZ + 1].type = BRIDGE_FADE;
                     stage_[bufX][bufZ].type = BRIDGE_FADE;
@@ -494,7 +495,7 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ);
                     buf[4] = XMINT3(bufX, 1, bufZ - 3);
                 }
-                else if (stage_[bufX][bufZ - 5].type == BLOCK)
+                else if (stage_[bufX][bufZ - 5].type == LOG)
                 {
                     stage_[bufX][bufZ].type = BRIDGE_FADE;
                     stage_[bufX][bufZ - 1].type = BRIDGE_FADE;
@@ -515,14 +516,16 @@ void Stage::PopBridge()
 
 void Stage::RandStage()
 {
-     stage_[29][10].type = FIRE;
-    stage_[48][20].type = FIRE_RIGHT;
-    //あとで関数作る
     //マップの自動生成
     while(bridgeCount_ < 15)
     {
-        int randX = (rand() % (STAGE_SIZE_X - 5) + 5);
-        int randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
+        int randX = (rand() % STAGE_SIZE_X - 1);
+        int randZ = (rand() % STAGE_SIZE_Z - 1);
+
+        if (randX == STAGE_SIZE_X || randX == 0)
+        {
+            continue;
+        }
 
         if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
         {
@@ -535,7 +538,7 @@ void Stage::RandStage()
         }
         else
         {
-            randX = (rand() % (STAGE_SIZE_X - 5) + 5);
+            randX = rand() % STAGE_SIZE_X - 5;
             randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
         }
     }
@@ -548,7 +551,7 @@ void Stage::RandStage()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+            if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
             {
                 stage_[randX][randZ + 2].type = ITEMBOX;
                 count++;
@@ -568,7 +571,7 @@ void Stage::RandStage()
             int randX = (rand() % STAGE_SIZE_X - 1);
             int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+            if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
             {
                 stage_[randX][randZ + 2].type = STAR;
                 count++;
@@ -606,18 +609,12 @@ void Stage::CloudStart()
     Audio::Play(hAudio_);
 }
 
-//そこは壁か
-bool Stage::IsWall(int x,  int z)
-{
-    return (stage_[x][z].type == 1);
-}
-
 bool Stage::IsBridge(int x,  int z)
 {
-    return (stage_[x][z].type == 2);
+    return (stage_[x][z].type == BRIDGE);
 }
 
-bool Stage::IsEmpty(int x,  int z)
+bool Stage::IsCorner(int x,  int z)
 {
-    return (stage_[x][z].type == 0);
+    return (stage_[x][z].type == CORNER);
 }

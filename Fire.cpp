@@ -1,10 +1,9 @@
 #include "Fire.h"
 #include "Engine/Model.h"
 
-EmitterData data;
 //コンストラクタ
 Fire::Fire(GameObject* parent)
-	: GameObject(parent, "Mushroom"), hModel_(-1)
+	: GameObject(parent, "Fire"), hModel_(-1)
 {
 }
 
@@ -17,7 +16,7 @@ void Fire::Initialize()
 	transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5f);
 
 	//当たり判定
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 1.f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 2.f);
 	AddCollider(collision);
 
 	pParticle_ = Instantiate<Particle>(this);

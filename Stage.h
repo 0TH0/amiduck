@@ -17,7 +17,7 @@ class Stage : public GameObject
         EMPTY,
         BRIDGE_FADE,
         BRIDGE,
-        BLOCK,
+        LOG,
         ENEMY,
         PLAYER,
         STAR,
@@ -25,7 +25,8 @@ class Stage : public GameObject
         FIRE,
         FIRE_RIGHT,
         ENEMY_AI,
-        STAGE_MODEL_MAX
+        CORNER,
+        STAGE_MAX
     };
 
     struct stageInfo
@@ -34,7 +35,7 @@ class Stage : public GameObject
         int height;
     } stage_[STAGE_SIZE_X][STAGE_SIZE_Z]; //ステージ
 
-    int hModel_[20];
+    int hModel_[STAGE_MAX];
     XMFLOAT3 player_pos_;
     XMFLOAT3 enemyPos_;
     XMFLOAT3 stagePos_;
@@ -66,12 +67,10 @@ public:
 
     void Release() override;
 
-    //そこは壁なのか
-    bool IsWall(int x,  int z);
-
+    //そこは橋なのか
     bool IsBridge(int x,  int z);
 
-    bool IsEmpty(int x,  int z);
+    bool IsCorner(int x,  int z);
 
     int getModelHandle(int handle) { return hModel_[handle]; };
 

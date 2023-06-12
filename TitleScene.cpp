@@ -33,7 +33,7 @@ void TitleScene::Initialize()
 	//UI‚ÌˆÊ’u
 	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
 	pUI[(int)UIName::TUTORIAL]->SetPosition(-0.4f, -0.4f, 0);
-	pUI[(int)UIName::CHAR]->SetPosition(0, -0.8f, 0);
+	pUI[(int)UIName::CHAR]->SetPosition(0, -0.5f, 0);
 }
 
 //XV
@@ -41,6 +41,9 @@ void TitleScene::Update()
 {
 	if (Input::IsMouseButtonDown(0))
 	{
+		pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+
 		switch (UIName_)
 		{
 		case TitleScene::UIName::UI_MAX:
@@ -95,7 +98,7 @@ void TitleScene::Update()
 //•`‰æ
 void TitleScene::Draw()
 {
-	for (int i = (int)TitleScene::UIName::PLAY; i < (int)TitleScene::UIName::UI_MAX; i++)
+	for (int i = (int)TitleScene::UIName::TITLE; i < (int)TitleScene::UIName::UI_MAX; i++)
 	{
 		Image::Draw(pUI[i]->GetHandle());
 	}

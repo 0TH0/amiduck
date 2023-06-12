@@ -1,17 +1,12 @@
 #include "Player.h"
-#include "Stage.h"
 #include "PlayScene.h"
-#include "StartScene.h"
-#include "Fire.h"
 #include "FireFollowGround.h"
 #include "Controller.h"
 #include "Enemy.h"
 #include "Line.h"
 #include "Bomb.h"
 #include "Item.h"
-#include "Timer.h"
 #include "Enemy.h"
-
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -20,22 +15,9 @@
 #include "Engine/Text.h"
 #include "Engine/Math.h"
 
-static Timer* pTimer;
-
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameObject(parent, "Player"),
-
-    //変数
-    hModel_(-1), hModel2_(-1),
-    jump_v0(0), gravity(0), angle(0), delay_(0),
-
-    //フラグ
-    IsJump(false), IsGround(false), hasItem_(false),IsLeft_(false),IsRight_(false),
-
-    //定数
-    speed_(0.3f), DUSHSPEED(0.05f),
-    CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
+    :CharacterBase(parent, "Player")
 {
 }
 
@@ -44,97 +26,26 @@ Player::~Player()
 {
 }
 
-//初期化
-void Player::Initialize()
+void Player::Action()
 {
-    hModel_ = Model::Load("Model\\Player\\egg.fbx");
-    assert(hModel_ >= 0);
-
-    hModel2_ = Model::Load("Model\\Player\\duck.fbx");
-    assert(hModel2_ >= 0);
-
-    //位置
-    transform_.rotate_ = XMFLOAT3(0, 180, 0);
-    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
-
-    //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
-    AddCollider(collision);
-
-    pStage = (Stage*)FindObject("Stage");
-    Instantiate<Controller>(this);
-
-    pText->Initialize();
-
-    pParticle_ = Instantiate<Particle>(this);
-
-    //最初は卵から
-    playerState = State::EGG;
-
-    //ポリライン初期化
-    for (int i = 0; i < 3; i++)
+    if (IsSpeedUp_)
     {
-        pLine[i] = new PoryLine;
-        pLine[i]->Load("Image\\tex_orange.png");
+        SpeedUpTime_++;
+        speed_ = 0.4;
+    }
+    if (SpeedUpTime_ > 60)
+    {
+        IsSpeedUp_ = false;
+        SpeedUpTime_ = 0;
     }
 }
 
-static float sp = 6.f;
-void Player::Update()
+void Player::Command()
 {
-    if (Input::IsKeyDown(DIK_W))
-    {
-        transform_.position_.x += sp;
-    }
-    if (Input::IsKeyDown(DIK_S))
-    {
-        transform_.position_.x -= sp;
-    }
-    if (Input::IsKeyDown(DIK_A))
-    {
-        transform_.position_.z += sp;
-    }
-    if (Input::IsKeyDown(DIK_D))
-    {
-        transform_.position_.z -= sp;
-    }
-    pTimer = (Timer*)FindObject("Timer");
-    pStage = (Stage*)FindObject("Stage");
-    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
-    switch (playerState)
-    {
-    case Player::State::EGG:
-        transform_.rotate_.z += 10;
-        break;
-    case Player::State::LARVA:
-        transform_.rotate_ = XMFLOAT3(0, 180, 0);
-        break;
-    }
-
-    //星の数が０以下で卵
-    if (starNum_ <= 0)
-    {
-        playerState = State::EGG;
-    }
-    else
-    {
-        playerState = State::LARVA;
-    }
-
-    // 1フレーム前の座標
-    prevPosition = XMLoadFloat3(&transform_.position_);
-
-    //あみだくじの処理
-    LadderLottery();
-
-    //進行方向に回転する
-    RotateDirMove();
-
     //アイテム使用
     if (Input::IsKeyDown(DIK_E) && hasItem_)
     {
-        Item* pItem =(Item*)FindObject("Item");
+        Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
         {
             //ボール出す
@@ -160,18 +71,9 @@ void Player::Update()
                 pItem->SetItem(Item::ItemNum::ITEM_MAX);
             }
             break;
+        default:
+            break;
         }
-    }
-
-    if (IsSpeedUp_)
-    {
-        SpeedUpTime_++;
-        speed_ = 0.4;
-    }
-    if (SpeedUpTime_ > 60)
-    {
-        IsSpeedUp_ = false;
-        SpeedUpTime_ = 0;
     }
 
 
@@ -208,54 +110,46 @@ void Player::Update()
         //ジャンプフラグ
         IsJump = true;
     }
-
-    if (!IsStop_)
-    {
-        ////ジャンプ中の重力
-        if (IsJump)
-        {
-            //重力
-            move_.y -= gravity;
-            transform_.position_.y += move_.y;
-        }
-        //ジャンプしてない時の重力
-        else
-        {
-            //重力
-            gravity = 0.1f;
-
-            //重力を加える
-            move_.y = -gravity;
-            transform_.position_.y += move_.y;
-        }
-    }
-
-    if (transform_.position_.y <= 0.75f)
-    {
-        transform_.position_.y = 0.75f;
-    }
-
-    if (starTime_ >= 10)
-    {
-        starTime_ = 0;
-    }
-    else if(starTime_ > 0)
-    {
-        starTime_++;
-    }
 }
 
-void Player::Draw()
+void Player::InitBase()
+{
+    hModel_ = Model::Load("Model\\Player\\egg.fbx");
+    assert(hModel_ >= 0);
+
+    hModel2_ = Model::Load("Model\\Player\\duck.fbx");
+    assert(hModel2_ >= 0);
+
+    //位置
+    transform_.rotate_ = XMFLOAT3(0, 180, 0);
+    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
+
+    //当たり判定
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
+    AddCollider(collision);
+
+    pStage = (Stage*)FindObject("Stage");
+    Instantiate<Controller>(this);
+
+    pText->Initialize();
+
+    pParticle_ = Instantiate<Particle>(this);
+
+    //最初は卵から
+    CharacterState = State::EGG;
+}
+
+void Player::DrawBase()
 {
     Model::SetTransform(hModel2_, transform_);
     Model::SetTransform(hModel_, transform_);
 
-    switch (playerState)
+    switch (CharacterState)
     {
     case State::EGG:
         Model::FlashModel(hModel_);
         break;
-    case State::LARVA:
+    case State::GROWN:
         Model::FlashModel(hModel2_);
         break;
     }
@@ -276,7 +170,7 @@ void Player::Draw()
     }
 }
 
-void Player::Release()
+void Player::ReleaseBase()
 {
     //ポリライン解放
     for (int i = 0; i < 3; i++)
@@ -349,187 +243,5 @@ void Player::OnCollision(GameObject* pTarget)
             move_.y += gravity;
             transform_.position_.y += move_.y;
         }
-        else
-        {
-        }
-    }
-}
-
-//あみだくじ
-void Player::LadderLottery()
-{
-    //////////////////壁との衝突判定///////////////////////
-    XMINT3 obj = Math::ToXMINT(transform_.position_);
-    
-    //壁の判定(上)
-    if (!IsRight_ && !IsLeft_)
-    {
-        //進行方向に道がなかったら戻ってくる
-        if (pStage->IsEmpty(obj.x + 2, obj.z))
-        {
-            IsReturn_ = true;
-        }
-        if (pStage->IsEmpty(obj.x - 2, obj.z))
-        {
-            IsReturn_ = false;
-        }
-    }
-
-    if (IsReturn_)
-    {
-        transform_.position_.x -= speed_;
-    }
-    else
-    {
-        transform_.position_.x += speed_;
-    }
-
-
-    ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
-
-    if (!IsLeft_ && StoppedTime_ > 4)
-    {
-        if (pStage->IsBridge(obj.x, obj.z - 4))
-        {
-            speed_ = 0;
-            IsRight_ = true;
-            StoppedTime_ = 0;
-            IsOnBridge_ = true;
-        }
-    }
-
-    //右に行く
-    if (IsRight_)
-    {
-        IsStop_ = false;
-        SpeedOnWood_[R] = 0.2;
-        TimeOnWood_[R] += SpeedOnWood_[R];
-
-        if (TimeOnWood_[R] >= 6)
-        {
-            TimeOnWood_[R] = 0;
-            IsRight_ = false;
-            IsOnBridge_ = false;
-            delay_ = 0;
-            SpeedOnWood_[R] = 0;
-
-
-            switch (playerState)
-            {
-            case Player::State::EGG:
-                speed_ = 0.2;
-                break;
-            case Player::State::LARVA:
-                speed_ = 0.3f;
-                break;
-            default:
-                break;
-            }
-        }
-        else
-        {
-            //左に移動
-            transform_.position_.z -= SpeedOnWood_[R];
-        }
-    }
-
-    //左に行く
-    else
-    {
-        //止まっていなかったら
-        if (!IsStop_)
-        {
-            StoppedTime_++;
-
-            if (!IsLeft_) delay_++;
-        }
-
-        //右に行ってからすぐに左に行かないように間隔を開ける
-        if (delay_ > 4)
-        {
-            if (pStage->IsBridge(obj.x, obj.z + 3))
-            {
-                speed_ = 0;
-
-                IsLeft_ = true;
-                IsOnBridge_ = true;
-            }
-        }
-
-        if (IsLeft_)
-        {
-            IsStop_ = false;
-            SpeedOnWood_[L] = 0.2;
-            TimeOnWood_[L] += SpeedOnWood_[L];
-
-            if (TimeOnWood_[L] >= 6)
-            {
-                TimeOnWood_[L] = 0;
-                IsLeft_ = false;
-                IsOnBridge_ = false;
-                delay_ = 0;
-                StoppedTime_ = 0;
-                SpeedOnWood_[L] = 0;
-
-                switch (playerState)
-                {
-                case Player::State::EGG:
-                    speed_ = 0.2;
-                    break;
-                case Player::State::LARVA:
-                    speed_ = 0.3f;
-                    break;
-                default:
-                    break;
-                }
-            }
-            else
-            {
-                //右に移動
-                transform_.position_.z += SpeedOnWood_[L];
-            }
-        }
-    }
-}
-
-//進む方向を向く
-void Player::RotateDirMove()
-{
-    //現在の位置ベクトル
-    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
-
-    //今回の移動ベクトル
-    XMVECTOR move = nowPosition - prevPosition;
-
-    //移動ベクトルの長さを測る
-    XMVECTOR length = XMVector3Length(move);
-
-    //0.1以上移動してたなら回転処理
-    if (XMVectorGetX(length) > 0.1f)
-    {
-        //角度を求めるために長さを１にする（正規化）
-        move = XMVector3Normalize(move);
-
-        //基準となる奥向きのベクトル
-        XMVECTOR front = { -1, 0, 0, 0 };
-
-        //frontとmoveの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(front, move);
-        float dot = XMVectorGetX(vecDot);
-
-        //向いてる角度を求める（ラジアン）
-        float angle = acos(dot);
-
-        //frontとmoveの外積を求める
-        XMVECTOR cross = XMVector3Cross(front, move);
-
-        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
-        if (XMVectorGetY(cross) < 0)
-        {
-            angle *= -1;
-        }
-
-        //そのぶん回転させる
-        transform_.rotate_.y = angle * 180.0f / 3.14f;
     }
 }

@@ -10,6 +10,7 @@ class Fire : public GameObject
 	Transform trans;
 	bool first_;
 	bool right_; //右周りにするか
+	EmitterData data;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

@@ -1,13 +1,15 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
-#include "Engine/Text.h"
-#include "Engine/Particle.h"
+#include "Engine/Model.h"
+#include "Engine/Input.h"
+#include "Engine/Collider.h"
 #include "Engine/PoryLine.h"
 
 //◆◆◆を管理するクラス
 class CharacterBase : public GameObject
 {
+protected:
     enum dir
     {
         L = 0,
@@ -19,13 +21,12 @@ class CharacterBase : public GameObject
     enum class State
     {
         EGG = 0,    //卵
-        LARVA, //幼虫
-    } CharacterBaseState;
+        GROWN,      //成長した
+    } CharacterState;
 
     int hModel_;          //モデル番号
     int hModel2_;          //モデル番号
-
-    float jump_v0;        //ジャンプの初速度
+    float jump_v0;              //ジャンプの初速度
     float gravity;        //重力
     float angle;          //角度
     XMFLOAT3 move_;       //初速度
@@ -49,19 +50,24 @@ class CharacterBase : public GameObject
     bool hasItem_;
 
     //定数
-    const float DUSHSPEED;    //ダッシュ速度
-    const float CAMERA_TAR_Y; //カメラの向き
-    const float CAMERA_POS_Y; //カメラの位置 
-
     Stage* pStage;
+    Text* pText = new Text;
     Particle* pParticle_;
     EmitterData data;
     PoryLine* pLine[3];
     XMVECTOR prevPosition;
 
+   virtual void Action() = 0;
+   virtual void Command() = 0;
+   virtual void InitBase() = 0;
+   virtual void DrawBase() = 0;
+   virtual void ReleaseBase() = 0;
+
 public:
     //コンストラクタ
     CharacterBase(GameObject* parent);
+    //継承用コンストラクタ
+    CharacterBase(GameObject* parent, std::string name);
 
     //デストラクタ
     ~CharacterBase();
@@ -78,20 +84,15 @@ public:
     //開放
     void Release() override;
 
-    void OnCollision(GameObject* pTarget) override;
-
-    bool GetReturn() { return IsReturn_; };
-
     //あみだくじの処理
     void LadderLottery();
-
-    void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
-    bool GetHasItem() { return hasItem_; };
 
     //進む方向を向く
     void  RotateDirMove();
 
+    bool GetReturn() { return IsReturn_; };
+    void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
+    bool GetHasItem() { return hasItem_; };
     int GetStarNum() { return  starNum_; };
-
     bool GetIsOnBridge() { return IsOnBridge_; };
 };

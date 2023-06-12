@@ -1,7 +1,5 @@
 #pragma once
-#include "CharacterBase.h"
 #include "Engine/GameObject.h"
-#include "Stage.h"
 #include "Engine/Astar.h"
 
 //ŸŸŸ‚ðŠÇ—‚·‚éƒNƒ‰ƒX
@@ -35,10 +33,5 @@ public:
 
     void Action();
 
-    XMVECTOR SmoothStep(XMVECTOR V0, XMVECTOR V1, float t)
-    {
-        t = (t > 1.0f) ? 1.0f : ((t < 0.0f) ? 0.0f : t);  // Clamp value to 0 to 1
-        t = t * t * (3.f - 2.f * t);
-        return XMVectorLerp(V0, V1, t);
-    }
+    void OnCollision(GameObject* pTarget) override;
 };

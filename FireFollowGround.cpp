@@ -85,22 +85,17 @@ void FireFollowGround::Update()
     int objZ = transform_.position_.z;
 
     ////•Ç‚Ì”»’è(ã)
-    if (pStage->IsWall(objX, objZ))
-    {
-        transform_.position_.y = (int)(transform_.position_.y) + 0.8;
-        IsJump = 0;
-    }
     if (pStage->IsBridge(objX, objZ))
     {
         transform_.position_.y = (int)(transform_.position_.y) + 0.8;
         IsJump = 0;
     }
 
-    if (!a && !b && pStage->IsEmpty((float)objX + 3, objZ))
+    if (!a && !b && pStage->IsCorner((float)objX + 3, objZ))
     {
         IsReturn = true;
     }
-    if (!a && !b && pStage->IsEmpty((float)objX - 2.5, objZ))
+    if (!a && !b && pStage->IsCorner((float)objX - 2.5, objZ))
     {
         IsReturn = false;
     }

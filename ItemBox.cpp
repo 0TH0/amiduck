@@ -101,8 +101,6 @@ void ItemBox::OnCollision(GameObject* pTarget)
 		{
 			QuestionEffect();
 			pPlayer->SetHasItem(true);
-			//ƒAƒCƒeƒ€‚ğ“üè‚µ‚½‚Ìˆ—
-			Item* pItem = (Item*)FindObject("Item");
 		}
 		Invisible();
 		IsHit_ = true;

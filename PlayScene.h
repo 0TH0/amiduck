@@ -8,8 +8,7 @@
 class PlayScene : public GameObject
 {
 public:
-	Player* pPlayer;
-	Transform playerTrans;
+	Player* pPlayer_;
 	int hAudio_;
 
 	//コンストラクタ

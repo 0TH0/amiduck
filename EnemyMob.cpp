@@ -23,6 +23,10 @@ void EnemyMob::Initialize()
 {
     hModel_ = Model::Load("Model\\fire\\fireball.fbx");
     transform_.position_ = { 0, 1.5f, 10.f };
+
+    //“–‚½‚è”»’è
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);
+    AddCollider(collision);
 }
 
 void EnemyMob::Update()
@@ -51,26 +55,23 @@ void EnemyMob::Release()
 {
 }
 
-static XMVECTOR v;
 void EnemyMob::Action()
 {
     Player* pPlayer = (Player*)FindObject("Player");
     XMVECTOR before = XMLoadFloat3(&transform_.position_);
 
-    SmoothStep(before, v, 0.05f);
-
     if (CanMove_)
     {
         if (totalCell >= 0)
         {
-            v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z, 0 };
+            XMVECTOR v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z, 0 };
 
             transform_.position_ = Math::VectorToFloat3(v);
         }
     }
 
     //‰½ƒtƒŒ[ƒ€–ˆ‚Éi‚Þ‚©
-    int frame = 10;
+    int frame = 7;
 
     if (count_ > frame)
     {
@@ -88,4 +89,13 @@ void EnemyMob::Action()
         count_ = 0;
     }
     count_++;
+}
+
+void EnemyMob::OnCollision(GameObject* pTarget)
+{
+    if (pTarget->GetObjectName() == "Player")
+    {
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_RESULT);
+    }
 }

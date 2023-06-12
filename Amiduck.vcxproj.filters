@@ -155,6 +155,7 @@
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -280,6 +281,7 @@
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterBase.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

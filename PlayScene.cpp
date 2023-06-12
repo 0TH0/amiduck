@@ -21,16 +21,14 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
-#include "Pose.h"
 #include "Timer.h"
 #include "Observer/ResultObserver.h"
-
 
 static Timer* pTimer;
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene")
+	: GameObject(parent, "PlayScene"),hAudio_(),pPlayer_()
 {
 }
 
@@ -45,8 +43,7 @@ void PlayScene::Initialize()
 	pStage->SetShouldPoPRandStage(true);
 
 	Instantiate<StartScene>(this);
-	Instantiate<Pose>(this);
-
+	
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
 	pTimer->SetRimit(180);
@@ -55,9 +52,6 @@ void PlayScene::Initialize()
 	Instantiate<Duck>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
-
-	pStage = (Stage*)FindObject("Stage");
-	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);

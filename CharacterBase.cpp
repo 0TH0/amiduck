@@ -1,18 +1,4 @@
 #include "CharacterBase.h"
-#include "CharacterBase.h"
-#include "Stage.h"
-#include "PlayScene.h"
-#include "StartScene.h"
-#include "Fire.h"
-#include "FireFollowGround.h"
-#include "Controller.h"
-#include "Enemy.h"
-#include "Line.h"
-#include "Bomb.h"
-#include "Item.h"
-#include "Timer.h"
-#include "Enemy.h"
-#include "Observer/ResultObserver.h"
 
 #include "Engine/Model.h"
 #include "Engine/Input.h"
@@ -22,23 +8,30 @@
 #include "Engine/Text.h"
 #include "Engine/Math.h"
 
-static Timer* pTimer;
-
 //コンストラクタ
 CharacterBase::CharacterBase(GameObject* parent)
-    :GameObject(parent, "CharacterBase"),
-
-    //変数
-    hModel_(-1), hModel2_(-1),
-    jump_v0(0), gravity(0), angle(0), delay_(0),
-
-    //フラグ
-    IsJump(false), IsGround(false), hasItem_(false), IsLeft_(false), IsRight_(false),
-
-    //定数
-    speed_(0.3f), DUSHSPEED(0.05f),
-    CAMERA_POS_Y(-15.0f), CAMERA_TAR_Y(-5.0f)
+	:GameObject(parent, "CharacterBase")
 {
+}
+
+CharacterBase::CharacterBase(GameObject* parent, std::string name)
+	: GameObject(parent, name),hModel_(-1), hModel2_(-1),pStage(nullptr),CharacterState(State::EGG), jump_v0(),
+      gravity(0),angle(0),move_(),IsJump(false),IsGround(false),IsEnemy(false),speed_(0.3f),
+      SpeedUpTime_(0),IsSpeedUp_(false),IsRight_(false),IsLeft_(false),delay_(0),StoppedTime_(0),IsReturn_(false),
+      IsStop_(false),IsOnBridge_(false),starNum_(0),starTime_(0),hasItem_(0),
+      pParticle_(),data(),prevPosition()
+{
+    for (int i = 0; i < DIR_MAX; i++)
+    {
+        SpeedOnWood_[i] = 0;
+        TimeOnWood_[i] = 0;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        pLine[i] = new PoryLine;
+        pLine[i]->Load("Image\\tex_orange.png");
+    }
 }
 
 //デストラクタ
@@ -49,148 +42,39 @@ CharacterBase::~CharacterBase()
 //初期化
 void CharacterBase::Initialize()
 {
-    hModel_ = Model::Load("Model\\CharacterBase\\egg.fbx");
-    assert(hModel_ >= 0);
+	pStage = (Stage*)FindObject("Stage");
+	assert(pStage != nullptr);
 
-    hModel2_ = Model::Load("Model\\CharacterBase\\duck.fbx");
-    assert(hModel2_ >= 0);
-
-    //アニメーションの設定
-    Model::SetAnimFrame(hModel_, 0, 200, 1.0f);
-
-    //位置
-    transform_.rotate_ = XMFLOAT3(0, 180, 0);
-    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
-
-    //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
-    AddCollider(collision);
-
-    Instantiate<Controller>(this);
-
-    pParticle_ = Instantiate<Particle>(this);
-
-    //最初は卵から
-    CharacterBaseState = State::EGG;
-
-    //ポリライン初期化
-    for (int i = 0; i < 3; i++)
-    {
-        pLine[i] = new PoryLine;
-        pLine[i]->Load("Image\\tex_orange.png");
-    }
+	InitBase();
 }
 
+//更新
 void CharacterBase::Update()
 {
-    pTimer = (Timer*)FindObject("Timer");
     pStage = (Stage*)FindObject("Stage");
-    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-    switch (CharacterBaseState)
+    switch (CharacterState)
     {
-    case CharacterBase::State::EGG:
+    case State::EGG:
         transform_.rotate_.z += 10;
         break;
-    case CharacterBase::State::LARVA:
+    case State::GROWN:
         transform_.rotate_ = XMFLOAT3(0, 180, 0);
+        break;
+    default:
         break;
     }
 
     //星の数が０以下で卵
     if (starNum_ <= 0)
     {
-        CharacterBaseState = State::EGG;
+        CharacterState = State::EGG;
     }
     else
     {
-        CharacterBaseState = State::LARVA;
+        CharacterState = State::GROWN;
     }
 
-    // 1フレーム前の座標
-    prevPosition = XMLoadFloat3(&transform_.position_);
-
-    //あみだくじの処理
-    LadderLottery();
-
-    //進行方向に回転する
-    RotateDirMove();
-
-    //アイテム使用
-    if (Input::IsKeyDown(DIK_E) && hasItem_)
-    {
-        Item* pItem = (Item*)FindObject("Item");
-        switch (pItem->GetItem())
-        {
-            //ボール出す
-        case Item::ItemNum::BALL:
-            Instantiate<FireFollowGround>(GetParent());
-            hasItem_ = false;
-            pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            break;
-            //爆弾出す
-        case Item::ItemNum::BOMB:
-            Instantiate<Bomb>(GetParent());
-            hasItem_ = false;
-            pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            break;
-        case Item::ItemNum::WING:
-            //橋を渡っていなかったら
-            if (!(IsOnBridge_) && hasItem_)
-            {
-                //ダッシュ
-                IsSpeedUp_ = true;
-                Instantiate<Line>(this);
-                hasItem_ = false;
-                pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            }
-            break;
-        }
-    }
-
-    if (IsSpeedUp_)
-    {
-        SpeedUpTime_++;
-        speed_ = 0.4;
-    }
-    if (SpeedUpTime_ > 60)
-    {
-        IsSpeedUp_ = false;
-        SpeedUpTime_ = 0;
-    }
-
-    //停止する
-    if (Input::IsKeyDown(DIK_F))
-    {
-        if (!IsStop_)
-        {
-            speed_ = 0;
-            IsStop_ = true;
-        }
-        else
-        {
-            speed_ = 0.3f;
-            IsStop_ = false;
-        }
-    }
-    /////////////////////////移動/////////////////////////
-    //ジャンプ中の重力
-    if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
-    {
-        //初速度
-        jump_v0 = 0.2;
-        //重力
-        gravity = 0.008f;
-
-        //初速度を加える
-        move_.y = jump_v0;
-
-        //重力を加える
-        move_.y += gravity;
-
-        //ジャンプフラグ
-        IsJump = true;
-    }
     if (!IsStop_)
     {
         ////ジャンプ中の重力
@@ -211,6 +95,7 @@ void CharacterBase::Update()
             transform_.position_.y += move_.y;
         }
     }
+
     if (transform_.position_.y <= 0.75f)
     {
         transform_.position_.y = 0.75f;
@@ -223,135 +108,31 @@ void CharacterBase::Update()
     {
         starTime_++;
     }
-    //星を5個取るか一定時間が経過したら
-    if (starNum_ >= 5 || pTimer->GetRimit() <= 0)
-    {
-        Enemy* pEnemy = (Enemy*)FindObject("Enemy");
 
-        //敵の星の数の方が多かったら
-        if (pEnemy->GetStarNum() >= starNum_)
-        {
-            ResultObserver::SetIsWin(false);
-        }
-        else
-        {
-            ResultObserver::SetIsWin(true);
-        }
-        //リザルトシーンへ
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_RESULT);
-    }
+    Command();
+    Action();
+
+    // 1フレーム前の座標
+    prevPosition = XMLoadFloat3(&transform_.position_);
+
+    //あみだくじの処理
+    LadderLottery();
+
+    //進行方向に回転する
+    RotateDirMove();
 }
 
+//描画
 void CharacterBase::Draw()
 {
-    Model::SetTransform(hModel2_, transform_);
-    Model::SetTransform(hModel_, transform_);
-
-    switch (CharacterBaseState)
-    {
-    case State::EGG:
-        Model::FlashModel(hModel_);
-        break;
-    case State::LARVA:
-        Model::FlashModel(hModel2_);
-        break;
-    }
-    if (IsSpeedUp_)
-    {
-        float pos = -0.5f;
-        for (int i = 0; i < 3; i++)
-        {
-            Transform trans = transform_;
-            trans.position_.z += pos;
-            pLine[i]->AddPosition(trans.position_);
-            pLine[i]->SetWidth(0.1f);
-            pLine[i]->SetColor(XMFLOAT4(1, 1, 1, 0.9));
-            pLine[i]->Draw();
-            pos += 0.5f;
-        }
-    }
+	DrawBase();
 }
 
+//開放
 void CharacterBase::Release()
 {
-    //ポリライン解放
-    for (int i = 0; i < 3; i++)
-    {
-        pLine[i]->Release();
-    }
 }
 
-//何かに当たった
-void CharacterBase::OnCollision(GameObject* pTarget)
-{
-    //敵に当たった
-    if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Fire")
-    {
-        Model::SetIsFlash(hModel_);
-        Model::SetIsFlash(hModel2_);
-        if (starTime_ == 0)
-        {
-            if (starNum_ > 0)
-            {
-                starTime_++;
-                starNum_--;
-            }
-        }
-    }
-
-    if (pTarget->GetObjectName() == "Star")
-    {
-        if (starTime_ == 0)
-        {
-            starTime_++;
-            starNum_++;
-        }
-    }
-
-    XMVECTOR vCharacterBasePos = XMLoadFloat3(&transform_.position_);
-    XMVECTOR Down = { 0,-1,0,0 };
-
-    //敵に当たった
-    if (pTarget->GetObjectName() == "Fire")
-    {
-        //敵の位置
-        XMFLOAT3 EnemyPos = pTarget->GetPosition();
-        XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
-
-        //プレイヤーの位置
-        XMVECTOR CharacterBasePos = vEnemyPos - vCharacterBasePos;
-        XMVector3Normalize(CharacterBasePos);
-
-        //Downとプレイヤーの外積を求める
-        XMVECTOR vDot = XMVector3Dot(Down, CharacterBasePos);
-        float Dot = XMVectorGetY(vDot);
-
-        //角度を求める
-        angle = acos(Dot) * (180.0 / 3.14f);
-
-        if (angle <= 90)
-        {
-            //初速度
-            jump_v0 = 0.15f;
-            //重力
-            gravity = 0.003f;
-
-            //初速度を加える
-            move_.y = jump_v0;
-            transform_.position_.y += move_.y;
-
-            //重力を加える
-            move_.y += gravity;
-            transform_.position_.y += move_.y;
-        }
-        else
-        {
-        }
-    }
-}
-
-//あみだくじ
 void CharacterBase::LadderLottery()
 {
     //////////////////壁との衝突判定///////////////////////
@@ -361,15 +142,16 @@ void CharacterBase::LadderLottery()
     if (!IsRight_ && !IsLeft_)
     {
         //進行方向に道がなかったら戻ってくる
-        if (pStage->IsEmpty(obj.x + 2, obj.z))
+        if (pStage->IsCorner(obj.x + 1, obj.z))
         {
             IsReturn_ = true;
         }
-        if (pStage->IsEmpty(obj.x - 2, obj.z))
+        if (pStage->IsCorner(obj.x - 1, obj.z))
         {
             IsReturn_ = false;
         }
     }
+
 
     if (IsReturn_)
     {
@@ -410,12 +192,12 @@ void CharacterBase::LadderLottery()
             SpeedOnWood_[R] = 0;
 
 
-            switch (CharacterBaseState)
+            switch (CharacterState)
             {
             case CharacterBase::State::EGG:
-                speed_ = 0.2;
+                speed_ = 0.2f;
                 break;
-            case CharacterBase::State::LARVA:
+            case CharacterBase::State::GROWN:
                 speed_ = 0.3f;
                 break;
             default:
@@ -467,12 +249,12 @@ void CharacterBase::LadderLottery()
                 StoppedTime_ = 0;
                 SpeedOnWood_[L] = 0;
 
-                switch (CharacterBaseState)
+                switch (CharacterState)
                 {
                 case CharacterBase::State::EGG:
                     speed_ = 0.2;
                     break;
-                case CharacterBase::State::LARVA:
+                case CharacterBase::State::GROWN:
                     speed_ = 0.3f;
                     break;
                 default:
@@ -488,44 +270,43 @@ void CharacterBase::LadderLottery()
     }
 }
 
-//進む方向を向く
 void CharacterBase::RotateDirMove()
 {
-    //現在の位置ベクトル
-    XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
+	//現在の位置ベクトル
+	XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
 
-    //今回の移動ベクトル
-    XMVECTOR move = nowPosition - prevPosition;
+	//今回の移動ベクトル
+	XMVECTOR move = nowPosition - prevPosition;
 
-    //移動ベクトルの長さを測る
-    XMVECTOR length = XMVector3Length(move);
+	//移動ベクトルの長さを測る
+	XMVECTOR length = XMVector3Length(move);
 
-    //0.1以上移動してたなら回転処理
-    if (XMVectorGetX(length) > 0.1f)
-    {
-        //角度を求めるために長さを１にする（正規化）
-        move = XMVector3Normalize(move);
+	//0.1以上移動してたなら回転処理
+	if (XMVectorGetX(length) > 0.1f)
+	{
+		//角度を求めるために長さを１にする（正規化）
+		move = XMVector3Normalize(move);
 
-        //基準となる奥向きのベクトル
-        XMVECTOR front = { -1, 0, 0, 0 };
+		//基準となる奥向きのベクトル
+		XMVECTOR front = { -1, 0, 0, 0 };
 
-        //frontとmoveの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(front, move);
-        float dot = XMVectorGetX(vecDot);
+		//frontとmoveの内積を求める
+		XMVECTOR vecDot = XMVector3Dot(front, move);
+		float dot = XMVectorGetX(vecDot);
 
-        //向いてる角度を求める（ラジアン）
-        float angle = acos(dot);
+		//向いてる角度を求める（ラジアン）
+		float angle = acos(dot);
 
-        //frontとmoveの外積を求める
-        XMVECTOR cross = XMVector3Cross(front, move);
+		//frontとmoveの外積を求める
+		XMVECTOR cross = XMVector3Cross(front, move);
 
-        //外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
-        if (XMVectorGetY(cross) < 0)
-        {
-            angle *= -1;
-        }
+		//外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
+		if (XMVectorGetY(cross) < 0)
+		{
+			angle *= -1;
+		}
 
-        //そのぶん回転させる
-        transform_.rotate_.y = angle * 180.0f / 3.14f;
-    }
+		//そのぶん回転させる
+		transform_.rotate_.y = angle * 180.0f / 3.14f;
+	}
 }
