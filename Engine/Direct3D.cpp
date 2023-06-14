@@ -553,11 +553,12 @@ namespace Direct3D
 		D3DCompileFromFile(L"Shader/WaterShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 		pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_WATER].pPixelShader);
 
+
 		// 頂点レイアウトの作成（1頂点の情報が何のデータをどんな順番で持っているか）
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, vectorSize * 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },	//頂点位置
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, vectorSize * 1, D3D11_INPUT_PER_VERTEX_DATA, 0 },	//テクスチャ（UV）座標
-			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, vectorSize * 2, D3D11_INPUT_PER_VERTEX_DATA, 0 },	//法線
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, vectorSize * 1, D3D11_INPUT_PER_VERTEX_DATA, 0 },	//法線
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, vectorSize * 2, D3D11_INPUT_PER_VERTEX_DATA, 0 },	//テクスチャ（UV）座標
 			{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, vectorSize * 3, D3D11_INPUT_PER_VERTEX_DATA, 0 } //接戦
 		};
 		pDevice_->CreateInputLayout(layout, 4, pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &shaderBundle[SHADER_WATER].pVertexLayout);
@@ -572,8 +573,7 @@ namespace Direct3D
 		rdc.CullMode = D3D11_CULL_BACK;
 		rdc.FillMode = D3D11_FILL_SOLID;
 		rdc.FrontCounterClockwise = TRUE;
-		pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_WATER].pRasterizerState);
-
+		pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_NORMALMAP].pRasterizerState);
 		return S_OK;
 	}
 
