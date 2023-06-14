@@ -167,17 +167,17 @@
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Pose.cpp" />
-    <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="Scene\PlayScene.cpp" />
+    <ClCompile Include="Scene\ResultScene.cpp" />
+    <ClCompile Include="Scene\StartScene.cpp" />
+    <ClCompile Include="Scene\TestScene.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Scene\TutorialScene.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Star.cpp" />
-    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="StarUI.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -223,17 +223,17 @@
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Observer\ResultObserver.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Pose.h" />
-    <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="Scene\PlayScene.h" />
+    <ClInclude Include="Scene\ResultScene.h" />
+    <ClInclude Include="Scene\StartScene.h" />
+    <ClInclude Include="Scene\TestScene.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Scene\TutorialScene.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Star.h" />
-    <ClInclude Include="StartScene.h" />
     <ClInclude Include="StarUI.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>

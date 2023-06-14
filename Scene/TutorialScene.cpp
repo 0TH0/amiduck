@@ -1,39 +1,34 @@
-#include "PlayScene.h"
-#include "Stage.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "StartScene.h"
-#include "Instructions.h"
-#include "Controller.h"
-#include "FireFollowGround.h"
-#include "Fire.h"
-#include "Enemy.h"
-#include "Line.h"
-#include "StartScene.h"
-#include "Water.h"
-#include "Item.h"
-#include "Fire.h"
-#include "StarUI.h"
-#include "Duck.h"
+#include "TutorialScene.h"
+#include "../Stage.h"
+#include "../Player.h"
+#include "../Enemy.h"
+#include "../Instructions.h"
+#include "../Controller.h"
+#include "../FireFollowGround.h"
+#include "../Fire.h"
+#include "../Enemy.h"
+#include "../Line.h"
+#include "../Water.h"
+#include "../Item.h"
+#include "../Fire.h"
+#include "../StarUI.h"
+#include "../Duck.h"
 
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Text.h"
-#include "Engine/Audio.h"
-#include "Timer.h"
-#include "Observer/ResultObserver.h"
-
-static Timer* pTimer;
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Text.h"
+#include "../Engine/Audio.h"
+#include "../Observer/ResultObserver.h"
 
 //コンストラクタ
-PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene"),hAudio_(),pPlayer_()
+TutorialScene::TutorialScene(GameObject* parent)
+	: GameObject(parent, "TutorialScene"), hAudio_()
 {
 }
 
 //初期化
-void PlayScene::Initialize()
+void TutorialScene::Initialize()
 {
 	Instantiate<Water>(this);
 	//ステージ
@@ -42,8 +37,6 @@ void PlayScene::Initialize()
 	pStage->StageLoad();
 	pStage->SetShouldPoPRandStage(true);
 
-	Instantiate<StartScene>(this);
-	
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
 	pTimer->SetRimit(180);
@@ -59,7 +52,7 @@ void PlayScene::Initialize()
 }
 
 //更新
-void PlayScene::Update()
+void TutorialScene::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
 
@@ -89,11 +82,11 @@ void PlayScene::Update()
 }
 
 //描画
-void PlayScene::Draw()
+void TutorialScene::Draw()
 {
 }
 
 //開放
-void PlayScene::Release()
+void TutorialScene::Release()
 {
 }

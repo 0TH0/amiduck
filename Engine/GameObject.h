@@ -6,7 +6,7 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "Transform.h"
-
+#include "Global.h"
 
 
 
@@ -146,6 +146,8 @@ public:
 	void SetRotateZ(float z) { SetRotate(transform_.rotate_.x, transform_.rotate_.y, z); }
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 	void SetScale(float x, float y, float z) { SetScale(XMFLOAT3(x, y, z)); }
+	
+	void ZeroTime() { time_ = ZERO; }
 
 private:
 

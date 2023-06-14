@@ -1,6 +1,6 @@
 #include "Stage.h"
 #include "Player.h"
-#include "PlayScene.h"
+#include "Scene/PlayScene.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "Star.h"
@@ -83,9 +83,6 @@ void Stage::StageLoad()
 
     hModel_[FIRE_RIGHT] = Model::Load("Model\\fire\\fireball.fbx");
     assert(hModel_[FIRE_RIGHT] >= 0);
-
-    hModel_[15] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[15] >= 0);
 
     //‰Œ‚Ì‰¹
     hAudio_ = Audio::Load("Audio\\smoke.wav", 5);

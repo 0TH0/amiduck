@@ -334,8 +334,14 @@ void GameObject::DrawSub()
 	default:
 		break;
 	}
+	
 
-	Draw();
+	//‚à‚µ•`‰æ‚ª‹–‰Â‚³‚ê‚Ä‚¢‚é‚Ì‚È‚ç
+	if (this->IsVisibled())
+	{
+		//•`‰æ
+		Draw();
+	}
 
 	//ƒŠƒŠ[ƒX‚Ííœ
 #ifdef _DEBUG

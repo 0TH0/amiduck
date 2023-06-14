@@ -124,29 +124,11 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>01Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="StartScene.cpp">
-      <Filter>01Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>01Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>01Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
-      <Filter>01Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Observer\ResultObserver.cpp">
       <Filter>03Observer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\UI.cpp">
       <Filter>01Engine\ResourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="TutorialScene.cpp">
-      <Filter>01Scene</Filter>
     </ClCompile>
     <ClCompile Include="EnemyMob.cpp" />
     <ClCompile Include="Engine\Astar.cpp">
@@ -156,6 +138,24 @@
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="Scene\PlayScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ResultScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StartScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TestScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TutorialScene.cpp">
+      <Filter>01Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -250,29 +250,11 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
-    <ClInclude Include="PlayScene.h">
-      <Filter>01Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="StartScene.h">
-      <Filter>01Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>01Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>01Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultScene.h">
-      <Filter>01Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Observer\ResultObserver.h">
       <Filter>03Observer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\UI.h">
       <Filter>01Engine\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene.h">
-      <Filter>01Scene</Filter>
     </ClInclude>
     <ClInclude Include="EnemyMob.h" />
     <ClInclude Include="Engine\Astar.h">
@@ -282,6 +264,24 @@
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CharacterBase.h" />
+    <ClInclude Include="Scene\PlayScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ResultScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StartScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TestScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TutorialScene.h">
+      <Filter>01Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -5,10 +5,12 @@
 #include "Engine/Particle.h"
 #include "Engine/PoryLine.h"
 #include "CharacterBase.h"
+#include "Bomb.h"
 
 //◆◆◆を管理するクラス
 class Player : public CharacterBase
 {
+    Bomb* pBomb_;
 public:
     //コンストラクタ
     Player(GameObject* parent);

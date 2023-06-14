@@ -66,6 +66,8 @@ void EnemyMob::Action()
         {
             XMVECTOR v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z, 0 };
 
+            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.08f));
+
             transform_.position_ = Math::VectorToFloat3(v);
         }
     }

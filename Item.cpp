@@ -2,7 +2,7 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/GameObject.h"
-#include "PlayScene.h"
+#include "Scene/PlayScene.h"
 #include "Player.h"
 #include "Stage.h"
 #include "Engine/Camera.h"

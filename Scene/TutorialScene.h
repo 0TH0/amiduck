@@ -1,16 +1,14 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Player.h"
-#include "Instructions.h"
-#include "Engine/Text.h"
+#include "../Engine/GameObject.h"
+#include "../Timer.h"
 
 //■■シーンを管理するクラス
 class TutorialScene : public GameObject
 {
-public:
-	Player* pPlayer;
-	Transform playerTrans;
+	Timer* pTimer;
 	int hAudio_;
+
+public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

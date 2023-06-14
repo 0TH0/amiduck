@@ -1,7 +1,6 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Player.h"
-#include "Engine/Text.h"
+#include "../Engine/GameObject.h"
+#include "../Engine/Text.h"
 
 //■■シーンを管理するクラス
 class StartScene : public GameObject

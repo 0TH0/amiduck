@@ -1,5 +1,5 @@
-#include "PlayScene.h"
-#include "StartScene.h"
+#include "Scene/PlayScene.h"
+#include "Scene/StartScene.h"
 #include "Controller.h"
 #include "Enemy.h"
 #include "Line.h"
@@ -10,6 +10,7 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
+#include "Player.h"
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)

@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "PlayScene.h"
+#include "Scene/PlayScene.h"
 
 //シーンを管理するクラス
 class Instructions : public GameObject

@@ -1,9 +1,9 @@
 #include "ResultScene.h"
-#include "Engine/Image.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
-#include "Engine/UI.h"
-#include "Observer/ResultObserver.h"
+#include "../Engine/Image.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
+#include "../Engine/UI.h"
+#include "../Observer/ResultObserver.h"
 
 static SceneManager* pSceneManager;
 static UI* pUI[(int)ResultScene::UIName::UI_MAX];

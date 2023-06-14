@@ -32,12 +32,6 @@ void Bomb::Initialize()
 
     transform_.rotate_ = XMFLOAT3(0, 0, 0);
 
-    //初期位置はプレイヤーの位置のｙ＋１
-    Player* pPlayer = (Player*)FindObject("Player");
-    PlayerTrans_.position_ = pPlayer->GetPosition();
-    transform_.position_ = PlayerTrans_.position_;
-    transform_.position_.y = PlayerTrans_.position_.y + 1;
-
 	pParticle_ = Instantiate<Particle>(this);
 
     data.textureFileName = "Particle\\Cloud.png";
@@ -60,35 +54,44 @@ void Bomb::Initialize()
 //更新
 void Bomb::Update()
 {
-	Player* pPlayer = (Player*)FindObject("Player");
-	transform_.rotate_.x += 5;
-
-	time++;
-
-	data.position = transform_.position_;
-	pParticle_->Start(data);
-
-	if (time >= 180)
+	if (IsStart_)
 	{
-		KillMe();
-	}
+		Visible();
 
-	if (pPlayer->GetReturn())
-	{
-		transform_.position_.x--;
-	}
-	else
-	{
-		transform_.position_.x++;
-	}
+		//初期位置はプレイヤーの位置のｙ＋１
+		Player* pPlayer = (Player*)FindObject("Player");
+		transform_.position_ = { pPlayer->GetPosition().x, pPlayer->GetPosition().y + 1, pPlayer->GetPosition().z };
+		
+		data.position = transform_.position_;
+		pParticle_->Start(data);
 
-	if (starTime_ >= 7)
-	{
-		starTime_ = 0;
-	}
-	else if (starTime_ > 0)
-	{
-		starTime_++;
+		transform_.rotate_.x += 5;
+
+		time_++;
+
+		if (pPlayer->GetReturn())
+		{
+			transform_.position_.x--;
+		}
+		else
+		{
+			transform_.position_.x++;
+		}
+
+		if (starTime_ >= 7)
+		{
+			starTime_ = 0;
+		}
+		else if (starTime_ > 0)
+		{
+			starTime_++;
+		}
+
+		if (time_ >= 180)
+		{
+			Stop();
+			Invisible();
+		}
 	}
 }
 

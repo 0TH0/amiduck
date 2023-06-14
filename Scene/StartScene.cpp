@@ -1,12 +1,7 @@
 #include "StartScene.h"
-#include "Engine/Image.h"
-#include "Engine/Input.h"
-#include "Engine/GameObject.h"
-#include "PlayScene.h"
-#include "Player.h"
-#include "Engine/Camera.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Text.h"
+#include "../Engine/Image.h"
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 StartScene::StartScene(GameObject* parent)

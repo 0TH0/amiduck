@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "PlayScene.h"
+#include "Scene/PlayScene.h"
 #include "FireFollowGround.h"
 #include "Controller.h"
 #include "Enemy.h"
@@ -56,7 +56,7 @@ void Player::Command()
             break;
             //”š’eo‚·
         case Item::ItemNum::BOMB:
-            Instantiate<Bomb>(GetParent());
+            pBomb_->Start();
             hasItem_ = false;
             pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;
@@ -137,6 +137,9 @@ void Player::InitBase()
 
     //Å‰‚Í—‘‚©‚ç
     CharacterState = State::EGG;
+
+    //”š’e
+    pBomb_ = Instantiate<Bomb>(GetParent());
 }
 
 void Player::DrawBase()

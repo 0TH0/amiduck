@@ -1,24 +1,13 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Engine/Text.h"
+#include "../Engine/GameObject.h"
 
 //テストシーンを管理するクラス
-class TitleScene : public GameObject
+class TestScene : public GameObject
 {
 public:
-
-	enum class UIName
-	{
-		PLAY = 0,
-		TUTORIAL,
-		TITLE,
-		CHAR,
-		UI_MAX
-	} UIName_;
-
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	TestScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
