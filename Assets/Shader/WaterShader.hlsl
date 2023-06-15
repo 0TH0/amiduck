@@ -89,7 +89,6 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-
 	//正規化しておく
 	inData.light = normalize(inData.light);
 	float alpha = 0;
@@ -106,12 +105,12 @@ float4 PS(VS_OUT inData) : SV_Target
 	normal.w = 0;
 	normal = normalize(normal);
 
-	float4 shade = dot(normal, inData.light);
+	float4 shade = dot(inData.light, normal);
 	shade = clamp(shade, 0, 1);
 
 	float4 diffuse;
 	//テクスチャ有無
-	if (g_isTexture == true)
+	if (g_isTexture)
 	{
 		//テクスチャの色
 		diffuse = g_texture.Sample(g_sampler, inData.uv);
@@ -125,18 +124,19 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
-	float4 	ambient = float4(0.5, 0.5, 0.5, 1); g_vecAmbient;
+	float4 	ambient = float4(1, 1, 1, 1);
 
 	//鏡面反射光（スペキュラー）
 	float4 speculer = float4(1, 1, 1, 1);
 
 	float4 R = reflect(inData.light, normal);		//正反射ベクトル
-	speculer = pow(saturate(dot(R, inData.V)), 5) * 3;//ハイライトを求める
+	//speculer = pow(saturate(dot(R, inData.V)), 5) * 3;//ハイライトを求める
+	speculer = pow(clamp(dot(R, inData.V), 0, 1), 5) * 3;
 
 
 	//最終的な色
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
-	color.a = alpha;
+	color.a = 1;
 
 	return color;
 }

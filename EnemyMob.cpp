@@ -2,7 +2,6 @@
 #include "Engine/SceneManager.h"
 #include "Player.h"
 #include "Engine/Astar.h"
-#include "Engine/Math.h"
 #include "Engine/Model.h"
 #include "Stage.h"
 
@@ -68,7 +67,7 @@ void EnemyMob::Action()
 
             XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.08f));
 
-            transform_.position_ = Math::VectorToFloat3(v);
+            transform_.position_ = VectorToFloat3(v);
         }
     }
 

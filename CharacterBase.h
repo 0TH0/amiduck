@@ -4,12 +4,14 @@
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Collider.h"
-#include "Engine/PoryLine.h"
+#include "Engine/PolyLine.h"
 
 //◆◆◆を管理するクラス
 class CharacterBase : public GameObject
 {
 protected:
+
+    //方向
     enum dir
     {
         L = 0,
@@ -24,16 +26,17 @@ protected:
         GROWN,      //成長した
     } CharacterState;
 
-    int hModel_;          //モデル番号
-    int hModel2_;          //モデル番号
-    float jump_v0;              //ジャンプの初速度
-    float gravity;        //重力
-    float angle;          //角度
-    XMFLOAT3 move_;       //初速度
-    bool IsJump;          //ジャンプしたか
-    bool IsGround;        //地面についているか
-    bool IsEnemy;         //敵に当たったか
-    float speed_;        //移動速度
+    int hModel_;              //モデル番号
+    int hModel2_;             //モデル番号
+    float jump_v0;            //ジャンプの初速度
+    float gravity;            //重力
+    float angle;              //角度
+    XMFLOAT3 move_;           //初速度
+    bool IsJump;              //ジャンプしたか
+    bool IsGround;            //地面についているか
+    bool IsEnemy;             //敵に当たったか
+    float speed_;             //移動速度
+    float speedChange_;       //speedを変える
     float SpeedOnWood_[DIR_MAX];  //木の上の移動速度
     float TimeOnWood_[DIR_MAX];    //木の上の時間
     int SpeedUpTime_;             //スピードUPしている時間
@@ -45,16 +48,16 @@ protected:
     bool IsReturn_;     //戻ってきているか
     bool IsStop_;       //止まっているか
     bool IsOnBridge_;   //橋の上にいるか
-    int starNum_;
-    int starTime_;
-    bool hasItem_;
+    int starNum_;       //星の数
+    int starTime_;      //星を取ってからの時間
+    bool hasItem_;      //アイテムを持っているか
 
     //定数
     Stage* pStage;
     Text* pText = new Text;
     Particle* pParticle_;
     EmitterData data;
-    PoryLine* pLine[3];
+    PolyLine* pLine[3];
     XMVECTOR prevPosition;
 
    virtual void Action() = 0;

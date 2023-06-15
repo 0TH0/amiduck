@@ -24,11 +24,17 @@
       <UniqueIdentifier>{47a6a3f5-8cfd-436b-8d58-beccd108f3f3}</UniqueIdentifier>
       <Extensions>hlsl</Extensions>
     </Filter>
-    <Filter Include="01Scene">
+    <Filter Include="Scene">
       <UniqueIdentifier>{ad577d30-f6c8-4e18-9f47-a61f88a52a35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03Observer">
+    <Filter Include="Observer">
       <UniqueIdentifier>{fcdf85af-73b7-4e2b-a4d7-b60d489b54d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{9d5cd627-6111-426d-8607-1a91107e50d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EffectManager">
+      <UniqueIdentifier>{9ea5fc13-1e5f-450a-a368-801cf6cbb4b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +104,7 @@
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Engine\PoryLine.cpp">
+    <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Particle.cpp">
@@ -109,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="Engine\Math.cpp">
-      <Filter>01Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Water.cpp" />
@@ -125,7 +128,7 @@
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp">
-      <Filter>03Observer</Filter>
+      <Filter>Observer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\UI.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -139,22 +142,25 @@
     </ClCompile>
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\ResultScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\StartScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TestScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TitleScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TutorialScene.cpp">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEffect.cpp">
+      <Filter>Manager\EffectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +230,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Engine\PoryLine.h">
+    <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Particle.h">
@@ -235,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="Engine\Math.h">
-      <Filter>01Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Star.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Water.h" />
@@ -251,7 +254,7 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
     <ClInclude Include="Observer\ResultObserver.h">
-      <Filter>03Observer</Filter>
+      <Filter>Observer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\UI.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -265,22 +268,25 @@
     </ClInclude>
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Scene\PlayScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\ResultScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\StartScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\TestScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\TitleScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\TutorialScene.h">
-      <Filter>01Scene</Filter>
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEffect.h">
+      <Filter>Manager\EffectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

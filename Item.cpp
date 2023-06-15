@@ -8,7 +8,6 @@
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-#include "Engine/Math.h"
 
 //コンストラクタ
 Item::Item(GameObject* parent)
@@ -57,7 +56,7 @@ void Item::Update()
 	//アイテムを拾ったら１回だけ実行
 	if (!(pPlayer->GetHasItem()))
 	{
-		item_ = (ItemNum)Math::RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
+		item_ = (ItemNum)RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
 	}
 
 	if (woodCount_ < 3)

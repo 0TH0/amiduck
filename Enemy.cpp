@@ -91,7 +91,7 @@ void Enemy::InitBase()
     pStage = (Stage*)FindObject("Stage");
     assert(pStage != nullptr);
 
-    Instantiate<Controller>(this);
+    //Instantiate<Controller>(this);
 
     pText->Initialize();
 

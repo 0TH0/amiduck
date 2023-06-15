@@ -3,12 +3,13 @@
 #include "Stage.h"
 #include "Engine/Text.h"
 #include "Engine/Particle.h"
-#include "Engine/PoryLine.h"
+#include "Engine/PolyLine.h"
 #include "CharacterBase.h"
 
 //◆◆◆を管理するクラス
 class FireFollowGround : public CharacterBase
 {
+    PolyLine* pLine;
 public:
     //コンストラクタ
     FireFollowGround(GameObject* parent);

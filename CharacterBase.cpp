@@ -6,7 +6,6 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-#include "Engine/Math.h"
 
 //コンストラクタ
 CharacterBase::CharacterBase(GameObject* parent)
@@ -19,7 +18,7 @@ CharacterBase::CharacterBase(GameObject* parent, std::string name)
       gravity(0),angle(0),move_(),IsJump(false),IsGround(false),IsEnemy(false),speed_(0.3f),
       SpeedUpTime_(0),IsSpeedUp_(false),IsRight_(false),IsLeft_(false),delay_(0),StoppedTime_(0),IsReturn_(false),
       IsStop_(false),IsOnBridge_(false),starNum_(0),starTime_(0),hasItem_(0),
-      pParticle_(),data(),prevPosition()
+      pParticle_(),data(),prevPosition(),speedChange_(0.2f)
 {
     for (int i = 0; i < DIR_MAX; i++)
     {
@@ -29,7 +28,7 @@ CharacterBase::CharacterBase(GameObject* parent, std::string name)
 
     for (int i = 0; i < 3; i++)
     {
-        pLine[i] = new PoryLine;
+        pLine[i] = new PolyLine;
         pLine[i]->Load("Image\\tex_orange.png");
     }
 }
@@ -136,7 +135,7 @@ void CharacterBase::Release()
 void CharacterBase::LadderLottery()
 {
     //////////////////壁との衝突判定///////////////////////
-    XMINT3 obj = Math::ToXMINT(transform_.position_);
+    XMINT3 obj = ToXMINT(transform_.position_);
 
     //壁の判定(上)
     if (!IsRight_ && !IsLeft_)
@@ -164,7 +163,6 @@ void CharacterBase::LadderLottery()
 
 
     ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
-
     if (!IsLeft_ && StoppedTime_ > 4)
     {
         if (pStage->IsBridge(obj.x, obj.z - 4))
@@ -195,7 +193,7 @@ void CharacterBase::LadderLottery()
             switch (CharacterState)
             {
             case CharacterBase::State::EGG:
-                speed_ = 0.2f;
+                speed_ = speedChange_;
                 break;
             case CharacterBase::State::GROWN:
                 speed_ = 0.3f;
@@ -252,7 +250,7 @@ void CharacterBase::LadderLottery()
                 switch (CharacterState)
                 {
                 case CharacterBase::State::EGG:
-                    speed_ = 0.2;
+                    speed_ = speedChange_;
                     break;
                 case CharacterBase::State::GROWN:
                     speed_ = 0.3f;

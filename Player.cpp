@@ -13,7 +13,6 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
-#include "Engine/Math.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -214,7 +213,7 @@ void Player::OnCollision(GameObject* pTarget)
     XMVECTOR Down = { 0,-1,0,0 };
 
     //敵に当たった
-    if (pTarget->GetObjectName() == "Fire")
+    if (pTarget->GetObjectName() == "EnemyMob")
     {
         //敵の位置
         XMFLOAT3 EnemyPos = pTarget->GetPosition();
@@ -229,7 +228,7 @@ void Player::OnCollision(GameObject* pTarget)
         float Dot = XMVectorGetY(vDot);
 
         //角度を求める
-        angle = acos(Dot) * (180.0 / 3.14f);
+        angle = acos(Dot) * (180.0 / M_PI);
 
         if (angle <= 90)
         {
