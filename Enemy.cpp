@@ -88,9 +88,6 @@ void Enemy::InitBase()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
 
-    pStage = (Stage*)FindObject("Stage");
-    assert(pStage != nullptr);
-
     //Instantiate<Controller>(this);
 
     pText->Initialize();

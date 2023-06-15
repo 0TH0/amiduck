@@ -81,7 +81,6 @@ void Item::Draw()
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 
-	Stage* pStage = (Stage*)FindObject("Stage");
 	transform_.position_ = XMFLOAT3(0.5f, -0.75f, 0);
 
 	if (woodCount_ > 0)

@@ -57,8 +57,7 @@ void EnemyMob::Release()
 void EnemyMob::Action()
 {
     Player* pPlayer = (Player*)FindObject("Player");
-    XMVECTOR before = XMLoadFloat3(&transform_.position_);
-
+    
     if (CanMove_)
     {
         if (totalCell >= 0)

@@ -16,26 +16,22 @@ Water::~Water()
 void Water::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Water\\water3.fbx");
+    hModel_ = Model::Load("Water\\water5.fbx");
     assert(hModel_ >= 0);
-    transform_.position_ = { 5,-3 ,5 };
-    transform_.scale_ = XMFLOAT3(24, 0.1, 24);
+    transform_.scale_ = XMFLOAT3(0.5 ,0.1, 0.5);
     Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
 }
 
 //更新
 void Water::Update()
 {
-    scroll_ += 0.0002f;
-
+    scroll_ += 0.0001f;
     Model::SetUvScroll(hModel_, scroll_);
-
 }
 
 //描画
 void Water::Draw()
 {
-    transform_.scale_ = XMFLOAT3(24, 0.1, 24);
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 }

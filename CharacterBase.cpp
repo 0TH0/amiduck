@@ -41,9 +41,6 @@ CharacterBase::~CharacterBase()
 //‰Šú‰»
 void CharacterBase::Initialize()
 {
-	pStage = (Stage*)FindObject("Stage");
-	assert(pStage != nullptr);
-
 	InitBase();
 }
 

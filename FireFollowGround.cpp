@@ -34,7 +34,6 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
             Star* pStar = Instantiate<Star>(GetParent());
             pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
         }
-        KillMe();
     }
 }
 

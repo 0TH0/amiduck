@@ -392,7 +392,7 @@ void Stage::PopBridge()
     {
         for (int i = 0; i < 5; i++)
         {
-            stage_[buf[i].x][buf[i].z].type = -1;
+            stage_[buf[i].x][buf[i].z].type = EMPTY;
         }
 
         for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -433,7 +433,7 @@ void Stage::PopBridge()
         if (IsHit)
         {
             //ƒNƒŠƒbƒN‚µ‚½‚Æ‚±‚ë‚ª‰½‚à‚È‚©‚Á‚½‚ç
-            if (stage_[bufX][bufZ].type == -1)
+            if (stage_[bufX][bufZ].type == EMPTY)
             {
 
                 if (stage_[bufX][bufZ - 1].type == LOG)

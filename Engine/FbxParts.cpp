@@ -495,36 +495,6 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.scroll = scroll_;
 
-		//{
-		//	static float nowP = 0;
-		//	static float saveP = 3;
-		//	static float scroll = 0.0f;
-
-		//	switch (shaderType_)
-		//	{
-		//	case Direct3D::SHADER_3D:
-		//		break;
-		//	case Direct3D::SHADER_2D:
-		//		break;
-		//	case Direct3D::SHADER_UNLIT:
-		//		break;
-		//	case Direct3D::SHADER_BILLBOARD:
-		//		break;
-		//	case Direct3D::SHADER_TOON:
-		//		break;
-		//	case Direct3D::SHADER_NORMALMAP:
-		//		break;
-		//	case Direct3D::SHADER_WATER:
-		//		scroll += 0.001f;
-		//		cb.scroll = scroll;
-		//		break;
-		//	case Direct3D::SHADER_MAX:
-		//		break;
-		//	default:
-		//		break;
-		//	}
-		//}
-
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る
 

@@ -55,7 +55,7 @@ void Player::Command()
             break;
             //爆弾出す
         case Item::ItemNum::BOMB:
-            pBomb_->Start();
+            Instantiate<Bomb>(GetParent());
             hasItem_ = false;
             pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;
@@ -127,7 +127,6 @@ void Player::InitBase()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
 
-    pStage = (Stage*)FindObject("Stage");
     Instantiate<Controller>(this);
 
     pText->Initialize();
@@ -136,9 +135,6 @@ void Player::InitBase()
 
     //最初は卵から
     CharacterState = State::EGG;
-
-    //爆弾
-    pBomb_ = Instantiate<Bomb>(GetParent());
 }
 
 void Player::DrawBase()
@@ -213,37 +209,42 @@ void Player::OnCollision(GameObject* pTarget)
     XMVECTOR Down = { 0,-1,0,0 };
 
     //敵に当たった
-    if (pTarget->GetObjectName() == "EnemyMob")
-    {
-        //敵の位置
-        XMFLOAT3 EnemyPos = pTarget->GetPosition();
-        XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
+    //if (pTarget->GetObjectName() == "EnemyMob")
+    //{
+    //    //敵の位置
+    //    XMFLOAT3 EnemyPos = pTarget->GetPosition();
+    //    XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
 
-        //プレイヤーの位置
-        XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
-        XMVector3Normalize(PlayerPos);
+    //    //プレイヤーの位置
+    //    XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
+    //    XMVector3Normalize(PlayerPos);
 
-        //Downとプレイヤーの外積を求める
-        XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-        float Dot = XMVectorGetY(vDot);
+    //    //Downとプレイヤーの外積を求める
+    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
+    //    float Dot = XMVectorGetY(vDot);
 
-        //角度を求める
-        angle = acos(Dot) * (180.0 / M_PI);
+    //    //角度を求める
+    //    angle = acos(Dot) * (180.0 / M_PI);
 
-        if (angle <= 90)
-        {
-            //初速度
-            jump_v0 = 0.15f;
-            //重力
-            gravity = 0.003f;
+    //    if (angle <= 90)
+    //    {
+    //        //初速度
+    //        jump_v0 = 0.15f;
+    //        //重力
+    //        gravity = 0.003f;
 
-            //初速度を加える
-            move_.y = jump_v0;
-            transform_.position_.y += move_.y;
+    //        //初速度を加える
+    //        move_.y = jump_v0;
+    //        transform_.position_.y += move_.y;
 
-            //重力を加える
-            move_.y += gravity;
-            transform_.position_.y += move_.y;
-        }
-    }
+    //        //重力を加える
+    //        move_.y += gravity;
+    //        transform_.position_.y += move_.y;
+    //    }
+    //    else
+    //    {
+    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+    //        pSceneManager->ChangeScene(SCENE_ID_RESULT);
+    //    }
+    //}
 }

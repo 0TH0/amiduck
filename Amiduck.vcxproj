@@ -164,6 +164,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="Manager\EffectManager\BombEffect.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Fire.h" />
+    <ClInclude Include="Manager\EffectManager\BombEffect.h" />
     <ClInclude Include="Observer\ResultObserver.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerEffect.h" />

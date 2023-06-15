@@ -28,70 +28,46 @@ void Bomb::Initialize()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
 	AddCollider(collision);
 
-    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
+	transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
-    transform_.rotate_ = XMFLOAT3(0, 0, 0);
+	transform_.rotate_ = XMFLOAT3(0, 0, 0);
 
-	pParticle_ = Instantiate<Particle>(this);
-
-    data.textureFileName = "Particle\\Cloud.png";
-    data.delay = 0;
-    data.number = 80;
-    data.lifeTime = 30;
-    data.dir = XMFLOAT3(1, 0, 0);
-    data.dirErr = XMFLOAT3(180, 90, 90);
-    data.speed = 0.4f;
-    data.speedErr = 1;
-    data.size = XMFLOAT2(1, 0.5);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.05, 1.05);
-    data.color = XMFLOAT4(1, 0, 0, 1);
-    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-    data.gravity = 0.003f;
-    data.color = XMFLOAT4(0.5, 0.5, 0, 1);
+	//初期位置はプレイヤーの位置のｙ＋１
+	Player* pPlayer = (Player*)FindObject("Player");
+	PlayerTrans_.position_ = pPlayer->GetPosition();
+	transform_.position_ = PlayerTrans_.position_;
+	transform_.position_.y = PlayerTrans_.position_.y + 1;
 }
 
 //更新
 void Bomb::Update()
 {
-	if (IsStart_)
+	Player* pPlayer = (Player*)FindObject("Player");
+	transform_.rotate_.x += 5;
+
+	time++;
+
+	if (time >= 180)
 	{
-		Visible();
+		KillMe();
+	}
 
-		//初期位置はプレイヤーの位置のｙ＋１
-		Player* pPlayer = (Player*)FindObject("Player");
-		transform_.position_ = { pPlayer->GetPosition().x, pPlayer->GetPosition().y + 1, pPlayer->GetPosition().z };
-		
-		data.position = transform_.position_;
-		pParticle_->Start(data);
+	if (pPlayer->GetReturn())
+	{
+		transform_.position_.x--;
+	}
+	else
+	{
+		transform_.position_.x++;
+	}
 
-		transform_.rotate_.x += 5;
-
-		time_++;
-
-		if (pPlayer->GetReturn())
-		{
-			transform_.position_.x--;
-		}
-		else
-		{
-			transform_.position_.x++;
-		}
-
-		if (starTime_ >= 7)
-		{
-			starTime_ = 0;
-		}
-		else if (starTime_ > 0)
-		{
-			starTime_++;
-		}
-
-		if (time_ >= 180)
-		{
-			Stop();
-			Invisible();
-		}
+	if (starTime_ >= 7)
+	{
+		starTime_ = 0;
+	}
+	else if (starTime_ > 0)
+	{
+		starTime_++;
 	}
 }
 

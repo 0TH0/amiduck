@@ -162,6 +162,9 @@
     <ClCompile Include="PlayerEffect.cpp">
       <Filter>Manager\EffectManager</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\EffectManager\BombEffect.cpp">
+      <Filter>Manager\EffectManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -286,6 +289,9 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="PlayerEffect.h">
+      <Filter>Manager\EffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManager\BombEffect.h">
       <Filter>Manager\EffectManager</Filter>
     </ClInclude>
   </ItemGroup>

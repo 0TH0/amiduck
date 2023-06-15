@@ -73,7 +73,7 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	outData.V.z = dot(eye, normal);
 	outData.V.w = 0;
 
-	float4 light = float4(1, 3, 1, 0);
+	float4 light = float4(1, 0, 1, 0);
 	light = normalize(light);
 	outData.light.x = dot(light, tangent);
 	outData.light.y = dot(light, binormal);
@@ -124,19 +124,17 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
-	float4 	ambient = float4(1, 1, 1, 1);
+	float4 ambient = float4(1, 1, 1, 1);
 
 	//鏡面反射光（スペキュラー）
-	float4 speculer = float4(1, 1, 1, 1);
+	float4 speculer = g_vecSpeculer;
 
 	float4 R = reflect(inData.light, normal);		//正反射ベクトル
-	//speculer = pow(saturate(dot(R, inData.V)), 5) * 3;//ハイライトを求める
-	speculer = pow(clamp(dot(R, inData.V), 0, 1), 5) * 3;
-
+	//speculer = pow(clamp(dot(R, inData.V), 0, 1), 5);
 
 	//最終的な色
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
-	color.a = 1;
+	color.a = alpha;
 
 	return color;
 }

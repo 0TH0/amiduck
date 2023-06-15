@@ -7,16 +7,16 @@
 class Bomb : public GameObject
 {
 public:
-	int hModel_; 
+	int hModel_;
 	Transform PlayerTrans_;
 	float plus;
 	Particle* pParticle_;
 	EmitterData data;
 
+	int time;
 	int starTime_;
 	Stage* pStage;
 	float speed_;        //移動速度
-	bool IsStart_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -36,9 +36,6 @@ public:
 	//開放
 	void Release() override;
 
-	void Start() { IsStart_ = true; };
-
-	void Stop() { IsStart_ = false; };
-
 	void OnCollision(GameObject* pTarget) override;
+
 };
