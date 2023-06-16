@@ -25,7 +25,9 @@ namespace Direct3D
 	//【コンテキスト】
 	//GPUに命令を出すためのやつ
 	extern ID3D11DeviceContext* pContext_;
-
+	extern XMMATRIX lightView_;
+	extern XMMATRIX clipToUV_;
+	extern ID3D11ShaderResourceView* pDepthSRV_;
 
 	//■シェーダー関連で必要なセット
 	enum SHADER_TYPE
@@ -37,6 +39,7 @@ namespace Direct3D
 		SHADER_TOON,
 		SHADER_NORMALMAP,
 		SHADER_WATER,
+		SHADER_SHADOW,
 		SHADER_MAX
 	};	//3タイプ（3D用、2D用、当たり判定枠表示用）
 
@@ -107,7 +110,8 @@ namespace Direct3D
 	void SetShader(SHADER_TYPE type);
 
 	SHADER_TYPE GetShader();
-
+	//テクスチャへ深度情報を描く
+	void BeginDrawToTexture();
 
 	//ブレンドモードの変更
 	//引数：blendMode	BLEND_DEFAULT	通常

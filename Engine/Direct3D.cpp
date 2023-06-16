@@ -6,6 +6,12 @@
 //画面の描画に関する処理
 namespace Direct3D
 {
+	ID3D11Texture2D* pDepthTexture = nullptr;			//深度を書き込むテクスチャ
+	ID3D11RenderTargetView* pDepthTargetView = nullptr;	//↑のビュー
+	XMMATRIX lightView_;
+	XMMATRIX clipToUV_;
+	ID3D11ShaderResourceView* pDepthSRV_ = nullptr;
+
 	//【スワップチェーン】
 	//画用紙を2枚用紙しておき、片方を画面に映している間にもう一方に描画。
 	//1フレーム分の絵が出来上がったら画用紙を交換。これにより画面がちらつかない。
@@ -273,6 +279,40 @@ namespace Direct3D
 		{
 			return E_FAIL;
 		}
+
+
+		{	
+			// 頂点シェーダの作成（コンパイル）
+			ID3DBlob* pCompileVS = NULL;
+			D3DCompileFromFile(L"Shader/Shadow.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+			pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_SHADOW].pVertexShader);
+
+
+			// ピクセルシェーダの作成（コンパイル）
+			ID3DBlob* pCompilePS = NULL;
+			D3DCompileFromFile(L"Shader/Shadow.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+			pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_SHADOW].pPixelShader);
+
+
+			// 頂点レイアウトの作成（1頂点の情報が何のデータをどんな順番で持っているか）
+			D3D11_INPUT_ELEMENT_DESC layout[] = {
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+			pDevice_->CreateInputLayout(layout, 1, pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &shaderBundle[SHADER_SHADOW].pVertexLayout);
+
+
+			//シェーダーが無事作成できたので、コンパイルしたやつはいらない
+			pCompileVS->Release();
+			pCompilePS->Release();
+
+			//ラスタライザ作成
+			D3D11_RASTERIZER_DESC rdc = {};
+			rdc.CullMode = D3D11_CULL_BACK;
+			rdc.FillMode = D3D11_FILL_SOLID;
+			rdc.FrontCounterClockwise = TRUE;
+			pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_SHADOW].pRasterizerState);
+		}
+
 		return S_OK;
 	}
 
@@ -601,6 +641,23 @@ namespace Direct3D
 
 		//Zバッファへの書き込み
 		pContext_->OMSetDepthStencilState(pDepthStencilState[blendMode], 0);
+	}
+
+	void BeginDrawToTexture()
+	{
+		pContext_->OMSetRenderTargets(1, &pDepthTargetView, pDepthStencilView);
+
+		//背景の色
+		float clearColor[4] = { 0.8f, 0.8f, 0.95f, 1.0f };
+
+		//画面をクリア
+		pContext_->ClearRenderTargetView(pDepthTargetView, clearColor);
+
+
+		//深度バッファクリア
+		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+		SetShader(SHADER_SHADOW);
 	}
 
 	//描画開始

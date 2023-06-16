@@ -15,12 +15,14 @@ cbuffer global
 	float4x4	g_matWVP;			// ワールド・ビュー・プロジェクションの合成行列
 	float4x4	g_matNormalTrans;	// 法線の変換行列（回転行列と拡大の逆行列）
 	float4x4	g_matWorld;			// ワールド変換行列
+	float4x4	g_mWLP;				//ワールド・”ライトビュー”・プロジェクションの合成 
+	float4x4	g_mWLPT;			//ワールド・”ライトビュー”・プロジェクション・UV 行列の合成 
 	float4		g_vecLightDir;		// ライトの方向ベクトル
 	float4		g_vecDiffuse;		// ディフューズカラー（マテリアルの色）
 	float4		g_vecAmbient;		// アンビエントカラー（影の色）
 	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;// 視点（カメラの位置）
-	float		g_shininess;		// ハイライトの強さ（テカリ具合）
+	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
 	float		g_alpha;			//透明度
 	float		g_scroll;
 	bool		g_isTexture;		// テクスチャ貼ってあるかどうか

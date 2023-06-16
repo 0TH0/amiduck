@@ -477,6 +477,8 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		cb.world = XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.normalTrans = XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
 		cb.ambient = pMaterial_[i].ambient;
+		cb.mWLP = XMMatrixTranspose(transform.GetWorldMatrix() * Direct3D::lightView_ * Camera::GetProjectionMatrix());
+		cb.mWLPT = XMMatrixTranspose(transform.GetWorldMatrix() * Direct3D::lightView_ * Camera::GetProjectionMatrix() * Direct3D::clipToUV_);
 
 		if (IsSetDiffuse_)
 		{

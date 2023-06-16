@@ -44,8 +44,6 @@ void Player::Command()
     //アイテム使用
     if (Input::IsKeyDown(DIK_E) /*&& hasItem_*/)
     {
-        Instantiate<FireFollowGround>(GetParent());
-
         Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
         {
