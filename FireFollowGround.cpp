@@ -12,7 +12,7 @@
 #include "Player.h"
 
 FireFollowGround::FireFollowGround(GameObject* parent)
-    :CharacterBase(parent, "FireFollowGround")
+    :CharacterBase(parent, "FireFollowGround"), pLine()
 {
 }
 
@@ -59,7 +59,7 @@ void FireFollowGround::InitBase()
     assert(hModel_ >= 0);
 
     //ˆÊ’u
-    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
+    transform_.scale_ = XMFLOAT3(0.75, 0.75, 0.75);
 
     //“–‚½‚è”»’è
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);

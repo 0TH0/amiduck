@@ -1,11 +1,13 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Astar.h"
+#include "Engine/Particle.h"
 
 //ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class EnemyMob : public GameObject
 {
-    int EnemyTime_;
+    Particle* pParticle_;
+    EmitterData data;
     XMFLOAT3 playerPos_;
     int count_;
     Astar AI_;

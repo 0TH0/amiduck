@@ -59,15 +59,13 @@ void PlayScene::Update()
 	//星を5個取るか一定時間が経過したら
 	if (pPlayer->GetStarNum() >= 5 || pTimer->GetRimit() <= 0)
 	{
-		Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
 		//敵の星の数の方が多かったら
-		if (pEnemy->GetStarNum() >= pPlayer->GetStarNum())
+		//if (pEnemy->GetStarNum() >= pPlayer->GetStarNum())
 		{
 			//プレイヤーの負け
-			ResultObserver::SetIsWin(false);
+			//ResultObserver::SetIsWin(false);
 		}
-		else
+		//else
 		{
 			//プレイヤーの勝ち
 			ResultObserver::SetIsWin(true);
