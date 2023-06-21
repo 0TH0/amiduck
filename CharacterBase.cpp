@@ -17,18 +17,12 @@ CharacterBase::CharacterBase(GameObject* parent, std::string name)
       gravity(0),angle(0),move_(),IsJump(false),IsGround(false),IsEnemy(false),speed_(0.3f),
       SpeedUpTime_(0),IsSpeedUp_(false),IsRight_(false),IsLeft_(false),delay_(0),StoppedTime_(0),IsReturn_(false),
       IsStop_(false),IsOnBridge_(false),starNum_(0),starTime_(0),hasItem_(0),
-      pParticle_(),data(),prevPosition(),speedChange_(0.2f)
+      data(),prevPosition(),speedChange_(0.2f)
 {
     for (int i = 0; i < DIR_MAX; i++)
     {
         SpeedOnWood_[i] = 0;
         TimeOnWood_[i] = 0;
-    }
-
-    for (int i = 0; i < 3; i++)
-    {
-        pLine[i] = new PolyLine;
-        pLine[i]->Load("Image\\tex_orange.png");
     }
 }
 

@@ -19,6 +19,8 @@
 #include "EnemyRed.h"
 #include "EnemyBlue.h"
 #include "EnemyGreen.h"
+#include "Manager/StageAudio.h"
+#include "Manager/StageEffect.h"
 
 namespace
 {
@@ -36,7 +38,7 @@ namespace
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),pParticle_(nullptr),
+    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true),
     GuidePopBridgePos(),pPlayer_()
 {
@@ -85,10 +87,6 @@ void Stage::StageLoad()
 
     hModel_[FIRE_RIGHT] = Model::Load("Model\\fire\\fireball.fbx");
     assert(hModel_[FIRE_RIGHT] >= 0);
-
-    //煙の音
-    hAudio_ = Audio::Load("Audio\\smoke.wav", 5);
-    assert(hAudio_ >= 0);
 }
 
 //初期化
@@ -104,7 +102,8 @@ void Stage::Initialize()
         }
     }
 
-    CloudIni();
+    //オーディオ初期化
+    StageAudio::Initialize();
     StageLoad();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -176,7 +175,7 @@ void Stage::Initialize()
     }
 
     pText->Initialize();
-    pParticle_ = Instantiate<Particle>(this);
+    //
     pItem = (Item*)FindObject("Item");
 }
 
@@ -344,9 +343,10 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 2].type = BRIDGE;
                     stage_[bufX][bufZ + 3].type = BRIDGE;
                     stage_[bufX][bufZ + 4].type = BRIDGE;
-                    data.position.x = bufX;
-                    data.position.z = bufZ + 3;
-                    CloudStart();
+                    effectPos_.x = bufX;
+                    effectPos_.z = bufZ + 3;
+                    StageEffect::PopBridgeEffect(effectPos_);
+                    StageAudio::PopStageAudio();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 2].type == LOG)
@@ -356,9 +356,10 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 1].type = BRIDGE;
                     stage_[bufX][bufZ + 2].type = BRIDGE;
                     stage_[bufX][bufZ + 3].type = BRIDGE;
-                    data.position.x = bufX;
-                    data.position.z = bufZ + 2;
-                    CloudStart();
+                    effectPos_.x = bufX;
+                    effectPos_.z = bufZ + 2;
+                    StageEffect::PopBridgeEffect(effectPos_);
+                    StageAudio::PopStageAudio();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 3].type == LOG)
@@ -368,9 +369,10 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ - 2].type = BRIDGE;
-                    data.position.x = bufX;
-                    data.position.z = bufZ + 1;
-                    CloudStart();
+                    effectPos_.x = bufX;
+                    effectPos_.z = bufZ + 1;
+                    StageEffect::PopBridgeEffect(effectPos_);
+                    StageAudio::PopStageAudio();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 4].type == LOG)
@@ -380,9 +382,10 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ - 3].type = BRIDGE;
-                    data.position.x = bufX;
-                    data.position.z = bufZ;
-                    CloudStart();
+                    effectPos_.x = bufX;
+                    effectPos_.z = bufZ;
+                    StageEffect::PopBridgeEffect(effectPos_);
+                    StageAudio::PopStageAudio();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 5].type == LOG)
@@ -392,9 +395,10 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 2].type = BRIDGE;
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ - 4].type = BRIDGE;
-                    data.position.x = bufX;
-                    data.position.z = bufZ - 1;
-                    CloudStart();
+                    effectPos_.x = bufX;
+                    effectPos_.z = bufZ - 1;
+                    StageEffect::PopBridgeEffect(effectPos_);
+                    StageAudio::PopStageAudio();
                     pItem->MinWoodCount();
                 }
             }
@@ -592,30 +596,6 @@ void Stage::RandStage()
             }
         }
     }
-}
-
-void Stage::CloudIni()
-{
-    data.textureFileName = "Particle\\Cloud.png";
-    data.positionErr = XMFLOAT3(0.1f, 0, 0.1f);
-    data.delay = 0;
-    data.number = 5;
-    data.lifeTime = 60;
-    data.dir = XMFLOAT3(0, 1, 0);
-    data.dirErr = XMFLOAT3(0, 0, 0);
-    data.speed = 0.01f;
-    data.speedErr = 0.5;
-    data.size = XMFLOAT2(2, 2);
-    data.sizeErr = XMFLOAT2(0.4f, 0.4f);
-    data.scale = XMFLOAT2(1.03f, 1.02f);
-    float color = 0.5;
-    data.color = XMFLOAT4(color, color, color, 0.1f);
-}
-
-void Stage::CloudStart()
-{
-    pParticle_->Start(data);
-    Audio::Play(hAudio_);
 }
 
 bool Stage::IsBridge(int x,  int z)

@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Astar.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 
 //ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class EnemyBlue : public GameObject

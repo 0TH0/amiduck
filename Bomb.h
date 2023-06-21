@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 
 //シーンを管理するクラス
 class Bomb : public GameObject
@@ -10,7 +10,7 @@ public:
 	int hModel_;
 	Transform PlayerTrans_;
 	float plus;
-	Particle* pParticle_;
+	
 	EmitterData data;
 
 	int time;

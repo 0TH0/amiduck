@@ -17,8 +17,13 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :CharacterBase(parent, "Player")
+    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_()
 {
+    for (int i = 0; i < 3; i++)
+    {
+        pLine[i] = new PolyLine;
+        pLine[i]->Load("Image\\tex_orange.png");
+    }
 }
 
 //デストラクタ
@@ -136,7 +141,7 @@ void Player::InitBase()
 
     Instantiate<Controller>(this);
 
-    pParticle_ = Instantiate<Particle>(this);
+    //
 
     //最初は卵から
     CharacterState = State::EGG;

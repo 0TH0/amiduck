@@ -2,7 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 #include "Engine/Text.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 #include "Engine/PolyLine.h"
 #include "CharacterBase.h"
 #include "Bomb.h"
@@ -12,6 +12,7 @@ class Player : public CharacterBase
 {
     Bomb* pBomb_;
     int hAudio_;
+    PolyLine* pLine[3];
 public:
     //コンストラクタ
     Player(GameObject* parent);

@@ -6,6 +6,7 @@
 #include "Engine/Global.h"
 #include "Star.h"
 #include "Enemy.h"
+#include "Manager/BombEffect.h"
 
 //コンストラクタ
 Bomb::Bomb(GameObject* parent)
@@ -37,24 +38,6 @@ void Bomb::Initialize()
 	PlayerTrans_.position_ = pPlayer->GetPosition();
 	transform_.position_ = PlayerTrans_.position_;
 	transform_.position_.y = PlayerTrans_.position_.y + 1;
-
-	pParticle_ = Instantiate<Particle>(this);
-
-	data.textureFileName = "Particle\\Cloud.png";
-	data.delay = 0;
-	data.number = 5;
-	data.lifeTime = 50;
-	data.dir = XMFLOAT3(1, 0, 0);
-	data.dirErr = XMFLOAT3(180, 90, 90);
-	data.speed = 0.1f;
-	data.speedErr = 1;
-	data.size = XMFLOAT2(1, 0.5);
-	data.sizeErr = XMFLOAT2(0.4, 0.4);
-	data.scale = XMFLOAT2(1.01, 1.01);
-	data.color = XMFLOAT4(1, 0, 0, 1);
-	data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-	data.gravity = 0.003f;
-	data.color = XMFLOAT4(0.5, 0.5, 0, 1);
 }
 
 //更新
@@ -63,10 +46,11 @@ void Bomb::Update()
 	Player* pPlayer = (Player*)FindObject("Player");
 	transform_.rotate_.x += 5;
 
+	BombEffect::BombEffect(transform_.position_);
 	time++;
 
 	data.position = transform_.position_;
-	pParticle_->Start(data);
+	//pParticle_->Start(data);
 
 	if (time >= 100)
 	{

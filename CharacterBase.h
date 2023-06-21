@@ -54,9 +54,8 @@ protected:
 
     //’è”
     Stage* pStage;
-    Particle* pParticle_;
+    
     EmitterData data;
-    PolyLine* pLine[3];
     XMVECTOR prevPosition;
 
    virtual void Action() = 0;

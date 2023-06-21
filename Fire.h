@@ -1,12 +1,12 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 
 //テストシーンを管理するクラス
 class Fire : public GameObject
 {
 	int hModel_;
-	Particle* pParticle_;
+	
 	Transform trans;
 	bool first_;
 	bool right_; //右周りにするか

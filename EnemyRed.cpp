@@ -55,6 +55,8 @@ void EnemyRed::Release()
 {
 }
 
+static XMVECTOR v;
+
 void EnemyRed::Action()
 {
     Player* pPlayer = (Player*)FindObject("Player");
@@ -63,13 +65,19 @@ void EnemyRed::Action()
     {
         if (totalCell >= 0)
         {
-            XMVECTOR v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z, 0 };
+            v = { (float)AI_.GetToGoalCell(totalCell).x, 1.5f, (float)AI_.GetToGoalCell(totalCell).z, 0 };
 
-            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.4f));
+            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
 
-            transform_.position_ = VectorToFloat3(v);
+            //transform_.position_ = VectorToFloat3(v);
         }
     }
+
+    //if (transform_.position_.x == VectorToFloat3(v).x &&
+    //    transform_.position_.z == VectorToFloat3(v).z)
+    //{
+
+    //}
 
     //âΩÉtÉåÅ[ÉÄñàÇ…êiÇﬁÇ©
     int frame = 7;

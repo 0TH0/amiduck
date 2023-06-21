@@ -88,7 +88,7 @@ void Enemy::InitBase()
     AddCollider(collision);
 
 
-    pParticle_ = Instantiate<Particle>(this);
+    
 
     //Å‰‚Í—‘‚©‚ç
     CharacterState = State::EGG;

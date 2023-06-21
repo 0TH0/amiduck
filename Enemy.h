@@ -2,7 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 #include "Engine/Text.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 #include "Engine/PolyLine.h"
 #include "CharacterBase.h"
 

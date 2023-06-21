@@ -46,6 +46,8 @@ void PlayScene::Initialize()
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
 
+	ResultObserver::SetIsWin(false);
+
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);
 	assert(hAudio_ >= 0);

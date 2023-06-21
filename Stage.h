@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Text.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 #include "Engine/CsvReader.h"
 
 class Player;
@@ -51,7 +51,7 @@ class Stage : public GameObject
 
     Text* pText = new Text;
     CsvReader* csv;
-    Particle* pParticle_;
+    XMFLOAT3 effectPos_;
     EmitterData data;
     Player* pPlayer_;
 
@@ -88,9 +88,6 @@ public:
     //左クリックで橋を出現させる
     void PopBridge();
     void RandStage();
-
-    void CloudIni();
-    void CloudStart();
 
     int GetStageType(int x, int z) { return stage_[x][z].type; };
 };

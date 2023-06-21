@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 
 //シーンを管理するクラス
 class Star : public GameObject
@@ -8,7 +8,7 @@ class Star : public GameObject
 	int coin_count_;
 	int time_;
 	bool IsHit_;
-	Particle* pParticle_;
+	
 public:
 
 	int hModel_;

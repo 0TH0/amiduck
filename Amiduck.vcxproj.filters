@@ -30,6 +30,9 @@
     <Filter Include="Observer">
       <UniqueIdentifier>{fcdf85af-73b7-4e2b-a4d7-b60d489b54d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{c96fe42c-1d3f-4aa4-9c42-0a96d397d3c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -101,7 +104,7 @@
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Particle.cpp">
+    <ClCompile Include="Engine\VFX.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\BillBoard.cpp">
@@ -150,6 +153,16 @@
     </ClCompile>
     <ClCompile Include="EnemyBlue.cpp" />
     <ClCompile Include="EnemyGreen.cpp" />
+    <ClCompile Include="PlayerEffect.cpp" />
+    <ClCompile Include="Manager\BombEffect.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\StageEffect.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\StageAudio.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -221,7 +234,7 @@
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Particle.h">
+    <ClInclude Include="Engine\VFX.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\BillBoard.h">
@@ -270,6 +283,16 @@
     </ClInclude>
     <ClInclude Include="EnemyBlue.h" />
     <ClInclude Include="EnemyGreen.h" />
+    <ClInclude Include="PlayerEffect.h" />
+    <ClInclude Include="Manager\BombEffect.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\StageEffect.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\StageAudio.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

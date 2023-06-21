@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Particle.h"
+#include "Engine/VFX.h"
 
 //シーンを管理するクラス
 class ItemBox : public GameObject
@@ -8,7 +8,7 @@ class ItemBox : public GameObject
 	int alpha_;
 	int time_;
 	bool IsHit_;
-	Particle* pParticle_;
+	
 	EmitterData data;
 
 public:

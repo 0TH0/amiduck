@@ -14,6 +14,7 @@
 #include "SceneManager.h"
 #include "../Player.h"
 #include "../Controller.h"
+#include "VFX.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -136,9 +137,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 
+				Camera::Update();
 
-
-
+				//エフェクトの更新
+				VFX::Update();
 
 
 
@@ -148,6 +150,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				////全オブジェクトを描画
 				////ルートオブジェクトのDrawを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 				pRootObject->DrawSub();
+
+				VFX::Draw();
 
 				//プレイシーンだったら
 				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY)
