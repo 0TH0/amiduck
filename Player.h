@@ -11,6 +11,7 @@
 class Player : public CharacterBase
 {
     Bomb* pBomb_;
+    int hAudio_;
 public:
     //コンストラクタ
     Player(GameObject* parent);

@@ -127,9 +127,10 @@
   <ItemGroup>
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyMob.cpp" />
+    <ClCompile Include="EnemyBlue.cpp" />
+    <ClCompile Include="EnemyGreen.cpp" />
+    <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Engine\Alpha.cpp" />
     <ClCompile Include="Engine\Astar.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -164,17 +165,13 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="Manager\EffectManager\BombEffect.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerEffect.cpp" />
-    <ClCompile Include="Pose.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\StartScene.cpp" />
     <ClCompile Include="Scene\TestScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
-    <ClCompile Include="Scene\TutorialScene.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StarUI.cpp" />
@@ -184,9 +181,10 @@
   <ItemGroup>
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Duck.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyMob.h" />
+    <ClInclude Include="EnemyBlue.h" />
+    <ClInclude Include="EnemyGreen.h" />
+    <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Engine\Alpha.h" />
     <ClInclude Include="Engine\Astar.h" />
     <ClInclude Include="Engine\Audio.h" />
@@ -221,17 +219,13 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Fire.h" />
-    <ClInclude Include="Manager\EffectManager\BombEffect.h" />
     <ClInclude Include="Observer\ResultObserver.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerEffect.h" />
-    <ClInclude Include="Pose.h" />
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\StartScene.h" />
     <ClInclude Include="Scene\TestScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
-    <ClInclude Include="Scene\TutorialScene.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="StarUI.h" />

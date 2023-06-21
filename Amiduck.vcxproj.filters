@@ -30,12 +30,6 @@
     <Filter Include="Observer">
       <UniqueIdentifier>{fcdf85af-73b7-4e2b-a4d7-b60d489b54d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{9d5cd627-6111-426d-8607-1a91107e50d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\EffectManager">
-      <UniqueIdentifier>{9ea5fc13-1e5f-450a-a368-801cf6cbb4b6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -123,9 +117,7 @@
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="Pose.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp">
       <Filter>Observer</Filter>
@@ -133,7 +125,7 @@
     <ClCompile Include="Engine\UI.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyMob.cpp" />
+    <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Engine\Astar.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
@@ -156,15 +148,8 @@
     <ClCompile Include="Scene\TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\TutorialScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerEffect.cpp">
-      <Filter>Manager\EffectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\EffectManager\BombEffect.cpp">
-      <Filter>Manager\EffectManager</Filter>
-    </ClCompile>
+    <ClCompile Include="EnemyBlue.cpp" />
+    <ClCompile Include="EnemyGreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -252,9 +237,7 @@
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Fire.h" />
-    <ClInclude Include="Pose.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Duck.h" />
     <ClInclude Include="StarUI.h" />
     <ClInclude Include="Observer\ResultObserver.h">
       <Filter>Observer</Filter>
@@ -262,7 +245,7 @@
     <ClInclude Include="Engine\UI.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyMob.h" />
+    <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Engine\Astar.h">
       <Filter>01Engine</Filter>
     </ClInclude>
@@ -285,15 +268,8 @@
     <ClInclude Include="Scene\TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\TutorialScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerEffect.h">
-      <Filter>Manager\EffectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\EffectManager\BombEffect.h">
-      <Filter>Manager\EffectManager</Filter>
-    </ClInclude>
+    <ClInclude Include="EnemyBlue.h" />
+    <ClInclude Include="EnemyGreen.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -14,7 +14,6 @@
 #include "SceneManager.h"
 #include "../Player.h"
 #include "../Controller.h"
-#include "../Pose.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -122,19 +121,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				//シャドウマップ作成
 				//ライトの位置から見た画像を、遠くは白、近くは黒のグレースケールで表す
-				Camera::SetPosition(XMFLOAT3(5, 20, 5));
-				Camera::SetTarget(XMFLOAT3(20, 0, 5));
-				Camera::Update();
-				Direct3D::lightView_ = Camera::GetViewMatrix();
+				//Camera::SetPosition(XMFLOAT3(5, 10, 5));
+				//Camera::SetTarget(XMFLOAT3(20, 0, 5));
+				//Camera::Update();
+				//Direct3D::lightView_ = Camera::GetViewMatrix();
 
-				Direct3D::BeginDrawToTexture();
+				//Direct3D::BeginDrawToTexture();
 
-				pRootObject->DrawSub();
+				//pRootObject->DrawSub();
 
-				//描画終了
-				Direct3D::EndDraw();
-
-
+				////描画終了
+				//Direct3D::EndDraw();
 
 
 
@@ -143,8 +140,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 
-				//カメラを更新
-				Camera::Update();
+
 
 				//このフレームの描画開始
 				Direct3D::BeginDraw();
@@ -154,37 +150,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				pRootObject->DrawSub();
 
 				//プレイシーンだったら
-				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY ||
-					((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_TUTORIAL)
+				if (((SceneManager*)pRootObject->FindObject("SceneManager"))->GetScene() == SCENE_ID_PLAY)
 				{
-					//★画面分割
-					switch (Camera::GetDual())
-					{
-					case 1:
-						Direct3D::SetViewPort(Direct3D::SCREEN_FULL);
-						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
-						Camera::Update();
+					((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
 
-						break;
-
-					case 2:
-					//左画面描画
-					{
-						Direct3D::SetViewPort(Direct3D::SCREEN_LEFT);
-
-						((Controller*)pRootObject->FindObject("Controller"))->PlayerCamera();
-						Camera::Update();
-						pRootObject->DrawSub();
-					}
-
-					//右画面描画
-					{
-						Direct3D::SetViewPort(Direct3D::SCREEN_RIGHT);
-
-						((Controller*)pRootObject->FindObject("Controller"))->EnemyCamera();
-					}
-						break;
-					}
+					//カメラを更新
+					Camera::Update();
 				}
 
 				//描画終了

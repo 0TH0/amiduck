@@ -24,7 +24,9 @@ class Stage : public GameObject
         ITEMBOX,
         FIRE,
         FIRE_RIGHT,
-        ENEMY_AI,
+        ENEMY_RED,
+        ENEMY_BLUE,
+        ENEMY_GREEN,
         CORNER,
         STAGE_MAX
     };

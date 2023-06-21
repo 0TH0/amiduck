@@ -9,7 +9,6 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
-#include "Engine/Text.h"
 #include "Player.h"
 
 //コンストラクタ
@@ -88,9 +87,6 @@ void Enemy::InitBase()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
 
-    //Instantiate<Controller>(this);
-
-    pText->Initialize();
 
     pParticle_ = Instantiate<Particle>(this);
 

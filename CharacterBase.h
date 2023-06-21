@@ -54,7 +54,6 @@ protected:
 
     //’è”
     Stage* pStage;
-    Text* pText = new Text;
     Particle* pParticle_;
     EmitterData data;
     PolyLine* pLine[3];

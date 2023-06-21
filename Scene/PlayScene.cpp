@@ -12,7 +12,7 @@
 #include "../Item.h"
 #include "../Fire.h"
 #include "../StarUI.h"
-#include "../Duck.h"
+#include "StartScene.h"
 
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
@@ -42,7 +42,7 @@ void PlayScene::Initialize()
 	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
-	Instantiate<Duck>(this);
+	Instantiate<StartScene>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
 
@@ -59,17 +59,8 @@ void PlayScene::Update()
 	//星を5個取るか一定時間が経過したら
 	if (pPlayer->GetStarNum() >= 5 || pTimer->GetRimit() <= 0)
 	{
-		//敵の星の数の方が多かったら
-		//if (pEnemy->GetStarNum() >= pPlayer->GetStarNum())
-		{
-			//プレイヤーの負け
-			//ResultObserver::SetIsWin(false);
-		}
-		//else
-		{
-			//プレイヤーの勝ち
-			ResultObserver::SetIsWin(true);
-		}
+		//プレイヤーの勝ち
+		ResultObserver::SetIsWin(true);
 		//リザルトシーンへ
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_RESULT);

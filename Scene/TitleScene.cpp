@@ -52,10 +52,6 @@ void TitleScene::Update()
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 			break;
-		case TitleScene::UIName::TUTORIAL:
-			pSceneManager = (SceneManager*)FindObject("SceneManager");
-			pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
-			break;
 		}
 	}
 	switch (UIName_)

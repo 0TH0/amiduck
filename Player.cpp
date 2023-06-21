@@ -13,6 +13,7 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
+#include "Engine/Audio.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -42,7 +43,7 @@ void Player::Action()
 void Player::Command()
 {
     //アイテム使用
-    if (Input::IsKeyDown(DIK_E) /*&& hasItem_*/)
+    if (Input::IsKeyDown(DIK_E) && hasItem_)
     {
         Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
@@ -77,24 +78,27 @@ void Player::Command()
 
 
     //停止する
-    if (Input::IsKeyDown(DIK_F))
-    {
-        if (!IsStop_)
-        {
-            speed_ = 0;
-            IsStop_ = true;
-        }
-        else
-        {
-            speed_ = 0.3f;
-            IsStop_ = false;
-        }
-    }
+    //if (Input::IsKeyDown(DIK_F))
+    //{
+    //    if (!IsStop_)
+    //    {
+    //        speed_ = 0;
+    //        IsStop_ = true;
+    //    }
+    //    else
+    //    {
+    //        speed_ = 0.3f;
+    //        IsStop_ = false;
+    //    }
+    //}
 
     /////////////////////////移動/////////////////////////
     //ジャンプ中の重力
     if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
     {
+        //効果音
+        Audio::Play(hAudio_);
+
         //初速度
         jump_v0 = 0.2;
         //重力
@@ -119,6 +123,9 @@ void Player::InitBase()
     hModel2_ = Model::Load("Model\\Player\\duck.fbx");
     assert(hModel2_ >= 0);
 
+    hAudio_ = Audio::Load("Audio\\Jump.wav");
+    assert(hAudio_ >= 0);
+
     //位置
     transform_.rotate_ = XMFLOAT3(0, 180, 0);
     transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
@@ -128,8 +135,6 @@ void Player::InitBase()
     AddCollider(collision);
 
     Instantiate<Controller>(this);
-
-    pText->Initialize();
 
     pParticle_ = Instantiate<Particle>(this);
 
@@ -205,46 +210,12 @@ void Player::OnCollision(GameObject* pTarget)
         }
     }
 
-    XMVECTOR vPlayerPos = XMLoadFloat3(&transform_.position_);
-    XMVECTOR Down = { 0,-1,0,0 };
-
-    //敵に当たった
-    //if (pTarget->GetObjectName() == "EnemyMob")
-    //{
-    //    //敵の位置
-    //    XMFLOAT3 EnemyPos = pTarget->GetPosition();
-    //    XMVECTOR vEnemyPos = XMLoadFloat3(&EnemyPos);
-
-    //    //プレイヤーの位置
-    //    XMVECTOR PlayerPos = vEnemyPos - vPlayerPos;
-    //    XMVector3Normalize(PlayerPos);
-
-    //    //Downとプレイヤーの外積を求める
-    //    XMVECTOR vDot = XMVector3Dot(Down, PlayerPos);
-    //    float Dot = XMVectorGetY(vDot);
-
-    //    //角度を求める
-    //    angle = acos(Dot) * (180.0 / M_PI);
-
-    //    if (angle <= 90)
-    //    {
-    //        //初速度
-    //        jump_v0 = 0.15f;
-    //        //重力
-    //        gravity = 0.003f;
-
-    //        //初速度を加える
-    //        move_.y = jump_v0;
-    //        transform_.position_.y += move_.y;
-
-    //        //重力を加える
-    //        move_.y += gravity;
-    //        transform_.position_.y += move_.y;
-    //    }
-    //    else
-    //    {
-    //        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-    //        pSceneManager->ChangeScene(SCENE_ID_RESULT);
-    //    }
-    //}
+    //玉に当たったら
+    if (pTarget->GetObjectName() == "EnemyRed" || 
+        pTarget->GetObjectName() == "EnemyBlue" ||
+        pTarget->GetObjectName() == "EnemyGreen")
+    {
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_RESULT);
+    }
 }

@@ -5,7 +5,6 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
-#include "Engine/Text.h"
 
 //コンストラクタ
 CharacterBase::CharacterBase(GameObject* parent)

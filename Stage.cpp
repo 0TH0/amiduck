@@ -16,7 +16,9 @@
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
 #include "Fire.h"
-#include "EnemyMob.h"
+#include "EnemyRed.h"
+#include "EnemyBlue.h"
+#include "EnemyGreen.h"
 
 namespace
 {
@@ -49,7 +51,7 @@ void Stage::StageLoad()
 {
     //Csv“Ç‚Ýž‚Ý
     csv = new CsvReader();
-    csv->Load("Csv\\map4.csv");
+    csv->Load("Csv\\stage.csv");
 
     //”»’è
     hModel_[EMPTY] = Model::Load("DebugCollision\\BoxCollider.fbx");
@@ -155,10 +157,20 @@ void Stage::Initialize()
                 pFire->SetPosition(x, 1.25f, z);
                 pFire->SetRight(true);
             }
-            if (stage_[x][z].type == ENEMY_AI)
+            if (stage_[x][z].type == ENEMY_RED)
             {
-                EnemyMob* pEnemyMob = Instantiate<EnemyMob>(GetParent());
-                pEnemyMob->SetPosition(x, 1.5f, z);
+                EnemyRed* pEnemyRed = Instantiate<EnemyRed>(GetParent());
+                pEnemyRed->SetPosition(x, 1.5f, z);
+            }
+            if (stage_[x][z].type == ENEMY_BLUE)
+            {
+                EnemyBlue* pEnemyBlue = Instantiate<EnemyBlue>(GetParent());
+                pEnemyBlue->SetPosition(x, 1.5f, z);
+            }
+            if (stage_[x][z].type == ENEMY_GREEN)
+            {
+                EnemyGreen* pEnemyGreen = Instantiate<EnemyGreen>(GetParent());
+                pEnemyGreen->SetPosition(x, 1.5f, z);
             }
         }
     }
