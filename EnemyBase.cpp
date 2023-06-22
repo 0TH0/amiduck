@@ -2,10 +2,6 @@
 #include "Engine/Collider.h"
 #include "Engine/Model.h"
 
-EnemyBase::EnemyBase(GameObject* parent)
-{
-}
-
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
     : GameObject(parent, name), hModel_(-1),frame(7), pPlayer_(),count_(0),
       AI_(),CanMove_(false),totalCell(0)
@@ -19,7 +15,6 @@ EnemyBase::~EnemyBase()
 void EnemyBase::Initialize()
 {
     hModel_ = Model::Load("Model\\fire.fbx");
-    //transform_.position_.y = 1.5f;
 
     //“–‚½‚è”»’è
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);

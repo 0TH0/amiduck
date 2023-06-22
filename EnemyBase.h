@@ -25,8 +25,6 @@ protected:
     virtual void ReleaseBase() = 0;
 
 public:
-    //コンストラクタ
-    EnemyBase(GameObject* parent);
     //継承用コンストラクタ
     EnemyBase(GameObject* parent, std::string name);
 

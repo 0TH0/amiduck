@@ -35,7 +35,7 @@ void EnemyGreen::Action()
         int PlayerPosX = (int)pPlayer_->GetPosition().x;
         int PlayerPosZ = (int)pPlayer_->GetPosition().z;
         //ƒvƒŒƒCƒ„[‚ğ’Tõ
-        if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, { PlayerPosX, PlayerPosZ }))
+        if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, { randX_, randZ_}))
         {
             totalCell = AI_.GetToGoalTotalCell();
             CanMove_ = true;

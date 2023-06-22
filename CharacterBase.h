@@ -65,8 +65,6 @@ protected:
    virtual void ReleaseBase() = 0;
 
 public:
-    //コンストラクタ
-    CharacterBase(GameObject* parent);
     //継承用コンストラクタ
     CharacterBase(GameObject* parent, std::string name);
 

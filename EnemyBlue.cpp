@@ -1,7 +1,7 @@
 #include "EnemyBlue.h"
 
 EnemyBlue::EnemyBlue(GameObject* parent)
-    :EnemyBase(parent, "EnemyBlue"), dist_(15)
+    :EnemyBase(parent, "EnemyBlue"), dist_(15), IsPlayerNear_(false)
 {
 }
 
@@ -13,8 +13,8 @@ void EnemyBlue::Action()
 {
     EnemyEffect::EnemyEffectBlue(transform_.position_);
     //ƒvƒŒƒCƒ„[‚ÆÂ‚Ì‹——£‚ª15ˆÈ‰º‚È‚ç
-    bool isPlayerNear = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
-    if (CanMove_ && isPlayerNear)
+    IsPlayerNear_ = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
+    if (CanMove_ && IsPlayerNear_)
     {
         if (totalCell >= 0)
         {

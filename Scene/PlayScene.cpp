@@ -18,6 +18,9 @@
 #include "../Engine/Text.h"
 #include "../Engine/Audio.h"
 #include "../Observer/ResultObserver.h"
+#include "../EnemyRed.h"
+#include "../EnemyBlue.h"
+#include "../EnemyGreen.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -56,9 +59,12 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 	Player* pPlayer = (Player*)FindObject("Player");
+	EnemyRed* pEnemyRed = (EnemyRed*)FindObject("EnemyRed");
+	EnemyBlue* pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
+	EnemyGreen* pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
 
 	//星を5個取るか一定時間が経過したら
-	if (pPlayer->GetStarNum() >= 5 || pTimer->GetRimit() <= 0)
+	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr)
 	{
 		//プレイヤーの勝ち
 		ResultObserver::SetIsWin(true);

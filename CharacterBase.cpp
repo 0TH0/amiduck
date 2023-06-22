@@ -6,12 +6,6 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 
-//コンストラクタ
-CharacterBase::CharacterBase(GameObject* parent)
-	:GameObject(parent, "CharacterBase")
-{
-}
-
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
 	: GameObject(parent, name),hModel_(-1), hModel2_(-1),pStage(nullptr),CharacterState(State::EGG), jump_v0(),
       gravity(0),angle(0),move_(),IsJump(false),IsGround(false),IsEnemy(false),speed_(0.3f),

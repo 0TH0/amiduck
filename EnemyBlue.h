@@ -3,6 +3,7 @@
 class EnemyBlue : public EnemyBase
 {
     int dist_; //プレイヤーとの距離
+    bool IsPlayerNear_;
 public:
     //コンストラクタ
     EnemyBlue(GameObject* parent);
