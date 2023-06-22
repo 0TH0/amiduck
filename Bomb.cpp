@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Engine/Global.h"
 #include "Star.h"
-#include "Enemy.h"
+
 #include "Manager/BombEffect.h"
 
 //コンストラクタ
@@ -50,8 +50,7 @@ void Bomb::Update()
 	time++;
 
 	data.position = transform_.position_;
-	//pParticle_->Start(data);
-
+	
 	if (time >= 100)
 	{
 		KillMe();
@@ -90,17 +89,10 @@ void Bomb::Release()
 
 void Bomb::OnCollision(GameObject* pTarget)
 {
-	//敵に当たった
-	if (pTarget->GetObjectName() == "Enemy")
+	if (pTarget->GetObjectName() == "EnemyBlue" || 
+		pTarget->GetObjectName() == "EnemyGreen" ||
+		pTarget->GetObjectName() == "EnemyRed")
 	{
-		pTarget->Invisible();
-
-		if (starTime_ == 0)
-		{
-			starTime_++;
-			Star* pStar = Instantiate<Star>(GetParent());
-			Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-			pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
-		}
+		pTarget->KillMe();
 	}
 }

@@ -3,7 +3,7 @@
 #include "Scene/PlayScene.h"
 #include "Scene/StartScene.h"
 #include "Star.h"
-#include "Enemy.h"
+
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -22,18 +22,11 @@ FireFollowGround::~FireFollowGround()
 
 void FireFollowGround::OnCollision(GameObject* pTarget)
 {
-    //“G‚É“–‚½‚Á‚½
-    if (pTarget->GetObjectName() == "Enemy")
+    if (pTarget->GetObjectName() == "EnemyBlue" ||
+        pTarget->GetObjectName() == "EnemyGreen" ||
+        pTarget->GetObjectName() == "EnemyRed")
     {
-        Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-
-        if (starTime_ == 0 && pEnemy->GetStarNum() > 0)
-        {
-            //“G‚É“–‚½‚Á‚½‚ç¯‚ğ—‚Æ‚·
-            starTime_++;
-            Star* pStar = Instantiate<Star>(GetParent());
-            pStar->SetPosition(pEnemy->GetPosition().x, pEnemy->GetPosition().y + 4, pEnemy->GetPosition().z);
-        }
+        pTarget->KillMe();
     }
 }
 

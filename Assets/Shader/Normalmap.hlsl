@@ -1,85 +1,100 @@
 Texture2D tex : register(t0);
 SamplerState smp : register(s0);
-Texture2D texNormal : register(t1);
+Texture2D normalTex : register(t1);
 
-cbuffer gloabal
+cbuffer gloabl
 {
-	float4x4	g_matWVP;			// ワールド・ビュー・プロジェクションの合成行列
-	float4x4	g_matNormalTrans;	// 法線の変換行列（回転行列と拡大の逆行列）
-	float4x4	g_matWorld;			// ワールド変換行列
-	float4		g_vecLightDir;		// ライトの方向ベクトル
-	float4		g_vecDiffuse;		// ディフューズカラー（マテリアルの色）
-	float4		g_vecAmbient;		// アンビエントカラー（影の色）
-	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
-	float4		g_vecCameraPosition;// 視点（カメラの位置）
-	float		g_shininess;		// ハイライトの強さ（テカリ具合）
-	float		g_alpha;			//透明度
-	float		g_scroll;
-	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
+	float4x4 matWVP;
+	float4x4 matNormal;
+	float4x4 matW;
+	float4	 color;
+	float4	 camPos;
+	bool	 isTexture;
 };
 
 struct VS_OUT
 {
 	float4 pos : SV_POSITION;
 	float2 uv  : TEXCOORD;
-	float4 color : COLOR0;
-	float4 specular : COLOR1;
-	float4 normal : NORMAL;
+	float4 V : TEXCOORD1;
+	float4 light : TEXCOORD2;
 };
 
-//頂点シェーダ
-VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
+//頂点シェーダー
+VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, float4 tangent : TANGENT)
 {
 	VS_OUT outData;
-	outData.pos = mul(pos, g_matWVP);
+	outData.pos = mul(pos, matWVP);
 	outData.uv = uv;
+
+	float3 binormal = cross(normal, tangent);
+
+	normal.w = 0;
+	normal = mul(normal, matNormal);
+	normal = normalize(normal);
+
+	tangent.w = 0;
+	tangent = mul(tangent, matNormal);
+	tangent = normalize(tangent);
+
+	binormal = mul(binormal, matNormal);
+	binormal = normalize(binormal);
+
+
+	float4 eye = normalize(mul(pos, matW) - camPos);
+	outData.V.x = dot(eye, tangent);
+	outData.V.y = dot(eye, binormal);
+	outData.V.z = dot(eye, normal);
+	outData.V.w = 0;
 
 	float4 light = float4(1, 1, -1, 0);
 	light = normalize(light);
-
-	normal = mul(normal, g_matNormalTrans);
-	normal.w = 0;
-	outData.color = dot(normal, light);
-
-	//クランプ
-	outData.color = clamp(outData.color, 0, 1);
-
-	//視線ベクトル
-	float4 V = normalize(mul(pos, g_matWVP) - g_vecCameraPosition);
-	float4 R = reflect(light, normal);
-
-	outData.specular = 10 * pow(clamp(dot(R, V), 0, 1), g_shininess) * g_vecSpeculer;
+	outData.light.x = dot(light, tangent);
+	outData.light.y = dot(light, binormal);
+	outData.light.z = dot(light, normal);
+	outData.light.w = 0;
 
 	return outData;
 }
 
-//ピクセルシェーダ
-//戻り値:float4 = 色
-// : セマンティック その情報が何か
-// SV　といったら2D
+//ピクセルシェーダー
 float4 PS(VS_OUT inData) : SV_TARGET
 {
+	inData.light = normalize(inData.light);
+
 	float4 diffuse;
 	float4 ambient;
 	float4 specular;
+
+	float4 normal = normalTex.Sample(smp, inData.uv) * 2 - 1;
+	normal.w = 0;
+	normal = normalize(normal);
+
+
+	float4 S = dot(inData.light,normal);
+	S = clamp(S, 0, 1);
+
+
+	float4 R = reflect(inData.light, normal);
+	specular = pow(clamp(dot(R, inData.V), 0, 1), 5) * 3;
+
 	float alpha;
 
-	if (g_isTexture)
+	if (isTexture)
 	{
-		diffuse = tex.Sample(smp, inData.uv) * inData.color;
-		ambient = tex.Sample(smp, inData.uv) * 0.1;
+		diffuse = tex.Sample(smp, inData.uv) * S;
+		ambient = tex.Sample(smp, inData.uv) * 0.2;
 		alpha = tex.Sample(smp, inData.uv).a;
 	}
 	else
 	{
-		diffuse = g_vecDiffuse* inData.color;
-		ambient = g_vecDiffuse* 0.1;
-		alpha = g_vecDiffuse.a;
+		diffuse = color * S;
+		ambient = color * 0.2;
+		alpha = color.a;
 	}
 
-	specular = inData.specular;
-
 	float4 result = diffuse + ambient + specular;
+
 	result.a = alpha;
 
 	return result;

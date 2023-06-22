@@ -1,12 +1,10 @@
 #include "PlayScene.h"
 #include "../Stage.h"
 #include "../Player.h"
-#include "../Enemy.h"
 #include "../Instructions.h"
 #include "../Controller.h"
 #include "../FireFollowGround.h"
 #include "../Fire.h"
-#include "../Enemy.h"
 #include "../Line.h"
 #include "../Water.h"
 #include "../Item.h"
@@ -42,6 +40,7 @@ void PlayScene::Initialize()
 	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
+	Instantiate<Fire>(this);
 	Instantiate<StartScene>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);

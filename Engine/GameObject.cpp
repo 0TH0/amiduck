@@ -323,18 +323,12 @@ void GameObject::UpdateSub()
 void GameObject::DrawSub()
 {
 	//“§–¾‰»
-	switch (IsBlend())
+	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+
+	if (IsBlend())
 	{
-	case true:
 		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
-		break;
-	case false:
-		Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
-		break;
-	default:
-		break;
 	}
-	
 
 	//‚à‚µ•`‰æ‚ª‹–‰Â‚³‚ê‚Ä‚¢‚é‚Ì‚È‚ç
 	if (this->IsVisibled())

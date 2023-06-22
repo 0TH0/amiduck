@@ -127,7 +127,6 @@
   <ItemGroup>
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBlue.cpp" />
     <ClCompile Include="EnemyGreen.cpp" />
     <ClCompile Include="EnemyRed.cpp" />
@@ -166,11 +165,12 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
+    <ClCompile Include="Manager\ItemBoxEffect.cpp" />
     <ClCompile Include="Manager\StageAudio.cpp" />
     <ClCompile Include="Manager\StageEffect.cpp" />
+    <ClCompile Include="Manager\StarEffect.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerEffect.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\StartScene.cpp" />
@@ -185,7 +185,6 @@
   <ItemGroup>
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBlue.h" />
     <ClInclude Include="EnemyGreen.h" />
     <ClInclude Include="EnemyRed.h" />
@@ -224,11 +223,12 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Manager\BombEffect.h" />
+    <ClInclude Include="Manager\ItemBoxEffect.h" />
     <ClInclude Include="Manager\StageAudio.h" />
     <ClInclude Include="Manager\StageEffect.h" />
+    <ClInclude Include="Manager\StarEffect.h" />
     <ClInclude Include="Observer\ResultObserver.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerEffect.h" />
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\StartScene.h" />

@@ -95,7 +95,6 @@
     <ClCompile Include="Engine\Text.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Instructions.cpp" />
@@ -153,7 +152,6 @@
     </ClCompile>
     <ClCompile Include="EnemyBlue.cpp" />
     <ClCompile Include="EnemyGreen.cpp" />
-    <ClCompile Include="PlayerEffect.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -161,6 +159,12 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\StageAudio.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\ItemBoxEffect.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\StarEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -228,7 +232,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Instructions.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PolyLine.h">
@@ -283,7 +286,6 @@
     </ClInclude>
     <ClInclude Include="EnemyBlue.h" />
     <ClInclude Include="EnemyGreen.h" />
-    <ClInclude Include="PlayerEffect.h" />
     <ClInclude Include="Manager\BombEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -291,6 +293,12 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\StageAudio.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\ItemBoxEffect.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\StarEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

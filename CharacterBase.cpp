@@ -131,7 +131,7 @@ void CharacterBase::LadderLottery()
     if (!IsRight_ && !IsLeft_)
     {
         //進行方向に道がなかったら戻ってくる
-        if (pStage->IsCorner(obj.x + 1, obj.z))
+         if (pStage->IsCorner(obj.x + 1, obj.z))
         {
             IsReturn_ = true;
         }
@@ -159,6 +159,17 @@ void CharacterBase::LadderLottery()
         {
             speed_ = 0;
             IsRight_ = true;
+            StoppedTime_ = 0;
+            IsOnBridge_ = true;
+        }
+    }
+
+    if (!IsRight_ && StoppedTime_ > 4)
+    {
+        if (pStage->IsBridge(obj.x, obj.z + 4))
+        {
+            speed_ = 0;
+            IsLeft_ = true;
             StoppedTime_ = 0;
             IsOnBridge_ = true;
         }
@@ -211,7 +222,7 @@ void CharacterBase::LadderLottery()
         }
 
         //右に行ってからすぐに左に行かないように間隔を開ける
-        if (delay_ > 4)
+        if (delay_ > 5)
         {
             if (pStage->IsBridge(obj.x, obj.z + 3))
             {

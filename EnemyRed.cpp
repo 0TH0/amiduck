@@ -69,15 +69,9 @@ void EnemyRed::Action()
 
             XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
 
-            //transform_.position_ = VectorToFloat3(v);
+            transform_.position_ = VectorToFloat3(v);
         }
     }
-
-    //if (transform_.position_.x == VectorToFloat3(v).x &&
-    //    transform_.position_.z == VectorToFloat3(v).z)
-    //{
-
-    //}
 
     //âΩÉtÉåÅ[ÉÄñàÇ…êiÇﬁÇ©
     int frame = 7;

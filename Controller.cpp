@@ -5,7 +5,7 @@
 #include "Engine/Input.h"
 #include "Player.h"
 #include "Engine/Camera.h"
-#include "Enemy.h"
+
 
 //コンストラクタ
 Controller::Controller(GameObject* parent)
@@ -137,39 +137,4 @@ void Controller::CrickRight()
     transform_.rotate_.y -= moveX * 1.1f;
 
     PrevPosX_ = Input::GetMousePosition().x;
-}
-
-
-void Controller::EnemyCamera()
-{
-    Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-    if (pEnemy->GetObjectName() == "Enemy")
-    {
-        EnemyTrans_.position_ = pEnemy->GetPosition();
-
-        //回転行列
-        XMMATRIX mRotateX = XMMatrixRotationX(XMConvertToRadians(EnemyTrans_.rotate_.x));
-        XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(EnemyTrans_.rotate_.y));
-        XMMATRIX mRotate = mRotateX * mRotateY;
-
-        //現在位置をベクトルにしておく
-        XMVECTOR vPos = XMLoadFloat3(&EnemyTrans_.position_);
-
-        //移動ベクトル
-        XMFLOAT3 move = { 0, 0, 0.2f };
-        XMVECTOR vMove = XMLoadFloat3(&move);
-        vMove = XMVector3TransformCoord(vMove, mRotate);
-
-        XMFLOAT3 X = { 0.2f, 0, 0 };
-        XMVECTOR vX = XMLoadFloat3(&X);
-        vX = XMVector3TransformCoord(vX, mRotate);
-
-        //カメラ
-        XMVECTOR vCam = XMVectorSet(0, 5, -10, 0);
-        vCam = XMVector3TransformCoord(vCam, mRotate);
-        XMFLOAT3 camPos;
-        XMStoreFloat3(&camPos, vPos + vCam);
-        Camera::SetPosition(camPos);
-        Camera::SetTarget(EnemyTrans_.position_);
-    }
 }

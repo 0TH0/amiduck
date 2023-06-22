@@ -1,7 +1,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Scene/PlayScene.h"
-#include "Enemy.h"
+
 #include "Player.h"
 #include "Star.h"
 #include "ItemBox.h"
@@ -70,9 +70,6 @@ void Stage::StageLoad()
     hModel_[BRIDGE_FADE] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[BRIDGE_FADE] >= 0);
 
-    hModel_[ENEMY] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[ENEMY] >= 0);
-
     hModel_[PLAYER] = Model::Load("Stage\\log.fbx");
     assert(hModel_[PLAYER] >= 0);
 
@@ -121,13 +118,6 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            //エネミー登場
-            if (stage_[x][z].type == ENEMY)
-            {
-                Enemy* pEnemy = Instantiate<Enemy>(GetParent());
-                pEnemy->SetPosition(x, 1, z);
-            }
-
             //プレイヤー登場
             if (stage_[x][z].type == PLAYER)
             {

@@ -1,11 +1,10 @@
 #include "StarUI.h"
 #include "Engine/Image.h"
 #include "Player.h"
-#include "Enemy.h"
+
 #include "Engine/UI.h"
 
 static Player* pPlayer;
-static Enemy* pEnemy;
 static UI* pUI[5];
 static int playerStarNum;
 static int enemyStarNum;
@@ -36,8 +35,6 @@ void StarUI::Update()
 	pPlayer = (Player*)FindObject("Player");
 	playerStarNum = pPlayer->GetStarNum();
 
-	pEnemy = (Enemy*)FindObject("Enemy");
-	//enemyStarNum = pEnemy->getsta;
 }
 
 //•`‰æ

@@ -1,7 +1,7 @@
 #include "Star.h"
 #include "Scene/PlayScene.h"
 #include "Player.h"
-
+#include "Manager/StarEffect.h"
 #include "Engine/Model.h"
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
@@ -17,16 +17,14 @@ Star::Star(GameObject* parent)
 //‰Šú‰»
 void Star::Initialize()
 {
-	hModel_ = Model::Load("Model\\star_white.fbx");
+	hModel_ = Model::Load("Model\\Heart.fbx");
 	assert(hPict_ >= 0);
 
 	//“–‚½‚è”»’è
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
 	AddCollider(collision);
 
-	transform_.scale_ = XMFLOAT3(0.1f, 0.1f, 0.1f);
-
-	
+	transform_.scale_ = { 2,2,2 };
 }
 
 //XV
@@ -57,7 +55,6 @@ void Star::Update()
 void Star::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-	Model::SetColor(hModel_, XMFLOAT4(1, 1, 0, 1));
 	if (IsVisibled())
 	{
 		Model::Draw(hModel_);
@@ -77,31 +74,8 @@ void Star::OnCollision(GameObject* pTarget)
 		if (time_ >= 10 && IsVisibled())
 		{
 			Invisible();
-			StarEffect();
+			StarEffect::TakeStarEffect(transform_.position_);
 			time_ = 0;
 		}
 	}
-}
-
-void Star::StarEffect()
-{
-	//EmitterData data;
-	//data.textureFileName = "Image\\star.png";
-	//data.position = transform_.position_;
-	//data.delay = 0;
-	//data.number = 80;
-	//data.lifeTime = 100;
-	//data.positionErr = XMFLOAT3(0.4, 0, 0.4);
-	//data.dir = XMFLOAT3(0, 1, 0);
-	//data.dirErr = XMFLOAT3(90, 90, 90);
-	//data.speed = 0.25f;
-	//data.speedErr = 1;
-	//data.accel = 0.93;
-	//data.size = XMFLOAT2(0.4, 0.4);
-	//data.sizeErr = XMFLOAT2(0.4, 0.4);
-	//data.scale = XMFLOAT2(1, 1);
-	//data.color = XMFLOAT4(1, 1, 1, 1);
-	//data.deltaColor = XMFLOAT4(0, 0, 0, 0);
-	//data.gravity = 0.003f;
-	//pParticle_->Start(data);
 }

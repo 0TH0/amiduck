@@ -1,16 +1,20 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/VFX.h"
+#include "Engine/Astar.h"
 
 //テストシーンを管理するクラス
 class Fire : public GameObject
 {
 	int hModel_;
-	
 	Transform trans;
 	bool first_;
 	bool right_; //右周りにするか
-	EmitterData data;
+	XMFLOAT3 playerPos_;
+	int count_;
+	Astar AI_;
+	bool CanMove_;
+	int totalCell;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

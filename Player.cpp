@@ -2,11 +2,11 @@
 #include "Scene/PlayScene.h"
 #include "FireFollowGround.h"
 #include "Controller.h"
-#include "Enemy.h"
+
 #include "Line.h"
 #include "Bomb.h"
 #include "Item.h"
-#include "Enemy.h"
+
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -140,8 +140,6 @@ void Player::InitBase()
     AddCollider(collision);
 
     Instantiate<Controller>(this);
-
-    //
 
     //Å‰‚Í—‘‚©‚ç
     CharacterState = State::EGG;
