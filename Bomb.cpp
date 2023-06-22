@@ -35,6 +35,7 @@ void Bomb::Initialize()
 
 	//初期位置はプレイヤーの位置のｙ＋１
 	Player* pPlayer = (Player*)FindObject("Player");
+	IsReturn_ = pPlayer->GetReturn();
 	PlayerTrans_.position_ = pPlayer->GetPosition();
 	transform_.position_ = PlayerTrans_.position_;
 	transform_.position_.y = PlayerTrans_.position_.y + 1;
@@ -56,7 +57,7 @@ void Bomb::Update()
 		KillMe();
 	}
 
-	if (pPlayer->GetReturn())
+	if (IsReturn_)
 	{
 		transform_.position_.x--;
 	}

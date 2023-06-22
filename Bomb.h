@@ -17,6 +17,7 @@ public:
 	int starTime_;
 	Stage* pStage;
 	float speed_;        //移動速度
+	bool IsReturn_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

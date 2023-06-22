@@ -55,10 +55,7 @@ void Star::Update()
 void Star::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-	if (IsVisibled())
-	{
-		Model::Draw(hModel_);
-	}
+	Model::Draw(hModel_);
 }
 
 //ŠJ•ú

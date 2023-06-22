@@ -79,10 +79,10 @@ void Stage::StageLoad()
     hModel_[ITEMBOX] = Model::Load("Stage\\log.fbx");
     assert(hModel_[ITEMBOX] >= 0);
 
-    hModel_[FIRE] = Model::Load("Model\\fire\\fireball.fbx");
+    hModel_[FIRE] = Model::Load("Model\\fire.fbx");
     assert(hModel_[FIRE] >= 0);
 
-    hModel_[FIRE_RIGHT] = Model::Load("Model\\fire\\fireball.fbx");
+    hModel_[FIRE_RIGHT] = Model::Load("Model\\fire.fbx");
     assert(hModel_[FIRE_RIGHT] >= 0);
 }
 
@@ -547,45 +547,45 @@ void Stage::RandStage()
     }
 
     //アイテムボックス出現
-    {
-        int count = 0;
-        while (count < 10)
-        {
-            int randX = (rand() % STAGE_SIZE_X - 1);
-            int randZ = (rand() % STAGE_SIZE_Z - 1);
+    //{
+    //    int count = 0;
+    //    while (count < 10)
+    //    {
+    //        int randX = (rand() % STAGE_SIZE_X - 1);
+    //        int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
-            {
-                stage_[randX][randZ + 2].type = ITEMBOX;
-                count++;
-            }
-            else
-            {
-                randX = (rand() % STAGE_SIZE_X - 1);
-                randZ = (rand() % STAGE_SIZE_Z - 1);
-            }
-        }
-    }
+    //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
+    //        {
+    //            stage_[randX][randZ + 2].type = ITEMBOX;
+    //            count++;
+    //        }
+    //        else
+    //        {
+    //            randX = (rand() % STAGE_SIZE_X - 1);
+    //            randZ = (rand() % STAGE_SIZE_Z - 1);
+    //        }
+    //    }
+    //}
 
-    {
-        int count = 0;
-        while (count < 5)
-        {
-            int randX = (rand() % STAGE_SIZE_X - 1);
-            int randZ = (rand() % STAGE_SIZE_Z - 1);
+    //{
+    //    int count = 0;
+    //    while (count < 5)
+    //    {
+    //        int randX = (rand() % STAGE_SIZE_X - 1);
+    //        int randZ = (rand() % STAGE_SIZE_Z - 1);
 
-            if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
-            {
-                stage_[randX][randZ + 2].type = STAR;
-                count++;
-            }
-            else
-            {
-                randX = (rand() % STAGE_SIZE_X - 1);
-                randZ = (rand() % STAGE_SIZE_Z - 1);
-            }
-        }
-    }
+    //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
+    //        {
+    //            stage_[randX][randZ + 2].type = STAR;
+    //            count++;
+    //        }
+    //        else
+    //        {
+    //            randX = (rand() % STAGE_SIZE_X - 1);
+    //            randZ = (rand() % STAGE_SIZE_Z - 1);
+    //        }
+    //    }
+    //}
 }
 
 bool Stage::IsBridge(int x,  int z)

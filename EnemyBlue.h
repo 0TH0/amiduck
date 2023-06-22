@@ -1,18 +1,8 @@
-#pragma once
-#include "Engine/GameObject.h"
-#include "Engine/Astar.h"
-#include "Engine/VFX.h"
+#include "EnemyBase.h"
 
-//◆◆◆を管理するクラス
-class EnemyBlue : public GameObject
+class EnemyBlue : public EnemyBase
 {
-    XMFLOAT3 playerPos_;
-    int count_;
-    Astar AI_;
-    bool CanMove_;
-    int totalCell;
-    int hModel_;
-    int dist_;
+    int dist_; //プレイヤーとの距離
 public:
     //コンストラクタ
     EnemyBlue(GameObject* parent);
@@ -20,17 +10,8 @@ public:
     //デストラクタ
     ~EnemyBlue();
 
-    //初期化
-    void Initialize() override;
-
-    //更新
-    void Update() override;
-
-    //描画
-    void Draw() override;
-
-    //開放
-    void Release() override;
-
-    void Action();
+    void Action() override;
+    void InitBase() override;
+    void ChangeColor() override;
+    void ReleaseBase() override;
 };

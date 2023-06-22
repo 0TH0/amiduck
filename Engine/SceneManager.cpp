@@ -7,7 +7,7 @@
 #include "Image.h"
 #include "Audio.h"
 #include "Input.h"
-
+#include "VFX.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -34,10 +34,11 @@ void SceneManager::Update()
 		//Audio::Release();
 		Model::AllRelease();
 		Image::AllRelease();
+		VFX::Release();
 
 		//そのシーンのオブジェクトを全削除
 		KillAllChildren();
-
+		
 		//次のシーンを作成
 		switch (nextSceneID_)
 		{
