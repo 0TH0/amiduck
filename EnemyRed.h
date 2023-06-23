@@ -1,3 +1,4 @@
+#pragma once
 #include "EnemyBase.h"
 
 class EnemyRed : public EnemyBase

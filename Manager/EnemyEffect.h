@@ -8,4 +8,8 @@ namespace EnemyEffect
 	void EnemyEffectBlue(XMFLOAT3 pos);
 
 	void EnemyEffectGreen(XMFLOAT3 pos);
+
+	void EnemyEffectYellow(XMFLOAT3 pos);
+
+	void EnemyEeffect(XMFLOAT3, XMFLOAT4 color);
 }

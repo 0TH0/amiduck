@@ -1,42 +1,58 @@
 #include "Fire.h"
-#include "Engine/Model.h"
-#include "Player.h"
 
-//コンストラクタ
 Fire::Fire(GameObject* parent)
-	: GameObject(parent, "Fire"), hModel_(-1)
+    :EnemyBase(parent, "Fire")
 {
 }
 
-//初期化
-void Fire::Initialize()
+Fire::~Fire()
 {
-	hModel_ = Model::Load("Model\\fire.fbx");
-	assert(hModel_ >= 0);
-	//当たり判定
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 2.f);
-	AddCollider(collision);
-
-	transform_.position_ = XMFLOAT3(5, 2, 5);
 }
 
-//更新
-void Fire::Update()
+void Fire::Action()
 {
-	//回す
-	transform_.position_ = Transform::RotateAround(transform_.position_, 0.2f, 3.f, right_);
-	transform_.position_.x += 0.1f;
-	transform_.rotate_.y += 5;
+    //EnemyEffect::EnemyEeffect(transform_.position_, { 1,1,0,1 });
+
+    if (CanMove_)
+    {
+        if (totalCell >= 0)
+        {
+            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + +0.3f, 0 };
+
+            transform_.position_ = Transform::RotateAround(trans_.position_, 10.f, 3.f, true);
+
+            XMStoreFloat3(&trans_.position_, XMVectorLerp(XMLoadFloat3(&trans_.position_), v, 0.2f));
+        }
+    }
+
+    if (count_ > frame)
+    {
+        int PlayerPosX = (int)pPlayer_->GetPosition().x;
+        int PlayerPosZ = (int)pPlayer_->GetPosition().z;
+        //プレイヤーを探索
+        if (AI_.Search({ (int)trans_.position_.x, (int)trans_.position_.z }, { PlayerPosX, PlayerPosZ }))
+        {
+            totalCell = AI_.GetToGoalTotalCell();
+            CanMove_ = true;
+        }
+
+        count_ = 0;
+    }
+    count_++;
 }
 
-//描画
-void Fire::Draw()
+void Fire::InitBase()
 {
-	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+    transform_.position_ = { 90, 1.5,7 };
+    trans_.position_ = transform_.position_;
+    frame = 5;
 }
 
-//開放
-void Fire::Release()
+void Fire::ChangeColor()
+{
+    Model::SetColor(hModel_, { 1,1,0,1 });
+}
+
+void Fire::ReleaseBase()
 {
 }

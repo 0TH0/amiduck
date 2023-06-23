@@ -25,7 +25,6 @@
 namespace
 {
     static Item* pItem;
-    static Fire* pFire;
     static int bufX, bufY, bufZ;
     static XMINT3 buf[5];
     static bool IsHit = false;
@@ -135,17 +134,16 @@ void Stage::Initialize()
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
                 pItemBox->SetPosition(x, 1.25f, z);
             }
-            if (stage_[x][z].type == FIRE)
-            {
-                pFire = Instantiate<Fire>(GetParent());
-                pFire->SetPosition(x, 1.25f, z);
-            }
-            if (stage_[x][z].type == FIRE_RIGHT)
-            {
-                pFire = Instantiate<Fire>(GetParent());
-                pFire->SetPosition(x, 1.25f, z);
-                pFire->SetRight(true);
-            }
+            //if (stage_[x][z].type == FIRE)
+            //{
+            //    pFire = Instantiate<Fire>(GetParent());
+            //    pFire->SetPosition(x, 1.25f, z);
+            //}
+            //if (stage_[x][z].type == FIRE_RIGHT)
+            //{
+            //    pFire = Instantiate<Fire>(GetParent());
+            //    pFire->SetPosition(x, 1.25f, z);
+            //}
             if (stage_[x][z].type == ENEMY_RED)
             {
                 EnemyRed* pEnemyRed = Instantiate<EnemyRed>(GetParent());

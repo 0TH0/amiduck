@@ -18,7 +18,7 @@ void EnemyBase::Initialize()
 
     //“–‚½‚è”»’è
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);
-    //AddCollider(collision);
+    AddCollider(collision);
 
     InitBase();
 }
