@@ -17,11 +17,9 @@ void EnemyRed::Action()
     {
         if (totalCell >= 0)
         {
-            XMVECTOR v = { AI_.GetToGoalCell(totalCell).x, 1.5f, AI_.GetToGoalCell(totalCell).z, 0 };
-
-            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.3f));
-
-            transform_.position_ = VectorToFloat3(v);
+            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + + 0.3f, 0 };
+            
+            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
         }
     }
 

@@ -18,6 +18,7 @@ protected:
     bool CanMove_;
     int totalCell;
     int frame; //‰½ƒtƒŒ[ƒ€–ˆ‚Éi‚Ş‚©
+    XMVECTOR v;
 
     virtual void Action() = 0;
     virtual void InitBase() = 0;

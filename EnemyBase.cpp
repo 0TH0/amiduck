@@ -4,7 +4,7 @@
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
     : GameObject(parent, name), hModel_(-1),frame(7), pPlayer_(),count_(0),
-      AI_(),CanMove_(false),totalCell(0)
+      AI_(),CanMove_(false),totalCell(0),v()
 {
 }
 
@@ -18,7 +18,7 @@ void EnemyBase::Initialize()
 
     //“–‚½‚è”»’è
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);
-    AddCollider(collision);
+    //AddCollider(collision);
 
     InitBase();
 }
