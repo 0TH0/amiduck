@@ -165,7 +165,6 @@
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
     <ClCompile Include="Manager\ItemBoxEffect.cpp" />
@@ -225,7 +224,6 @@
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="Fire.h" />
     <ClInclude Include="Manager\BombEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
     <ClInclude Include="Manager\ItemBoxEffect.h" />

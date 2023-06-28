@@ -118,7 +118,6 @@
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp">
@@ -256,7 +255,6 @@
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Fire.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="StarUI.h" />
     <ClInclude Include="Observer\ResultObserver.h">

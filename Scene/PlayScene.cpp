@@ -4,11 +4,9 @@
 #include "../Instructions.h"
 #include "../Controller.h"
 #include "../FireFollowGround.h"
-#include "../Fire.h"
 #include "../Line.h"
 #include "../Water.h"
 #include "../Item.h"
-#include "../Fire.h"
 #include "../StarUI.h"
 
 #include "../Engine/Input.h"
@@ -42,7 +40,6 @@ void PlayScene::Initialize()
 	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
-	Instantiate<Fire>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
 
@@ -60,10 +57,9 @@ void PlayScene::Update()
 	EnemyRed* pEnemyRed = (EnemyRed*)FindObject("EnemyRed");
 	EnemyBlue* pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
 	EnemyGreen* pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
-	Fire* pFire = (Fire*)FindObject("Fire");
 	
 	//星を5個取るか一定時間が経過したら
-	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr && pFire == nullptr)
+	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr)
 	{
 		//プレイヤーの勝ち
 		ResultObserver::SetIsWin(true);

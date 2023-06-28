@@ -12,7 +12,6 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
-#include "Fire.h"
 #include "EnemyRed.h"
 #include "EnemyBlue.h"
 #include "EnemyGreen.h"
