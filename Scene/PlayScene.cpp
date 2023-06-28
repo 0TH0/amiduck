@@ -60,9 +60,10 @@ void PlayScene::Update()
 	EnemyRed* pEnemyRed = (EnemyRed*)FindObject("EnemyRed");
 	EnemyBlue* pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
 	EnemyGreen* pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
-
+	Fire* pFire = (Fire*)FindObject("Fire");
+	
 	//星を5個取るか一定時間が経過したら
-	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr)
+	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr && pFire == nullptr)
 	{
 		//プレイヤーの勝ち
 		ResultObserver::SetIsWin(true);

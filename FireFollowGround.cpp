@@ -23,7 +23,8 @@ void FireFollowGround::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "EnemyBlue" ||
         pTarget->GetObjectName() == "EnemyGreen" ||
-        pTarget->GetObjectName() == "EnemyRed")
+        pTarget->GetObjectName() == "EnemyRed" || 
+        pTarget->GetObjectName() == "Fire")
     {
         pTarget->KillMe();
     }

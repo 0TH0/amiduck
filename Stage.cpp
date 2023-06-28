@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Scene/PlayScene.h"
 #include "Player.h"
-#include "Star.h"
 #include "ItemBox.h"
 #include "Item.h"
 #include "Engine/SceneManager.h"
@@ -35,7 +34,7 @@ namespace
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), woodCoolTime_(300),time_(0),stage_(),
+    :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true),
     GuidePopBridgePos(),pPlayer_()
 {
@@ -64,23 +63,9 @@ void Stage::StageLoad()
     hModel_[BRIDGE] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[BRIDGE] >= 0);
 
+    //ガイドの橋
     hModel_[BRIDGE_FADE] = Model::Load("Stage\\wood_board.fbx");
     assert(hModel_[BRIDGE_FADE] >= 0);
-
-    hModel_[PLAYER] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[PLAYER] >= 0);
-
-    hModel_[STAR] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[STAR] >= 0);
-
-    hModel_[ITEMBOX] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[ITEMBOX] >= 0);
-
-    hModel_[FIRE] = Model::Load("Model\\fire.fbx");
-    assert(hModel_[FIRE] >= 0);
-
-    hModel_[FIRE_RIGHT] = Model::Load("Model\\fire.fbx");
-    assert(hModel_[FIRE_RIGHT] >= 0);
 }
 
 //初期化
@@ -120,12 +105,6 @@ void Stage::Initialize()
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
                 pPlayer->SetPosition(x, 0, z);
-            }
-            if (stage_[x][z].type == STAR)
-            {
-                Star* pStar = Instantiate<Star>(GetParent());
-                pStar->SetPosition(x, 1.25f, z);
-
             }
             if (stage_[x][z].type == ITEMBOX)
             {
@@ -269,7 +248,7 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(0) && pItem->GetwoodCount() > 0)
+    if (Input::IsMouseButtonDown(0) /*&& pItem->GetwoodCount() > 0*/)
     {
         for (int x = 0; x < STAGE_SIZE_X; x++)
         {
@@ -318,8 +297,6 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 2].type = BRIDGE;
                     stage_[bufX][bufZ + 3].type = BRIDGE;
                     stage_[bufX][bufZ + 4].type = BRIDGE;
-                    effectPos_.x = bufX;
-                    effectPos_.z = bufZ + 3;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
@@ -330,8 +307,6 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 1].type = BRIDGE;
                     stage_[bufX][bufZ + 2].type = BRIDGE;
                     stage_[bufX][bufZ + 3].type = BRIDGE;
-                    effectPos_.x = bufX;
-                    effectPos_.z = bufZ + 2;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
@@ -342,8 +317,6 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ - 2].type = BRIDGE;
-                    effectPos_.x = bufX;
-                    effectPos_.z = bufZ + 1;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
@@ -354,8 +327,6 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ - 3].type = BRIDGE;
-                    effectPos_.x = bufX;
-                    effectPos_.z = bufZ;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
@@ -366,8 +337,6 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 2].type = BRIDGE;
                     stage_[bufX][bufZ - 1].type = BRIDGE;
                     stage_[bufX][bufZ - 4].type = BRIDGE;
-                    effectPos_.x = bufX;
-                    effectPos_.z = bufZ - 1;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
@@ -498,6 +467,7 @@ void Stage::PopBridge()
 
 void Stage::PopBridgeEffect()
 {
+    effectPos_ = { (float)bufX, 1.f, (float)bufZ };
     StageEffect::PopBridgeEffect(effectPos_);
     StageAudio::PopStageAudio();
 }

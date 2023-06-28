@@ -42,7 +42,6 @@ class Stage : public GameObject
     XMFLOAT3 player_pos_;
     XMFLOAT3 enemyPos_;
     XMFLOAT3 stagePos_;
-    int time_;
     int count_ = 1;
     int bridgeCount_;
     int hAudio_;

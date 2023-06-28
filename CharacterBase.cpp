@@ -99,7 +99,7 @@ void CharacterBase::Update()
     prevPosition = XMLoadFloat3(&transform_.position_);
 
     //あみだくじの処理
-    //LadderLottery();
+    LadderLottery();
 
     //進行方向に回転する
     RotateDirMove();
@@ -119,7 +119,7 @@ void CharacterBase::Release()
 void CharacterBase::LadderLottery()
 {
     //////////////////壁との衝突判定///////////////////////
-    XMINT3 obj = ToXMINT(transform_.position_);
+    XMINT3 obj = ToXMINT({ transform_.position_.x + 0.3f, transform_.position_.y, transform_.position_.z + 0.3f});
 
     //壁の判定(上)
     if (!IsRight_ && !IsLeft_)
@@ -149,7 +149,7 @@ void CharacterBase::LadderLottery()
     ///////////////////////// あみだくじの処理 ///////////////////////////////////////////
     if (!IsLeft_ && StoppedTime_ > 4)
     {
-        if (pStage->IsBridge(obj.x, obj.z - 4))
+        if (pStage->IsBridge(obj.x, obj.z - 1))
         {
             speed_ = 0;
             IsRight_ = true;
@@ -158,16 +158,13 @@ void CharacterBase::LadderLottery()
         }
     }
 
-    if (!IsRight_ && StoppedTime_ > 4)
-    {
-        if (pStage->IsBridge(obj.x, obj.z + 4))
-        {
-            speed_ = 0;
-            IsLeft_ = true;
-            StoppedTime_ = 0;
-            IsOnBridge_ = true;
-        }
-    }
+    //if (pStage->IsBridge(obj.x, obj.z - 1))
+    //{
+    //    speed_ = 0;
+    //    IsRight_ = true;
+    //    StoppedTime_ = 0;
+    //    IsOnBridge_ = true;
+    //}
 
     //右に行く
     if (IsRight_)
@@ -184,14 +181,13 @@ void CharacterBase::LadderLottery()
             delay_ = 0;
             SpeedOnWood_[R] = 0;
 
-
             switch (CharacterState)
             {
             case CharacterBase::State::EGG:
                 speed_ = speedChange_;
                 break;
             case CharacterBase::State::GROWN:
-                speed_ = 0.3f;
+                speed_ = speedChange_ * 2;
                 break;
             default:
                 break;
