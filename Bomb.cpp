@@ -3,9 +3,6 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 #include "Player.h"
-#include "Engine/Global.h"
-#include "Star.h"
-
 #include "Manager/BombEffect.h"
 
 //コンストラクタ

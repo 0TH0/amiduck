@@ -1,15 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
-#include "Engine/Text.h"
 #include "Engine/VFX.h"
 #include "Engine/PolyLine.h"
-#include "CharacterBase.h"
 
 //◆◆◆を管理するクラス
-class FireFollowGround : public CharacterBase
+class FireFollowGround : public GameObject
 {
-    PolyLine* pLine;
+    PolyLine* pLine_;
+    int hModel_;
 public:
     //コンストラクタ
     FireFollowGround(GameObject* parent);
@@ -17,11 +16,17 @@ public:
     //デストラクタ
     ~FireFollowGround();
 
-    void OnCollision(GameObject* pTarget) override;
+    //初期化
+    void Initialize() override;
 
-    void Action() override;
-    void Command() override;
-    void InitBase() override;
-    void DrawBase() override;
-    void ReleaseBase() override;
+    //更新
+    void Update() override;
+
+    //描画
+    void Draw() override;
+
+    //開放
+    void Release() override;
+
+    void OnCollision(GameObject* pTarget) override;
 };

@@ -12,7 +12,6 @@ class Item: public GameObject
 	int hItemPict_[4];
 	int hPict_;
 	int hPictWood_;
-
 	int alpha_;
 	ItemBox* pItemBox_;
 	bool IsItem_;

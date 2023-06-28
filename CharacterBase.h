@@ -20,14 +20,14 @@ protected:
     };
 
     //プレイヤーの状態
-    enum class State
+    enum Status
     {
         EGG = 0,    //卵
         GROWN,      //成長した
-    } CharacterState;
+        STATUS_MAX
+    } status_;
 
-    int hModel_;              //モデル番号
-    int hModel2_;             //モデル番号
+    int hModel_[STATUS_MAX];              //モデル番号
     float jump_v0;            //ジャンプの初速度
     float gravity;            //重力
     float angle;              //角度
@@ -48,8 +48,6 @@ protected:
     bool IsReturn_;     //戻ってきているか
     bool IsStop_;       //止まっているか
     bool IsOnBridge_;   //橋の上にいるか
-    int starNum_;       //星の数
-    int starTime_;      //星を取ってからの時間
     bool hasItem_;      //アイテムを持っているか
 
     //定数
@@ -92,6 +90,5 @@ public:
     bool GetReturn() { return IsReturn_; };
     void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
     bool GetHasItem() { return hasItem_; };
-    int GetStarNum() { return  starNum_; };
     bool GetIsOnBridge() { return IsOnBridge_; };
 };

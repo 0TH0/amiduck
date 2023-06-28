@@ -6,7 +6,7 @@
 
 //コンストラクタ
 Instructions::Instructions(GameObject* parent)
-	: GameObject(parent, "Instructions"), IsInstructions(false)
+	: GameObject(parent, "Instructions")
 {
 }
 

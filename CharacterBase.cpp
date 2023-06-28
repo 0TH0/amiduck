@@ -4,15 +4,19 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
-#include "Engine/LadderLottery.h"
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
-	: GameObject(parent, name),hModel_(-1), hModel2_(-1),pStage(nullptr),CharacterState(State::EGG), jump_v0(),
-      gravity(0),angle(0),move_(),IsJump(false),IsGround(false),IsEnemy(false),speed_(0.3f),
-      SpeedUpTime_(0),IsSpeedUp_(false),IsRight_(false),IsLeft_(false),delay_(0),StoppedTime_(0),IsReturn_(false),
-      IsStop_(false),IsOnBridge_(false),starNum_(0),starTime_(0),hasItem_(0),
-      data(),prevPosition(),speedChange_(0.2f)
+	: GameObject(parent, name),pStage(nullptr), data(), prevPosition(), 
+      status_(EGG), jump_v0(),gravity(0),angle(0),move_(),speed_(0.3f),SpeedUpTime_(0),
+      IsJump(false), IsGround(false), IsEnemy(false), IsReturn_(false), IsSpeedUp_(false),IsRight_(false),IsLeft_(false),
+      IsStop_(false), IsOnBridge_(false),
+      delay_(0),StoppedTime_(0),hasItem_(0),speedChange_(0.2f)
 {
+    for (int i = 0; i < Status::STATUS_MAX; i++)
+    {
+        hModel_[i] = -1;
+    }
+
     for (int i = 0; i < DIR_MAX; i++)
     {
         SpeedOnWood_[i] = 0;
@@ -36,26 +40,16 @@ void CharacterBase::Update()
 {
     pStage = (Stage*)FindObject("Stage");
 
-    switch (CharacterState)
+    switch (status_)
     {
-    case State::EGG:
+    case EGG:
         transform_.rotate_.z += 10;
         break;
-    case State::GROWN:
+    case GROWN:
         transform_.rotate_ = XMFLOAT3(0, 180, 0);
         break;
     default:
         break;
-    }
-
-    //êØÇÃêîÇ™ÇOà»â∫Ç≈óë
-    if (starNum_ <= 0)
-    {
-        CharacterState = State::EGG;
-    }
-    else
-    {
-        CharacterState = State::GROWN;
     }
 
     if (!IsStop_)
@@ -82,14 +76,6 @@ void CharacterBase::Update()
     if (transform_.position_.y <= 0.75f)
     {
         transform_.position_.y = 0.75f;
-    }
-    if (starTime_ >= 10)
-    {
-        starTime_ = 0;
-    }
-    else if (starTime_ > 0)
-    {
-        starTime_++;
     }
 
     Command();
@@ -158,14 +144,6 @@ void CharacterBase::LadderLottery()
         }
     }
 
-    //if (pStage->IsBridge(obj.x, obj.z - 1))
-    //{
-    //    speed_ = 0;
-    //    IsRight_ = true;
-    //    StoppedTime_ = 0;
-    //    IsOnBridge_ = true;
-    //}
-
     //âEÇ…çsÇ≠
     if (IsRight_)
     {
@@ -181,12 +159,12 @@ void CharacterBase::LadderLottery()
             delay_ = 0;
             SpeedOnWood_[R] = 0;
 
-            switch (CharacterState)
+            switch (status_)
             {
-            case CharacterBase::State::EGG:
+            case EGG:
                 speed_ = speedChange_;
                 break;
-            case CharacterBase::State::GROWN:
+            case GROWN:
                 speed_ = speedChange_ * 2;
                 break;
             default:
@@ -238,13 +216,13 @@ void CharacterBase::LadderLottery()
                 StoppedTime_ = 0;
                 SpeedOnWood_[L] = 0;
 
-                switch (CharacterState)
+                switch (status_)
                 {
-                case CharacterBase::State::EGG:
+                case EGG:
                     speed_ = speedChange_;
                     break;
-                case CharacterBase::State::GROWN:
-                    speed_ = 0.3f;
+                case GROWN:
+                    speed_ = speedChange_ * 2;
                     break;
                 default:
                     break;

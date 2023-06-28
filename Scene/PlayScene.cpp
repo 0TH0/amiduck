@@ -7,8 +7,6 @@
 #include "../Line.h"
 #include "../Water.h"
 #include "../Item.h"
-#include "../StarUI.h"
-
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
 #include "../Engine/SceneManager.h"
@@ -40,7 +38,6 @@ void PlayScene::Initialize()
 	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
-	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
 
 	ResultObserver::SetIsWin(false);

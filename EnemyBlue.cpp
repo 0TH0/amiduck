@@ -1,7 +1,7 @@
 #include "EnemyBlue.h"
 
 EnemyBlue::EnemyBlue(GameObject* parent)
-    :EnemyBase(parent, "EnemyBlue"), dist_(15), IsPlayerNear_(false)
+    :EnemyBase(parent, "EnemyBlue"), dist_(30), IsPlayerNear_(false)
 {
 }
 
@@ -12,13 +12,13 @@ EnemyBlue::~EnemyBlue()
 void EnemyBlue::Action()
 {
     EnemyEffect::EnemyEffectBlue(transform_.position_);
-    //プレイヤーと青の距離が15以下なら
+    //プレイヤーと青の距離が30以下なら
     IsPlayerNear_ = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
     if (CanMove_ && IsPlayerNear_)
     {
         if (totalCell >= 0)
         {
-            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + +0.3f, 0 };
+            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.4f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.4f, 0 };
 
             XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
         }

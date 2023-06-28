@@ -2,11 +2,9 @@
 #include "Scene/PlayScene.h"
 #include "FireFollowGround.h"
 #include "Controller.h"
-
 #include "Line.h"
 #include "Bomb.h"
 #include "Item.h"
-
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -122,11 +120,11 @@ void Player::Command()
 
 void Player::InitBase()
 {
-    hModel_ = Model::Load("Model\\Player\\egg.fbx");
-    assert(hModel_ >= 0);
+    hModel_[EGG] = Model::Load("Model\\Player\\egg.fbx");
+    assert(hModel_[EGG] >= 0);
 
-    hModel2_ = Model::Load("Model\\Player\\duck.fbx");
-    assert(hModel2_ >= 0);
+    hModel_[GROWN] = Model::Load("Model\\Player\\duck.fbx");
+    assert(hModel_[GROWN] >= 0);
 
     hAudio_ = Audio::Load("Audio\\Jump.wav");
     assert(hAudio_ >= 0);
@@ -142,21 +140,23 @@ void Player::InitBase()
     Instantiate<Controller>(this);
 
     //Å‰‚Í—‘‚©‚ç
-    CharacterState = State::EGG;
+    status_ = EGG;
 }
 
 void Player::DrawBase()
 {
-    Model::SetTransform(hModel2_, transform_);
-    Model::SetTransform(hModel_, transform_);
+    Model::SetTransform(hModel_[EGG], transform_);
+    Model::SetTransform(hModel_[GROWN], transform_);
 
-    switch (CharacterState)
+    switch (status_)
     {
-    case State::EGG:
-        Model::FlashModel(hModel_);
+    case EGG:
+        Model::Draw(hModel_[EGG]);
         break;
-    case State::GROWN:
-        Model::FlashModel(hModel2_);
+    case GROWN:
+        Model::Draw(hModel_[GROWN]);
+        break;
+    default:
         break;
     }
 
@@ -188,31 +188,6 @@ void Player::ReleaseBase()
 //‰½‚©‚É“–‚½‚Á‚½
 void Player::OnCollision(GameObject* pTarget)
 {
-    //“G‚É“–‚½‚Á‚½
-    if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Fire")
-    {
-        Model::SetIsFlash(hModel_);
-        Model::SetIsFlash(hModel2_);
-
-        if (starTime_ == 0)
-        {
-            if (starNum_ > 0)
-            {
-                starTime_++;
-                starNum_--;
-            }
-        }
-    }
-    
-    if (pTarget->GetObjectName() == "Star")
-    {
-        if (starTime_ == 0)
-        {
-            starTime_++;
-            starNum_++;
-        }
-    }
-
     //‹Ê‚É“–‚½‚Á‚½‚ç
     if (pTarget->GetObjectName() == "EnemyRed" || 
         pTarget->GetObjectName() == "EnemyBlue" ||

@@ -19,18 +19,33 @@ class Stage : public GameObject
         BRIDGE_FADE,
         BRIDGE,
         LOG,
-        ENEMY,
         PLAYER,
-        STAR,
         ITEMBOX,
-        FIRE,
-        FIRE_RIGHT,
         ENEMY_RED,
         ENEMY_BLUE,
         ENEMY_GREEN,
         CORNER,
         STAGE_MAX
     };
+
+    //enum StageModelType
+    //{
+    //    EMPTY,
+    //    BRIDGE_FADE,
+    //    BRIDGE,
+    //    LOG,
+    //    ENEMY,
+    //    PLAYER,
+    //    STAR,
+    //    ITEMBOX,
+    //    FIRE,
+    //    FIRE_RIGHT,
+    //    ENEMY_RED,
+    //    ENEMY_BLUE,
+    //    ENEMY_GREEN,
+    //    CORNER,
+    //    STAGE_MAX
+    //};
 
     struct stageData
     {

@@ -222,8 +222,6 @@ void Stage::Draw()
                     Model::Draw(hModel_[type], 0.5);
                     break;
                 //‰½‚à‚µ‚È‚¢
-                case FIRE:
-                case FIRE_RIGHT:
                 case CORNER:
                     break;
 
@@ -478,11 +476,6 @@ void Stage::RandStage()
     {
         int randX = (rand() % STAGE_SIZE_X - 1);
         int randZ = (rand() % STAGE_SIZE_Z - 1);
-
-        if (randX == STAGE_SIZE_X || randX == 0)
-        {
-            continue;
-        }
 
         if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
         {
