@@ -1,5 +1,4 @@
 #include "sceneManager.h"
-#include "../Scene/StartScene.h"
 #include "../Scene/PlayScene.h"
 #include "../Scene/TitleScene.h"
 #include "../Scene/ResultScene.h"
@@ -42,7 +41,6 @@ void SceneManager::Update()
 		//Ÿ‚ÌƒV[ƒ“‚ğì¬
 		switch (nextSceneID_)
 		{
-		case SCENE_ID_START: Instantiate<StartScene>(this); break;
 		case SCENE_ID_TITLE: Instantiate<TitleScene>(this); break;
 		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
 		case SCENE_ID_RESULT: Instantiate<ResultScene>(this); break;

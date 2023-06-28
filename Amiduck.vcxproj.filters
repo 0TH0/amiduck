@@ -141,9 +141,6 @@
     <ClCompile Include="Scene\ResultScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\StartScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\TestScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -171,6 +168,9 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="Engine\LadderLottery.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -279,9 +279,6 @@
     <ClInclude Include="Scene\ResultScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\StartScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -309,6 +306,9 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="Engine\LadderLottery.h">
+      <Filter>01Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

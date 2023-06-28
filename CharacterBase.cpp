@@ -1,10 +1,10 @@
 #include "CharacterBase.h"
-
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
+#include "Engine/LadderLottery.h"
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
 	: GameObject(parent, name),hModel_(-1), hModel2_(-1),pStage(nullptr),CharacterState(State::EGG), jump_v0(),
@@ -99,7 +99,7 @@ void CharacterBase::Update()
     prevPosition = XMLoadFloat3(&transform_.position_);
 
     //‚ ‚İ‚¾‚­‚¶‚Ìˆ—
-    LadderLottery();
+    //LadderLottery();
 
     //is•ûŒü‚É‰ñ“]‚·‚é
     RotateDirMove();

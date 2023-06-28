@@ -19,7 +19,7 @@ void ResultScene::Initialize()
 {
 	std::string resultStr = "";
 
-	//Ÿ•‰‚É‚æ‚Á‚Ä•Ï‚¦‚é
+	//Ÿ”s‚É‚æ‚Á‚Ä•Ï‚¦‚é
 	if (ResultObserver::GetIsWin()) resultStr = "Clear\\win.png";
 	else resultStr = "Clear\\lose.png";
 	assert(resultStr != "");

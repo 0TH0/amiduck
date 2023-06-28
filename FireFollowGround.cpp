@@ -1,7 +1,6 @@
 #include "FireFollowGround.h"
 #include "Stage.h"
 #include "Scene/PlayScene.h"
-#include "Scene/StartScene.h"
 #include "Star.h"
 
 #include "Engine/Model.h"

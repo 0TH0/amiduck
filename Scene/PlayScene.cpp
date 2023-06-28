@@ -10,7 +10,6 @@
 #include "../Item.h"
 #include "../Fire.h"
 #include "../StarUI.h"
-#include "StartScene.h"
 
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
@@ -44,7 +43,6 @@ void PlayScene::Initialize()
 	pTimer->SetPosition(700, 0, 100);
 
 	Instantiate<Fire>(this);
-	Instantiate<StartScene>(this);
 	Instantiate<StarUI>(this);
 	Instantiate<Instructions>(this);
 

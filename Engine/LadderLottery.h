@@ -38,7 +38,7 @@ struct Node
     Node(CELL pos, int status, int actualCost, int estimatedCost, int moveCost, Node* ParentNode) :pos_(pos), status_(status), actualCost_(actualCost), estimatedCost_(estimatedCost), moveCost_(moveCost), pParentNode_(ParentNode) {}
 };
 
-class Astar
+class LadderLottery
 {
     //マップごとのモデル番号
     int map_[STAGE_SIZE_X][STAGE_SIZE_Z];
@@ -72,7 +72,7 @@ class Astar
     CELL startCell_;
 
     //スタートのマス
-    CELL goalCell_ ;
+    CELL goalCell_;
 
     //スタート地点からのトータルコストを入れる
     int totalCosts[STAGE_SIZE_X][STAGE_SIZE_Z];
@@ -88,10 +88,10 @@ class Astar
 
 public:
     //コンストラクタ
-    Astar();
+    LadderLottery();
 
     //デストラクタ
-    ~Astar();
+    ~LadderLottery();
 
     //csvファイルで読み込む
     void CsvLoad(std::string name);

@@ -132,16 +132,6 @@ void Stage::Initialize()
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
                 pItemBox->SetPosition(x, 1.25f, z);
             }
-            //if (stage_[x][z].type == FIRE)
-            //{
-            //    pFire = Instantiate<Fire>(GetParent());
-            //    pFire->SetPosition(x, 1.25f, z);
-            //}
-            //if (stage_[x][z].type == FIRE_RIGHT)
-            //{
-            //    pFire = Instantiate<Fire>(GetParent());
-            //    pFire->SetPosition(x, 1.25f, z);
-            //}
             if (stage_[x][z].type == ENEMY_RED)
             {
                 EnemyRed* pEnemyRed = Instantiate<EnemyRed>(GetParent());
@@ -161,7 +151,6 @@ void Stage::Initialize()
     }
 
     pText->Initialize();
-    //
     pItem = (Item*)FindObject("Item");
 }
 
