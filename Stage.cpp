@@ -1,12 +1,10 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Scene/PlayScene.h"
-
 #include "Player.h"
 #include "Star.h"
 #include "ItemBox.h"
 #include "Item.h"
-
 #include "Engine/SceneManager.h"
 #include "Engine/Model.h"
 #include "Engine/CsvReader.h"
@@ -333,8 +331,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 4].type = BRIDGE;
                     effectPos_.x = bufX;
                     effectPos_.z = bufZ + 3;
-                    StageEffect::PopBridgeEffect(effectPos_);
-                    StageAudio::PopStageAudio();
+                    PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 2].type == LOG)
@@ -346,8 +343,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ + 3].type = BRIDGE;
                     effectPos_.x = bufX;
                     effectPos_.z = bufZ + 2;
-                    StageEffect::PopBridgeEffect(effectPos_);
-                    StageAudio::PopStageAudio();
+                    PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 3].type == LOG)
@@ -359,8 +355,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 2].type = BRIDGE;
                     effectPos_.x = bufX;
                     effectPos_.z = bufZ + 1;
-                    StageEffect::PopBridgeEffect(effectPos_);
-                    StageAudio::PopStageAudio();
+                    PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 4].type == LOG)
@@ -372,8 +367,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 3].type = BRIDGE;
                     effectPos_.x = bufX;
                     effectPos_.z = bufZ;
-                    StageEffect::PopBridgeEffect(effectPos_);
-                    StageAudio::PopStageAudio();
+                    PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
                 else if (stage_[bufX][bufZ - 5].type == LOG)
@@ -385,8 +379,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 4].type = BRIDGE;
                     effectPos_.x = bufX;
                     effectPos_.z = bufZ - 1;
-                    StageEffect::PopBridgeEffect(effectPos_);
-                    StageAudio::PopStageAudio();
+                    PopBridgeEffect();
                     pItem->MinWoodCount();
                 }
             }
@@ -515,6 +508,12 @@ void Stage::PopBridge()
     }
 }
 
+void Stage::PopBridgeEffect()
+{
+    StageEffect::PopBridgeEffect(effectPos_);
+    StageAudio::PopStageAudio();
+}
+
 void Stage::RandStage()
 {
     //É}ÉbÉvÇÃé©ìÆê∂ê¨
@@ -551,7 +550,6 @@ void Stage::RandStage()
     //    {
     //        int randX = (rand() % STAGE_SIZE_X - 1);
     //        int randZ = (rand() % STAGE_SIZE_Z - 1);
-
     //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
     //        {
     //            stage_[randX][randZ + 2].type = ITEMBOX;
@@ -564,14 +562,12 @@ void Stage::RandStage()
     //        }
     //    }
     //}
-
     //{
     //    int count = 0;
     //    while (count < 5)
     //    {
     //        int randX = (rand() % STAGE_SIZE_X - 1);
     //        int randZ = (rand() % STAGE_SIZE_Z - 1);
-
     //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
     //        {
     //            stage_[randX][randZ + 2].type = STAR;

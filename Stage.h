@@ -12,7 +12,8 @@ class Stage : public GameObject
     static const int STAGE_SIZE_X = 100;
     static const int STAGE_SIZE_Z = 37;
 
-    enum StageModelNum
+    //モデル番号
+    enum StageModelType
     {
         EMPTY,
         BRIDGE_FADE,
@@ -31,7 +32,7 @@ class Stage : public GameObject
         STAGE_MAX
     };
 
-    struct stageInfo
+    struct stageData
     {
         int type;
         int height;
@@ -72,22 +73,25 @@ public:
     //そこは橋なのか
     bool IsBridge(int x,  int z);
 
+    //そこは端なのか
     bool IsCorner(int x,  int z);
 
-    int getModelHandle(int handle) { return hModel_[handle]; };
-
+    //ステージ情報をロード
     void StageLoad();
 
     //セッターゲッター
-    static const int GetStageSizeX() { return STAGE_SIZE_X; };
-    static const int GetStageSizeZ() { return STAGE_SIZE_Z; };
+    const int GetStageSizeX() { return STAGE_SIZE_X; };
+    const int GetStageSizeZ() { return STAGE_SIZE_Z; };
+    void SetWoodCoolTime(int woodCoolTime) { woodCoolTime_ = woodCoolTime; };
     int GetWoodCoolTime() { return woodCoolTime_; };
     void SetShouldPoPRandStage(bool ShouldPoPRandStage) { ShouldPoPRandStage_ = ShouldPoPRandStage; };
     bool GetShouldPoPRandStage() { return ShouldPoPRandStage_; };
+    void SetStageType(int x, int z, StageModelType Type) { stage_[x][z].type = Type; };
+    int GetStageType(int x, int z) { return stage_[x][z].type; };
+    int GetModelHandle(int handle) { return hModel_[handle]; };
 
     //左クリックで橋を出現させる
     void PopBridge();
+    void PopBridgeEffect();
     void RandStage();
-
-    int GetStageType(int x, int z) { return stage_[x][z].type; };
 };
