@@ -23,8 +23,12 @@ namespace
 
 //コンストラクタ
 GameManager::GameManager(GameObject * parent)
-	: GameObject(parent, "GameManager"),randPos_()
+	: GameObject(parent, "GameManager"),randPos_(), timeMax_(300)
 {
+	for (int i = 0; i < ENEMY_MAX; i++)
+	{
+		EnemyTime_[i] = 0;
+	}
 }
 
 //初期化
@@ -34,7 +38,7 @@ void GameManager::Initialize()
 	ResultObserver::SetIsWin(false);
 
 	pStage = (Stage*)FindObject("Stage");
-	RandStar();
+	RandObject();
 	pStar = Instantiate<Star>(this);
 	pStar->SetPosition(randPos_.x, 3, randPos_.z);
 }
@@ -48,24 +52,20 @@ void GameManager::Update()
 	pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
 	pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
 
-	switch (pPlayer->GetStarNum())
+	if (pPlayer->GetStarNum() >= 5)
 	{
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-		PopStar();
-		break;
-	case 5:
 		//プレイヤーの勝ち
 		ResultObserver::SetIsWin(true);
 		//リザルトシーンへ
 		pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_RESULT);
-		break;
-	default:
-		break;
 	}
+	else
+	{
+		PopStar();
+	}
+
+	EnemyReturn();
 }
 
 //描画
@@ -82,7 +82,7 @@ void GameManager::PopStar()
 {
 	if (pPlayer->GetStarAfterTime() >= 120)
 	{
-		RandStar();
+		RandObject();
 		pStar = Instantiate<Star>(this);
 		pStar->SetPosition(randPos_.x, 3, randPos_.z);
 		pPlayer->SetIsStar(false);
@@ -90,7 +90,7 @@ void GameManager::PopStar()
 }
 
 //ランダムで星の位置を決める
-void GameManager::RandStar()
+void GameManager::RandObject()
 {
 	randPos_ = { rand() % randPosMax_.x, 0, rand() % randPosMax_.z };
 
@@ -107,4 +107,41 @@ void GameManager::RandStar()
 	}
 
 	randPos_.z *= (randPosMax_.z - 1);
+}
+
+void GameManager::EnemyReturn()
+{
+	if (pEnemyRed == nullptr)
+	{
+		EnemyTime_[RED]++;
+		if (EnemyTime_[RED] >= timeMax_)
+		{
+			RandObject();
+			pEnemyRed = Instantiate<EnemyRed>(this);
+			pEnemyRed->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			EnemyTime_[RED] = 0;
+		}
+	}
+	if (pEnemyBlue == nullptr)
+	{
+		EnemyTime_[BLUE]++;
+		if (EnemyTime_[BLUE] >= timeMax_)
+		{
+			RandObject();
+			pEnemyBlue = Instantiate<EnemyBlue>(this);
+			pEnemyBlue->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			EnemyTime_[BLUE] = 0;
+		}
+	}
+	if (pEnemyGreen == nullptr)
+	{
+		EnemyTime_[GREEN]++;
+		if (EnemyTime_[GREEN] >= timeMax_)
+		{
+			RandObject();
+			pEnemyGreen = Instantiate<EnemyGreen>(this);
+			pEnemyGreen->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			EnemyTime_[GREEN] = 0;
+		}
+	}
 }

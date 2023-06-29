@@ -143,6 +143,7 @@
     <ClCompile Include="Engine\Fbx.cpp" />
     <ClCompile Include="Engine\FbxParts.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Gauge.cpp" />
     <ClCompile Include="Engine\Image.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Engine\Fbx.h" />
     <ClInclude Include="Engine\FbxParts.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\Gauge.h" />
     <ClInclude Include="Engine\Global.h" />
     <ClInclude Include="Engine\Image.h" />
     <ClInclude Include="Engine\Input.h" />

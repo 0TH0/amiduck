@@ -3,7 +3,16 @@
 
 class GameManager: public GameObject
 {
+	enum
+	{
+		RED,
+		BLUE,
+		GREEN,
+		ENEMY_MAX
+	};
 	XMINT3 randPos_;
+	int EnemyTime_[ENEMY_MAX];
+	int timeMax_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -21,7 +30,12 @@ public:
 	//開放
 	void Release() override;
 
+	//星を出す
 	void PopStar();
 
-	void RandStar();
+	//ランダム
+	void RandObject();
+
+	//敵復活
+	void EnemyReturn();
 };

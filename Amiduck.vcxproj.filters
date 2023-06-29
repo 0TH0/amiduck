@@ -170,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StarUI.cpp" />
+    <ClCompile Include="Engine\Gauge.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="Star.h" />
     <ClInclude Include="StarUI.h" />
+    <ClInclude Include="Engine\Gauge.h">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
