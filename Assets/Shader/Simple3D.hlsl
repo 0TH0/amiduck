@@ -142,7 +142,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	{
 		result *= 0.2; //‰ei–¾‚é‚³‚ğ 60%j 
 	}
-	result.a = diffuse.a;
-	//result.a = g_alpha;
+	//result.a = diffuse.a;
+	result.a = g_alpha;
 	return result;
 }

@@ -128,9 +128,6 @@
     <ClCompile Include="Engine\Astar.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Light.cpp">
-      <Filter>01Engine\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp">
       <Filter>Scene</Filter>
@@ -262,9 +259,6 @@
     <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Engine\Astar.h">
       <Filter>01Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Light.h">
-      <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Scene\PlayScene.h">

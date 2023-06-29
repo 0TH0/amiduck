@@ -124,6 +124,7 @@ class FbxParts
 
 	Direct3D::SHADER_TYPE shaderType_;
 	float scroll_;
+	float alpha_;
 
 public:
 	FbxParts();
@@ -138,7 +139,6 @@ public:
 	//描画
 	//引数：world	ワールド行列
 	void Draw(Transform& transform);
-	void Draw(Transform& transform, FLOAT alpha);
 
 	//ボーン有りのモデルを描画
 	//引数：transform	行列情報
@@ -149,7 +149,7 @@ public:
 	//引数：transform	行列情報
 	//引数：time		フレーム情報（１アニメーション内の今どこか）
 	//引数：scene		Fbxファイルから読み込んだシーン情報
-	void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene, FLOAT alpha);
+	void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene);
 
 	//任意のボーンの位置を取得
 	//引数：boneName	取得したいボーンの位置
@@ -172,6 +172,7 @@ public:
 	bool GetIsDiffuse() { return IsSetDiffuse_; };
 	void SetDiffuse(XMFLOAT4 diffuse) { diffuse_ = diffuse; };
 	XMFLOAT4 GetDiffuse() { return diffuse_; };
+	void SetAlpha(float alpha) { alpha_ = alpha; };
 
 	void SetUVScroll(float scroll) { scroll_ = scroll; }
 };

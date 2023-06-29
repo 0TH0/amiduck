@@ -130,7 +130,8 @@ void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType
 		time.SetTime(0, 0, 0, frame, 0, 0, _frameRate);
 
 		parts_[k]->SetUVScroll(scroll);
-		
+		parts_[k]->SetAlpha(alpha);
+
 		//スキンアニメーション（ボーン有り）の場合
 		if (parts_[k]->GetSkinInfo() != nullptr)
 		{
@@ -140,7 +141,7 @@ void Fbx::Draw(Transform& transform, int frame, Direct3D::SHADER_TYPE shaderType
 		//メッシュアニメーションの場合
 		else
 		{
-			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_, alpha);
+			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_);
 		}
 	}
 }

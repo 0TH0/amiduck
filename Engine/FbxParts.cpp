@@ -442,11 +442,6 @@ void FbxParts::IntConstantBuffer()
 //•`‰æ
 void FbxParts::Draw(Transform& transform)
 {
-	Draw(transform, 1);
-}
-
-void FbxParts::Draw(Transform& transform, FLOAT alpha)
-{
 	//ƒVƒF[ƒ_‚ð•Û‘¶‚µ‚Ä‚¨‚­
 	Direct3D::SHADER_TYPE type = Direct3D::GetShader();
 
@@ -494,7 +489,7 @@ void FbxParts::Draw(Transform& transform, FLOAT alpha)
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightDirection = XMFLOAT4(1, -1, 1, 0);
-		cb.alpha = alpha;
+		cb.alpha = alpha_;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.scroll = scroll_;
 
@@ -587,7 +582,7 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time)
 
 }
 
-void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene, FLOAT alpha)
+void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scene)
 {
 	//// ‚»‚ÌuŠÔ‚ÌŽ©•ª‚ÌŽp¨s—ñ‚ð“¾‚é
 	//FbxAnimEvaluator *evaluator = scene->GetAnimationEvaluator();
@@ -602,7 +597,7 @@ void FbxParts::DrawMeshAnime(Transform& transform, FbxTime time, FbxScene * scen
 	//	}
 	//}
 
-	Draw(transform , alpha);
+	Draw(transform);
 }
 
 bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3 * position)
