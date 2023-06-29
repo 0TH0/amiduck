@@ -58,6 +58,14 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {
+	if (pTimer->GetRimit() <= 0)
+	{
+		//プレイヤーの勝ち
+		ResultObserver::SetIsWin(false);
+		//リザルトシーンへ
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_RESULT);
+	}
 	//BGM再生
 	Audio::Play(hAudio_);
 }

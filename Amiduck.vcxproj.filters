@@ -30,7 +30,7 @@
     <Filter Include="Observer">
       <UniqueIdentifier>{fcdf85af-73b7-4e2b-a4d7-b60d489b54d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Manager">
+    <Filter Include="Manager">
       <UniqueIdentifier>{c96fe42c-1d3f-4aa4-9c42-0a96d397d3c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -144,29 +144,29 @@
     <ClCompile Include="EnemyBlue.cpp" />
     <ClCompile Include="EnemyGreen.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\StageEffect.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\StageAudio.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\ItemBoxEffect.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\StarEffect.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\EnemyEffect.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Manager\PlaySceneGuide.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\GameManager.cpp">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StarUI.cpp" />
@@ -284,29 +284,29 @@
     <ClInclude Include="EnemyBlue.h" />
     <ClInclude Include="EnemyGreen.h" />
     <ClInclude Include="Manager\BombEffect.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\StageEffect.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\StageAudio.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\ItemBoxEffect.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\StarEffect.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\EnemyEffect.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Manager\PlaySceneGuide.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\GameManager.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Star.h" />
     <ClInclude Include="StarUI.h" />

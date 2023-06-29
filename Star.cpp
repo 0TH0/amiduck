@@ -1,7 +1,7 @@
 #include "Star.h"
 #include "Scene/PlayScene.h"
 #include "Player.h"
-
+#include "Manager/StarEffect.h"
 #include "Engine/Model.h"
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
@@ -74,6 +74,7 @@ void Star::OnCollision(GameObject* pTarget)
 		if (time_ >= rimit_ && IsVisibled())
 		{
 			Invisible();
+			StarEffect::TakeStarEffect(transform_.position_);
 			time_ = 0;
 		}
 	}
