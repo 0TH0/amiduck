@@ -16,6 +16,8 @@
 #include "../EnemyBlue.h"
 #include "../EnemyGreen.h"
 #include "../Manager/PlaySceneGuide.h"
+#include "../StarUI.h"
+#include "../Manager/GameManager.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -42,8 +44,11 @@ void PlayScene::Initialize()
 	//勝利条件
 	Instantiate<PlaySceneGuide>(this);
 
-	//負けにセット
-	ResultObserver::SetIsWin(false);
+	//星のUI
+	Instantiate<StarUI>(this);
+
+	//ゲームの進行管理
+	Instantiate<GameManager>(this);
 
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);
@@ -53,21 +58,6 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {
-	Player* pPlayer = (Player*)FindObject("Player");
-	EnemyRed* pEnemyRed = (EnemyRed*)FindObject("EnemyRed");
-	EnemyBlue* pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
-	EnemyGreen* pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
-	
-	//星を5個取るか一定時間が経過したら
-	if (pEnemyRed == nullptr && pEnemyBlue == nullptr && pEnemyGreen == nullptr)
-	{
-		//プレイヤーの勝ち
-		ResultObserver::SetIsWin(true);
-		//リザルトシーンへ
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_RESULT);
-	}
-
 	//BGM再生
 	Audio::Play(hAudio_);
 }

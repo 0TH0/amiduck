@@ -1,29 +1,24 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
-#include "Engine/VFX.h"
 
 //シーンを管理するクラス
-class Bomb : public GameObject
+class Star : public GameObject
 {
-public:
 	int hModel_;
-	Transform PlayerTrans_;
-	float plus;
-	
-	EmitterData data;
+	int hPict_;    //画像番号
+	int timeMax_;
+	int rimit_;
+	float rimitY;
+	float scale_;
+	float gravity_;
+	float rotateSpeed_;
+	bool IsHit_;
 
-	int time;
-	int starDelay_;
-	Stage* pStage;
-	float speed_;        //移動速度
-	bool IsReturn_;
+public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	Bomb(GameObject* parent);
-
-	~Bomb() override;
+	Star(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -38,5 +33,4 @@ public:
 	void Release() override;
 
 	void OnCollision(GameObject* pTarget) override;
-
 };

@@ -2,7 +2,7 @@
 
 //コンストラクタ
 Timer::Timer(GameObject* parent)
-	: GameObject(parent, "Timer"),frame_(0), rimit_(0),pText_()
+	: GameObject(parent, "Timer"),frame_(0), rimit_(0),pText_(),scale_(3.f)
 {
 }
 
@@ -11,8 +11,7 @@ void Timer::Initialize()
 {
 	pText_ = new Text;
 	pText_->Initialize();
-	float scale = 3.f;
-	pText_->SetScale({ scale,scale,scale });
+	pText_->SetScale({ scale_,scale_,scale_ });
 }
 
 //更新

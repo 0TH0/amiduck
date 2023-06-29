@@ -18,7 +18,7 @@ void EnemyBlue::Action()
     {
         if (totalCell >= 0)
         {
-            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.4f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.4f, 0 };
+            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.3f, 0 };
 
             XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
         }

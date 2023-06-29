@@ -165,6 +165,7 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
+    <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\ItemBoxEffect.cpp" />
     <ClCompile Include="Manager\PlaySceneGuide.cpp" />
     <ClCompile Include="Manager\StageAudio.cpp" />
@@ -177,6 +178,8 @@
     <ClCompile Include="Scene\TestScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Star.cpp" />
+    <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
@@ -221,6 +224,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Manager\BombEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
+    <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\ItemBoxEffect.h" />
     <ClInclude Include="Manager\PlaySceneGuide.h" />
     <ClInclude Include="Manager\StageAudio.h" />
@@ -233,6 +237,8 @@
     <ClInclude Include="Scene\TestScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="Star.h" />
+    <ClInclude Include="StarUI.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>

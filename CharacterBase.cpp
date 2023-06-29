@@ -121,6 +121,10 @@ void CharacterBase::LadderLottery()
         }
     }
 
+    if (transform_.position_.x <= 0)
+    {
+        IsReturn_ = false;
+    }
 
     if (IsReturn_)
     {
@@ -133,7 +137,7 @@ void CharacterBase::LadderLottery()
 
 
     ///////////////////////// ‚ ‚Ý‚¾‚­‚¶‚Ìˆ— ///////////////////////////////////////////
-    if (!IsLeft_ && StoppedTime_ > 4)
+    if (!IsLeft_ && StoppedTime_ > 5)
     {
         if (pStage->IsBridge(obj.x, obj.z - 1))
         {

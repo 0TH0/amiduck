@@ -63,13 +63,13 @@ void Bomb::Update()
 		transform_.position_.x++;
 	}
 
-	if (starTime_ >= 7)
+	if (starDelay_ >= 7)
 	{
-		starTime_ = 0;
+		starDelay_ = 0;
 	}
-	else if (starTime_ > 0)
+	else if (starDelay_ > 0)
 	{
-		starTime_++;
+		starDelay_++;
 	}
 }
 

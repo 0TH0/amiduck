@@ -41,6 +41,24 @@ void Player::Action()
         IsSpeedUp_ = false;
         SpeedUpTime_ = 0;
     }
+
+    if (starDelay_ >= 60)
+    {
+        starDelay_ = 0;
+    }
+    else if (starDelay_ > 0)
+    {
+        starDelay_++;
+    }
+
+    if (IsStar_)
+    {
+        starAfterTime_++;
+    }
+    else
+    {
+        starAfterTime_ = 0;
+    }
 }
 
 void Player::Command()
@@ -195,5 +213,15 @@ void Player::OnCollision(GameObject* pTarget)
     {
         SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
         pSceneManager->ChangeScene(SCENE_ID_RESULT);
+    }
+
+    if (pTarget->GetObjectName() == "Star")
+    {
+        if (starDelay_ == 0)
+        {
+            starDelay_++;
+            starNum_++;
+            IsStar_ = true;
+        }
     }
 }

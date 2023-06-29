@@ -42,7 +42,7 @@ class Stage : public GameObject
     int bridgeCount_;
     int hAudio_;
     int woodCoolTime_;
-    int bridgeRimit_;             //端から何マス橋を置けなくするか
+    const int bridgeRimit_;             //端から何マス橋を置けなくするか
     bool ShouldPoPRandStage_;
     XMFLOAT3 GuidePopBridgePos;
 
@@ -78,6 +78,7 @@ public:
     //セッターゲッター
     const int GetStageSizeX() { return STAGE_SIZE_X; };
     const int GetStageSizeZ() { return STAGE_SIZE_Z; };
+    const int GetBridgeRimit() { return bridgeRimit_; };
     void SetWoodCoolTime(int woodCoolTime) { woodCoolTime_ = woodCoolTime; };
     int GetWoodCoolTime() { return woodCoolTime_; };
     void SetShouldPoPRandStage(bool ShouldPoPRandStage) { ShouldPoPRandStage_ = ShouldPoPRandStage; };
