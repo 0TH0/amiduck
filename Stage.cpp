@@ -35,7 +35,7 @@ namespace
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true),
-    GuidePopBridgePos(),pPlayer_()
+    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(3)
 {
 }
 
@@ -191,7 +191,7 @@ void Stage::Draw()
             {
                 stagePos_ = XMFLOAT3((float)x, (float)y, (float)z);
                 int type = stage_[x][z].type;
-                transform_.position_ = XMFLOAT3(stagePos_.x, 0, stagePos_.z);
+                transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
                 Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
@@ -245,11 +245,12 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(0) /*&& pItem->GetwoodCount() > 0*/)
+    if (Input::IsMouseButtonDown(0) && pItem->GetwoodCount() > 0)
     {
-        for (int x = 0; x < STAGE_SIZE_X; x++)
+        //bridgeRimit_で橋の端をクリックできなくする
+        for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = 0; z < STAGE_SIZE_Z; z++)
+            for (int z = bridgeRimit_; z < STAGE_SIZE_Z - bridgeRimit_; z++)
             {
                 for (int y = 0; y < stage_[x][z].height; y++)
                 {
@@ -342,14 +343,15 @@ void Stage::PopBridge()
     }
     else
     {
+        // 前のフレームであったガイドの橋を消す
         for (int i = 0; i < 5; i++)
         {
             stage_[buf[i].x][buf[i].z].type = EMPTY;
         }
 
-        for (int x = 0; x < STAGE_SIZE_X; x++)
+        for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = 0; z < STAGE_SIZE_Z; z++)
+            for (int z = bridgeRimit_; z < STAGE_SIZE_Z - bridgeRimit_; z++)
             {
                 for (int y = 0; y < stage_[x][z].height; y++)
                 {
@@ -474,62 +476,19 @@ void Stage::RandStage()
     //マップの自動生成
     while(bridgeCount_ < 15)
     {
-        int randX = (rand() % STAGE_SIZE_X - 1);
-        int randZ = (rand() % STAGE_SIZE_Z - 1);
+        int randX = (rand() % STAGE_SIZE_X - bridgeRimit_);
+        int randZ = (rand() % STAGE_SIZE_Z - bridgeRimit_);
 
-        if (randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10)
+        if (randZ == 27 || randZ == 21 || randZ == 15 || randZ == 9)
         {
+            stage_[randX][randZ + 2].type = BRIDGE;
             stage_[randX][randZ + 1].type = BRIDGE;
-            stage_[randX][randZ].type     = BRIDGE;
+            stage_[randX][randZ].type = BRIDGE;
             stage_[randX][randZ - 1].type = BRIDGE;
             stage_[randX][randZ - 2].type = BRIDGE;
-            stage_[randX][randZ - 3].type = BRIDGE;
             bridgeCount_++;
         }
-        else
-        {
-            randX = rand() % STAGE_SIZE_X - 5;
-            randZ = (rand() % (STAGE_SIZE_Z - 5) + 5);
-        }
     }
-
-    //アイテムボックス出現
-    //{
-    //    int count = 0;
-    //    while (count < 10)
-    //    {
-    //        int randX = (rand() % STAGE_SIZE_X - 1);
-    //        int randZ = (rand() % STAGE_SIZE_Z - 1);
-    //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
-    //        {
-    //            stage_[randX][randZ + 2].type = ITEMBOX;
-    //            count++;
-    //        }
-    //        else
-    //        {
-    //            randX = (rand() % STAGE_SIZE_X - 1);
-    //            randZ = (rand() % STAGE_SIZE_Z - 1);
-    //        }
-    //    }
-    //}
-    //{
-    //    int count = 0;
-    //    while (count < 5)
-    //    {
-    //        int randX = (rand() % STAGE_SIZE_X - 1);
-    //        int randZ = (rand() % STAGE_SIZE_Z - 1);
-    //        if (randZ == 34 || randZ == 28 || randZ == 22 || randZ == 16 || randZ == 10 || randZ == 4)
-    //        {
-    //            stage_[randX][randZ + 2].type = STAR;
-    //            count++;
-    //        }
-    //        else
-    //        {
-    //            randX = (rand() % STAGE_SIZE_X - 1);
-    //            randZ = (rand() % STAGE_SIZE_Z - 1);
-    //        }
-    //    }
-    //}
 }
 
 bool Stage::IsBridge(int x,  int z)

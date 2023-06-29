@@ -28,25 +28,6 @@ class Stage : public GameObject
         STAGE_MAX
     };
 
-    //enum StageModelType
-    //{
-    //    EMPTY,
-    //    BRIDGE_FADE,
-    //    BRIDGE,
-    //    LOG,
-    //    ENEMY,
-    //    PLAYER,
-    //    STAR,
-    //    ITEMBOX,
-    //    FIRE,
-    //    FIRE_RIGHT,
-    //    ENEMY_RED,
-    //    ENEMY_BLUE,
-    //    ENEMY_GREEN,
-    //    CORNER,
-    //    STAGE_MAX
-    //};
-
     struct stageData
     {
         int type;
@@ -61,6 +42,7 @@ class Stage : public GameObject
     int bridgeCount_;
     int hAudio_;
     int woodCoolTime_;
+    int bridgeRimit_;             //端から何マス橋を置けなくするか
     bool ShouldPoPRandStage_;
     XMFLOAT3 GuidePopBridgePos;
 

@@ -105,13 +105,13 @@ void CharacterBase::Release()
 void CharacterBase::LadderLottery()
 {
     //////////////////•Ç‚Æ‚ÌÕ“Ë”»’è///////////////////////
-    XMINT3 obj = ToXMINT({ transform_.position_.x + 0.3f, transform_.position_.y, transform_.position_.z + 0.3f});
+    XMINT3 obj = ToXMINT(transform_.position_);
 
     //•Ç‚Ì”»’è(ã)
     if (!IsRight_ && !IsLeft_)
     {
         //is•ûŒü‚É“¹‚ª‚È‚©‚Á‚½‚ç–ß‚Á‚Ä‚­‚é
-         if (pStage->IsCorner(obj.x + 1, obj.z))
+        if (pStage->IsCorner(obj.x + 1, obj.z))
         {
             IsReturn_ = true;
         }

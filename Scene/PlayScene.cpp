@@ -1,6 +1,5 @@
 #include "PlayScene.h"
 #include "../Stage.h"
-#include "../Player.h"
 #include "../Instructions.h"
 #include "../Controller.h"
 #include "../FireFollowGround.h"
@@ -16,10 +15,11 @@
 #include "../EnemyRed.h"
 #include "../EnemyBlue.h"
 #include "../EnemyGreen.h"
+#include "../Manager/PlaySceneGuide.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene"),hAudio_()
+	: GameObject(parent, "PlayScene"),hAudio_(),pTimer()
 {
 }
 
@@ -30,16 +30,19 @@ void PlayScene::Initialize()
 	//ステージ
 	Stage* pStage;
 	pStage = Instantiate<Stage>(this);
-	pStage->StageLoad();
-	pStage->SetShouldPoPRandStage(true);
-
+	
 	//タイマー表示
 	pTimer = Instantiate<Timer>(this);
 	pTimer->SetRimit(180);
 	pTimer->SetPosition(700, 0, 100);
 
+	//操作説明
 	Instantiate<Instructions>(this);
 
+	//勝利条件
+	Instantiate<PlaySceneGuide>(this);
+
+	//負けにセット
 	ResultObserver::SetIsWin(false);
 
 	//BGM

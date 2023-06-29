@@ -165,6 +165,9 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="Manager\PlaySceneGuide.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -297,6 +300,9 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="Manager\PlaySceneGuide.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

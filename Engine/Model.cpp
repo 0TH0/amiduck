@@ -117,7 +117,6 @@ namespace Model
 			SAFE_DELETE(_datas[handle]->pFbx);
 		}
 
-
 		SAFE_DELETE(_datas[handle]);
 	}
 

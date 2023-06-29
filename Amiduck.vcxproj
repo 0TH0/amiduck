@@ -167,6 +167,7 @@
     <ClCompile Include="Manager\BombEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
     <ClCompile Include="Manager\ItemBoxEffect.cpp" />
+    <ClCompile Include="Manager\PlaySceneGuide.cpp" />
     <ClCompile Include="Manager\StageAudio.cpp" />
     <ClCompile Include="Manager\StageEffect.cpp" />
     <ClCompile Include="Manager\StarEffect.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Manager\BombEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
     <ClInclude Include="Manager\ItemBoxEffect.h" />
+    <ClInclude Include="Manager\PlaySceneGuide.h" />
     <ClInclude Include="Manager\StageAudio.h" />
     <ClInclude Include="Manager\StageEffect.h" />
     <ClInclude Include="Manager\StarEffect.h" />
