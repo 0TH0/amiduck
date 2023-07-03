@@ -11,32 +11,14 @@ EnemyRed::~EnemyRed()
 
 void EnemyRed::Action()
 {
-    EnemyEffect::EnemyEffectRed(transform_.position_);
+    EnemyEffect::EnemyEffect(transform_.position_, RED);
 
-    if (CanMove_)
-    {
-        if (totalCell >= 0)
-        {
-            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.3f, 0 };
-            
-            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
-        }
-    }
+    Move();
 
-    if (count_ > frame)
-    {
-        int PlayerPosX = (int)pPlayer_->GetPosition().x;
-        int PlayerPosZ = (int)pPlayer_->GetPosition().z;
-        //ƒvƒŒƒCƒ„[‚ð’Tõ
-        if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, { PlayerPosX, PlayerPosZ }))
-        {
-            totalCell = AI_.GetToGoalTotalCell();
-            CanMove_ = true;
-        }
+    int PlayerPosX = (int)pPlayer_->GetPosition().x;
+    int PlayerPosZ = (int)pPlayer_->GetPosition().z;
 
-        count_ = 0;
-    }
-    count_++;
+    Search({ PlayerPosX, PlayerPosZ });
 }
 
 void EnemyRed::InitBase()
@@ -45,7 +27,7 @@ void EnemyRed::InitBase()
 
 void EnemyRed::ChangeColor()
 {
-    Model::SetColor(hModel_, { 1,0,0,1 });
+    Model::SetColor(hModel_, RED);
 }
 
 void EnemyRed::ReleaseBase()

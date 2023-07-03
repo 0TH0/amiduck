@@ -36,13 +36,12 @@ void Player::Action()
         SpeedUpTime_++;
         speed_ = 0.4;
     }
-    if (SpeedUpTime_ > 60)
+    if (SpeedUpTime_ > ONE_SECOND)
     {
         IsSpeedUp_ = false;
         SpeedUpTime_ = 0;
     }
-
-    if (starDelay_ >= 60)
+    if (starDelay_ >= ONE_SECOND)
     {
         starDelay_ = 0;
     }
@@ -50,14 +49,13 @@ void Player::Action()
     {
         starDelay_++;
     }
-
     if (IsStar_)
     {
         starAfterTime_++;
     }
     else
     {
-        starAfterTime_ = 0;
+        starAfterTime_ = ZERO;
     }
 }
 

@@ -1,5 +1,12 @@
 #include "Timer.h"
 
+namespace
+{
+	static const int OFF = 0;
+	static const int NX = 2;
+	static const int MAX_LENGTH = 1;
+}
+
 //コンストラクタ
 Timer::Timer(GameObject* parent)
 	: GameObject(parent, "Timer"),frame_(0), rimit_(0),pText_(),scale_(3.f)
@@ -20,24 +27,24 @@ void Timer::Update()
 	frame_++;
 
 	//一秒毎に
-	if (frame_ % 60 == 0 && rimit_ > 0)
+	if (frame_ % ONE_SECOND == ZERO && rimit_ > ZERO)
 	{
 		rimit_--;
 	}
 
 	//分を求める
-	minStr_ = std::to_string(rimit_ / 60);
+	minStr_ = std::to_string(rimit_ / ONE_SECOND);
 	//秒を求める
-	secStr_ = std::to_string(rimit_ % 60);
+	secStr_ = std::to_string(rimit_ % ONE_SECOND);
 
 	//0を00にする
 	if (minStr_ == "0") minStr_ = "00";
 	if (secStr_ == "0") secStr_ = "00";
 
 	//残りの時間（分）が一桁になったら
-	if (minStr_.length() == 1) minStr_ = minStr_.replace(0, 2, "0" + minStr_);
+	if (minStr_.length() == MAX_LENGTH) minStr_ = minStr_.replace(OFF, NX, "0" + minStr_);
 	//残りの時間（秒）が一桁になったら
-	if (secStr_.length() == 1) secStr_ = secStr_.replace(0, 2, "0" + secStr_);
+	if (secStr_.length() == MAX_LENGTH) secStr_ = secStr_.replace(OFF, NX, "0" + secStr_);
 }
 
 //描画

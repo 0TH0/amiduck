@@ -5,7 +5,7 @@
 class Water : public GameObject
 {
     int hModel_;    //モデル番号
-    float scroll_;
+    float scroll_;  //水面を動かす
 public:
     //コンストラクタ
     Water(GameObject* parent);

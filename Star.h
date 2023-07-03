@@ -6,7 +6,7 @@ class Star : public GameObject
 {
 	int hModel_;
 	int hPict_;    //‰æ‘œ”Ô†
-	int timeMax_;
+	int MAX_TIME;
 	int rimit_;
 	float rimitY;
 	float scale_;

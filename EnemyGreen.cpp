@@ -11,16 +11,8 @@ EnemyGreen::~EnemyGreen()
 
 void EnemyGreen::Action()
 {
-    EnemyEffect::EnemyEffectGreen(transform_.position_);
-    if (CanMove_)
-    {
-        if (totalCell >= 0)
-        {
-            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.3f, 0 };
-
-            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
-        }
-    }
+    EnemyEffect::EnemyEffect(transform_.position_, GREEN);
+    Move();
 
     if (!AI_.GetExistMinNode())
     {
@@ -28,20 +20,7 @@ void EnemyGreen::Action()
         randZ_ = rand() % STAGE_SIZE_Z + 1;
     }
 
-    if (count_ > frame)
-    {
-        int PlayerPosX = (int)pPlayer_->GetPosition().x;
-        int PlayerPosZ = (int)pPlayer_->GetPosition().z;
-        //ÉvÉåÉCÉÑÅ[ÇíTçı
-        if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, { randX_, randZ_}))
-        {
-            totalCell = AI_.GetToGoalTotalCell();
-            CanMove_ = true;
-        }
-
-        count_ = 0;
-    }
-    count_++;
+    Search({ randX_, randZ_ });
 }
 
 void EnemyGreen::InitBase()
@@ -50,7 +29,7 @@ void EnemyGreen::InitBase()
 
 void EnemyGreen::ChangeColor()
 {
-    Model::SetColor(hModel_, { 0,1,0,1 });
+    Model::SetColor(hModel_, GREEN);
 }
 
 void EnemyGreen::ReleaseBase()

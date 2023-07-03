@@ -6,6 +6,7 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
+#include "Engine/Color.h"
 #include "Player.h"
 
 namespace
@@ -66,7 +67,7 @@ void FireFollowGround::Update()
 //•`‰æ
 void FireFollowGround::Draw()
 {
-    pLine_->SetColor(XMFLOAT4(0, 1, 0, 0.7));
+    pLine_->SetColor(BLUE);
     pLine_->Draw();
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);

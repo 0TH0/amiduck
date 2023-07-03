@@ -11,19 +11,19 @@
 
 namespace
 {
-	Player* pPlayer;
-	Star* pStar;
-	EnemyRed* pEnemyRed;
-	EnemyBlue* pEnemyBlue;
-	EnemyGreen* pEnemyGreen;
-	SceneManager* pSceneManager;
-	Stage* pStage;
-	const XMINT3 randPosMax_ = { 2, 0, 7 };
+	static Player* pPlayer;
+	static Star* pStar;
+	static EnemyRed* pEnemyRed;
+	static EnemyBlue* pEnemyBlue;
+	static EnemyGreen* pEnemyGreen;
+	static SceneManager* pSceneManager;
+	static Stage* pStage;
+	static const XMINT3 MAX_RANDPOS = { 2, 0, 7 };
 }
 
 //コンストラクタ
 GameManager::GameManager(GameObject * parent)
-	: GameObject(parent, "GameManager"),randPos_(), timeMax_(300)
+	: GameObject(parent, "GameManager"),randPos_(), MAX_TIME(300)
 {
 	for (int i = 0; i < ENEMY_MAX; i++)
 	{
@@ -92,7 +92,7 @@ void GameManager::PopStar()
 //ランダムで星の位置を決める
 void GameManager::RandObject()
 {
-	randPos_ = { rand() % randPosMax_.x, 0, rand() % randPosMax_.z };
+	randPos_ = { rand() % MAX_RANDPOS.x, 0, rand() % MAX_RANDPOS.z };
 
 	switch (randPos_.x)
 	{
@@ -106,7 +106,7 @@ void GameManager::RandObject()
 		break;
 	}
 
-	randPos_.z *= (randPosMax_.z - 1);
+	randPos_.z *= (MAX_RANDPOS.z - 1);
 }
 
 void GameManager::EnemyReturn()
@@ -114,7 +114,7 @@ void GameManager::EnemyReturn()
 	if (pEnemyRed == nullptr)
 	{
 		EnemyTime_[RED]++;
-		if (EnemyTime_[RED] >= timeMax_)
+		if (EnemyTime_[RED] >= MAX_TIME)
 		{
 			RandObject();
 			pEnemyRed = Instantiate<EnemyRed>(this);
@@ -125,7 +125,7 @@ void GameManager::EnemyReturn()
 	if (pEnemyBlue == nullptr)
 	{
 		EnemyTime_[BLUE]++;
-		if (EnemyTime_[BLUE] >= timeMax_)
+		if (EnemyTime_[BLUE] >= MAX_TIME)
 		{
 			RandObject();
 			pEnemyBlue = Instantiate<EnemyBlue>(this);
@@ -136,7 +136,7 @@ void GameManager::EnemyReturn()
 	if (pEnemyGreen == nullptr)
 	{
 		EnemyTime_[GREEN]++;
-		if (EnemyTime_[GREEN] >= timeMax_)
+		if (EnemyTime_[GREEN] >= MAX_TIME)
 		{
 			RandObject();
 			pEnemyGreen = Instantiate<EnemyGreen>(this);

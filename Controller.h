@@ -8,14 +8,11 @@ class Controller : public GameObject
 public:
 	Transform EnemyTrans_;
 	XMFLOAT3 mousePos_;
-
 	const float Move_;		//ˆÚ“®‘¬“x
 	const char Rotate_;		//‰ñ“]‘¬“x
 	const char LimRot_;		//‰ñ“]‚ÌŒÀŠE’l
-
 	float PrevPosX_;
 	float PrevPosY_;
-
 	void CrickRight();
 
 	enum class cameraState

@@ -5,14 +5,9 @@
 //シーンを管理するクラス
 class ItemBox : public GameObject
 {
-	int alpha_;
 	bool IsHit_;
 	int hModel_;
-	int hPict_;    //画像番号
 public:
-
-
-
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	ItemBox(GameObject* parent);

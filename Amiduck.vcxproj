@@ -198,6 +198,7 @@
     <ClInclude Include="Engine\BoxCollider.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Collider.h" />
+    <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\CsvReader.h" />
     <ClInclude Include="Engine\Direct3D.h" />
     <ClInclude Include="Engine\Fbx.h" />

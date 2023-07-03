@@ -3,9 +3,9 @@
 #include "Stage.h"
 #include "Engine/PolyLine.h"
 #include "Engine/Astar.h"
+#include "Engine/Color.h"
 #include "Manager/EnemyEffect.h"
 #include "Player.h"
-
 
 //EnemyBaseを管理するクラス
 class EnemyBase : public GameObject
@@ -19,6 +19,7 @@ protected:
     int totalCell;
     int frame; //何フレーム毎に進むか
     XMVECTOR v;
+
 
     virtual void Action() = 0;
     virtual void InitBase() = 0;
@@ -43,4 +44,8 @@ public:
 
     //開放
     void Release() override;
+
+    void Move();
+
+    void Search(CELL goal);
 };

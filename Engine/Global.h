@@ -15,6 +15,8 @@ static const int   ZERO          = 0;
 static const float TWOPI_DEGREES = 360.f;
 //180Åã
 static const float PI_DEGREES    = 180.f;
+//1ïb
+static const int   ONE_SECOND = 60;
 
 static void SetXMFLOAT4(XMFLOAT4 xmf4, float x, float y, float z, float w)
 {

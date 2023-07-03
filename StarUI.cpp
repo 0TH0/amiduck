@@ -3,11 +3,13 @@
 #include "Player.h"
 #include "Engine/UI.h"
 
-static Player* pPlayer;
-static UI* pUI[5];
-static int playerStarNum;
-static int enemyStarNum;
-static int starMax = 5;
+namespace
+{
+	static Player* pPlayer;		//プレイヤー
+	static UI* pUI[5];			//星５つ分
+	static int playerStarNum;	//プレイヤーの星の数を入れる
+	static int MAX_STAR = 5;	//最大の星の数
+}
 
 //コンストラクタ
 StarUI::StarUI(GameObject* parent)
@@ -18,7 +20,7 @@ StarUI::StarUI(GameObject* parent)
 //初期化
 void StarUI::Initialize()
 {
-	for (int i = 0; i < starMax; i++)
+	for (int i = 0; i < MAX_STAR; i++)
 	{
 		pUI[i] = Instantiate<UI>(this);
 		pUI[i]->Load("Image\\star_white.png");

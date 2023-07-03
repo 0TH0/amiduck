@@ -12,7 +12,7 @@ class GameManager: public GameObject
 	};
 	XMINT3 randPos_;
 	int EnemyTime_[ENEMY_MAX];
-	int timeMax_;
+	int MAX_TIME;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

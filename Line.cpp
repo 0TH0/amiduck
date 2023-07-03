@@ -20,7 +20,7 @@ void Line::Initialize()
 //XV
 void Line::Update()
 {
-	if (Image::GetTime(hPict_) >= 60)
+	if (Image::GetTime(hPict_) >= ONE_SECOND)
 	{
 		KillMe();
 	}

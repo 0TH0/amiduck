@@ -11,9 +11,9 @@
 
 //コンストラクタ
 Item::Item(GameObject* parent)
-	: GameObject(parent, "Item")
+	: GameObject(parent, "Item"), IsItem_(false),hPictWood_(0),hPict_(0),woodCoolTime_(0)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = (int)ItemNum::BOMB; i < (int)ItemNum::ITEM_MAX; i++)
 	{
 		hItemPict_[i] = -1;
 	}
@@ -83,7 +83,7 @@ void Item::Draw()
 
 	transform_.position_ = XMFLOAT3(0.5f, -0.75f, 0);
 
-	if (woodCount_ > 0)
+	if (woodCount_ > ZERO)
 	{
 		DrawWoodUI(transform_);
 	}

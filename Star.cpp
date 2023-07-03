@@ -10,7 +10,7 @@
 
 //コンストラクタ
 Star::Star(GameObject* parent)
-	: GameObject(parent, "Star"),scale_(0.15f),timeMax_(60), rotateSpeed_(3.f), rimit_(10), gravity_(0.05f), rimitY(1.5f)
+	: GameObject(parent, "Star"),scale_(0.15f),MAX_TIME(60), rotateSpeed_(3.f), rimit_(10), gravity_(0.05f), rimitY(1.5f)
 {
 }
 
@@ -25,7 +25,7 @@ void Star::Initialize()
 	AddCollider(collision);
 
 	transform_.position_.y = 5;
-	transform_.scale_ = {scale_, scale_, scale_};
+	transform_.scale_ = { scale_, scale_, scale_ };
 }
 
 //更新
@@ -33,7 +33,7 @@ void Star::Update()
 {
 	transform_.rotate_.y += rotateSpeed_;
 
-	if (time_ <= timeMax_)
+	if (time_ <= MAX_TIME)
 	{
 		time_++;
 	}
@@ -47,7 +47,7 @@ void Star::Update()
 		transform_.position_.y -= gravity_;
 	}
 
-	if (!IsVisibled() && time_ >= timeMax_)
+	if (!IsVisibled() && time_ >= MAX_TIME)
 	{
 		KillMe();
 	}

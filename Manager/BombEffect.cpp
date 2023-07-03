@@ -9,7 +9,7 @@ namespace BombEffect
 		data.textureFileName = "Particle\\Cloud.png";
         data.delay = 0;
         data.number = 80;
-        data.lifeTime = 30;
+        data.lifeTime = 10;
         data.direction = XMFLOAT3(1, 0, 0);
         data.directionRnd = XMFLOAT3(180, 90, 90);
         data.speed = 0.4f;

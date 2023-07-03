@@ -1,9 +1,14 @@
 #include "Water.h"
 #include "Engine/Model.h"
 
+namespace
+{
+    static const int SCROOL = 0.0001f; //1フレームで動かす量
+}
+
 //コンストラクタ
 Water::Water(GameObject* parent)
-    :GameObject(parent, "Water"), hModel_(-1)
+    :GameObject(parent, "Water"), hModel_(-1),scroll_(0.f)
 {
 }
 
@@ -26,7 +31,7 @@ void Water::Initialize()
 //更新
 void Water::Update()
 {
-    scroll_ += 0.0001f;
+    scroll_ += SCROOL;
     Model::SetUvScroll(hModel_, scroll_);
 }
 

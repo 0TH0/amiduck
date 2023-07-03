@@ -11,7 +11,7 @@
 
 //コンストラクタ
 ItemBox::ItemBox(GameObject* parent)
-	: GameObject(parent, "ItemBox")
+	: GameObject(parent, "ItemBox"),IsHit_(false),hModel_(-1)
 {
 }
 
@@ -19,7 +19,7 @@ ItemBox::ItemBox(GameObject* parent)
 void ItemBox::Initialize()
 {
 	hModel_ = Model::Load("Model\\itemBox.fbx");
-	assert(hPict_ >= 0);
+	assert(hModel_ >= 0);
 
 	//当たり判定
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
@@ -50,11 +50,7 @@ void ItemBox::Update()
 void ItemBox::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-
-	if (IsVisibled())
-	{
-		Model::Draw(hModel_);
-	}
+	Model::Draw(hModel_);
 
 	Player* pPlayer = (Player*)FindObject("Player");
 

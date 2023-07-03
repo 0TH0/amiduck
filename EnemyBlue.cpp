@@ -11,33 +11,19 @@ EnemyBlue::~EnemyBlue()
 
 void EnemyBlue::Action()
 {
-    EnemyEffect::EnemyEffectBlue(transform_.position_);
+    EnemyEffect::EnemyEffect(transform_.position_, BLUE);
     //プレイヤーと青の距離が30以下なら
     IsPlayerNear_ = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
-    if (CanMove_ && IsPlayerNear_)
-    {
-        if (totalCell >= 0)
-        {
-            v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.3f, 0 };
 
-            XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
-        }
+    if (IsPlayerNear_)
+    {
+        Move();
     }
 
-    if (count_ > frame)
-    {
-        int PlayerPosX = (int)pPlayer_->GetPosition().x;
-        int PlayerPosZ = (int)pPlayer_->GetPosition().z;
-        //プレイヤーを探索
-        if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, { PlayerPosX, PlayerPosZ }))
-        {
-            totalCell = AI_.GetToGoalTotalCell();
-            CanMove_ = true;
-        }
+    int PlayerPosX = (int)pPlayer_->GetPosition().x;
+    int PlayerPosZ = (int)pPlayer_->GetPosition().z;
 
-        count_ = 0;
-    }
-    count_++;
+    Search({ PlayerPosX, PlayerPosZ });
 }
 
 void EnemyBlue::InitBase()
@@ -46,7 +32,7 @@ void EnemyBlue::InitBase()
 
 void EnemyBlue::ChangeColor()
 {
-    Model::SetColor(hModel_, { 0,0,1,1 });
+    Model::SetColor(hModel_, BLUE);
 }
 
 void EnemyBlue::ReleaseBase()
