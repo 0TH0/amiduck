@@ -10,9 +10,7 @@ public:
 	int hModel_;
 	Transform PlayerTrans_;
 	float plus;
-	
 	EmitterData data;
-
 	int time;
 	int starDelay_;
 	Stage* pStage;

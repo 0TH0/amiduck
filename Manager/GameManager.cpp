@@ -40,7 +40,8 @@ void GameManager::Initialize()
 	pStage = (Stage*)FindObject("Stage");
 	RandObject();
 	pStar = Instantiate<Star>(this);
-	pStar->SetPosition(randPos_.x, 3, randPos_.z);
+	randPos_.y = 5.f;
+	pStar->SetPosition((float)randPos_.x, (float)randPos_.y, (float)randPos_.z);
 }
 
 //更新
@@ -84,7 +85,7 @@ void GameManager::PopStar()
 	{
 		RandObject();
 		pStar = Instantiate<Star>(this);
-		pStar->SetPosition(randPos_.x, 3, randPos_.z);
+		pStar->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 		pPlayer->SetIsStar(false);
 	}
 }
@@ -92,7 +93,7 @@ void GameManager::PopStar()
 //ランダムで星の位置を決める
 void GameManager::RandObject()
 {
-	randPos_ = { rand() % MAX_RANDPOS.x, 0, rand() % MAX_RANDPOS.z };
+	randPos_ = { rand() % MAX_RANDPOS.x, randPos_.y, rand() % MAX_RANDPOS.z };
 
 	switch (randPos_.x)
 	{
@@ -118,7 +119,7 @@ void GameManager::EnemyReturn()
 		{
 			RandObject();
 			pEnemyRed = Instantiate<EnemyRed>(this);
-			pEnemyRed->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			pEnemyRed->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 			EnemyTime_[RED] = 0;
 		}
 	}
@@ -129,7 +130,7 @@ void GameManager::EnemyReturn()
 		{
 			RandObject();
 			pEnemyBlue = Instantiate<EnemyBlue>(this);
-			pEnemyBlue->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			pEnemyBlue->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 			EnemyTime_[BLUE] = 0;
 		}
 	}
@@ -140,7 +141,7 @@ void GameManager::EnemyReturn()
 		{
 			RandObject();
 			pEnemyGreen = Instantiate<EnemyGreen>(this);
-			pEnemyGreen->SetPosition(randPos_.x, 1.5f, randPos_.z);
+			pEnemyGreen->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 			EnemyTime_[GREEN] = 0;
 		}
 	}
