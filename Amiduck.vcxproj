@@ -160,6 +160,7 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Engine\UI.cpp" />
     <ClCompile Include="FireFollowGround.cpp" />
+    <ClCompile Include="HP.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Engine\UI.h" />
     <ClInclude Include="FireFollowGround.h" />
+    <ClInclude Include="HP.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Item.h" />

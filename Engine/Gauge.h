@@ -53,5 +53,5 @@ public:
 
     //‰ñ•œ
     //ˆø”Fvalue  ‰ñ•œ—Ê
-    void Recovery(int value);
+    void Recovery(float value);
 };

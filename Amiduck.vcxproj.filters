@@ -173,6 +173,7 @@
     <ClCompile Include="Engine\Gauge.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="HP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -316,6 +317,7 @@
     <ClInclude Include="Engine\Color.h">
       <Filter>01Engine</Filter>
     </ClInclude>
+    <ClInclude Include="HP.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

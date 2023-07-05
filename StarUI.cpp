@@ -9,6 +9,8 @@ namespace
 	static UI* pUI[5];			//星５つ分
 	static int playerStarNum;	//プレイヤーの星の数を入れる
 	static int MAX_STAR = 5;	//最大の星の数
+	static float starScale = 0.4f;
+	static XMFLOAT3 starPos = { -0.9f, 0.1f, 0.85f };
 }
 
 //コンストラクタ
@@ -24,9 +26,9 @@ void StarUI::Initialize()
 	{
 		pUI[i] = Instantiate<UI>(this);
 		pUI[i]->Load("Image\\star_white.png");
-		pUI[i]->SetScale(0.4f, 0.4f, 0.4f);
+		pUI[i]->SetScale(starScale, starScale, starScale);
 		Image::SetColor(pUI[i]->GetHandle(), 1, 1, 0);
-		pUI[i]->SetPosition(-0.9f + (i * 0.1f), 0.85f, 0);
+		pUI[i]->SetPosition(starPos.x + (i * starPos.y), starPos.z, 0);
 	}
 }
 

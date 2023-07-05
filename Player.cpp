@@ -12,6 +12,7 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
+#include "HP.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -154,6 +155,8 @@ void Player::InitBase()
     AddCollider(collision);
 
     Instantiate<Controller>(this);
+
+    Instantiate<HP>(this);
 
     //最初は卵から
     status_ = EGG;

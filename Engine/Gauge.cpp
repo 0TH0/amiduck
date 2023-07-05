@@ -129,7 +129,7 @@ void Gauge::Damage(float value)
 }
 
 //‰ñ•œ
-void Gauge::Recovery(int value)
+void Gauge::Recovery(float value)
 {
     nowHp_ += value;
     if (nowHp_ > maxHp_) nowHp_ = maxHp_;

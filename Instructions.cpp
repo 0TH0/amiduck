@@ -6,7 +6,7 @@
 
 //コンストラクタ
 Instructions::Instructions(GameObject* parent)
-	: GameObject(parent, "Instructions")
+	: GameObject(parent, "Instructions"),hPict_(-1)
 {
 }
 

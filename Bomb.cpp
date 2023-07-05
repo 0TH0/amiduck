@@ -5,6 +5,11 @@
 #include "Player.h"
 #include "Manager/BombEffect.h"
 
+namespace
+{
+	static const int MAX_TIME = 100;
+}
+
 //コンストラクタ
 Bomb::Bomb(GameObject* parent)
 	: GameObject(parent, "Bomb"), hModel_(-1)
@@ -49,7 +54,7 @@ void Bomb::Update()
 
 	data.position = transform_.position_;
 	
-	if (time >= 100)
+	if (time >= MAX_TIME)
 	{
 		KillMe();
 	}
