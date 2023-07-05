@@ -28,13 +28,6 @@ void Camera::Initialize()
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, _w / _h / dual_ , 0.1f, 1000.0f);
-
-	_viewPort = {
-	_wDiv2,		 0, 0, 0,
-		 0,-_hDiv2, 0, 0,
-		 0,      0,	1, 0,
-	_wDiv2,	_hDiv2, 0, 1
-	};
 }
 
 //更新（ビュー行列作成）
@@ -54,6 +47,12 @@ void Camera::Update()
 	_h = (FLOAT)Direct3D::screenHeight_;
 	_wDiv2 = _w / 2.0f;
 	_hDiv2 = _h / 2.0f;
+	_viewPort = {
+	_wDiv2,		 0, 0, 0,
+	 0,-_hDiv2, 0, 0,
+	 0,      0,	1, 0,
+	_wDiv2,	_hDiv2, 0, 1
+	};
 }
 
 //焦点を設定

@@ -147,15 +147,8 @@ void Stage::Update()
 
     float h = Camera::GetScrHDiv2();
 
-    XMMATRIX vp = {
-        w,  0, 0, 0,
-        0, -h, 0, 0,
-        0,  0, 1, 0,
-        w,  h, 0, 1
-    };
-
     //各行列の逆行列
-    XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
+    XMMATRIX invVP = XMMatrixInverse(nullptr, Camera::GetViewPortMatrix());
     XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
     XMMATRIX invPrj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
 
@@ -173,7 +166,7 @@ void Stage::Update()
     vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
     vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
 
-    bufX, bufY, bufZ = 0;
+    bufX, bufY, bufZ = ZERO;
     minDistance = 9999999.f;
     IsHit = false;
 
@@ -216,7 +209,7 @@ void Stage::Draw()
                     Model::Draw(hModel_[type]);
                     break;
                 case BRIDGE_FADE:
-                    transform_.position_ = XMFLOAT3(x + 0.25, 0.5 + y, z);
+                    transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
                     transform_.scale_ = XMFLOAT3(0.5, 1, 2);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type], 0.5);
@@ -245,7 +238,7 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(0) && pItem->GetwoodCount() > 0)
+    if (Input::IsMouseButtonDown(LEFT) && pItem->GetwoodCount() > ZERO)
     {
         //bridgeRimit_で橋の端をクリックできなくする
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
