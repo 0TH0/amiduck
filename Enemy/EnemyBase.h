@@ -1,11 +1,11 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Stage.h"
-#include "Engine/PolyLine.h"
-#include "Engine/Astar.h"
-#include "Engine/Color.h"
-#include "Manager/EnemyEffect.h"
-#include "Player.h"
+#include "../Engine/GameObject.h"
+#include "../Stage.h"
+#include "../Engine/PolyLine.h"
+#include "../Engine/Astar.h"
+#include "../Engine/Color.h"
+#include "../Manager/EnemyEffect.h"
+#include "../Player.h"
 
 //EnemyBase‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class EnemyBase : public GameObject

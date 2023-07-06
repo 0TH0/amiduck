@@ -33,6 +33,12 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{c96fe42c-1d3f-4aa4-9c42-0a96d397d3c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{11c18d9b-5e72-4424-916e-fb59f8f795e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{9edfc010-a32f-45b0-9e85-190cddd0dd93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -124,7 +130,6 @@
     <ClCompile Include="Engine\UI.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Engine\Astar.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
@@ -141,8 +146,6 @@
     <ClCompile Include="Scene\TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBlue.cpp" />
-    <ClCompile Include="EnemyGreen.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -161,7 +164,6 @@
     <ClCompile Include="Manager\EnemyEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Manager\PlaySceneGuide.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -174,6 +176,18 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="HP.cpp" />
+    <ClCompile Include="Enemy\EnemyBase.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\EnemyBlue.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\EnemyGreen.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\EnemyRed.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -265,7 +279,6 @@
     <ClInclude Include="Engine\UI.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Engine\Astar.h">
       <Filter>01Engine</Filter>
     </ClInclude>
@@ -282,8 +295,6 @@
     <ClInclude Include="Scene\TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBlue.h" />
-    <ClInclude Include="EnemyGreen.h" />
     <ClInclude Include="Manager\BombEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -302,7 +313,6 @@
     <ClInclude Include="Manager\EnemyEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Manager\PlaySceneGuide.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -318,6 +328,18 @@
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="HP.h" />
+    <ClInclude Include="Enemy\EnemyBase.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemyBlue.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemyGreen.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemyRed.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -1,6 +1,6 @@
 #include "EnemyBase.h"
-#include "Engine/Collider.h"
-#include "Engine/Model.h"
+#include "../Engine/Collider.h"
+#include "../Engine/Model.h"
 
 namespace
 {

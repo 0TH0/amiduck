@@ -127,10 +127,10 @@
   <ItemGroup>
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="EnemyBase.cpp" />
-    <ClCompile Include="EnemyBlue.cpp" />
-    <ClCompile Include="EnemyGreen.cpp" />
-    <ClCompile Include="EnemyRed.cpp" />
+    <ClCompile Include="Enemy\EnemyBase.cpp" />
+    <ClCompile Include="Enemy\EnemyBlue.cpp" />
+    <ClCompile Include="Enemy\EnemyGreen.cpp" />
+    <ClCompile Include="Enemy\EnemyRed.cpp" />
     <ClCompile Include="Engine\Alpha.cpp" />
     <ClCompile Include="Engine\Astar.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -188,10 +188,10 @@
   <ItemGroup>
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="EnemyBase.h" />
-    <ClInclude Include="EnemyBlue.h" />
-    <ClInclude Include="EnemyGreen.h" />
-    <ClInclude Include="EnemyRed.h" />
+    <ClInclude Include="Enemy\EnemyBase.h" />
+    <ClInclude Include="Enemy\EnemyBlue.h" />
+    <ClInclude Include="Enemy\EnemyGreen.h" />
+    <ClInclude Include="Enemy\EnemyRed.h" />
     <ClInclude Include="Engine\Alpha.h" />
     <ClInclude Include="Engine\Astar.h" />
     <ClInclude Include="Engine\Audio.h" />

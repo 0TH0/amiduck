@@ -43,7 +43,7 @@ class Stage : public GameObject
     int hAudio_;
     int woodCoolTime_;
     const int bridgeRimit_;             //端から何マス橋を置けなくするか
-    bool ShouldPoPRandStage_;
+    bool ShouldPopRandStage_;
     XMFLOAT3 GuidePopBridgePos;
 
     Text* pText = new Text;
@@ -81,8 +81,8 @@ public:
     const int GetBridgeRimit() { return bridgeRimit_; };
     void SetWoodCoolTime(int woodCoolTime) { woodCoolTime_ = woodCoolTime; };
     int GetWoodCoolTime() { return woodCoolTime_; };
-    void SetShouldPoPRandStage(bool ShouldPoPRandStage) { ShouldPoPRandStage_ = ShouldPoPRandStage; };
-    bool GetShouldPoPRandStage() { return ShouldPoPRandStage_; };
+    void SetShouldPoPRandStage(bool ShouldPoPRandStage) { ShouldPopRandStage_ = ShouldPoPRandStage; };
+    bool GetShouldPoPRandStage() { return ShouldPopRandStage_; };
     void SetStageType(int x, int z, StageModelType Type) { stage_[x][z].type = Type; };
     int GetStageType(int x, int z) { return stage_[x][z].type; };
     int GetModelHandle(int handle) { return hModel_[handle]; };

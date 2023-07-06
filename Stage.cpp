@@ -12,9 +12,9 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/Camera.h"
 #include "Engine/Audio.h"
-#include "EnemyRed.h"
-#include "EnemyBlue.h"
-#include "EnemyGreen.h"
+#include "Enemy/EnemyRed.h"
+#include "Enemy/EnemyBlue.h"
+#include "Enemy/EnemyGreen.h"
 #include "Manager/StageAudio.h"
 #include "Manager/StageEffect.h"
 
@@ -35,7 +35,7 @@ namespace
 //コンストラクタ
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
-    bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true),
+    bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPopRandStage_(true),
     GuidePopBridgePos(),pPlayer_(), bridgeRimit_(7),csv(),effectPos_()
 {
 }
@@ -94,7 +94,7 @@ void Stage::Initialize()
     }
 
     //ランダムなステージを出すか
-    if (ShouldPoPRandStage_) RandStage();
+    if (ShouldPopRandStage_) RandStage();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
