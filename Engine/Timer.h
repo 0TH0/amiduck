@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Engine/Text.h"
+#include "GameObject.h"
+#include "Text.h"
 
 //テストシーンを管理するクラス
 class Timer : public GameObject

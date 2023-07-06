@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Engine/VFX.h"
+#include "../Engine/GameObject.h"
+#include "../Engine/VFX.h"
 
 //シーンを管理するクラス
 class ItemBox : public GameObject

@@ -1,14 +1,14 @@
 #include "GameManager.h"
-#include "../Star.h"
+#include "../Item/Star.h"
 #include "../Engine/Input.h"
 #include "../Player.h"
 #include "../Observer/ResultObserver.h"
 #include "../Engine/SceneManager.h"
-#include "../EnemyRed.h"
-#include "../EnemyBlue.h"
-#include "../EnemyGreen.h"
+#include "../Enemy/EnemyRed.h"
+#include "../Enemy/EnemyBlue.h"
+#include "../Enemy/EnemyGreen.h"
 #include "../Stage.h"
-#include "../Star.h"
+#include "../Item/Star.h"
 
 namespace
 {

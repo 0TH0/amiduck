@@ -5,7 +5,7 @@
 #include "Engine/VFX.h"
 #include "Engine/PolyLine.h"
 #include "CharacterBase.h"
-#include "Bomb.h"
+#include "Item/Bomb.h"
 
 //Player‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class Player : public CharacterBase

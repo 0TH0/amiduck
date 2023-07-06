@@ -148,6 +148,7 @@
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\Model.cpp" />
+    <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\VFX.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp" />
     <ClCompile Include="Engine\RootObject.cpp" />
@@ -157,13 +158,15 @@
     <ClCompile Include="Engine\Text.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
-    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Engine\UI.cpp" />
-    <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="HP.cpp" />
     <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="ItemBox.cpp" />
-    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Item\Bomb.cpp" />
+    <ClCompile Include="Item\FireFollowGround.cpp" />
+    <ClCompile Include="Item\Item.cpp" />
+    <ClCompile Include="Item\ItemBox.cpp" />
+    <ClCompile Include="Item\Star.cpp" />
+    <ClCompile Include="Item\StarUI.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
@@ -180,9 +183,6 @@
     <ClCompile Include="Scene\TestScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Star.cpp" />
-    <ClCompile Include="StarUI.cpp" />
-    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +210,7 @@
     <ClInclude Include="Engine\Image.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Model.h" />
+    <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\VFX.h" />
     <ClInclude Include="Engine\PolyLine.h" />
     <ClInclude Include="Engine\RootObject.h" />
@@ -219,13 +220,15 @@
     <ClInclude Include="Engine\Text.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
-    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Engine\UI.h" />
-    <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="HP.h" />
     <ClInclude Include="Instructions.h" />
-    <ClInclude Include="ItemBox.h" />
-    <ClInclude Include="Item.h" />
+    <ClInclude Include="Item\Bomb.h" />
+    <ClInclude Include="Item\FireFollowGround.h" />
+    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\ItemBox.h" />
+    <ClInclude Include="Item\Star.h" />
+    <ClInclude Include="Item\StarUI.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Manager\BombEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
@@ -242,9 +245,6 @@
     <ClInclude Include="Scene\TestScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="Star.h" />
-    <ClInclude Include="StarUI.h" />
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
-#include "../Timer.h"
+#include "../Engine/Timer.h"
 
 //■■シーンを管理するクラス
 class PlayScene : public GameObject

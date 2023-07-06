@@ -1,12 +1,12 @@
 #include "Star.h"
-#include "Scene/PlayScene.h"
-#include "Player.h"
-#include "Manager/StarEffect.h"
-#include "Engine/Model.h"
-#include "Engine/Image.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
+#include "../Scene/PlayScene.h"
+#include "../Player.h"
+#include "../Manager/StarEffect.h"
+#include "../Engine/Model.h"
+#include "../Engine/Image.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 Star::Star(GameObject* parent)

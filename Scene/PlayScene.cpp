@@ -2,10 +2,8 @@
 #include "../Stage.h"
 #include "../Instructions.h"
 #include "../Controller.h"
-#include "../FireFollowGround.h"
 #include "../Line.h"
 #include "../Water.h"
-#include "../Item.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
 #include "../Engine/SceneManager.h"
@@ -16,7 +14,7 @@
 #include "../Enemy/EnemyBlue.h"
 #include "../Enemy/EnemyGreen.h"
 #include "../Manager/PlaySceneGuide.h"
-#include "../StarUI.h"
+#include "../Item/StarUI.h"
 #include "../Manager/GameManager.h"
 
 //コンストラクタ

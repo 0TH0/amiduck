@@ -104,7 +104,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -115,15 +114,11 @@
     <ClCompile Include="Engine\BillBoard.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="FireFollowGround.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="Water.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Observer\ResultObserver.cpp">
       <Filter>Observer</Filter>
     </ClCompile>
@@ -170,8 +165,6 @@
     <ClCompile Include="Manager\GameManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Star.cpp" />
-    <ClCompile Include="StarUI.cpp" />
     <ClCompile Include="Engine\Gauge.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
@@ -187,6 +180,27 @@
     </ClCompile>
     <ClCompile Include="Enemy\EnemyRed.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Bomb.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\FireFollowGround.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemBox.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Star.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\StarUI.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Timer.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +267,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Instructions.h" />
-    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -264,15 +277,11 @@
     <ClInclude Include="Engine\BillBoard.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="FireFollowGround.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Water.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="Observer\ResultObserver.h">
       <Filter>Observer</Filter>
     </ClInclude>
@@ -319,8 +328,6 @@
     <ClInclude Include="Manager\GameManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Star.h" />
-    <ClInclude Include="StarUI.h" />
     <ClInclude Include="Engine\Gauge.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
@@ -339,6 +346,27 @@
     </ClInclude>
     <ClInclude Include="Enemy\EnemyRed.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Bomb.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\FireFollowGround.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemBox.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Star.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\StarUI.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Timer.h">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

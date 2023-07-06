@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/GameObject.h"
+#include "../Engine/GameObject.h"
 
 static const int MAX_STAR = 5;
 static const int MAX_STAR_AFTER_TIME = 120;

@@ -1,9 +1,9 @@
 #include "Bomb.h"
-#include "Engine/Model.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
-#include "Player.h"
-#include "Manager/BombEffect.h"
+#include "../Engine/Model.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
+#include "../Player.h"
+#include "../Manager/BombEffect.h"
 
 namespace
 {

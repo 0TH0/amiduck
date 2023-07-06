@@ -1,13 +1,13 @@
 #include "FireFollowGround.h"
-#include "Stage.h"
-#include "Scene/PlayScene.h"
-#include "Engine/Model.h"
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
-#include "Engine/SphereCollider.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Color.h"
-#include "Player.h"
+#include "../Stage.h"
+#include "../Scene/PlayScene.h"
+#include "../Engine/Model.h"
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
+#include "../Engine/SphereCollider.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Color.h"
+#include "../Player.h"
 
 namespace
 {

@@ -1,13 +1,13 @@
 #include "ItemBox.h"
-#include "Scene/PlayScene.h"
-#include "Player.h"
+#include "../Scene/PlayScene.h"
+#include "../Player.h"
 #include "Item.h"
-#include "Manager/ItemBoxEffect.h"
-#include "Engine/Model.h"
-#include "Engine/Image.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
+#include "../Manager/ItemBoxEffect.h"
+#include "../Engine/Model.h"
+#include "../Engine/Image.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
 
 namespace
 {

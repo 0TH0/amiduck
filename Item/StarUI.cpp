@@ -1,7 +1,7 @@
 #include "StarUI.h"
-#include "Engine/Image.h"
-#include "Player.h"
-#include "Engine/UI.h"
+#include "../Engine/Image.h"
+#include "../Player.h"
+#include "../Engine/UI.h"
 
 namespace
 {

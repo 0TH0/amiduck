@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Stage.h"
-#include "Engine/VFX.h"
+#include "../Engine/GameObject.h"
+#include "../Stage.h"
+#include "../Engine/VFX.h"
 
 //シーンを管理するクラス
 class Bomb : public GameObject

@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Stage.h"
-#include "Engine/VFX.h"
-#include "Engine/PolyLine.h"
+#include "../Engine/GameObject.h"
+#include "../Stage.h"
+#include "../Engine/VFX.h"
+#include "../Engine/PolyLine.h"
 
 //ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class FireFollowGround : public GameObject

@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Player.h"
-#include "Engine/Text.h"
+#include "../Engine/GameObject.h"
+#include "../Player.h"
+#include "../Engine/Text.h"
 #include "ItemBox.h"
 
 class Itembox;
