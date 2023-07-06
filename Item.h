@@ -49,7 +49,7 @@ public:
 
 	void DrawWoodUI(Transform tra);
 
-	void DrawItem(Transform tra);
+	void DrawItem();
 
 	void SetItem(ItemNum item) { item_ = item; };
 	ItemNum GetItem() { return item_; };

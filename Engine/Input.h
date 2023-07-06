@@ -11,18 +11,18 @@
 
 using namespace DirectX;
 
-enum MOUSEBUTTON
-{
-	LEFT = 0,
-	CENTER,
-	RIGHT
-};
-
 //-----------------------------------------------------------
 //DirectInputを使ったキーボード入力処理
 //-----------------------------------------------------------
 namespace Input
 {
+	enum MOUSEBUTTON
+	{
+		LEFT = 0,
+		CENTER,
+		RIGHT
+	};
+
 	//初期化
 	//引数：hWnd	ウィンドウハンドル
 	void Initialize(HWND hWnd);

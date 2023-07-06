@@ -8,6 +8,7 @@
 #include "../EnemyBlue.h"
 #include "../EnemyGreen.h"
 #include "../Stage.h"
+#include "../Star.h"
 
 namespace
 {
@@ -22,8 +23,8 @@ namespace
 }
 
 //コンストラクタ
-GameManager::GameManager(GameObject * parent)
-	: GameObject(parent, "GameManager"),randPos_(), MAX_TIME(300)
+GameManager::GameManager(GameObject* parent)
+	: GameObject(parent, "GameManager"), MAX_TIME(300), randPos_({ 0,5,0 })
 {
 	for (int i = 0; i < ENEMY_MAX; i++)
 	{
@@ -40,7 +41,7 @@ void GameManager::Initialize()
 	pStage = (Stage*)FindObject("Stage");
 	RandObject();
 	pStar = Instantiate<Star>(this);
-	randPos_.y = 5.f;
+	
 	pStar->SetPosition((float)randPos_.x, (float)randPos_.y, (float)randPos_.z);
 }
 
@@ -53,7 +54,7 @@ void GameManager::Update()
 	pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
 	pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
 
-	if (pPlayer->GetStarNum() >= 5)
+	if (pPlayer->GetStarNum() >= MAX_STAR)
 	{
 		//プレイヤーの勝ち
 		ResultObserver::SetIsWin(true);
@@ -81,7 +82,7 @@ void GameManager::Release()
 
 void GameManager::PopStar()
 {
-	if (pPlayer->GetStarAfterTime() >= 120)
+	if (pPlayer->GetStarAfterTime() >= MAX_STAR_AFTER_TIME)
 	{
 		RandObject();
 		pStar = Instantiate<Star>(this);

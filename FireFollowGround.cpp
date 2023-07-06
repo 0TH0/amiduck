@@ -14,6 +14,7 @@ namespace
     static const int TIMEMAX = 200;
     static const float SPEED = 10.f;
     static const float DIS  = 7.f;
+    static const float CENTER = 0.75f;
 }
 
 //コンストラクタ
@@ -31,13 +32,10 @@ FireFollowGround::~FireFollowGround()
 void FireFollowGround::Initialize()
 {
     hModel_ = Model::Load("Model\\fire_blue.fbx");
-    assert(hModel_ >= 0);
-
-    //位置
-    transform_.scale_ = XMFLOAT3(0.75, 0.75, 0.75);
+    assert(hModel_ >= ZERO);
 
     //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
     AddCollider(collision);
 
     pLine_ = new PolyLine;

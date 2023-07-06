@@ -105,8 +105,9 @@ void Item::DrawWoodUI(Transform tra)
 	}
 }
 
-void Item::DrawItem(Transform tra)
+void Item::DrawItem()
 {
-	Image::SetTransform(hItemPict_[(int)item_], tra);
+	transform_.position_ = XMFLOAT3(0.85f, 0.75f, 0);
+	Image::SetTransform(hItemPict_[(int)item_], transform_);
 	Image::Draw(hItemPict_[(int)item_]);
 }

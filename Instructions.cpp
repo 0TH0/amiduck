@@ -4,6 +4,11 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 
+namespace
+{
+	static const XMFLOAT3 pos = { 0, -0.95f, 0 };
+}
+
 //コンストラクタ
 Instructions::Instructions(GameObject* parent)
 	: GameObject(parent, "Instructions"),hPict_(-1)
@@ -15,8 +20,8 @@ void Instructions::Initialize()
 {
 	//画像データのロード
 	hPict_ = Image::Load("Image\\Instruction.png");
-	assert(hPict_ >= 0);
-	transform_.position_ = XMFLOAT3(0, -0.95f, 0);
+	assert(hPict_ >= ZERO);
+	transform_.position_ = pos;
 }
 
 //更新

@@ -238,7 +238,7 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(LEFT) && pItem->GetwoodCount() > ZERO)
+    if (Input::IsMouseButtonDown(Input::LEFT) && pItem->GetwoodCount() > ZERO)
     {
         //bridgeRimit_で橋の端をクリックできなくする
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)

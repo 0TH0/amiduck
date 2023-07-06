@@ -5,14 +5,13 @@
 //シーンを管理するクラス
 class Controller : public GameObject
 {
-public:
-	Transform EnemyTrans_;
 	XMFLOAT3 mousePos_;
 	const float Move_;		//移動速度
 	const char Rotate_;		//回転速度
-	const char LimRot_;		//回転の限界値
 	float PrevPosX_;
 	float PrevPosY_;
+public:
+
 	void CrickRight();
 
 	enum class cameraState

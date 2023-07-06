@@ -4,7 +4,11 @@
 
 namespace
 {
-    static const int ROTATE = 5;
+    static const int ROTATE_SPEED = 5;
+    static const float DIF_GOAL = 0.3f;
+    static const float POSY = 1.5f;
+    static const float LERP = 0.2f;
+    static const float CENTER = 0.5f;
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
@@ -22,7 +26,7 @@ void EnemyBase::Initialize()
     hModel_ = Model::Load("Model\\fire.fbx");
 
     //“–‚½‚è”»’è
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.75f);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
     AddCollider(collision);
 
     InitBase();
@@ -43,7 +47,7 @@ void EnemyBase::Update()
     }
 
     //‰ñ“]
-    transform_.rotate_.y += ROTATE;
+    transform_.rotate_.y += ROTATE_SPEED;
 
     Action();
 }
@@ -65,9 +69,9 @@ void EnemyBase::Move()
 {
     if (CanMove_ && totalCell >= ZERO)
     {
-        v = { (float)AI_.GetToGoalCell(totalCell).x + 0.3f, 1.5f, (float)AI_.GetToGoalCell(totalCell).z + 0.3f, 0 };
+        v = { (float)AI_.GetToGoalCell(totalCell).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell).z + DIF_GOAL, 0 };
 
-        XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, 0.2f));
+        XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, LERP));
     }
 }
 
@@ -84,7 +88,7 @@ void EnemyBase::Search(CELL goal)
             CanMove_ = true;
         }
 
-        count_ = 0;
+        count_ = ZERO;
     }
     count_++;
 }

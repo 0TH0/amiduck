@@ -9,6 +9,14 @@
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 
+namespace
+{
+	static const XMFLOAT3 SCALE = { 1.5f, 1.5f, 1.5f };
+	static const float CENTER = 0.5f;
+	static const float ROTATE_SPEED = 3.f;
+	static const int COOL_TIME = 900;
+}
+
 //コンストラクタ
 ItemBox::ItemBox(GameObject* parent)
 	: GameObject(parent, "ItemBox"),IsHit_(false),hModel_(-1)
@@ -19,26 +27,26 @@ ItemBox::ItemBox(GameObject* parent)
 void ItemBox::Initialize()
 {
 	hModel_ = Model::Load("Model\\itemBox.fbx");
-	assert(hModel_ >= 0);
+	assert(hModel_ >= ZERO);
 
 	//当たり判定
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
 	AddCollider(collision);
 
-	transform_.scale_ = { 1.5f,1.5f,1.5f };
+	transform_.scale_ = SCALE;
 }
 
 //更新
 void ItemBox::Update()
 {
-	transform_.rotate_.y += 3;
+	transform_.rotate_.y += ROTATE_SPEED;
 
 	if (IsHit_)
 	{
 		time_++;
 	}
 
-	if (time_ >= 600)
+	if (time_ >= COOL_TIME)
 	{
 		Visible();
 		IsHit_ = false;
@@ -57,10 +65,8 @@ void ItemBox::Draw()
 	//アイテムボックスに当たってプレイヤーがアイテムを持っているとき
 	if ((pPlayer->GetHasItem()))
 	{
-		Transform trans;
-		trans.position_ = XMFLOAT3(0.85, 0.75, 0);
 		Item* pItem = (Item*)FindObject("Item");
-		pItem->DrawItem(trans);
+		pItem->DrawItem();
 	}
 }
 
@@ -77,6 +83,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 
 		if (IsVisibled())
 		{
+			//エフェクト
 			ItemBoxEffect::TakeItemBoxEffect(transform_.position_);
 			pPlayer->SetHasItem(true);
 		}
