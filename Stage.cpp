@@ -28,14 +28,15 @@ namespace
     static XMVECTOR vStart;
     static XMVECTOR vTarget;
     static Transform trans;
-    static int bridgeMax = 5;
+    static const int MAX_BRIDGE = 5;
+    static const int MAX_RAND_BRIDGE = 15;
 }
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPoPRandStage_(true),
-    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(3),csv(),effectPos_()
+    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(7),csv(),effectPos_()
 {
 }
 
@@ -52,19 +53,19 @@ void Stage::StageLoad()
 
     //判定
     hModel_[EMPTY] = Model::Load("DebugCollision\\BoxCollider.fbx");
-    assert(hModel_[EMPTY] >= 0);
+    assert(hModel_[EMPTY] >= ZERO);
 
     //ブロック
     hModel_[LOG] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[LOG] >= 0);
+    assert(hModel_[LOG] >= ZERO);
 
     //旗先端
     hModel_[BRIDGE] = Model::Load("Stage\\wood_board.fbx");
-    assert(hModel_[BRIDGE] >= 0);
+    assert(hModel_[BRIDGE] >= ZERO);
 
     //ガイドの橋
     hModel_[BRIDGE_FADE] = Model::Load("Stage\\wood_board.fbx");
-    assert(hModel_[BRIDGE_FADE] >= 0);
+    assert(hModel_[BRIDGE_FADE] >= ZERO);
 }
 
 //初期化
@@ -135,18 +136,6 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
-    pPlayer_ = (Player*)FindObject("Player");
-    
-    if (!pPlayer_->GetReturn()) player_pos_.x = pPlayer_->GetPosition().x + 1;
-    else player_pos_.x = pPlayer_->GetPosition().x - 1;
-
-    player_pos_.z = pPlayer_->GetPosition().z;
-
-    //ビューポート行列
-    float w = Camera::GetScrWDiv2();
-
-    float h = Camera::GetScrHDiv2();
-
     //各行列の逆行列
     XMMATRIX invVP = XMMatrixInverse(nullptr, Camera::GetViewPortMatrix());
     XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
@@ -243,9 +232,9 @@ void Stage::PopBridge()
         //bridgeRimit_で橋の端をクリックできなくする
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = bridgeRimit_; z < STAGE_SIZE_Z - bridgeRimit_; z++)
+            for (int z = ZERO; z < STAGE_SIZE_Z; z++)
             {
-                for (int y = 0; y < stage_[x][z].height; y++)
+                for (int y = ZERO; y < stage_[x][z].height; y++)
                 {
                     RayCastData ray;
 
@@ -344,7 +333,7 @@ void Stage::PopBridge()
 
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = bridgeRimit_; z < STAGE_SIZE_Z - bridgeRimit_; z++)
+            for (int z = ZERO; z < STAGE_SIZE_Z; z++)
             {
                 for (int y = 0; y < stage_[x][z].height; y++)
                 {
@@ -467,7 +456,7 @@ void Stage::PopBridgeEffect()
 void Stage::RandStage()
 {
     //マップの自動生成
-    while(bridgeCount_ < 15)
+    while(bridgeCount_ < MAX_RAND_BRIDGE)
     {
         int randX = (rand() % STAGE_SIZE_X - bridgeRimit_);
         int randZ = (rand() % STAGE_SIZE_Z - bridgeRimit_);
