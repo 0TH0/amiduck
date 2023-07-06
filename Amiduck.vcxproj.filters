@@ -42,6 +42,9 @@
     <Filter Include="Image">
       <UniqueIdentifier>{b4cd4600-c517-4192-9e83-dc3b458878d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{fbd2b6a7-6650-43f7-a951-9181523af4e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -105,7 +108,6 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -116,7 +118,6 @@
     <ClCompile Include="Engine\BillBoard.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Water.cpp" />
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
@@ -208,6 +209,12 @@
     <ClCompile Include="Image\Line.cpp">
       <Filter>Image</Filter>
     </ClCompile>
+    <ClCompile Include="Stage\Stage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\Water.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -271,7 +278,6 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -282,7 +288,6 @@
     <ClInclude Include="Engine\BillBoard.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Water.h" />
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
     </ClInclude>
@@ -376,6 +381,12 @@
     </ClInclude>
     <ClInclude Include="Image\Line.h">
       <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\Stage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\Water.h">
+      <Filter>Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

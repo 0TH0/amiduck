@@ -1,5 +1,5 @@
 #include "FireFollowGround.h"
-#include "../Stage.h"
+#include "../Stage/Stage.h"
 #include "../Scene/PlayScene.h"
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"

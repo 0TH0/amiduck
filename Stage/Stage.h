@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Engine/Text.h"
-#include "Engine/VFX.h"
-#include "Engine/CsvReader.h"
+#include "../Engine/GameObject.h"
+#include "../Engine/Text.h"
+#include "../Engine/CsvReader.h"
+#include "../Engine/VFX.h"
 
 class Player;
 

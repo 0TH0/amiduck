@@ -7,7 +7,7 @@
 #include "../Enemy/EnemyRed.h"
 #include "../Enemy/EnemyBlue.h"
 #include "../Enemy/EnemyGreen.h"
-#include "../Stage.h"
+#include "../Stage/Stage.h"
 #include "../Item/Star.h"
 
 namespace

@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
+#include "Stage/Stage.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Collider.h"

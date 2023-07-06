@@ -181,8 +181,8 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\TestScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Water.cpp" />
+    <ClCompile Include="Stage\Stage.cpp" />
+    <ClCompile Include="Stage\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterBase.h" />
@@ -242,8 +242,8 @@
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\TestScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="Water.h" />
+    <ClInclude Include="Stage\Stage.h" />
+    <ClInclude Include="Stage\Water.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

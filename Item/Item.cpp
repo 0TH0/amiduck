@@ -4,7 +4,7 @@
 #include "../Engine/GameObject.h"
 #include "../Scene/PlayScene.h"
 #include "../Player.h"
-#include "../Stage.h"
+#include "../Stage/Stage.h"
 #include "../Engine/Camera.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Text.h"

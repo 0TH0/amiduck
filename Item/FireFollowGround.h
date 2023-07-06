@@ -1,6 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
-#include "../Stage.h"
+#include "../Stage/Stage.h"
 #include "../Engine/VFX.h"
 #include "../Engine/PolyLine.h"
 

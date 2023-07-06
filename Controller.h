@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
+#include "Stage/Stage.h"
 
 //シーンを管理するクラス
 class Controller : public GameObject
