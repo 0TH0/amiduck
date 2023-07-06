@@ -2,7 +2,7 @@
 #include "Scene/PlayScene.h"
 #include "Item/FireFollowGround.h"
 #include "Controller.h"
-#include "Line.h"
+#include "Image/Line.h"
 #include "Item/Bomb.h"
 #include "Item/Item.h"
 #include "Engine/Model.h"
@@ -12,8 +12,6 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
-#include "HP.h"
-
 //コンストラクタ
 Player::Player(GameObject* parent)
     :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_()
@@ -155,8 +153,6 @@ void Player::InitBase()
     AddCollider(collision);
 
     Instantiate<Controller>(this);
-
-    Instantiate<HP>(this);
 
     //最初は卵から
     status_ = EGG;

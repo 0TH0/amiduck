@@ -1,8 +1,7 @@
 #include "Instructions.h"
-
-#include "Engine/Image.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
+#include "../Engine/Image.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
 
 namespace
 {

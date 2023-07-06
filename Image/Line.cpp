@@ -1,5 +1,5 @@
 #include "Line.h"
-#include "Engine/Image.h"
+#include "../Engine/Image.h"
 
 //コンストラクタ
 Line::Line(GameObject* parent)

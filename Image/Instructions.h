@@ -1,13 +1,16 @@
 #pragma once
-#include "Engine/GameObject.h"
+#include "../Engine/GameObject.h"
+#include "../Scene/PlayScene.h"
 
-//テストシーンを管理するクラス
-class HP : public GameObject
+//シーンを管理するクラス
+class Instructions : public GameObject
 {
 public:
+	int hPict_;    //画像番号
+
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	HP(GameObject* parent);
+	Instructions(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -20,6 +23,4 @@ public:
 
 	//開放
 	void Release() override;
-
-	void Heel();
 };

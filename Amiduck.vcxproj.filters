@@ -39,6 +39,9 @@
     <Filter Include="Item">
       <UniqueIdentifier>{9edfc010-a32f-45b0-9e85-190cddd0dd93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{b4cd4600-c517-4192-9e83-dc3b458878d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -103,7 +106,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -114,7 +116,6 @@
     <ClCompile Include="Engine\BillBoard.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Line.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Engine\Alpha.cpp">
       <Filter>01Engine</Filter>
@@ -168,7 +169,6 @@
     <ClCompile Include="Engine\Gauge.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="HP.cpp" />
     <ClCompile Include="Enemy\EnemyBase.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -201,6 +201,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Timer.cpp">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\Instructions.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\Line.cpp">
+      <Filter>Image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +272,6 @@
     </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="Instructions.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -277,7 +282,6 @@
     <ClInclude Include="Engine\BillBoard.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Line.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Engine\Alpha.h">
       <Filter>01Engine</Filter>
@@ -334,7 +338,6 @@
     <ClInclude Include="Engine\Color.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="HP.h" />
     <ClInclude Include="Enemy\EnemyBase.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -367,6 +370,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Timer.h">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\Instructions.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\Line.h">
+      <Filter>Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
