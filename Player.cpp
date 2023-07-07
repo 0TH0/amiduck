@@ -166,6 +166,7 @@ void Player::DrawBase()
     switch (status_)
     {
     case EGG:
+        Model::SetOutLineDrawFlag(hModel_[EGG], true);
         Model::Draw(hModel_[EGG]);
         break;
     case GROWN:
@@ -178,7 +179,7 @@ void Player::DrawBase()
     if (IsSpeedUp_)
     {
         float pos = -0.5f;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < MAX_LINE; i++)
         {
             Transform trans = transform_;
             trans.position_.z += pos;
@@ -194,7 +195,7 @@ void Player::DrawBase()
 void Player::ReleaseBase()
 {
     //ƒ|ƒŠƒ‰ƒCƒ“‰ð•ú
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < MAX_LINE; i++)
     {
         pLine[i]->Release();
     }

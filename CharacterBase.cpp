@@ -105,7 +105,7 @@ void CharacterBase::Release()
 void CharacterBase::LadderLottery()
 {
     //////////////////ï«Ç∆ÇÃè’ìÀîªíË///////////////////////
-    XMINT3 obj = ToXMINT(transform_.position_);
+    XMINT3 obj = ToXMINT({ transform_.position_ .x + 0.4f, transform_.position_.y ,transform_.position_.z });
 
     //ï«ÇÃîªíË(è„)
     if (!IsRight_ && !IsLeft_)

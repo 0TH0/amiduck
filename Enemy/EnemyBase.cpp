@@ -57,7 +57,6 @@ void EnemyBase::Draw()
     Model::SetTransform(hModel_, transform_);
     ChangeColor();
     Model::Draw(hModel_);
-   
 }
 
 void EnemyBase::Release()

@@ -7,12 +7,14 @@
 #include "CharacterBase.h"
 #include "Item/Bomb.h"
 
+static const int MAX_LINE = 3;
+
 //Player‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class Player : public CharacterBase
 {
     Bomb* pBomb_;
     int hAudio_;
-    PolyLine* pLine[3];
+    PolyLine* pLine[MAX_LINE];
     int starNum_;
     int starAfterTime_;
     int starDelay_;

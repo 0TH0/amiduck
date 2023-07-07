@@ -27,7 +27,8 @@ void StarUI::Initialize()
 		pUI[i] = Instantiate<UI>(this);
 		pUI[i]->Load("Image\\star_white.png");
 		pUI[i]->SetScale(starScale, starScale, starScale);
-		Image::SetColor(pUI[i]->GetHandle(), 1, 1, 0);
+		//Å‰‚Í•
+		Image::SetColor(pUI[i]->GetHandle(), 0, 0, 0);
 		pUI[i]->SetPosition(starPos.x + (i * starPos.y), starPos.z, 0);
 	}
 }
@@ -37,12 +38,18 @@ void StarUI::Update()
 {
 	pPlayer = (Player*)FindObject("Player");
 	playerStarNum = pPlayer->GetStarNum();
+
+	//¯‚Ì”•ª‰©F‚É‚·‚é
+	for (int i = 0; i < playerStarNum; i++)
+	{
+		Image::SetColor(pUI[i]->GetHandle(), 1, 1, 0);
+	}
 }
 
 //•`‰æ
 void StarUI::Draw()
 {
-	for (int i = 0; i < playerStarNum; i++)
+	for (int i = 0; i < MAX_STAR; i++)
 	{
 		Image::Draw(pUI[i]->GetHandle());
 	}

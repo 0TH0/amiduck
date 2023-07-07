@@ -99,7 +99,7 @@ void GameManager::RandObject()
 	switch (randPos_.x)
 	{
 	case 0:
-		randPos_.x = pStage->GetBridgeRimit();
+ 		randPos_.x = pStage->GetBridgeRimit();
 		break;
 	case 1:
 		randPos_.x = pStage->GetStageSizeX() - pStage->GetBridgeRimit();

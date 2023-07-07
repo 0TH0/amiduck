@@ -40,6 +40,7 @@ namespace Direct3D
 		SHADER_NORMALMAP,
 		SHADER_WATER,
 		SHADER_SHADOW,
+		SHADER_OUTLINE,
 		SHADER_MAX
 	};	//3タイプ（3D用、2D用、当たり判定枠表示用）
 

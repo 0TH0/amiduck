@@ -35,9 +35,11 @@ namespace Model
 
 		float uvScroll;
 
+		//アウトライン描画するか
+		bool isOutLineDraw;
 
 		//初期化
-		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),shaderType(Direct3D::SHADER_3D),uvScroll(0)
+		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),shaderType(Direct3D::SHADER_3D),uvScroll(0),isOutLineDraw(false)
 		{
 		}
 
@@ -112,6 +114,8 @@ namespace Model
 	void SetSahder(int handle, Direct3D::SHADER_TYPE shaderType = Direct3D::SHADER_3D);
 
 	void SetUvScroll(int handle, float scroll);
+
+	void SetOutLineDrawFlag(int handle, bool flag);
 
 	void FlashModel(int handle, int frame = 5);
 

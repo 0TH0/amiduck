@@ -125,6 +125,8 @@ class FbxParts
 	Direct3D::SHADER_TYPE shaderType_;
 	float scroll_;
 	float alpha_;
+	//アウトラインを使うか
+	bool isUseOutLine;
 
 public:
 	FbxParts();
@@ -173,6 +175,7 @@ public:
 	void SetDiffuse(XMFLOAT4 diffuse) { diffuse_ = diffuse; };
 	XMFLOAT4 GetDiffuse() { return diffuse_; };
 	void SetAlpha(float alpha) { alpha_ = alpha; };
+	void SetUseOutLine(bool flag) { this->isUseOutLine = flag; }
 
 	void SetUVScroll(float scroll) { scroll_ = scroll; }
 };

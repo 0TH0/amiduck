@@ -85,7 +85,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->shaderType, alpha , _datas[handle]->uvScroll);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->shaderType, alpha , _datas[handle]->uvScroll, _datas[handle]->isOutLineDraw);
 		}
 
 	}
@@ -158,6 +158,15 @@ namespace Model
 		return pos;
 	}
 
+	void SetOutLineDrawFlag(int handle, bool flag)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->isOutLineDraw = flag;
+	}
 
 	//ƒ[ƒ‹ƒhs—ñ‚ğİ’è
 	void SetTransform(int handle, Transform & transform)
