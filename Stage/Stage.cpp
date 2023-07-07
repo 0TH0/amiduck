@@ -400,47 +400,46 @@ void Stage::PopBridge()
                     buf[3] = XMINT3(bufX, 1, bufZ + 2);
                     buf[4] = XMINT3(bufX, 1, bufZ + 3);
                 }
-                else if (stage_[bufX][bufZ - 3].type == LOG)
-                {
-                    SetStageType(bufX, bufZ + 2, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ + 1, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ - 1, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ - 2, BRIDGE_FADE);
-
-                    buf[0] = XMINT3(bufX, 1, bufZ + 2);
-                    buf[1] = XMINT3(bufX, 1, bufZ + 1);
-                    buf[2] = XMINT3(bufX, 1, bufZ);
-                    buf[3] = XMINT3(bufX, 1, bufZ - 1);
-                    buf[4] = XMINT3(bufX, 1, bufZ - 2);
-                }
-                else if (stage_[bufX][bufZ - 4].type == LOG)
-                {
-                    SetStageType(bufX, bufZ + 1, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ - 1, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ - 2, BRIDGE_FADE);
-                    SetStageType(bufX, bufZ - 3, BRIDGE_FADE);
-
-                    buf[0] = XMINT3(bufX, 1, bufZ + 1);
-                    buf[1] = XMINT3(bufX, 1, bufZ);
-                    buf[2] = XMINT3(bufX, 1, bufZ - 1);
-                    buf[3] = XMINT3(bufX, 1, bufZ - 2);
-                    buf[4] = XMINT3(bufX, 1, bufZ - 3);
-                }
-                else if (stage_[bufX][bufZ - 5].type == LOG)
+                else if (stage_[bufX][bufZ + 1].type == LOG)
                 {
                     SetStageType(bufX, bufZ, BRIDGE_FADE);
                     SetStageType(bufX, bufZ - 1, BRIDGE_FADE);
                     SetStageType(bufX, bufZ - 2, BRIDGE_FADE);
                     SetStageType(bufX, bufZ - 3, BRIDGE_FADE);
                     SetStageType(bufX, bufZ - 4, BRIDGE_FADE);
-
                     buf[0] = XMINT3(bufX, 1, bufZ);
                     buf[1] = XMINT3(bufX, 1, bufZ - 1);
                     buf[2] = XMINT3(bufX, 1, bufZ - 2);
                     buf[3] = XMINT3(bufX, 1, bufZ - 3);
                     buf[4] = XMINT3(bufX, 1, bufZ - 4);
+                }
+                else if (stage_[bufX][bufZ + 2].type == LOG)
+                {
+                    SetStageType(bufX, bufZ, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ + 1, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ - 1, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ - 2, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ - 3, BRIDGE_FADE);
+
+                    buf[0] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[1] = XMINT3(bufX, 1, bufZ);
+                    buf[2] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[3] = XMINT3(bufX, 1, bufZ - 2);
+                    buf[4] = XMINT3(bufX, 1, bufZ - 3);
+                }
+                else if (stage_[bufX][bufZ + 3].type == LOG)
+                {
+                    SetStageType(bufX, bufZ + 1, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ + 2, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ - 1, BRIDGE_FADE);
+                    SetStageType(bufX, bufZ - 2, BRIDGE_FADE);
+
+                    buf[0] = XMINT3(bufX, 1, bufZ + 1);
+                    buf[1] = XMINT3(bufX, 1, bufZ + 2);
+                    buf[2] = XMINT3(bufX, 1, bufZ);
+                    buf[3] = XMINT3(bufX, 1, bufZ - 1);
+                    buf[4] = XMINT3(bufX, 1, bufZ - 2);
                 }
             }
         }

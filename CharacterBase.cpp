@@ -278,6 +278,6 @@ void CharacterBase::RotateDirMove()
 		}
 
 		//‚»‚Ì‚Ô‚ñ‰ñ“]‚³‚¹‚é
-		transform_.rotate_.y = angle * 180.0f / 3.14f;
+		transform_.rotate_.y = angle * PI_DEGREES / M_PI;
 	}
 }

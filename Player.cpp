@@ -170,6 +170,7 @@ void Player::DrawBase()
         Model::Draw(hModel_[EGG]);
         break;
     case GROWN:
+        Model::SetOutLineDrawFlag(hModel_[GROWN], true);
         Model::Draw(hModel_[GROWN]);
         break;
     default:

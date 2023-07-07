@@ -349,6 +349,7 @@ namespace Direct3D
 			rdc.FrontCounterClockwise = FALSE;
 			pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_OUTLINE].pRasterizerState);
 		}
+
 		return S_OK;
 	}
 
