@@ -22,7 +22,7 @@ Water::~Water()
 void Water::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Water\\water5.fbx");
+    hModel_ = Model::Load("Water\\water.fbx");
     assert(hModel_ >= 0);
     transform_.position_.y = pos.y;
     Model::SetSahder(hModel_, Direct3D::SHADER_WATER);

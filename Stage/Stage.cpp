@@ -194,13 +194,13 @@ void Stage::Draw()
                     break;
                 case BRIDGE:
                     transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
-                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    transform_.scale_ = XMFLOAT3(0.25, 1, 3);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type]);
                     break;
                 case BRIDGE_FADE:
                     transform_.position_ = XMFLOAT3(x, 0.5 + y, z);
-                    transform_.scale_ = XMFLOAT3(0.5, 1, 2);
+                    transform_.scale_ = XMFLOAT3(0.25, 1, 3);
                     Model::SetTransform(hModel_[type], transform_);
                     Model::Draw(hModel_[type], 0.5);
                     break;

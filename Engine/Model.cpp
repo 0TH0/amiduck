@@ -128,7 +128,7 @@ namespace Model
 		{
 			if (_datas[i] != nullptr)
 			{
-				Release(i);
+ 				Release(i);
 			}
 		}
 		_datas.clear();

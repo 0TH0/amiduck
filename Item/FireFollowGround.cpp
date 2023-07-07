@@ -31,7 +31,7 @@ FireFollowGround::~FireFollowGround()
 //‰Šú‰»
 void FireFollowGround::Initialize()
 {
-    hModel_ = Model::Load("Model\\fire_blue.fbx");
+    hModel_ = Model::Load("Model\\fire.fbx");
     assert(hModel_ >= ZERO);
 
     //“–‚½‚è”»’è
@@ -65,8 +65,9 @@ void FireFollowGround::Update()
 //•`‰æ
 void FireFollowGround::Draw()
 {
-    pLine_->SetColor(BLUE);
+    pLine_->SetColor(WHITE);
     pLine_->Draw();
+    Model::SetColor(hModel_, WHITE);
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 }
