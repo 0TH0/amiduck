@@ -55,12 +55,11 @@ protected:
     
     EmitterData data;
     XMVECTOR prevPosition;
-
-   virtual void Action() = 0;
-   virtual void Command() = 0;
-   virtual void InitBase() = 0;
-   virtual void DrawBase() = 0;
-   virtual void ReleaseBase() = 0;
+    virtual void Action() = 0;
+    virtual void Command() = 0;
+    virtual void InitBase() = 0;
+    virtual void DrawBase() = 0;
+    virtual void ReleaseBase() = 0;
 
 public:
     //継承用コンストラクタ

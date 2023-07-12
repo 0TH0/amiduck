@@ -19,7 +19,7 @@ namespace Input
 	enum MOUSEBUTTON
 	{
 		LEFT = 0,
-		CENTER,
+		RADIUS,
 		RIGHT
 	};
 

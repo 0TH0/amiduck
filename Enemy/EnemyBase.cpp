@@ -8,7 +8,7 @@ namespace
     static const float DIF_GOAL = 0.3f;
     static const float POSY = 1.5f;
     static const float LERP = 0.2f;
-    static const float CENTER = 0.5f;
+    static const float RADIUS = 0.5f;
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
@@ -26,7 +26,7 @@ void EnemyBase::Initialize()
     hModel_ = Model::Load("Model\\fire.fbx");
 
     //“–‚½‚è”»’è
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), RADIUS);
     AddCollider(collision);
 
     InitBase();

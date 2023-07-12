@@ -185,7 +185,7 @@
     <ClCompile Include="Item\Bomb.cpp">
       <Filter>Item</Filter>
     </ClCompile>
-    <ClCompile Include="Item\FireFollowGround.cpp">
+    <ClCompile Include="Item\RotateAroundBall.cpp">
       <Filter>Item</Filter>
     </ClCompile>
     <ClCompile Include="Item\Item.cpp">
@@ -358,7 +358,7 @@
     <ClInclude Include="Item\Bomb.h">
       <Filter>Item</Filter>
     </ClInclude>
-    <ClInclude Include="Item\FireFollowGround.h">
+    <ClInclude Include="Item\RotateAroundBall.h">
       <Filter>Item</Filter>
     </ClInclude>
     <ClInclude Include="Item\Item.h">

@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Scene/PlayScene.h"
-#include "Item/FireFollowGround.h"
+#include "Item/RotateAroundBall.h"
 #include "Controller.h"
 #include "Image/Line.h"
 #include "Item/Bomb.h"
@@ -81,7 +81,7 @@ void Player::Command()
         {
             //É{Å[ÉãèoÇ∑
         case Item::ItemNum::BALL:
-            Instantiate<FireFollowGround>(GetParent());
+            Instantiate<RotateAroundBall>(GetParent());
             hasItem_ = false;
             pItem->SetItem(Item::ItemNum::ITEM_MAX);
             break;

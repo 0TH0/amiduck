@@ -5,16 +5,16 @@
 #include "../Engine/PolyLine.h"
 
 //◆◆◆を管理するクラス
-class FireFollowGround : public GameObject
+class RotateAroundBall : public GameObject
 {
     PolyLine* pLine_;
     int hModel_;
 public:
     //コンストラクタ
-    FireFollowGround(GameObject* parent);
+    RotateAroundBall(GameObject* parent);
 
     //デストラクタ
-    ~FireFollowGround();
+    ~RotateAroundBall();
 
     //初期化
     void Initialize() override;

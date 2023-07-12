@@ -162,7 +162,7 @@
     <ClCompile Include="Image\Instructions.cpp" />
     <ClCompile Include="Image\Line.cpp" />
     <ClCompile Include="Item\Bomb.cpp" />
-    <ClCompile Include="Item\FireFollowGround.cpp" />
+    <ClCompile Include="Item\RotateAroundBall.cpp" />
     <ClCompile Include="Item\Item.cpp" />
     <ClCompile Include="Item\ItemBox.cpp" />
     <ClCompile Include="Item\Star.cpp" />
@@ -223,7 +223,7 @@
     <ClInclude Include="Image\Instructions.h" />
     <ClInclude Include="Image\Line.h" />
     <ClInclude Include="Item\Bomb.h" />
-    <ClInclude Include="Item\FireFollowGround.h" />
+    <ClInclude Include="Item\RotateAroundBall.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Item\ItemBox.h" />
     <ClInclude Include="Item\Star.h" />

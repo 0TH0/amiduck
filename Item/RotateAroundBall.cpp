@@ -1,4 +1,4 @@
-#include "FireFollowGround.h"
+#include "RotateAroundBall.h"
 #include "../Stage/Stage.h"
 #include "../Scene/PlayScene.h"
 #include "../Engine/Model.h"
@@ -11,31 +11,31 @@
 
 namespace
 {
-    static const int TIMEMAX = 200;
+    static const int   MAX_TIME = 200;
     static const float SPEED = 10.f;
     static const float DIS  = 7.f;
-    static const float CENTER = 0.75f;
+    static const float RADIUS = 1.f;
 }
 
 //コンストラクタ
-FireFollowGround::FireFollowGround(GameObject* parent)
-    : GameObject(parent, "FireFollowGround"),hModel_(-1),pLine_()
+RotateAroundBall::RotateAroundBall(GameObject* parent)
+    : GameObject(parent, "RotateAroundBall"),hModel_(-1),pLine_()
 {
 }
 
 //デストラクタ
-FireFollowGround::~FireFollowGround()
+RotateAroundBall::~RotateAroundBall()
 {
 }
 
 //初期化
-void FireFollowGround::Initialize()
+void RotateAroundBall::Initialize()
 {
     hModel_ = Model::Load("Model\\fire.fbx");
     assert(hModel_ >= ZERO);
 
     //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), RADIUS);
     AddCollider(collision);
 
     pLine_ = new PolyLine;
@@ -44,40 +44,44 @@ void FireFollowGround::Initialize()
 
     Player* pPlayer = (Player*)FindObject("Player");
     transform_.position_ = pPlayer->GetPosition();
+    transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5);
 
+    Model::SetOutLineDrawFlag(hModel_, true);
 }
 
 //更新
-void FireFollowGround::Update()
+void RotateAroundBall::Update()
 {
     Player* pPlayer = (Player*)FindObject("Player");
+
+    //プレイヤーの周りを回る
     transform_.position_ = Transform::RotateAround(pPlayer->GetPosition(), DIS, SPEED);
+
     time_++;
 
-    if (time_ >= TIMEMAX)
+    if (time_ >= MAX_TIME)
     {
         KillMe();
     }
-
     pLine_->AddPosition(transform_.position_);
 }
 
 //描画
-void FireFollowGround::Draw()
+void RotateAroundBall::Draw()
 {
-    pLine_->SetColor(WHITE);
+    pLine_->SetColor(BLUE);
     pLine_->Draw();
-    Model::SetColor(hModel_, WHITE);
+    Model::SetColor(hModel_, BLUE);
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 }
 
 //開放
-void FireFollowGround::Release()
+void RotateAroundBall::Release()
 {
 }
 
-void FireFollowGround::OnCollision(GameObject* pTarget)
+void RotateAroundBall::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "EnemyBlue" ||
         pTarget->GetObjectName() == "EnemyGreen" ||
