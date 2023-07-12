@@ -37,7 +37,6 @@ void Star::Update()
 	{
 		time_++;
 	}
-
 	if (transform_.position_.y <= rimitY)
 	{
 		transform_.position_.y = rimitY;
@@ -46,7 +45,6 @@ void Star::Update()
 	{
 		transform_.position_.y -= gravity_;
 	}
-
 	if (!IsVisibled() && time_ >= MAX_TIME)
 	{
 		KillMe();

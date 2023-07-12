@@ -8,6 +8,7 @@
 namespace
 {
 	static const int MAX_TIME = 100;
+	static const int MAX_STAR_DELAY = 7;
 }
 
 //コンストラクタ
@@ -67,8 +68,7 @@ void Bomb::Update()
 	{
 		transform_.position_.x++;
 	}
-
-	if (starDelay_ >= 7)
+	if (starDelay_ >= MAX_STAR_DELAY)
 	{
 		starDelay_ = 0;
 	}

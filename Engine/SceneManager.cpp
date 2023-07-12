@@ -10,7 +10,7 @@
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
-	: GameObject(parent, "SceneManager")
+	: GameObject(parent, "SceneManager"),nextSceneID_(),currentSceneID_()
 {
 }
 

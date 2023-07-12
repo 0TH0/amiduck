@@ -284,7 +284,7 @@ namespace Input
 		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
 		vibration.wLeftMotorSpeed = l; // 左モーターの強さ
 		vibration.wRightMotorSpeed = r;// 右モーターの強さ
+		
 		XInputSetState(padID, &vibration);
 	}
-
 }

@@ -7,8 +7,7 @@ public:
 	int alpha_;	//透明度
 	int frame_;	//何フレーム毎に点滅させるか
 	bool IsFlash_;	//フラッシュさせるか
-	bool Zero_; //アルファ値を０にするか
-
+	
 	Alpha();
 	~Alpha();
 

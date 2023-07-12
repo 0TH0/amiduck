@@ -134,15 +134,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				////描画終了
 				//Direct3D::EndDraw();
 
-
-
-
+				//カメラ更新
 				Camera::Update();
 
 				//エフェクトの更新
 				VFX::Update();
-
-
 
 				//このフレームの描画開始
 				Direct3D::BeginDraw();

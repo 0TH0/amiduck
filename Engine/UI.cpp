@@ -18,8 +18,10 @@ void UI::Initialize()
 //更新
 void UI::Update()
 {
+	//カーソルが当たった判定を使うか
 	if (shouldUseHitCursor_)
 	{
+		//カーソルが画像に当たっていたら
 		if (Image::IsHitCursor(hPict_))
 		{
 			Image::SetColor(hPict_, 0.7f, 0.7f, 0.7f);
