@@ -4,7 +4,7 @@
 
 //コンストラクタ
 UI::UI(GameObject* parent)
-	: GameObject(parent, "UI"),hPict_(-1)
+	: GameObject(parent, "UI"),hPict_(-1),shouldUseHitCursor_(false)
 {
 }
 

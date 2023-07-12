@@ -39,7 +39,7 @@ void TitleScene::Initialize()
 //更新
 void TitleScene::Update()
 {
-	if (Input::IsMouseButtonDown(0))
+	if (Input::IsMouseButtonDown(Input::LEFT))
 	{
 		pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_PLAY);
@@ -53,21 +53,6 @@ void TitleScene::Update()
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 			break;
 		}
-	}
-	switch (UIName_)
-	{
-	case TitleScene::UIName::UI_MAX:
-		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
-		break;
-	case TitleScene::UIName::PLAY:
-		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle());
-		break;
-	case TitleScene::UIName::TUTORIAL:
-		Image::SetColor(pUI[(int)UIName::TUTORIAL]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::PLAY]->GetHandle());
-		break;
 	}
 
 	//プレイ画面

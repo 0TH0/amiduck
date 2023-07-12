@@ -107,22 +107,6 @@ void Player::Command()
         }
     }
 
-
-    //停止する
-    //if (Input::IsKeyDown(DIK_F))
-    //{
-    //    if (!IsStop_)
-    //    {
-    //        speed_ = 0;
-    //        IsStop_ = true;
-    //    }
-    //    else
-    //    {
-    //        speed_ = 0.3f;
-    //        IsStop_ = false;
-    //    }
-    //}
-
     //ジャンプ
     if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
     {
@@ -143,6 +127,21 @@ void Player::Command()
         //ジャンプフラグ
         IsJump_ = true;
     }
+
+    //停止する
+    //if (Input::IsKeyDown(DIK_F))
+    //{
+    //    if (!IsStop_)
+    //    {
+    //        speed_ = 0;
+    //        IsStop_ = true;
+    //    }
+    //    else
+    //    {
+    //        speed_ = 0.3f;
+    //        IsStop_ = false;
+    //    }
+    //}
 }
 
 void Player::InitBase()

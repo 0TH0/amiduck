@@ -52,17 +52,23 @@ void Controller::PlayerCamera()
 {
     Player* pPlayer = (Player*)FindObject("Player");
 
+    //プレイヤーの座標を入れておく
     transform_.position_ = pPlayer->GetPosition();
-
-    XMFLOAT3 move = { ZERO, ZERO, Move_ }; //移動距離
+    //移動距離
+    XMFLOAT3 move = { ZERO, ZERO, Move_ };
     XMVECTOR vMove = XMLoadFloat3(&move); //float->vector
-    XMFLOAT3 lrMove = { Move_, ZERO, ZERO };	//左右移動
+    //左右移動
+    XMFLOAT3 lrMove = { Move_, ZERO, ZERO };
     XMVECTOR vlrMove = XMLoadFloat3(&lrMove);
-    XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y)); //transform_.rotate_.yをラジアンに変換
-    XMVECTOR vPos = XMLoadFloat3(&transform_.position_); //現在位置をベクトルに変換
+    //transform_.rotate_.yをラジアンに変換
+    XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+    //現在位置をベクトルに変換
+    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     XMMATRIX xRotate = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-    xRotate *= mRotate;							//回転行列作成
-    vMove = XMVector3TransformCoord(vMove, mRotate); //ベクトルvMoveを行列mRotateで変形させる
+    //回転行列作成
+    xRotate *= mRotate;
+    //ベクトルvMoveを行列mRotateで変形させる
+    vMove = XMVector3TransformCoord(vMove, mRotate);
     vlrMove = XMVector3TransformCoord(vlrMove, mRotate);
 
     XMFLOAT3 cam = this->transform_.position_;

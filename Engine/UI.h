@@ -5,7 +5,7 @@ class UI : public GameObject
 {
 	int hPict_;
 	std::string fileName_;
-	bool shouldUseHitCursor_;
+	bool shouldUseHitCursor_;	//カーソルが当たった判定を使うか
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -25,8 +25,8 @@ public:
 
 	virtual void Load(std::string fileName);
 
+	//ゲーターセッター
 	int GetHandle() { return hPict_; };
-
 	void SetShouldUseHitCursor(bool flag) { shouldUseHitCursor_ = flag; };
 	bool GetShouldUseHitCursor() {return shouldUseHitCursor_;};
 };
