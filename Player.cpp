@@ -13,6 +13,7 @@
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
 #include "Engine/Color.h"
+#include "Manager/ElectricEffect.h"
 
 namespace
 {
@@ -74,7 +75,7 @@ void Player::Action()
 void Player::Command()
 {
     //アイテム使用
-    if (Input::IsKeyDown(DIK_E) && hasItem_)
+    if (Input::IsKeyDown(DIK_E))
     {
         Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
@@ -127,6 +128,12 @@ void Player::Command()
         //ジャンプフラグ
         IsJump_ = true;
     }
+
+    if (Input::IsKeyDown(DIK_3))
+    {
+        ElectricEffect::ElectricEffect(transform_.position_);
+    }
+
 
     //停止する
     //if (Input::IsKeyDown(DIK_F))
