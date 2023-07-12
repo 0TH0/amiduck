@@ -279,11 +279,6 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="Assets\Shader\Toon.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
     <FxCompile Include="Assets\Shader\WaterShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
