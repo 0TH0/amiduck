@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-float angle;
+float angle_;
 
 Transform::Transform(): pParent_(nullptr)
 {
@@ -58,17 +58,17 @@ void Transform::SetWorldMatrix(XMMATRIX mat)
 //‰~‰ñ“]
 XMFLOAT3 Transform::RotateAround(XMFLOAT3 center, float dis, float speed, bool right)
 {
-	angle += 3.14f / 180.f;
+	angle_ += 3.14f / 180.f;
 	//‰E‰ñ‚è‚¶‚á‚È‚¢‚È‚ç
 	if (!right)
 	{
-		center.x = dis * cos(angle * speed) + center.x;
-		center.z = dis * sin(angle * speed) + center.z;
+		center.x = dis * cos(angle_ * speed) + center.x;
+		center.z = dis * sin(angle_ * speed) + center.z;
 	}
 	else
 	{
-		center.z = dis * cos(angle * speed) + center.z;
-		center.x = dis * sin(angle * speed) + center.x;
+		center.z = dis * cos(angle_ * speed) + center.z;
+		center.x = dis * sin(angle_ * speed) + center.x;
 	}
 	return center;
 }

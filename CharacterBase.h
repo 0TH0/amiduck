@@ -28,12 +28,12 @@ protected:
     } status_;
 
     int hModel_[STATUS_MAX];              //モデル番号
-    float jump_v0;            //ジャンプの初速度
+    float jumpV0_;            //ジャンプの初速度
     float gravity;            //重力
-    float angle;              //角度
+    float angle_;              //角度
     XMFLOAT3 move_;           //初速度
-    bool IsJump;              //ジャンプしたか
-    bool IsGround;            //地面についているか
+    bool IsJump_;              //ジャンプしたか
+    bool IsGround_;            //地面についているか
     bool IsEnemy;             //敵に当たったか
     float speed_;             //移動速度
     float speedChange_;       //speedを変える

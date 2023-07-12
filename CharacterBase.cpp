@@ -5,10 +5,15 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 
+namespace
+{
+    static const float ROTATE_SPEED = 10.f;
+}
+
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
 	: GameObject(parent, name),pStage(nullptr), data(), prevPosition(), 
-      status_(EGG), jump_v0(),gravity(0),angle(0),move_(),speed_(0.3f),SpeedUpTime_(0),
-      IsJump(false), IsGround(false), IsEnemy(false), IsReturn_(false), IsSpeedUp_(false),IsRight_(false),IsLeft_(false),
+      status_(EGG), jumpV0_(0.2f),gravity(0.1f),angle_(0),move_(),speed_(0.3f),SpeedUpTime_(0),
+      IsJump_(false), IsGround_(false), IsEnemy(false), IsReturn_(false), IsSpeedUp_(false),IsRight_(false),IsLeft_(false),
       IsStop_(false), IsOnBridge_(false),
       delay_(0),StoppedTime_(0),hasItem_(0),speedChange_(0.2f)
 {
@@ -43,7 +48,7 @@ void CharacterBase::Update()
     switch (status_)
     {
     case EGG:
-        transform_.rotate_.z += 10;
+        transform_.rotate_.z += ROTATE_SPEED;
         break;
     case GROWN:
         transform_.rotate_ = XMFLOAT3(0, 180, 0);
@@ -52,33 +57,28 @@ void CharacterBase::Update()
         break;
     }
 
+    //動いていたら
     if (!IsStop_)
     {
-        ////ジャンプ中の重力
-        if (IsJump)
+        ////ジャンプ中
+        if (IsJump_)
         {
             //重力
             move_.y -= gravity;
             transform_.position_.y += move_.y;
         }
-        //ジャンプしてない時の重力
-        else
-        {
-            //重力
-            gravity = 0.1f;
-
-            //重力を加える
-            move_.y = -gravity;
-            transform_.position_.y += move_.y;
-        }
     }
 
+    //Ｙ座標制限
     if (transform_.position_.y <= 0.75f)
     {
         transform_.position_.y = 0.75f;
     }
 
+    //入力
     Command();
+
+    //行動
     Action();
 
     // 1フレーム前の座標
@@ -241,6 +241,7 @@ void CharacterBase::LadderLottery()
     }
 }
 
+//進む方向を向く
 void CharacterBase::RotateDirMove()
 {
 	//現在の位置ベクトル
@@ -266,7 +267,7 @@ void CharacterBase::RotateDirMove()
 		float dot = XMVectorGetX(vecDot);
 
 		//向いてる角度を求める（ラジアン）
-		float angle = acos(dot);
+		float angle_ = acos(dot);
 
 		//frontとmoveの外積を求める
 		XMVECTOR cross = XMVector3Cross(front, move);
@@ -274,10 +275,10 @@ void CharacterBase::RotateDirMove()
 		//外積の結果のYがマイナス　＝　下向き　＝　左に進んでる
 		if (XMVectorGetY(cross) < 0)
 		{
-			angle *= -1;
+			angle_ *= -1;
 		}
 
 		//そのぶん回転させる
-		transform_.rotate_.y = angle * PI_DEGREES / M_PI;
+		transform_.rotate_.y = angle_ * PI_DEGREES / M_PI;
 	}
 }

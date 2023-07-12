@@ -12,11 +12,20 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
+#include "Engine/Color.h"
+
+namespace
+{
+    static const float LINE_WIDTH = 0.1f;   //線の太さ
+    static const float DIF_LINE_POS = 0.5f; //線の位置誤差
+}
+
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_()
+    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.4f),IsStar_(false), starDelay_(0), 
+    starNum_(0),starAfterTime_(0)
 {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < MAX_LINE; i++)
     {
         pLine[i] = new PolyLine;
         pLine[i]->Load("Image\\tex_orange.png");
@@ -30,16 +39,19 @@ Player::~Player()
 
 void Player::Action()
 {
+    //スピードUP状態なら
     if (IsSpeedUp_)
     {
         SpeedUpTime_++;
-        speed_ = 0.4;
+        speed_ = speedUp_;
     }
+    //スピードUPしてから１秒経過したら
     if (SpeedUpTime_ > ONE_SECOND)
     {
         IsSpeedUp_ = false;
         SpeedUpTime_ = 0;
     }
+    //スターを取ってから１秒経過したら
     if (starDelay_ >= ONE_SECOND)
     {
         starDelay_ = 0;
@@ -48,13 +60,14 @@ void Player::Action()
     {
         starDelay_++;
     }
+    //スターを入手したら
     if (IsStar_)
     {
         starAfterTime_++;
     }
     else
     {
-        starAfterTime_ = ZERO;
+        starAfterTime_ = 0;
     }
 }
 
@@ -110,26 +123,25 @@ void Player::Command()
     //    }
     //}
 
-    /////////////////////////移動/////////////////////////
-    //ジャンプ中の重力
+    //ジャンプ
     if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
     {
         //効果音
         Audio::Play(hAudio_);
 
         //初速度
-        jump_v0 = 0.2;
+        //jump_v0 = 0.2;
         //重力
         gravity = 0.008f;
 
         //初速度を加える
-        move_.y = jump_v0;
+        move_.y = jumpV0_;
 
         //重力を加える
         move_.y += gravity;
 
         //ジャンプフラグ
-        IsJump = true;
+        IsJump_ = true;
     }
 }
 
@@ -179,16 +191,16 @@ void Player::DrawBase()
 
     if (IsSpeedUp_)
     {
-        float pos = -0.5f;
+        float pos = DIF_LINE_POS;
         for (int i = 0; i < MAX_LINE; i++)
         {
             Transform trans = transform_;
             trans.position_.z += pos;
             pLine[i]->AddPosition(trans.position_);
-            pLine[i]->SetWidth(0.1f);
-            pLine[i]->SetColor(XMFLOAT4(1, 1, 1, 0.9));
+            pLine[i]->SetWidth(LINE_WIDTH);
+            pLine[i]->SetColor(WHITE);
             pLine[i]->Draw();
-            pos += 0.5f;
+            pos -= DIF_LINE_POS;
         }
     }
 }

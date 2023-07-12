@@ -18,6 +18,17 @@ void UI::Initialize()
 //çXêV
 void UI::Update()
 {
+	if (shouldUseHitCursor_)
+	{
+		if (Image::IsHitCursor(hPict_))
+		{
+			Image::SetColor(hPict_, 0.7f, 0.7f, 0.7f);
+		}
+		else
+		{
+			Image::SetColor(hPict_, 1, 1, 1);
+		}
+	}
 }
 
 //ï`âÊ

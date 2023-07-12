@@ -5,6 +5,7 @@ class UI : public GameObject
 {
 	int hPict_;
 	std::string fileName_;
+	bool shouldUseHitCursor_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -25,4 +26,7 @@ public:
 	virtual void Load(std::string fileName);
 
 	int GetHandle() { return hPict_; };
+
+	void SetShouldUseHitCursor(bool flag) { shouldUseHitCursor_ = flag; };
+	bool GetShouldUseHitCursor() {return shouldUseHitCursor_;};
 };

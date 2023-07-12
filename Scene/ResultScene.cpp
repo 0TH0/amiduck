@@ -40,6 +40,11 @@ void ResultScene::Initialize()
 		pUI[i]->SetScale(scale * 1.1f, scale, scale);
 	};
 
+	for (int i = (int)ResultScene::UIName::FINISH; i < (int)ResultScene::UIName::UI_MAX - 1; i++)
+	{
+		pUI[i]->SetShouldUseHitCursor(true);
+	};
+
 	//UI‚ÌˆÊ’u
 	pUI[(int)UIName::FINISH]->SetPosition(0, -0.8, 0);
 	pUI[(int)UIName::RETRY]->SetPosition(0, 0, 0);
@@ -68,29 +73,6 @@ void ResultScene::Update()
 			pSceneManager->ChangeScene(SCENE_ID_TITLE);
 			break;
 		}
-	}
-	switch (UIName_)
-	{
-	case ResultScene::UIName::UI_MAX:
-		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
-		break;
-	case ResultScene::UIName::FINISH:
-		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
-		break;
-	case ResultScene::UIName::RETRY:
-		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle());
-		break;
-	case ResultScene::UIName::BACK_TITLE:
-		Image::SetColor(pUI[(int)UIName::BACK_TITLE]->GetHandle(), 0.7f, 0.7f, 0.7f);
-		Image::SetColor(pUI[(int)UIName::RETRY]->GetHandle());
-		Image::SetColor(pUI[(int)UIName::FINISH]->GetHandle());
-		break;
 	}
 
 	//ƒvƒŒƒC‰æ–Ê

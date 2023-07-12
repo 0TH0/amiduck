@@ -18,6 +18,7 @@ class Player : public CharacterBase
     int starNum_;
     int starAfterTime_;
     int starDelay_;
+    float speedUp_;
     bool IsStar_;
 
 public:
