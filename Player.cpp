@@ -162,10 +162,6 @@ void Player::InitBase()
     hAudio_ = Audio::Load("Audio\\Jump.wav");
     assert(hAudio_ >= 0);
 
-    //à íu
-    transform_.rotate_ = XMFLOAT3(0, 180, 0);
-    transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
-
     //ìñÇΩÇËîªíË
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
@@ -173,7 +169,7 @@ void Player::InitBase()
     Instantiate<Controller>(this);
 
     //ç≈èâÇÕóëÇ©ÇÁ
-    status_ = EGG;
+    status_ = GROWN;
 }
 
 void Player::DrawBase()
@@ -188,7 +184,7 @@ void Player::DrawBase()
         Model::Draw(hModel_[EGG]);
         break;
     case GROWN:
-        Model::SetOutLineDrawFlag(hModel_[GROWN], true);
+        //Model::SetOutLineDrawFlag(hModel_[GROWN], true);
         Model::Draw(hModel_[GROWN]);
         break;
     default:
