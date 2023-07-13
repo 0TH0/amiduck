@@ -129,10 +129,10 @@ void Player::Command()
         IsJump_ = true;
     }
 
-    if (Input::IsKeyDown(DIK_3))
-    {
-        ElectricEffect::ElectricEffect(transform_.position_);
-    }
+    //if (Input::IsKeyDown(DIK_3))
+    //{
+    //    ElectricEffect::ElectricEffect(transform_.position_);
+    //}
 
 
     //í‚é~Ç∑ÇÈ
