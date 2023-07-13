@@ -260,7 +260,7 @@ void CharacterBase::RotateDirMove()
 		move = XMVector3Normalize(move);
 
 		//Šî€‚Æ‚È‚é‰œŒü‚«‚ÌƒxƒNƒgƒ‹
-		XMVECTOR front = { 0, 0, 1, 0 };
+		XMVECTOR front = { -1, 0, 0, 0 };
 
 		//front‚Æmove‚Ì“àÏ‚ğ‹‚ß‚é
 		XMVECTOR vecDot = XMVector3Dot(front, move);

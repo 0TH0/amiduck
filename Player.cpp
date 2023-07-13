@@ -23,7 +23,7 @@ namespace
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.4f),IsStar_(false), starDelay_(0), 
+    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.8f),IsStar_(false), starDelay_(0), 
     starNum_(0),starAfterTime_(0)
 {
     for (int i = 0; i < MAX_LINE; i++)
@@ -75,7 +75,7 @@ void Player::Action()
 void Player::Command()
 {
     //アイテム使用
-    if (Input::IsKeyDown(DIK_E))
+    if (Input::IsKeyDown(DIK_E) && hasItem_)
     {
         Item* pItem = (Item*)FindObject("Item");
         switch (pItem->GetItem())
@@ -162,6 +162,8 @@ void Player::InitBase()
     hAudio_ = Audio::Load("Audio\\Jump.wav");
     assert(hAudio_ >= 0);
 
+    transform_.scale_ = XMFLOAT3(0.4f, 0.4f,0.4f);
+
     //当たり判定
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
@@ -169,7 +171,7 @@ void Player::InitBase()
     Instantiate<Controller>(this);
 
     //最初は卵から
-    status_ = GROWN;
+    status_ = EGG;
 }
 
 void Player::DrawBase()
@@ -184,7 +186,7 @@ void Player::DrawBase()
         Model::Draw(hModel_[EGG]);
         break;
     case GROWN:
-        //Model::SetOutLineDrawFlag(hModel_[GROWN], true);
+        Model::SetOutLineDrawFlag(hModel_[GROWN], true);
         Model::Draw(hModel_[GROWN]);
         break;
     default:
