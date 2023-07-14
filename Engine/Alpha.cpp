@@ -1,7 +1,7 @@
 #include "Alpha.h"
 #include "Model.h"
 
-Alpha::Alpha() : time_(0),alpha_(256),frame_(0),IsFlash_(false)
+Alpha::Alpha() : time_(0),alpha_(256),frameCount_(0),IsFlash_(false)
 {
 }
 
@@ -9,13 +9,13 @@ Alpha::~Alpha()
 {
 }
 
-void Alpha::FlashModel(int frame)
+void Alpha::FlashModel(int frame_)
 {
 	if (IsFlash_)
 	{
 		time_++;
 
-		if (time_ % frame == 0)
+		if (time_ % frame_ == 0)
 		{
 			alpha_ = 1.f;
 		}
@@ -32,7 +32,7 @@ void Alpha::FlashModel(int frame)
 	}
 }
 
-void Alpha::FlashImage(int frame)
+void Alpha::FlashImage(int frame_)
 {
 	if (alpha_ >= 256)
 	{
@@ -53,7 +53,7 @@ void Alpha::FlashImage(int frame)
 	}
 }
 
-void Alpha::FlashImage2(int frame)
+void Alpha::FlashImage2(int frame_)
 {
 	time_++;
 
@@ -72,7 +72,7 @@ void Alpha::SetIsFlash(bool IsFlash)
 	IsFlash_ = IsFlash;
 }
 
-void Alpha::FadeOutImage(float frame)
+void Alpha::FadeOutImage(float frame_)
 {
 	if (alpha_ <= 0)
 	{
@@ -80,11 +80,11 @@ void Alpha::FadeOutImage(float frame)
 	}
 	else
 	{
-		alpha_ -= frame;
+		alpha_ -= frame_;
 	}
 }
 
-void Alpha::FadeInImage(float frame)
+void Alpha::FadeInImage(float frame_)
 {
 	if (alpha_ <= 0)
 	{
@@ -92,6 +92,6 @@ void Alpha::FadeInImage(float frame)
 	}
 	else
 	{
-		alpha_ -= frame;
+		alpha_ -= frame_;
 	}
 }

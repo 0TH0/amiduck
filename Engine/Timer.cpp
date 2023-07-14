@@ -9,7 +9,7 @@ namespace
 
 //コンストラクタ
 Timer::Timer(GameObject* parent)
-	: GameObject(parent, "Timer"),frame_(0), rimit_(0),pText_(),scale_(3.f)
+	: GameObject(parent, "Timer"),frameCount_(0), rimit_(0),pText_(),scale_(3.f)
 {
 }
 
@@ -24,10 +24,10 @@ void Timer::Initialize()
 //更新
 void Timer::Update()
 {
-	frame_++;
+	frameCount_++;
 
 	//一秒毎に
-	if (frame_ % ONE_SECOND == ZERO && rimit_ > ZERO)
+	if (frameCount_ % ONE_SECOND == ZERO && rimit_ > ZERO)
 	{
 		rimit_--;
 	}

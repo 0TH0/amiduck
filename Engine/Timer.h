@@ -7,7 +7,7 @@ class Timer : public GameObject
 {
 	Text* pText_;
 	float scale_;
-	unsigned int frame_;	//何フレーム経ったか
+	unsigned int frameCount_;	//何フレーム経ったか
 	unsigned int rimit_;	//残り時間
 	std::string minStr_;	//残り分
 	std::string secStr_;	//残り秒

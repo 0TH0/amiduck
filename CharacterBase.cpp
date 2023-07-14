@@ -120,12 +120,13 @@ void CharacterBase::LadderLottery()
             IsReturn_ = false;
         }
     }
-
+    //–ß‚Á‚Ä‚­‚é
     if (transform_.position_.x <= 0)
     {
         IsReturn_ = false;
     }
 
+    //–ß‚é
     if (IsReturn_)
     {
         transform_.position_.x -= speed_;

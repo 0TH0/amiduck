@@ -13,7 +13,6 @@
 #include "Engine/Text.h"
 #include "Engine/Audio.h"
 #include "Engine/Color.h"
-#include "Manager/ElectricEffect.h"
 
 namespace
 {
@@ -23,7 +22,7 @@ namespace
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.8f),IsStar_(false), starDelay_(0), 
+    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.5f),IsStar_(false), starDelay_(0), 
     starNum_(0),starAfterTime_(0)
 {
     for (int i = 0; i < MAX_LINE; i++)
@@ -129,12 +128,6 @@ void Player::Command()
         IsJump_ = true;
     }
 
-    //if (Input::IsKeyDown(DIK_3))
-    //{
-    //    ElectricEffect::ElectricEffect(transform_.position_);
-    //}
-
-
     //停止する
     //if (Input::IsKeyDown(DIK_F))
     //{
@@ -230,6 +223,7 @@ void Player::OnCollision(GameObject* pTarget)
         pSceneManager->ChangeScene(SCENE_ID_RESULT);
     }
 
+    //星に当たったら
     if (pTarget->GetObjectName() == "Star")
     {
         if (starDelay_ == 0)

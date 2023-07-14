@@ -11,19 +11,22 @@
 class EnemyBase : public GameObject
 {
 protected:
-    Player* pPlayer_;
-    int hModel_;
-    int count_;
-    Astar AI_;
-    bool CanMove_;
-    int totalCell;
-    int frame; //何フレーム毎に進むか
-    XMVECTOR v;
+    int hModel_;        //モデル番号
+    int frameCount_;    //フレーム計測
+    Astar AI_;          //AI
+    bool CanMove_;      //動いていいか
+    int totalCell;      //合計セル
+    int frame_;         //何フレーム毎に進むか
+    XMVECTOR v;         //移動ベクトル
+    Player* pPlayer_;   //プレイヤー
 
-
-    virtual void Action() = 0;
+    //各行動
+    virtual void Action() = 0;      
+    //各初期化
     virtual void InitBase() = 0;
+    //各色変更
     virtual void ChangeColor() = 0;
+    //各解放
     virtual void ReleaseBase() = 0;
 
 public:
@@ -45,7 +48,9 @@ public:
     //開放
     void Release() override;
 
+    //目的に向かって動く
     void Move();
 
+    //経路探索
     void Search(CELL goal);
 };

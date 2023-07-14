@@ -3,6 +3,7 @@
 
 namespace EnemyEffect
 {
+    //敵のエフェクト
     void EnemyEffect(XMFLOAT3 pos, XMFLOAT4 color)
     {
         EmitterData data;

@@ -4,16 +4,16 @@
 
 namespace
 {
-    static const int ROTATE_SPEED = 5;
-    static const float DIF_GOAL = 0.3f;
-    static const float POSY = 1.5f;
-    static const float LERP = 0.2f;
-    static const float RADIUS = 0.5f;
+    static const int ROTATE_SPEED = 5;      //回転速度
+    static const float DIF_GOAL = 0.3f;     //目的地までの誤差調整
+    static const float POSY = 1.5f;         //Y座標
+    static const float LERP = 0.2f;         //補間する値
+    static const float RADIUS = 0.5f;       //当たり判定サイズ
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
-    : GameObject(parent, name), hModel_(-1),frame(7), pPlayer_(),count_(0),
-      AI_(),CanMove_(false),totalCell(0),v()
+    : GameObject(parent, name), hModel_(-1),frame_(7),frameCount_(0),
+      AI_(),CanMove_(false),totalCell(0),v(),pPlayer_(nullptr)
 {
 }
 
@@ -29,6 +29,7 @@ void EnemyBase::Initialize()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), RADIUS);
     AddCollider(collision);
 
+    //初期化
     InitBase();
 }
 
@@ -49,12 +50,14 @@ void EnemyBase::Update()
     //回転
     transform_.rotate_.y += ROTATE_SPEED;
 
+    //各行動
     Action();
 }
 
 void EnemyBase::Draw()
 {
     Model::SetTransform(hModel_, transform_);
+    //各色変更
     ChangeColor();
     Model::Draw(hModel_);
 }
@@ -66,17 +69,21 @@ void EnemyBase::Release()
 
 void EnemyBase::Move()
 {
+    //目的地に着いていない場合
     if (CanMove_ && totalCell >= ZERO)
     {
+        //目的地までのベクトル
         v = { (float)AI_.GetToGoalCell(totalCell).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell).z + DIF_GOAL, 0 };
 
+        //線形補間
         XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, LERP));
     }
 }
 
 void EnemyBase::Search(CELL goal)
 {
-    if (count_ > frame)
+    //フレームがフレームカウントを超えたら
+    if (frameCount_ > frame_)
     {
         int PlayerPosX = (int)pPlayer_->GetPosition().x;
         int PlayerPosZ = (int)pPlayer_->GetPosition().z;
@@ -86,8 +93,7 @@ void EnemyBase::Search(CELL goal)
             totalCell = AI_.GetToGoalTotalCell();
             CanMove_ = true;
         }
-
-        count_ = ZERO;
+        frameCount_ = 0;
     }
-    count_++;
+    frameCount_++;
 }

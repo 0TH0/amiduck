@@ -5,23 +5,23 @@ class Alpha
 public:
 	int time_;	//時間
 	int alpha_;	//透明度
-	int frame_;	//何フレーム毎に点滅させるか
+	int frameCount_;	//何フレーム毎に点滅させるか
 	bool IsFlash_;	//フラッシュさせるか
 	
 	Alpha();
 	~Alpha();
 
-	void FlashModel(int frame);
+	void FlashModel(int frame_);
 
-	void FlashImage(int frame);
+	void FlashImage(int frame_);
 
-	void FlashImage2(int frame);
+	void FlashImage2(int frame_);
 
 	void SetIsFlash(bool IsFlash);
 
-	void FadeOutImage(float frame = 0.05f);
+	void FadeOutImage(float frame_ = 0.05f);
 
-	void FadeInImage(float frame = 0.05f);
+	void FadeInImage(float frame_ = 0.05f);
 
 	bool GetIsFlash() { return IsFlash_; };
 

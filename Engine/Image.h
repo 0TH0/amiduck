@@ -103,12 +103,12 @@ namespace Image
 	//ˆø”Fb@Â
 	void SetColor(int handle, float r = 1.f, float g = 1.f, float b = 1.f);
 
-	void FlashImage(int handle, int frame = 5);
+	void FlashImage(int handle, int frame_ = 5);
 
-	void FlashImage2(int handle, int frame = 5);
+	void FlashImage2(int handle, int frame_ = 5);
 
-	void FadeInImage(int handle, float frame = 0.05f);
-	void FadeoutImage(int handle, float frame = 0.05f);
+	void FadeInImage(int handle, float frame_ = 0.05f);
+	void FadeoutImage(int handle, float frame_ = 0.05f);
 
 	int GetTime(int handle);
 

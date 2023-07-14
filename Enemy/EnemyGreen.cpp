@@ -11,9 +11,11 @@ EnemyGreen::~EnemyGreen()
 
 void EnemyGreen::Action()
 {
+    //エフェクト
     EnemyEffect::EnemyEffect(transform_.position_, GREEN);
     Move();
 
+    //最短ノードが空か(なかったら目的地についてる)
     if (!AI_.GetExistMinNode())
     {
         randX_ = rand() % STAGE_SIZE_X + 1;

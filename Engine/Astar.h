@@ -120,6 +120,7 @@ public:
     //引数：何番目のマス
     CELL GetToGoalCell(int num);
 
+    //最短ノードが空か(なかったら目的地についてる)
     bool GetExistMinNode()
     {
         if (minNode == nullptr)

@@ -11,6 +11,7 @@ EnemyRed::~EnemyRed()
 
 void EnemyRed::Action()
 {
+    //エフェクト
     EnemyEffect::EnemyEffect(transform_.position_, RED);
 
     Move();

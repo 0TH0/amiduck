@@ -11,6 +11,7 @@ EnemyBlue::~EnemyBlue()
 
 void EnemyBlue::Action()
 {
+    //エフェクト
     EnemyEffect::EnemyEffect(transform_.position_, BLUE);
     //プレイヤーと青の距離が30以下なら
     IsPlayerNear_ = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
