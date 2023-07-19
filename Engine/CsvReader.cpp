@@ -48,7 +48,6 @@ bool CsvReader::Load(std::string fileName)
 	DWORD dwBytes = 0;
 	if (ReadFile(hFile, temp, fileSize, &dwBytes, NULL))
 	{
-
 		//開いたファイルを閉じる
 		CloseHandle(hFile);
 
@@ -70,18 +69,14 @@ bool CsvReader::Load(std::string fileName)
 			{
 				//_dataに1行分追加
 				data_.push_back(line);
-
 				//1行データをクリア
 				line.clear();
-
 				//index++;
 				continue;
 			}
-
 			//1行分のデータに追加
 			line.push_back(val);
 		}
-
 		//読み込んだデータは開放する
 		delete[] temp;
 	}
