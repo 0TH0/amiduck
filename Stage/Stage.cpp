@@ -90,6 +90,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
+            //stage_[x][z].type = csv->GetValue(x, z);
             stage_[x][z].type = stageData[z][x];
         }
     }

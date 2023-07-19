@@ -14,7 +14,7 @@ namespace
     static const int   MAX_TIME = 200;
     static const float SPEED = 10.f;
     static const float DIS  = 7.f;
-    static const float RADIUS = 1.f;
+    static const float CENTER = 1.f;
 }
 
 //コンストラクタ
@@ -35,7 +35,7 @@ void RotateAroundBall::Initialize()
     assert(hModel_ >= ZERO);
 
     //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), RADIUS);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), CENTER);
     AddCollider(collision);
 
     pLine_ = new PolyLine;

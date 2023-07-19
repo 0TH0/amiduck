@@ -8,7 +8,7 @@ namespace
     static const float DIF_GOAL = 0.3f;     //目的地までの誤差調整
     static const float POSY = 1.5f;         //Y座標
     static const float LERP = 0.2f;         //補間する値
-    static const float RADIUS = 0.5f;       //当たり判定サイズ
+    static const float CENTER = 0.5f;       //当たり判定サイズ
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
@@ -26,7 +26,7 @@ void EnemyBase::Initialize()
     hModel_ = Model::Load("Model\\fire.fbx");
 
     //当たり判定
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), RADIUS);
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
     AddCollider(collision);
 
     //初期化
