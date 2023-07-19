@@ -46,43 +46,45 @@ bool CsvReader::Load(std::string fileName)
 
 	//ファイルの中身を配列に読み込む
 	DWORD dwBytes = 0;
-	ReadFile(hFile, temp, fileSize, &dwBytes, NULL);
-
-	//開いたファイルを閉じる
-	CloseHandle(hFile);
-
-	//1行のデータを入れる配列
-	std::vector<std::string>	line;
-
-	//調べる文字の位置
-	DWORD index = 0;
-
-	//最後の文字まで繰り返す
-	while (index < fileSize)
+	if (ReadFile(hFile, temp, fileSize, &dwBytes, NULL))
 	{
-		//index文字目から「,」か「改行」までの文字列を取得
-		std::string val;
-		GetToComma(&val, temp, &index);
 
-		//文字数が0だったということは行末
-		if (val.length() - 1 == 0)
+		//開いたファイルを閉じる
+		CloseHandle(hFile);
+
+		//1行のデータを入れる配列
+		std::vector<std::string>	line;
+
+		//調べる文字の位置
+		DWORD index = 0;
+
+		//最後の文字まで繰り返す
+		while (index < fileSize)
 		{
-			//_dataに1行分追加
-			data_.push_back(line);
+			//index文字目から「,」か「改行」までの文字列を取得
+			std::string val;
+			GetToComma(&val, temp, &index);
 
-			//1行データをクリア
-			line.clear();
+			//文字数が0だったということは行末
+			if (val.length() - 1 == 0)
+			{
+				//_dataに1行分追加
+				data_.push_back(line);
 
-			//index++;
-			continue;
+				//1行データをクリア
+				line.clear();
+
+				//index++;
+				continue;
+			}
+
+			//1行分のデータに追加
+			line.push_back(val);
 		}
 
-		//1行分のデータに追加
-		line.push_back(val);
+		//読み込んだデータは開放する
+		delete[] temp;
 	}
-
-	//読み込んだデータは開放する
-	delete[] temp;
 
 	//成功
 	return true;
