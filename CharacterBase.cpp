@@ -12,16 +12,11 @@ namespace
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
 	: GameObject(parent, name),pStage(nullptr), data(), prevPosition(), 
-      status_(EGG), jumpV0_(0.2f),gravity(0.1f),angle_(0),move_(),speed_(0.3f),SpeedUpTime_(0),
+      jumpV0_(0.2f),gravity(0.1f),angle_(0),move_(),speed_(0.3f),SpeedUpTime_(0),
       IsJump_(false), IsGround_(false), IsEnemy(false), IsReturn_(false), IsSpeedUp_(false),IsRight_(false),IsLeft_(false),
       IsStop_(false), IsOnBridge_(false),
       delay_(0),StoppedTime_(0),hasItem_(0),speedChange_(0.2f)
 {
-    for (int i = 0; i < Status::STATUS_MAX; i++)
-    {
-        hModel_[i] = -1;
-    }
-
     for (int i = 0; i < DIR_MAX; i++)
     {
         SpeedOnWood_[i] = 0;
@@ -44,18 +39,9 @@ void CharacterBase::Initialize()
 void CharacterBase::Update()
 {
     pStage = (Stage*)FindObject("Stage");
-
-    switch (status_)
-    {
-    case EGG:
-        transform_.rotate_.z += ROTATE_SPEED;
-        break;
-    case GROWN:
-        transform_.rotate_ = XMFLOAT3(0, 180, 0);
-        break;
-    default:
-        break;
-    }
+    
+    //“]‚ª‚·
+    transform_.rotate_.z += ROTATE_SPEED;
 
     //“®‚¢‚Ä‚¢‚½‚ç
     if (!IsStop_)
@@ -163,18 +149,7 @@ void CharacterBase::LadderLottery()
             IsOnBridge_ = false;
             delay_ = 0;
             SpeedOnWood_[R] = 0;
-
-            switch (status_)
-            {
-            case EGG:
-                speed_ = speedChange_;
-                break;
-            case GROWN:
-                speed_ = speedChange_ * 2;
-                break;
-            default:
-                break;
-            }
+            speed_ = speedChange_;
         }
         else
         {
@@ -220,18 +195,7 @@ void CharacterBase::LadderLottery()
                 delay_ = 0;
                 StoppedTime_ = 0;
                 SpeedOnWood_[L] = 0;
-
-                switch (status_)
-                {
-                case EGG:
-                    speed_ = speedChange_;
-                    break;
-                case GROWN:
-                    speed_ = speedChange_ * 2;
-                    break;
-                default:
-                    break;
-                }
+                speed_ = speedChange_;
             }
             else
             {

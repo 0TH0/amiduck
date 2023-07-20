@@ -99,11 +99,11 @@ void Stage::Initialize()
     //ランダムなステージを出すか
     if (ShouldPopRandStage_) RandStage();
 
+    //各初期化
     for (int x = 0; x < STAGE_SIZE_X; x++)
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            //プレイヤー登場
             if (stage_[x][z].type == PLAYER)
             {
                 Player* pPlayer = Instantiate<Player>(GetParent());
@@ -182,6 +182,7 @@ void Stage::Draw()
                 Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
                 Direct3D::SetShader(Direct3D::SHADER_3D);
 
+                //ステージ情報毎に処理
                 switch (stage_[x][z].type)
                 {
                 case EMPTY:
@@ -209,7 +210,6 @@ void Stage::Draw()
                 //何もしない
                 case CORNER:
                     break;
-
                 default:
                     transform_.rotate_ = XMFLOAT3(90, 90, 0);
                     Model::SetTransform(hModel_[LOG], transform_);
@@ -460,7 +460,7 @@ void Stage::RandStage()
     //マップの自動生成
     while(bridgeCount_ < MAX_RAND_BRIDGE)
     {
-        int randX = (rand() % STAGE_SIZE_X - bridgeRimit_);
+        int randX = rand() % (STAGE_SIZE_X - bridgeRimit_);
         int randZ = (rand() % STAGE_SIZE_Z - bridgeRimit_);
 
         if (randZ == 27 || randZ == 21 || randZ == 15 || randZ == 9)

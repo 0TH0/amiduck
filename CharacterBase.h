@@ -19,15 +19,7 @@ protected:
         DIR_MAX
     };
 
-    //プレイヤーの状態
-    enum Status
-    {
-        EGG = 0,    //卵
-        GROWN,      //成長した
-        STATUS_MAX
-    } status_;
-
-    int hModel_[STATUS_MAX];              //モデル番号
+    int hModel_;              //モデル番号
     float jumpV0_;            //ジャンプの初速度
     float gravity;            //重力
     float angle_;              //角度

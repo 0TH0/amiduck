@@ -146,11 +146,8 @@ void Player::Command()
 
 void Player::InitBase()
 {
-    hModel_[EGG] = Model::Load("Model\\Player\\egg.fbx");
-    assert(hModel_[EGG] >= 0);
-
-    hModel_[GROWN] = Model::Load("Model\\Player\\duck.fbx");
-    assert(hModel_[GROWN] >= 0);
+    hModel_ = Model::Load("Model\\Player\\egg.fbx");
+    assert(hModel_ >= 0);
 
     hAudio_ = Audio::Load("Audio\\Jump.wav");
     assert(hAudio_ >= 0);
@@ -161,30 +158,15 @@ void Player::InitBase()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.5f, 0), 0.5f);
     AddCollider(collision);
 
+    //プレイヤーのコントローラー
     Instantiate<Controller>(this);
-
-    //最初は卵から
-    status_ = EGG;
 }
 
 void Player::DrawBase()
 {
-    Model::SetTransform(hModel_[EGG], transform_);
-    Model::SetTransform(hModel_[GROWN], transform_);
-
-    switch (status_)
-    {
-    case EGG:
-        Model::SetOutLineDrawFlag(hModel_[EGG], true);
-        Model::Draw(hModel_[EGG]);
-        break;
-    case GROWN:
-        Model::SetOutLineDrawFlag(hModel_[GROWN], true);
-        Model::Draw(hModel_[GROWN]);
-        break;
-    default:
-        break;
-    }
+    Model::SetTransform(hModel_, transform_);
+    Model::SetOutLineDrawFlag(hModel_, true);
+    Model::Draw(hModel_);
 
     if (IsSpeedUp_)
     {

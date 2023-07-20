@@ -21,9 +21,10 @@ void EnemyBlue::Action()
         Move();
     }
 
-    int PlayerPosX = (int)pPlayer_->GetPosition().x;
-    int PlayerPosZ = (int)pPlayer_->GetPosition().z;
-
+    //プレイヤーの位置を四捨五入
+    int PlayerPosX = round(pPlayer_->GetPosition().x);
+    int PlayerPosZ = round(pPlayer_->GetPosition().z);
+    
     Search({ PlayerPosX, PlayerPosZ });
 }
 
