@@ -3,9 +3,14 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Input.h"
 #include "../Engine/UI.h"
+#include "../Image/Board.h"
 
-static SceneManager* pSceneManager;
-static UI* pUI[(int)TitleScene::UIName::UI_MAX];
+namespace
+{
+	static SceneManager* pSceneManager;
+	static UI* pUI[(int)TitleScene::UIName::UI_MAX];
+	static Board* pBoard;
+}
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
@@ -30,6 +35,8 @@ void TitleScene::Initialize()
 		pUI[i]->Load(fn);
 	};
 
+	pBoard = Instantiate<Board>(this);
+
 	//UIの位置
 	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
 	pUI[(int)UIName::TUTORIAL]->SetPosition(-0.4f, -0.4f, 0);
@@ -42,7 +49,7 @@ void TitleScene::Update()
 	if (Input::IsMouseButtonDown(Input::LEFT))
 	{
 		pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+		pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
 
 		switch (UIName_)
 		{
@@ -50,7 +57,7 @@ void TitleScene::Update()
 			break;
 		case TitleScene::UIName::PLAY:
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
-			pSceneManager->ChangeScene(SCENE_ID_PLAY);
+			pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
 			break;
 		}
 	}
@@ -79,6 +86,9 @@ void TitleScene::Update()
 //描画
 void TitleScene::Draw()
 {
+	//ボード
+	pBoard->BoardDraw();
+	//タイトル
 	for (int i = (int)TitleScene::UIName::TITLE; i < (int)TitleScene::UIName::UI_MAX; i++)
 	{
 		Image::Draw(pUI[i]->GetHandle());

@@ -29,4 +29,5 @@ public:
 	int GetHandle() { return hPict_; };
 	void SetShouldUseHitCursor(bool flag) { shouldUseHitCursor_ = flag; };
 	bool GetShouldUseHitCursor() {return shouldUseHitCursor_;};
+	void SetUIPosition(XMFLOAT3 pos) { transform_.position_ = pos; };
 };

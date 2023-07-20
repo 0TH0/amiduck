@@ -159,6 +159,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\UI.cpp" />
+    <ClCompile Include="Image\Board.cpp" />
     <ClCompile Include="Image\Instructions.cpp" />
     <ClCompile Include="Image\Line.cpp" />
     <ClCompile Include="Item\Bomb.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\TestScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Scene\TutorialScece.cpp" />
     <ClCompile Include="Stage\Stage.cpp" />
     <ClCompile Include="Stage\Water.cpp" />
   </ItemGroup>
@@ -221,6 +223,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\UI.h" />
+    <ClInclude Include="Image\Board.h" />
     <ClInclude Include="Image\Instructions.h" />
     <ClInclude Include="Image\Line.h" />
     <ClInclude Include="Item\Bomb.h" />
@@ -244,6 +247,7 @@
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\TestScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Scene\TutorialScece.h" />
     <ClInclude Include="Stage\Stage.h" />
     <ClInclude Include="Stage\Water.h" />
   </ItemGroup>

@@ -4,9 +4,14 @@
 #include "../Engine/Input.h"
 #include "../Engine/UI.h"
 #include "../Observer/ResultObserver.h"
+#include "../Image/Board.h"
 
-static SceneManager* pSceneManager;
-static UI* pUI[(int)ResultScene::UIName::UI_MAX];
+namespace
+{
+	static SceneManager* pSceneManager;
+	static UI* pUI[(int)ResultScene::UIName::UI_MAX];
+	static Board* pBoard;
+}
 
 //コンストラクタ
 ResultScene::ResultScene(GameObject* parent)
@@ -46,16 +51,19 @@ void ResultScene::Initialize()
 	};
 
 	//UIの位置
-	pUI[(int)UIName::FINISH]->SetPosition(0, -0.8, 0);
-	pUI[(int)UIName::RETRY]->SetPosition(0, 0, 0);
-	pUI[(int)UIName::BACK_TITLE]->SetPosition(0, -0.4f, 0);
-	pUI[(int)UIName::RESULT]->SetPosition(0, 0.2f, 0);
+	pUI[(int)UIName::RESULT]->SetPosition(0, 0.175f, 0);
+
+	pUI[(int)UIName::RETRY]->SetPosition(0, 0.15, 0);
+	pUI[(int)UIName::BACK_TITLE]->SetPosition(0, -0.25f, 0);
+	pUI[(int)UIName::FINISH]->SetPosition(0, -0.65, 0);
+
+	pBoard = Instantiate<Board>(this);
 }
 
 //更新
 void ResultScene::Update()
 {
-	if (Input::IsMouseButtonDown(0))
+	if (Input::IsMouseButtonDown(Input::LEFT))
 	{
 		switch (UIName_)
 		{
@@ -109,6 +117,9 @@ void ResultScene::Update()
 //描画
 void ResultScene::Draw()
 {
+	//ボード
+	pBoard->BoardDraw();
+	//勝敗と各種ボタン
 	for (int i = (int)ResultScene::UIName::FINISH; i < (int)ResultScene::UIName::UI_MAX; i++)
 	{
 		Image::Draw(pUI[i]->GetHandle());
