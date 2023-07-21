@@ -1,7 +1,6 @@
 #include "EnemyBase.h"
 #include "../Engine/Collider.h"
 #include "../Engine/Model.h"
-#include "../Engine/Timer.h"
 
 namespace
 {
@@ -77,7 +76,7 @@ void EnemyBase::Move()
         v_ = { (float)AI_.GetToGoalCell(totalCell_).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell_).z + DIF_GOAL, 0 };
 
         //ê¸å`ï‚ä‘
-        XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v_, LERP));
+        transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), v_, LERP));
     }
 }
 
