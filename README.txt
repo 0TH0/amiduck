@@ -39,7 +39,7 @@ https://clipchamp.com/watch/mSqPpweCg7l
 
 ●こだわり
 ・Astar法によってキャラクターを追う敵を実装した
-.EnemyBaseを継承してEnemyRed,EnemyBlueクラスなどを実装した
+・EnemyBaseを継承してEnemyRed,EnemyBlueクラスなどを実装した
 ・橋を出す位置が分かりやすいように透明の橋を表示させた
 ・シェーダーでノーマルマップを実装した
 ・あみだくじに沿って進むキャラクターAIを実装した
