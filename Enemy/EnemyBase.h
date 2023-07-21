@@ -19,7 +19,6 @@ protected:
     int frameMove_;     //何フレーム毎に進むか
     XMVECTOR v;         //移動ベクトル
     Player* pPlayer_;   //プレイヤー
-    Transform trans_;   //実際のトランスフォーム
 
     //各行動
     virtual void Action() = 0;      

@@ -57,7 +57,7 @@ void EnemyBase::Update()
 
 void EnemyBase::Draw()
 {
-    Model::SetTransform(hModel_, trans_);
+    Model::SetTransform(hModel_, transform_);
     //各色変更
     ChangeColor();
     Model::Draw(hModel_);
@@ -70,8 +70,6 @@ void EnemyBase::Release()
 
 void EnemyBase::Move()
 {
-    //実際の座標
-    trans_.position_ = { transform_.position_.x - DIF_GOAL, transform_.position_.y, transform_.position_.z - DIF_GOAL };
     //目的地に着いていない場合
     if (CanMove_ && totalCell >= ZERO)
     {
