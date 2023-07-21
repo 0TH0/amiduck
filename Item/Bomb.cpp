@@ -2,7 +2,7 @@
 #include "../Engine/Model.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Input.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Manager/BombEffect.h"
 
 namespace

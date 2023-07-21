@@ -1,6 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Engine/Text.h"
 #include "ItemBox.h"
 

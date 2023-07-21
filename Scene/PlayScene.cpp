@@ -1,7 +1,7 @@
 #include "PlayScene.h"
 #include "../Stage/Stage.h"
 #include "../Image/Instructions.h"
-#include "../Controller.h"
+#include "../Player/Controller.h"
 #include "../Stage/Water.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"

@@ -7,7 +7,7 @@
 #include "../Engine/SphereCollider.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Color.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 
 namespace
 {

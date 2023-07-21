@@ -1,7 +1,7 @@
 #include "GameManager.h"
 #include "../Item/Star.h"
 #include "../Engine/Input.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Observer/ResultObserver.h"
 #include "../Engine/SceneManager.h"
 #include "../Enemy/EnemyRed.h"

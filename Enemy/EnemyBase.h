@@ -5,7 +5,7 @@
 #include "../Engine/Astar.h"
 #include "../Engine/Color.h"
 #include "../Manager/EnemyEffect.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 
 //EnemyBase‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class EnemyBase : public GameObject

@@ -45,6 +45,9 @@
     <Filter Include="Stage">
       <UniqueIdentifier>{fbd2b6a7-6650-43f7-a951-9181523af4e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{48db05b0-a4ef-4012-bd98-f269dae46e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -107,8 +110,6 @@
     <ClCompile Include="Engine\Text.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
@@ -130,7 +131,6 @@
     <ClCompile Include="Engine\Astar.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -224,6 +224,15 @@
     <ClCompile Include="Image\Board.cpp">
       <Filter>Image</Filter>
     </ClCompile>
+    <ClCompile Include="Player\CharacterBase.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Controller.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -286,8 +295,6 @@
     <ClInclude Include="Engine\Text.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Controller.h" />
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
@@ -309,7 +316,6 @@
     <ClInclude Include="Engine\Astar.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="Scene\PlayScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -405,6 +411,15 @@
     </ClInclude>
     <ClInclude Include="Image\Board.h">
       <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\CharacterBase.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Controller.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #include "Star.h"
 #include "../Scene/PlayScene.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Manager/StarEffect.h"
 #include "../Engine/Model.h"
 #include "../Engine/Image.h"

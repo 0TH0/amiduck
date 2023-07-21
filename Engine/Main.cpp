@@ -12,8 +12,8 @@
 #include "Input.h"
 #include "Audio.h"
 #include "SceneManager.h"
-#include "../Player.h"
-#include "../Controller.h"
+#include "../Player/Player.h"
+#include "../Player/Controller.h"
 #include "VFX.h"
 
 #pragma comment(lib,"Winmm.lib")

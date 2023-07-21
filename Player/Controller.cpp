@@ -1,10 +1,9 @@
 #include "Controller.h"
-#include "Controller.h"
-#include "Engine/Model.h"
-#include "Engine/SceneManager.h"
-#include "Engine/Input.h"
+#include "../Engine/Model.h"
+#include "../Engine/SceneManager.h"
+#include "../Engine/Input.h"
 #include "Player.h"
-#include "Engine/Camera.h"
+#include "../Engine/Camera.h"
 
 namespace
 {

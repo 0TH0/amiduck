@@ -1,11 +1,11 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Stage/Stage.h"
-#include "Engine/Text.h"
-#include "Engine/VFX.h"
-#include "Engine/PolyLine.h"
+#include "../Engine/GameObject.h"
+#include "../Stage/Stage.h"
+#include "../Engine/Text.h"
+#include "../Engine/VFX.h"
+#include "../Engine/PolyLine.h"
 #include "CharacterBase.h"
-#include "Item/Bomb.h"
+#include "../Item/Bomb.h"
 
 static const int MAX_LINE = 3;
 

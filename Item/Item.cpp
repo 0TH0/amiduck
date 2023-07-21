@@ -3,7 +3,7 @@
 #include "../Engine/Input.h"
 #include "../Engine/GameObject.h"
 #include "../Scene/PlayScene.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Stage/Stage.h"
 #include "../Engine/Camera.h"
 #include "../Engine/SceneManager.h"

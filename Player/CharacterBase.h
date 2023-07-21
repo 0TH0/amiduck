@@ -1,10 +1,10 @@
 #pragma once
-#include "Engine/GameObject.h"
-#include "Stage/Stage.h"
-#include "Engine/Model.h"
-#include "Engine/Input.h"
-#include "Engine/Collider.h"
-#include "Engine/PolyLine.h"
+#include "../Engine/GameObject.h"
+#include "../Stage/Stage.h"
+#include "../Engine/Model.h"
+#include "../Engine/Input.h"
+#include "../Engine/Collider.h"
+#include "../Engine/PolyLine.h"
 
 //◆◆◆を管理するクラス
 class CharacterBase : public GameObject
@@ -78,6 +78,7 @@ public:
     //進む方向を向く
     void  RotateDirMove();
 
+    //セッターゲッター
     bool GetReturn() { return IsReturn_; };
     void SetHasItem(bool hasItem) { hasItem_ = hasItem; };
     bool GetHasItem() { return hasItem_; };
