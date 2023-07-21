@@ -12,7 +12,7 @@
 namespace
 {
 	static const XMFLOAT3 SCALE = { 1.5f, 1.5f, 1.5f };
-	static const float CENTER = 0.75f;
+	static const float RADIUS = 0.75f;
 	static const float ROTATE_SPEED = 3.f;
 	static const int COOL_TIME = 900;
 }
@@ -30,7 +30,7 @@ void ItemBox::Initialize()
 	assert(hModel_ >= ZERO);
 
 	//“–‚½‚è”»’è
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), CENTER);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), RADIUS);
 	AddCollider(collision);
 
 	transform_.scale_ = SCALE;

@@ -95,7 +95,7 @@ void Controller::PlayerCamera()
         }
     }
 
-    if (Input::IsMouseButton(Input::CENTER))
+    if (Input::IsMouseButton(Input::RADIUS))
     {
         CrickRight();
     }
@@ -117,7 +117,7 @@ void Controller::PlayerCamera()
 
 void Controller::CrickRight()
 {
-    if (Input::IsMouseButtonDown(Input::CENTER))
+    if (Input::IsMouseButtonDown(Input::RADIUS))
     {
         PrevPosX_ = Input::GetMousePosition().x;
     }
