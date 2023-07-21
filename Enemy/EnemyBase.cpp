@@ -1,6 +1,7 @@
 #include "EnemyBase.h"
 #include "../Engine/Collider.h"
 #include "../Engine/Model.h"
+#include "../Engine/Timer.h"
 
 namespace
 {
@@ -12,7 +13,7 @@ namespace
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
-    : GameObject(parent, name), hModel_(-1),frame_(7),frameCount_(0),
+    : GameObject(parent, name), hModel_(-1),frameMove_(7),frameCount_(0),
       AI_(),CanMove_(false),totalCell(0),v(),pPlayer_(nullptr)
 {
 }
@@ -38,6 +39,9 @@ void EnemyBase::Update()
     pPlayer_ = (Player*)FindObject("Player");
     Stage* pStage = (Stage*)FindObject("Stage");
 
+    //回転
+    transform_.rotate_.y += ROTATE_SPEED;
+
     //現在のステージ情報をセット
     for (int x = ZERO; x < STAGE_SIZE_X; x++)
     {
@@ -47,16 +51,13 @@ void EnemyBase::Update()
         }
     }
 
-    //回転
-    transform_.rotate_.y += ROTATE_SPEED;
-
     //各行動
     Action();
 }
 
 void EnemyBase::Draw()
 {
-    Model::SetTransform(hModel_, transform_);
+    Model::SetTransform(hModel_, trans_);
     //各色変更
     ChangeColor();
     Model::Draw(hModel_);
@@ -69,6 +70,8 @@ void EnemyBase::Release()
 
 void EnemyBase::Move()
 {
+    //実際の座標
+    trans_.position_ = { transform_.position_.x - DIF_GOAL, transform_.position_.y, transform_.position_.z - DIF_GOAL };
     //目的地に着いていない場合
     if (CanMove_ && totalCell >= ZERO)
     {
@@ -83,10 +86,8 @@ void EnemyBase::Move()
 void EnemyBase::Search(CELL goal)
 {
     //フレームがフレームカウントを超えたら
-    if (frameCount_ > frame_)
+    if (frameCount_ > frameMove_)
     {
-        int PlayerPosX = (int)pPlayer_->GetPosition().x;
-        int PlayerPosZ = (int)pPlayer_->GetPosition().z;
         //プレイヤーを探索
         if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, goal))
         {

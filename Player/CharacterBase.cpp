@@ -111,6 +111,10 @@ void CharacterBase::LadderLottery()
     {
         IsReturn_ = false;
     }
+    if (transform_.position_.x >= 100)
+    {
+        IsReturn_ = true;
+    }
 
     //–ß‚é
     if (IsReturn_)

@@ -225,11 +225,11 @@ namespace Model
 	}
 
 	//ƒ‚ƒfƒ‹‚ð“_–Å‚³‚¹‚é
-	void FlashModel(int handle, int frame_)
+	void FlashModel(int handle, int frameMove_)
 	{
 		if (_datas[handle]->Alpha.GetIsFlash())
 		{
-			_datas[handle]->Alpha.FlashModel(frame_);
+			_datas[handle]->Alpha.FlashModel(frameMove_);
 			Draw(handle, _datas[handle]->Alpha.GetAlpha());
 		}
 		else

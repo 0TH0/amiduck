@@ -202,27 +202,27 @@ namespace Image
 	}
 
 	//ƒ‚ƒfƒ‹‚ð“_–Å‚³‚¹‚é
-	void FlashImage(int handle, int frame_)
+	void FlashImage(int handle, int frameMove_)
 	{
-		_datas[handle]->Alpha.FlashImage(frame_);
+		_datas[handle]->Alpha.FlashImage(frameMove_);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
-	void FlashImage2(int handle, int frame_)
+	void FlashImage2(int handle, int frameMove_)
 	{
-		_datas[handle]->Alpha.FlashImage2(frame_);
+		_datas[handle]->Alpha.FlashImage2(frameMove_);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
-	void FadeInImage(int handle, float frame_)
+	void FadeInImage(int handle, float frameMove_)
 	{
-		_datas[handle]->Alpha.FadeInImage(frame_);
+		_datas[handle]->Alpha.FadeInImage(frameMove_);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 
-	void FadeoutImage(int handle, float frame_)
+	void FadeoutImage(int handle, float frameMove_)
 	{
-		_datas[handle]->Alpha.FadeOutImage(frame_);
+		_datas[handle]->Alpha.FadeOutImage(frameMove_);
 		SetAlpha(handle, _datas[handle]->Alpha.GetAlpha());
 	}
 

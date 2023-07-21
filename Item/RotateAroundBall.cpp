@@ -11,10 +11,10 @@
 
 namespace
 {
-    static const int   MAX_TIME = 200;
-    static const float SPEED = 10.f;
-    static const float DIS  = 7.f;
-    static const float CENTER = 1.f;
+    static const int   MAX_TIME = 200;//何秒回転するか
+    static const float SPEED = 10.f;  //回転速度
+    static const float DIS  = 7.f;    //中心からの距離
+    static const float CENTER = 1.f;  //中心
 }
 
 //コンストラクタ
@@ -46,6 +46,7 @@ void RotateAroundBall::Initialize()
     transform_.position_ = pPlayer->GetPosition();
     transform_.scale_ = XMFLOAT3(0.5f, 0.5f, 0.5);
 
+    //アウトライン使用
     Model::SetOutLineDrawFlag(hModel_, true);
 }
 
@@ -59,6 +60,7 @@ void RotateAroundBall::Update()
 
     time_++;
 
+    //一定時間経ったら消える
     if (time_ >= MAX_TIME)
     {
         KillMe();
@@ -85,8 +87,7 @@ void RotateAroundBall::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "EnemyBlue" ||
         pTarget->GetObjectName() == "EnemyGreen" ||
-        pTarget->GetObjectName() == "EnemyRed" ||
-        pTarget->GetObjectName() == "Fire")
+        pTarget->GetObjectName() == "EnemyRed")
     {
         pTarget->KillMe();
     }

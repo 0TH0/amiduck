@@ -331,7 +331,10 @@ void Stage::PopBridge()
         // 前のフレームであったガイドの橋を消す
         for (int i = 0; i < 5; i++)
         {
-            stage_[buf[i].x][buf[i].z].type = EMPTY;
+            if (stage_[buf[i].x][buf[i].z].type = BRIDGE_FADE)
+            {
+                stage_[buf[i].x][buf[i].z].type = EMPTY;
+            }
         }
 
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
@@ -460,7 +463,7 @@ void Stage::RandStage()
     //マップの自動生成
     while(bridgeCount_ < MAX_RAND_BRIDGE)
     {
-        int randX = rand() % (STAGE_SIZE_X - bridgeRimit_);
+        int randX = rand() % (STAGE_SIZE_X - bridgeRimit_) + bridgeRimit_;
         int randZ = (rand() % STAGE_SIZE_Z - bridgeRimit_);
 
         if (randZ == 27 || randZ == 21 || randZ == 15 || randZ == 9)

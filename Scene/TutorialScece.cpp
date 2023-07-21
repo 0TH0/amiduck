@@ -39,12 +39,13 @@ void TutorialScece::Update()
 	if (time_ >= MAX_TIME)
 	{
 		pPlayBt->SetShouldUseHitCursor(true);
-	}
-	//カーソル画像の位置で左クリックしたら
-	if (Image::IsHitCursor(pPlayBt->GetHandle()) && Input::IsMouseButtonDown(Input::LEFT))
-	{
-		pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+
+		//カーソル画像の位置で左クリックしたら
+		if (Image::IsHitCursor(pPlayBt->GetHandle()) && Input::IsMouseButtonDown(Input::LEFT))
+		{
+			pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_PLAY);
+		}
 	}
 }
 

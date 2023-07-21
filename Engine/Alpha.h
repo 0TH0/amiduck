@@ -11,17 +11,17 @@ public:
 	Alpha();
 	~Alpha();
 
-	void FlashModel(int frame_);
+	void FlashModel(int frameMove_);
 
-	void FlashImage(int frame_);
+	void FlashImage(int frameMove_);
 
-	void FlashImage2(int frame_);
+	void FlashImage2(int frameMove_);
 
 	void SetIsFlash(bool IsFlash);
 
-	void FadeOutImage(float frame_ = 0.05f);
+	void FadeOutImage(float frameMove_ = 0.05f);
 
-	void FadeInImage(float frame_ = 0.05f);
+	void FadeInImage(float frameMove_ = 0.05f);
 
 	bool GetIsFlash() { return IsFlash_; };
 

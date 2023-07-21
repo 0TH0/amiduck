@@ -28,7 +28,7 @@ public:
 	//開放
 	void Release() override;
 
+	//セッターゲッター
 	void SetRimit(int rimit) { rimit_ = rimit; };
-
 	int GetRimit() { return rimit_; };
 };

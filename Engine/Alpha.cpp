@@ -9,13 +9,13 @@ Alpha::~Alpha()
 {
 }
 
-void Alpha::FlashModel(int frame_)
+void Alpha::FlashModel(int frameMove_)
 {
 	if (IsFlash_)
 	{
 		time_++;
 
-		if (time_ % frame_ == 0)
+		if (time_ % frameMove_ == 0)
 		{
 			alpha_ = 1.f;
 		}
@@ -32,7 +32,7 @@ void Alpha::FlashModel(int frame_)
 	}
 }
 
-void Alpha::FlashImage(int frame_)
+void Alpha::FlashImage(int frameMove_)
 {
 	if (alpha_ >= 256)
 	{
@@ -53,7 +53,7 @@ void Alpha::FlashImage(int frame_)
 	}
 }
 
-void Alpha::FlashImage2(int frame_)
+void Alpha::FlashImage2(int frameMove_)
 {
 	time_++;
 
@@ -72,7 +72,7 @@ void Alpha::SetIsFlash(bool IsFlash)
 	IsFlash_ = IsFlash;
 }
 
-void Alpha::FadeOutImage(float frame_)
+void Alpha::FadeOutImage(float frameMove_)
 {
 	if (alpha_ <= 0)
 	{
@@ -80,11 +80,11 @@ void Alpha::FadeOutImage(float frame_)
 	}
 	else
 	{
-		alpha_ -= frame_;
+		alpha_ -= frameMove_;
 	}
 }
 
-void Alpha::FadeInImage(float frame_)
+void Alpha::FadeInImage(float frameMove_)
 {
 	if (alpha_ <= 0)
 	{
@@ -92,6 +92,6 @@ void Alpha::FadeInImage(float frame_)
 	}
 	else
 	{
-		alpha_ -= frame_;
+		alpha_ -= frameMove_;
 	}
 }

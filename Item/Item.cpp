@@ -59,6 +59,7 @@ void Item::Update()
 		item_ = (ItemNum)RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
 	}
 
+	//‹´‚ª‚R‚ÂˆÈã
 	if (woodCount_ < 3)
 	{
 		if (woodCoolTime_ >= 300)
@@ -83,6 +84,7 @@ void Item::Draw()
 
 	transform_.position_ = XMFLOAT3(0.5f, -0.75f, 0);
 
+	//‹´‚ğ‚Á‚Ä‚½‚ç
 	if (woodCount_ > ZERO)
 	{
 		DrawWoodUI(transform_);
@@ -97,6 +99,7 @@ void Item::Release()
 void Item::DrawWoodUI(Transform tra)
 {
 	tra.scale_ = XMFLOAT3(0.75f, 0.75f, 0.75f);
+	//‹´‚Ì”•`‰æ
 	for (int i = 0; i < woodCount_; i++)
 	{
 		if(i != 0) tra.position_.x += 0.2f;
