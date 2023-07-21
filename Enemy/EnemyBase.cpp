@@ -14,7 +14,7 @@ namespace
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
     : GameObject(parent, name), hModel_(-1),frameMove_(7),frameCount_(0),
-      AI_(),CanMove_(false),totalCell(0),v(),pPlayer_(nullptr)
+      AI_(),CanMove_(false),totalCell_(0),v_(),pPlayer_(nullptr)
 {
 }
 
@@ -71,13 +71,13 @@ void EnemyBase::Release()
 void EnemyBase::Move()
 {
     //目的地に着いていない場合
-    if (CanMove_ && totalCell >= ZERO)
+    if (CanMove_ && totalCell_ >= ZERO)
     {
         //目的地までのベクトル
-        v = { (float)AI_.GetToGoalCell(totalCell).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell).z + DIF_GOAL, 0 };
+        v_ = { (float)AI_.GetToGoalCell(totalCell_).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell_).z + DIF_GOAL, 0 };
 
         //線形補間
-        XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v, LERP));
+        XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), v_, LERP));
     }
 }
 
@@ -89,7 +89,7 @@ void EnemyBase::Search(CELL goal)
         //プレイヤーを探索
         if (AI_.Search({ (int)transform_.position_.x, (int)transform_.position_.z }, goal))
         {
-            totalCell = AI_.GetToGoalTotalCell();
+            totalCell_ = AI_.GetToGoalTotalCell();
             CanMove_ = true;
         }
         frameCount_ = 0;

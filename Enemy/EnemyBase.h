@@ -15,9 +15,9 @@ protected:
     int frameCount_;    //フレーム計測
     Astar AI_;          //AI
     bool CanMove_;      //動いていいか
-    int totalCell;      //合計セル
+    int totalCell_;      //合計セル
     int frameMove_;     //何フレーム毎に進むか
-    XMVECTOR v;         //移動ベクトル
+    XMVECTOR v_;         //移動ベクトル
     Player* pPlayer_;   //プレイヤー
 
     //各行動

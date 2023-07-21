@@ -732,8 +732,8 @@ namespace Direct3D
 
 		// v ‚ª 0 <= v <= 1 ‚©‚Â u + v <= 1 ‚ð–ž‚½‚·‚±‚Æ‚ð’²‚×‚éB
 		// ‚·‚È‚í‚¿Av ‚ª 0 <= v <= 1 - u ‚ð‚Ý‚½‚µ‚Ä‚¢‚é‚©‚ð’²‚×‚ê‚ÎOKB
-		float v = XMVector3Dot(XMLoadFloat3(&direction), beta).m128_f32[0] * invDet;
-		if (v < 0.0f || u + v > 1.0f) 
+		float v_ = XMVector3Dot(XMLoadFloat3(&direction), beta).m128_f32[0] * invDet;
+		if (v_ < 0.0f || u + v_ > 1.0f) 
 		{
 			return false;
 		}

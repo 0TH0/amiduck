@@ -73,10 +73,10 @@ bool Collider::IsHitCircleVsCircle(SphereCollider* circleA, SphereCollider* circ
 	XMFLOAT3 centerB = circleB->center_;
 	XMFLOAT3 positionB = circleB->pGameObject_->GetWorldPosition();
 
-	XMVECTOR v = (XMLoadFloat3(&centerA) + XMLoadFloat3(&positionA))
+	XMVECTOR v_ = (XMLoadFloat3(&centerA) + XMLoadFloat3(&positionA))
 		- (XMLoadFloat3(&centerB) + XMLoadFloat3(&positionB));
 
-	if (XMVector3Length(v).m128_f32[0] <= circleA->size_.x + circleB->size_.x)
+	if (XMVector3Length(v_).m128_f32[0] <= circleA->size_.x + circleB->size_.x)
 	{
 		return true;
 	}
