@@ -39,10 +39,10 @@ https://clipchamp.com/watch/mSqPpweCg7l
 ・左クリックで橋をだして進む道を予想して勝利を目指そう
 
 ●こだわり
-・Engine/Astar.h
+・Engine/Astar.cpp
 →Astar法によってキャラクターを追う敵を実装した
 
-・Enemy/EnemyBase.h
+・Enemy/EnemyBase.cpp
 →EnemyBaseを継承してEnemyRed,EnemyBlueクラスなどを実装した
 →Enemyの移動に線形補間を使用してスムーズに動くようにした
 
