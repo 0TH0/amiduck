@@ -46,14 +46,17 @@ https://clipchamp.com/watch/mSqPpweCg7l
 →EnemyBaseを継承してEnemyRed,EnemyBlueクラスなどを実装した
 →Enemyの移動に線形補間を使用してスムーズに動くようにした
 
-・Stage/stage.cpp
-→橋を出す位置が分かりやすいように透明の橋を表示させた
-
 ・Assets/Shader/Normalmap.hlsl
 →シェーダーでノーマルマップを実装した
 
 ・Assets/Shader/WaterShader.hlsl
 →uvスクロールによって海の流れを表現した
+
+・Assets/Shader/OutLine.hlsl
+→トゥーンレンダリングを実装した
+
+・Stage/stage.cpp
+→橋を出す位置が分かりやすいように透明の橋を表示させた
 
 ・Player/CharacterBase.cpp
 →あみだくじに沿って進むキャラクターAIを実装した

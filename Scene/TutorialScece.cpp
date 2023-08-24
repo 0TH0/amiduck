@@ -3,6 +3,7 @@
 #include "../Engine/UI.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Input.h"
+#include "../Manager/ClickAudio.h"
 
 namespace
 {
@@ -28,6 +29,8 @@ void TutorialScece::Initialize()
 	pPlayBt->Load("Image\\playBt.png");
 	PosPlayBt.y = -0.6f;
 	assert(pPlayBt->GetHandle() >= 0);
+
+	ClickAudio::Initialize();
 }
 
 //更新
@@ -43,6 +46,7 @@ void TutorialScece::Update()
 		//カーソル画像の位置で左クリックしたら
 		if (Image::IsHitCursor(pPlayBt->GetHandle()) && Input::IsMouseButtonDown(Input::LEFT))
 		{
+			ClickAudio::ClickAudio();
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 		}
