@@ -37,7 +37,7 @@ namespace
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPopRandStage_(true),
-    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(7),csv(),effectPos_()
+    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(7),csv(),effectPos_(), frameCount_(1)
 {
 }
 
@@ -54,19 +54,19 @@ void Stage::StageLoad()
 
     //判定
     hModel_[EMPTY] = Model::Load("DebugCollision\\BoxCollider.fbx");
-    assert(hModel_[EMPTY] >= ZERO);
+    assert(hModel_[EMPTY] >= 0);
 
     //ブロック
     hModel_[LOG] = Model::Load("Stage\\log.fbx");
-    assert(hModel_[LOG] >= ZERO);
+    assert(hModel_[LOG] >= 0);
 
     //旗先端
     hModel_[BRIDGE] = Model::Load("Stage\\wood_board.fbx");
-    assert(hModel_[BRIDGE] >= ZERO);
+    assert(hModel_[BRIDGE] >= 0);
 
     //ガイドの橋
     hModel_[BRIDGE_FADE] = Model::Load("Stage\\wood_board.fbx");
-    assert(hModel_[BRIDGE_FADE] >= ZERO);
+    assert(hModel_[BRIDGE_FADE] >= 0);
 }
 
 //初期化
@@ -90,8 +90,7 @@ void Stage::Initialize()
     {
         for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
-            //stage_[x][z].type = csv->GetValue(x, z);
-            stage_[x][z].type = stageData[z][x];
+            stage_[x][z].type = csv->GetValue(x, z);
         }
     }
 
@@ -158,7 +157,7 @@ void Stage::Update()
     vStart = XMVector3TransformCoord(XMLoadFloat3(&mousePosFront), invTransform);
     vTarget = XMVector3TransformCoord(XMLoadFloat3(&mousePosBack), invTransform);
 
-    bufX, bufY, bufZ = ZERO;
+    bufX, bufY, bufZ = 0;
     minDistance = 9999999.f;
     IsHit = false;
 
@@ -230,14 +229,14 @@ void Stage::Release()
 void Stage::PopBridge()
 {
     //マウスを左クリックして、橋の残りの数が0より多いとき
-    if (Input::IsMouseButtonDown(Input::LEFT) && pItem->GetwoodCount() > ZERO)
+    if (Input::IsMouseButtonDown(Input::LEFT) && pItem->GetwoodCount() > 0)
     {
         //bridgeRimit_で橋の端をクリックできなくする
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = ZERO; z < STAGE_SIZE_Z; z++)
+            for (int z = 0; z < STAGE_SIZE_Z; z++)
             {
-                for (int y = ZERO; y < stage_[x][z].height; y++)
+                for (int y = 0; y < stage_[x][z].height; y++)
                 {
                     RayCastData ray;
 
@@ -339,7 +338,7 @@ void Stage::PopBridge()
 
         for (int x = bridgeRimit_; x < STAGE_SIZE_X - bridgeRimit_; x++)
         {
-            for (int z = ZERO; z < STAGE_SIZE_Z; z++)
+            for (int z = 0; z < STAGE_SIZE_Z; z++)
             {
                 for (int y = 0; y < stage_[x][z].height; y++)
                 {

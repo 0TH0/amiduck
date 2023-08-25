@@ -4,6 +4,7 @@
 #include "../Engine/Input.h"
 #include "../Player/Player.h"
 #include "../Manager/BombEffect.h"
+#include "../Manager/HitAudio.h"
 
 namespace
 {
@@ -97,6 +98,7 @@ void Bomb::OnCollision(GameObject* pTarget)
 		pTarget->GetObjectName() == "EnemyRed" ||
 		pTarget->GetObjectName() == "Fire")
 	{
+		HitAudio::HitAudio();
 		pTarget->KillMe();
 	}
 }

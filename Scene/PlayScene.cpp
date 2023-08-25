@@ -48,7 +48,7 @@ void PlayScene::Initialize()
 	Instantiate<GameManager>(this);
 
 	//BGM
-	hAudio_ = Audio::Load("Audio\\BGM.wav", 5);
+	hAudio_ = Audio::Load("Audio\\BGM.wav");
 	assert(hAudio_ >= 0);
 }
 

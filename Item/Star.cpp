@@ -66,13 +66,14 @@ void Star::Release()
 
 void Star::OnCollision(GameObject* pTarget)
 {
-	//“G‚É“–‚½‚Á‚½
+	//“–‚½‚Á‚½
 	if (pTarget->GetObjectName() == "Player")
 	{
 		if (time_ >= rimit_ && IsVisibled())
 		{
 			Invisible();
-			StarEffect::TakeStarEffect(transform_.position_);
+			StarManager::TakeStarEffect(transform_.position_);
+			StarManager::TakeStarAudio();
 			time_ = 0;
 		}
 	}

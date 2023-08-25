@@ -1,7 +1,8 @@
 #include "StarEffect.h"
 #include "../Engine/VFX.h"
+#include "../Engine/Audio.h"
 
-void StarEffect::TakeStarEffect(XMFLOAT3 pos)
+void StarManager::TakeStarEffect(XMFLOAT3 pos)
 {
 	EmitterData data;
 	data.textureFileName = "Image\\star.png";
@@ -22,4 +23,9 @@ void StarEffect::TakeStarEffect(XMFLOAT3 pos)
 	data.deltaColor = XMFLOAT4(0, 0, 0, 0);
 	data.gravity = 0.003f;
 	VFX::Start(data);
+}
+
+void StarManager::TakeStarAudio()
+{
+	Audio::Play(Audio::Load("Audio/star.wav"));
 }

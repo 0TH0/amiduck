@@ -52,7 +52,7 @@ void Controller::PlayerCamera()
     Player* pPlayer = (Player*)FindObject("Player");
 
     //プレイヤーの座標を入れておく
-    transform_.position_ = { pPlayer->GetPosition().x, 1,  pPlayer->GetPosition().z};
+    transform_.position_ = pPlayer->GetPosition();
     //移動距離
     XMFLOAT3 move = { ZERO, ZERO, Move_ };
     XMVECTOR vMove = XMLoadFloat3(&move); //float->vector

@@ -233,7 +233,7 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\ClickAudio.cpp">
+    <ClCompile Include="Manager\HitAudio.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -424,7 +424,7 @@
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\ClickAudio.h">
+    <ClInclude Include="Manager\HitAudio.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

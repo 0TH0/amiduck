@@ -4,7 +4,6 @@
 #include "../Engine/Input.h"
 #include "../Engine/UI.h"
 #include "../Image/Board.h"
-#include "../Manager/ClickAudio.h"
 
 namespace
 {
@@ -42,8 +41,6 @@ void TitleScene::Initialize()
 	pUI[(int)UIName::PLAY]->SetPosition(0.4f, -0.4f, 0);
 	pUI[(int)UIName::TUTORIAL]->SetPosition(-0.4f, -0.4f, 0);
 	pUI[(int)UIName::CHAR]->SetPosition(0, -0.5f, 0);
-
-	ClickAudio::Initialize();
 }
 
 //XV
@@ -53,7 +50,6 @@ void TitleScene::Update()
 	{
 		pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
-		ClickAudio::ClickAudio();
 
 		switch (UIName_)
 		{

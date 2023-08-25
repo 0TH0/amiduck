@@ -167,10 +167,10 @@
     <ClCompile Include="Item\Star.cpp" />
     <ClCompile Include="Item\StarUI.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
-    <ClCompile Include="Manager\ClickAudio.cpp" />
     <ClCompile Include="Manager\ElectricEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
+    <ClCompile Include="Manager\HitAudio.cpp" />
     <ClCompile Include="Manager\ItemBoxEffect.cpp" />
     <ClCompile Include="Manager\PlaySceneGuide.cpp" />
     <ClCompile Include="Manager\StageAudio.cpp" />
@@ -232,10 +232,10 @@
     <ClInclude Include="Item\Star.h" />
     <ClInclude Include="Item\StarUI.h" />
     <ClInclude Include="Manager\BombEffect.h" />
-    <ClInclude Include="Manager\ClickAudio.h" />
     <ClInclude Include="Manager\ElectricEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
     <ClInclude Include="Manager\GameManager.h" />
+    <ClInclude Include="Manager\HitAudio.h" />
     <ClInclude Include="Manager\ItemBoxEffect.h" />
     <ClInclude Include="Manager\PlaySceneGuide.h" />
     <ClInclude Include="Manager\StageAudio.h" />
