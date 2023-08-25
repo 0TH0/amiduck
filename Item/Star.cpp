@@ -33,10 +33,19 @@ void Star::Update()
 {
 	transform_.rotate_.y += rotateSpeed_;
 
+	//出現時にエフェクトを出す
+	if (time_ < 2)
+	{
+		StarManager::StarAudio();
+		StarManager::StarEffect(transform_.position_);
+	}
+
+	//開始してから直ぐに星を取らないように
 	if (time_ <= MAX_TIME)
 	{
 		time_++;
 	}
+	//地面に着いたら
 	if (transform_.position_.y <= rimitY)
 	{
 		transform_.position_.y = rimitY;
@@ -45,6 +54,7 @@ void Star::Update()
 	{
 		transform_.position_.y -= gravity_;
 	}
+	//消える且つ1秒経ったら
 	if (!IsVisibled() && time_ >= MAX_TIME)
 	{
 		KillMe();
@@ -72,8 +82,8 @@ void Star::OnCollision(GameObject* pTarget)
 		if (time_ >= rimit_ && IsVisibled())
 		{
 			Invisible();
-			StarManager::TakeStarEffect(transform_.position_);
-			StarManager::TakeStarAudio();
+			StarManager::StarEffect(transform_.position_);
+			StarManager::StarAudio();
 			time_ = 0;
 		}
 	}

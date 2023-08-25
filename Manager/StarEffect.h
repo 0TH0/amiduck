@@ -3,7 +3,7 @@
 
 namespace StarManager
 {
-	void TakeStarEffect(XMFLOAT3 pos);
+	void StarEffect(XMFLOAT3 pos);
 
-	void TakeStarAudio();
+	void StarAudio();
 };

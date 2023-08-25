@@ -58,6 +58,9 @@ https://clipchamp.com/watch/mSqPpweCg7l
 ・Stage/stage.cpp
 →橋を出す位置が分かりやすいように透明の橋を表示させた
 
+・Engine/PolyLine.cpp
+→polylineによってエフェクトを実装した
+
 ・Player/CharacterBase.cpp
 →あみだくじに沿って進むキャラクターAIを実装した
 

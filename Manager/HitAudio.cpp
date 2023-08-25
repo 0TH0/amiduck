@@ -1,5 +1,6 @@
 #include "HitAudio.h"
 #include "../Engine/Audio.h"
+#include "ClickAudio.h"
 
 namespace HitAudio
 {

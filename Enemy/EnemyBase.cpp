@@ -6,7 +6,7 @@ namespace
 {
     static const int ROTATE_SPEED = 5;      //回転速度
     static const float DIF_GOAL = 0.3f;     //目的地までの誤差調整
-    static const float POSY = 1.5f;         //Y座標
+    static const float POSY = 1.6f;         //Y座標
     static const float LERP = 0.2f;         //補間する値
     static const float RADIUS = 0.5f;       //当たり判定サイズ
 }
@@ -56,6 +56,7 @@ void EnemyBase::Update()
 
 void EnemyBase::Draw()
 {
+    Model::SetOutLineDrawFlag(hModel_, true);
     Model::SetTransform(hModel_, transform_);
     //各色変更
     ChangeColor();

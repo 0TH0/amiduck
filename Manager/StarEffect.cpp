@@ -2,16 +2,16 @@
 #include "../Engine/VFX.h"
 #include "../Engine/Audio.h"
 
-void StarManager::TakeStarEffect(XMFLOAT3 pos)
+void StarManager::StarEffect(XMFLOAT3 pos)
 {
 	EmitterData data;
 	data.textureFileName = "Image\\star.png";
 	data.position = pos;
 	data.delay = 0;
-	data.number = 80;
-	data.lifeTime = 100;
+	data.number = 50;
+	data.lifeTime = 80;
 	data.positionRnd = XMFLOAT3(0.4, 0, 0.4);
-	data.direction = XMFLOAT3(0, 1, 0);
+	data.direction = XMFLOAT3(0, -1, 0);
 	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.25f;
 	data.speedRnd = 1;
@@ -25,7 +25,7 @@ void StarManager::TakeStarEffect(XMFLOAT3 pos)
 	VFX::Start(data);
 }
 
-void StarManager::TakeStarAudio()
+void StarManager::StarAudio()
 {
 	Audio::Play(Audio::Load("Audio/star.wav"));
 }

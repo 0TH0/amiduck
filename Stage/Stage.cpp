@@ -462,7 +462,7 @@ void Stage::RandStage()
     //ƒ}ƒbƒv‚Ì©“®¶¬
     while(bridgeCount_ < MAX_RAND_BRIDGE)
     {
-        int randX = rand() % (STAGE_SIZE_X - bridgeRimit_) + bridgeRimit_;
+        int randX = rand() % (STAGE_SIZE_X - bridgeRimit_) + (bridgeRimit_ / 2);
         int randZ = (rand() % STAGE_SIZE_Z - bridgeRimit_);
 
         if (randZ == 27 || randZ == 21 || randZ == 15 || randZ == 9)
