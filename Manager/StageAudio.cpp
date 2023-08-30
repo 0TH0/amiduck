@@ -4,7 +4,7 @@
 namespace StageAudio
 {
 	int hPopStageAudio_;
-
+	
 	void Initialize()
 	{
 		hPopStageAudio_ = Audio::Load("Audio/smoke.wav");

@@ -146,6 +146,7 @@
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\Model.cpp" />
+    <ClCompile Include="Engine\Sound.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\VFX.cpp" />
     <ClCompile Include="Engine\PolyLine.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Item\ItemBox.cpp" />
     <ClCompile Include="Item\Star.cpp" />
     <ClCompile Include="Item\StarUI.cpp" />
+    <ClCompile Include="Manager\BGMManager.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
     <ClCompile Include="Manager\ClickAudio.cpp" />
     <ClCompile Include="Manager\ElectricEffect.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="Engine\Image.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Model.h" />
+    <ClInclude Include="Engine\Sound.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\VFX.h" />
     <ClInclude Include="Engine\PolyLine.h" />
@@ -232,6 +235,7 @@
     <ClInclude Include="Item\ItemBox.h" />
     <ClInclude Include="Item\Star.h" />
     <ClInclude Include="Item\StarUI.h" />
+    <ClInclude Include="Manager\BGMManager.h" />
     <ClInclude Include="Manager\BombEffect.h" />
     <ClInclude Include="Manager\ClickAudio.h" />
     <ClInclude Include="Manager\ElectricEffect.h" />

@@ -5,6 +5,7 @@
 #include "../Engine/UI.h"
 #include "../Image/Board.h"
 #include "../Manager/ClickAudio.h"
+#include "../Manager/BGMManager.h"
 
 namespace
 {
@@ -43,6 +44,8 @@ void TitleScene::Initialize()
 	pUI[(int)UIName::TUTORIAL]->SetPosition(-0.4f, -0.4f, 0);
 	pUI[(int)UIName::CHAR]->SetPosition(0, -0.5f, 0);
 
+	BGMManager::Initialize();
+	BGMManager::TitleBGM();
 	ClickAudio::Initialize();
 }
 
@@ -53,7 +56,7 @@ void TitleScene::Update()
 	{
 		pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_TUTORIAL);
-
+		BGMManager::Stop();
 		ClickAudio::ClickAudio();
 	}
 

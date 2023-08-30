@@ -22,7 +22,7 @@ namespace
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.5f),IsStar_(false), starDelay_(0), 
+    :CharacterBase(parent, "Player"),hAudio_(-1), pBomb_(), speedUp_(0.5f),isStar_(false), starDelay_(0), 
     starNum_(0),starAfterTime_(0)
 {
     for (int i = 0; i < MAX_LINE; i++)
@@ -61,7 +61,7 @@ void Player::Action()
         starDelay_++;
     }
     //スターを入手したら
-    if (IsStar_)
+    if (isStar_)
     {
         starAfterTime_++;
     }
@@ -113,8 +113,6 @@ void Player::Command()
         //効果音
         Audio::Play(hAudio_);
 
-        //初速度
-        //jump_v0 = 0.2;
         //重力
         gravity = 0.008f;
 
@@ -201,8 +199,8 @@ void Player::OnCollision(GameObject* pTarget)
         pTarget->GetObjectName() == "EnemyBlue" ||
         pTarget->GetObjectName() == "EnemyGreen")
     {
-        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-        pSceneManager->ChangeScene(SCENE_ID_RESULT);
+        //ゲームオーバー
+        SetIsGameOver(true);
     }
 
     //星に当たったら
@@ -212,7 +210,7 @@ void Player::OnCollision(GameObject* pTarget)
         {
             starDelay_++;
             starNum_++;
-            IsStar_ = true;
+            isStar_ = true;
         }
     }
 }

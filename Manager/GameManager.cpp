@@ -54,15 +54,7 @@ void GameManager::Update()
 	pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
 	pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
 
-	if (pPlayer->GetStarNum() >= MAX_STAR)
-	{
-		//プレイヤーの勝ち
-		ResultObserver::SetIsWin(true);
-		//リザルトシーンへ
-		pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_RESULT);
-	}
-	else
+	if (pPlayer->GetStarNum() < MAX_STAR)
 	{
 		PopStar();
 	}

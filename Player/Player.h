@@ -19,8 +19,8 @@ class Player : public CharacterBase
     int starAfterTime_;
     int starDelay_;
     float speedUp_;
-    bool IsStar_;
-
+    bool isStar_;
+    bool isGameOver_;
 public:
     //コンストラクタ
     Player(GameObject* parent);
@@ -39,6 +39,8 @@ public:
     int GetStarAfterTime() { return starAfterTime_; };
     void SetStarAfterTime(int time) { starAfterTime_ = time; };
     void ZeroStarAfterTime() { starAfterTime_ = ZERO; };
-    void SetIsStar(bool IsStar) { IsStar_ = IsStar; };
-    bool GetIsStar() { return IsStar_; };
+    void SetIsStar(bool IsStar) { isStar_ = IsStar; };
+    bool GetIsStar() { return isStar_; };
+    void SetIsGameOver(bool isGameOver) { isGameOver_ = isGameOver; };
+    bool GetIsGameOver() { return isGameOver_; };
 };

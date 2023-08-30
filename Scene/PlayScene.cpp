@@ -3,10 +3,8 @@
 #include "../Image/Instructions.h"
 #include "../Player/Controller.h"
 #include "../Stage/Water.h"
-#include "../Engine/Input.h"
-#include "../Engine/Camera.h"
+#include "../Item/Star.h"
 #include "../Engine/SceneManager.h"
-#include "../Engine/Text.h"
 #include "../Engine/Audio.h"
 #include "../Observer/ResultObserver.h"
 #include "../Enemy/EnemyRed.h"
@@ -50,21 +48,36 @@ void PlayScene::Initialize()
 	//BGM
 	hAudio_ = Audio::Load("Audio\\BGM.wav");
 	assert(hAudio_ >= 0);
+
+	//BGM再生
+	Audio::PlayLoop(hAudio_);
 }
 
 //更新
 void PlayScene::Update()
 {
-	if (pTimer->GetRimit() <= 0)
+	Player* pPlayer = (Player*)FindObject("Player");
+
+	//制限時間が０かゲームオーバー
+	if (pTimer->GetRimit() <= 0 || pPlayer->GetIsGameOver())
 	{
-		//プレイヤーの勝ち
+		//プレイヤーの負け
 		ResultObserver::SetIsWin(false);
+		Audio::Stop(hAudio_);
+
 		//リザルトシーンへ
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_RESULT);
 	}
-	//BGM再生
-	Audio::Play(hAudio_);
+	if (pPlayer->GetStarNum() >= MAX_STAR)
+	{
+		//プレイヤーの勝ち
+		ResultObserver::SetIsWin(true);
+		Audio::Stop(hAudio_);
+		//リザルトシーンへ
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_RESULT);
+	}
 }
 
 //描画

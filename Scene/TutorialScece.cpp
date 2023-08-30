@@ -4,6 +4,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Input.h"
 #include "../Manager/ClickAudio.h"
+#include "../Manager/BGMManager.h"
 
 namespace
 {
@@ -29,6 +30,8 @@ void TutorialScece::Initialize()
 	pPlayBt->Load("Image\\playBt.png");
 	PosPlayBt.y = -0.6f;
 	assert(pPlayBt->GetHandle() >= 0);
+	BGMManager::Initialize();
+	BGMManager::TitleBGM();
 }
 
 //XV
@@ -45,6 +48,7 @@ void TutorialScece::Update()
 		if (Image::IsHitCursor(pPlayBt->GetHandle()) && Input::IsMouseButtonDown(Input::LEFT))
 		{
 			ClickAudio::ClickAudio();
+			BGMManager::Stop();
 			pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_PLAY);
 		}

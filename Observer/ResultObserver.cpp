@@ -1,4 +1,5 @@
 #include "ResultObserver.h"
+#include "../Engine/Audio.h"
 
 namespace
 {
@@ -15,5 +16,17 @@ namespace ResultObserver
     bool GetIsWin()
     {
         return IsWin;
+    }
+    void ResultAudio()
+    {
+        //èüÇ¡ÇΩÇ∆Ç´
+        if (IsWin)
+        {
+            Audio::Play(Audio::Load("Audio/win.wav"));
+        }
+        else
+        {
+            Audio::Play(Audio::Load("Audio/lose.wav"));
+        }
     }
 }

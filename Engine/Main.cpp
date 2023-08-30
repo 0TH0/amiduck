@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Input::Initialize(hWnd);
 
 	//オーディオ（効果音）の準備
-	Audio::Initialize();
+	Audio::Initialize(hWnd);
 
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
@@ -158,7 +158,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 
 	//いろいろ解放
-	Audio::Release();
+	Audio::AllRelease();
 	Model::AllRelease();
 	Image::AllRelease();
 	pRootObject->ReleaseSub();

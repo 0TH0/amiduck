@@ -31,7 +31,7 @@ void SceneManager::Update()
 	if (currentSceneID_ != nextSceneID_)
 	{
 		//ロードしたデータを全削除
-		//Audio::Release();
+		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();
 		VFX::Release();
@@ -47,7 +47,6 @@ void SceneManager::Update()
 		case SCENE_ID_RESULT: Instantiate<ResultScene>(this); break;
 		case SCENE_ID_TUTORIAL: Instantiate<TutorialScece>(this); break;
 		}
-		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;
 	}
 }
