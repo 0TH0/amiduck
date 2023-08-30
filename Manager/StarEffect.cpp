@@ -24,8 +24,3 @@ void StarManager::StarEffect(XMFLOAT3 pos)
 	data.gravity = 0.003f;
 	VFX::Start(data);
 }
-
-void StarManager::StarAudio()
-{
-	Audio::Play(Audio::Load("Audio/star.wav"));
-}

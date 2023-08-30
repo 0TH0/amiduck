@@ -9,6 +9,12 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Text.h"
 
+namespace
+{
+	const int MAX_WOOD_COUNT = 3;	//最大橋の数
+	const int MAX_WOOD_COOLTIME = 300;	//橋のクールタイム
+}
+
 //コンストラクタ
 Item::Item(GameObject* parent)
 	: GameObject(parent, "Item"), IsItem_(false),hPictWood_(0),hPict_(0),woodCoolTime_(0)
@@ -59,10 +65,11 @@ void Item::Update()
 		item_ = (ItemNum)RandInt((int)ItemNum::BOMB, (int)ItemNum::ITEM_MAX - 1);
 	}
 
-	//橋が３つ以上
-	if (woodCount_ < 3)
+	//橋が３未満
+	if (woodCount_ < MAX_WOOD_COUNT)
 	{
-		if (woodCoolTime_ >= 300)
+		//5秒経ったら
+		if (woodCoolTime_ >= MAX_WOOD_COOLTIME)
 		{
 			woodCoolTime_ = 0;
 			PluswoodCount();

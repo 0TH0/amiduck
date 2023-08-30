@@ -162,6 +162,7 @@
     <ClCompile Include="Image\Instructions.cpp" />
     <ClCompile Include="Image\Line.cpp" />
     <ClCompile Include="Item\Bomb.cpp" />
+    <ClCompile Include="Item\Heart.cpp" />
     <ClCompile Include="Item\RotateAroundBall.cpp" />
     <ClCompile Include="Item\Item.cpp" />
     <ClCompile Include="Item\ItemBox.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Item\StarUI.cpp" />
     <ClCompile Include="Manager\AudioManager.cpp" />
     <ClCompile Include="Manager\BombEffect.cpp" />
+    <ClCompile Include="Manager\EffectManger.cpp" />
     <ClCompile Include="Manager\ElectricEffect.cpp" />
     <ClCompile Include="Manager\EnemyEffect.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
@@ -227,6 +229,7 @@
     <ClInclude Include="Image\Instructions.h" />
     <ClInclude Include="Image\Line.h" />
     <ClInclude Include="Item\Bomb.h" />
+    <ClInclude Include="Item\Heart.h" />
     <ClInclude Include="Item\RotateAroundBall.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Item\ItemBox.h" />
@@ -234,6 +237,7 @@
     <ClInclude Include="Item\StarUI.h" />
     <ClInclude Include="Manager\AudioManager.h" />
     <ClInclude Include="Manager\BombEffect.h" />
+    <ClInclude Include="Manager\EffectManger.h" />
     <ClInclude Include="Manager\ElectricEffect.h" />
     <ClInclude Include="Manager\EnemyEffect.h" />
     <ClInclude Include="Manager\GameManager.h" />

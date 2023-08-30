@@ -36,7 +36,7 @@ void Star::Update()
 	//出現時にエフェクトを出す
 	if (time_ < 2)
 	{
-		StarManager::StarAudio();
+		//StarManager::StarAudio();
 		StarManager::StarEffect(transform_.position_);
 	}
 
@@ -83,7 +83,7 @@ void Star::OnCollision(GameObject* pTarget)
 		{
 			Invisible();
 			StarManager::StarEffect(transform_.position_);
-			StarManager::StarAudio();
+			//StarManager::StarAudio();
 			time_ = 0;
 		}
 	}

@@ -236,6 +236,12 @@
     <ClCompile Include="Manager\AudioManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Item\Heart.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\EffectManger.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -425,6 +431,12 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\AudioManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Heart.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManger.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

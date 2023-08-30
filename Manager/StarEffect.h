@@ -4,6 +4,4 @@
 namespace StarManager
 {
 	void StarEffect(XMFLOAT3 pos);
-
-	void StarAudio();
 };

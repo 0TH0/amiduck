@@ -1,10 +1,11 @@
 #include "Water.h"
 #include "../Engine/Model.h"
+#include "../Engine/Input.h"
 
 namespace
 {
     static const float SCROOL = 0.0001f; //1フレームで動かす量
-    static const XMFLOAT3 pos = { 0,-3,0 };
+    static const float posY = -3;
 }
 
 //コンストラクタ
@@ -24,7 +25,7 @@ void Water::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Water\\water.fbx");
     assert(hModel_ >= 0);
-    transform_.position_.y = pos.y;
+    transform_.position_.y = posY;
     Model::SetSahder(hModel_, Direct3D::SHADER_WATER);
 }
 
