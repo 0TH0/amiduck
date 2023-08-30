@@ -140,4 +140,44 @@ namespace EffectManager
         data.gravity = 0.003f;
         VFX::Start(data);
     }
+    void RiverEffect(XMFLOAT3 pos)
+    {
+        EmitterData data;
+
+        data.textureFileName = "Particle/water.png";
+        data.position = XMFLOAT3(pos);
+        data.delay = 1;
+        data.number = 3;
+        data.lifeTime = 150;
+        data.direction = XMFLOAT3(0, 0, -1);
+        data.directionRnd = XMFLOAT3(0, 0, 0);
+        data.gravity = 0.005;
+        data.speed = 0.1f;
+        data.accel = 0.98;
+        data.speedRnd = 0.5;
+        data.size = XMFLOAT2(1, 1);
+        data.speedRnd = 1;
+        data.scale = XMFLOAT2(1.02, 1.02);
+        data.color = XMFLOAT4(1, 1, 1, 0.1);
+        VFX::Start(data);
+
+        //êÖìH
+        data.textureFileName = "Particle/buble.png";
+        data.position = XMFLOAT3(pos);
+        data.positionRnd = XMFLOAT3(0.5, 0, 0);
+        data.delay = 1;
+        data.number = 3;
+        data.lifeTime = 50;
+        data.direction = XMFLOAT3(0, 0, -1);
+        data.directionRnd = XMFLOAT3(0, 20, 0);
+        data.gravity = 0.005;
+        data.speed = 0.1f;
+        data.accel = 0.98;
+        data.speedRnd = 0.0;
+        data.size = XMFLOAT2(0.3, 0.3);
+        data.speedRnd = 0;
+        data.scale = XMFLOAT2(0.98, 0.98);
+        data.color = XMFLOAT4(1, 1, 1, 1);
+        VFX::Start(data);
+    }
 }

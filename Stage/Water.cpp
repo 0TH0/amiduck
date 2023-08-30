@@ -1,6 +1,7 @@
 #include "Water.h"
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
+#include "../Manager/EffectManager.h"
 
 namespace
 {

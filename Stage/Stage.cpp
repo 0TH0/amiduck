@@ -172,7 +172,6 @@ void Stage::Draw()
                 transform_.position_ = XMFLOAT3(stagePos_.x, y, stagePos_.z);
                 transform_.rotate_ = XMFLOAT3(0, 0, 0);
                 transform_.scale_ = XMFLOAT3(1, 1, 1);
-                Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
                 Direct3D::SetShader(Direct3D::SHADER_3D);
 
                 //ステージ情報毎に処理
