@@ -8,29 +8,26 @@
 #include "../Engine/Model.h"
 #include "../Engine/CsvReader.h"
 #include "../Engine/Input.h"
-#include "../Engine/SphereCollider.h"
-#include "../Engine/BoxCollider.h"
 #include "../Engine/Camera.h"
-#include "../Engine/Audio.h"
 #include "../Enemy/EnemyRed.h"
 #include "../Enemy/EnemyBlue.h"
 #include "../Enemy/EnemyGreen.h"
-#include "../Manager/StageAudio.h"
+#include "../Manager/AudioManager.h"
 #include "../Manager/StageEffect.h"
 #include "../Engine/VFX.h"
 
 namespace
 {
-    static Item* pItem;
-    static int bufX, bufY, bufZ;
-    static XMINT3 buf[5];
-    static bool IsHit = false;
-    static float minDistance;
-    static XMVECTOR vStart;
-    static XMVECTOR vTarget;
-    static Transform trans;
-    static const int MAX_BRIDGE = 5;
-    static const int MAX_RAND_BRIDGE = 15;
+    static Item* pItem;                     //アイテム
+    static int bufX, bufY, bufZ;            //クリックした位置
+    static XMINT3 buf[5];                   //クリックした位置配列
+    static bool IsHit = false;              //カーソルがモデルにヒットしたか
+    static float minDistance;               //最小距離
+    static XMVECTOR vStart;                 //マウスのスタート位置
+    static XMVECTOR vTarget;                //マウスの目標
+    static Transform trans;                 //モデルの位置
+    static const int MAX_BRIDGE = 5;        //橋の最大数
+    static const int MAX_RAND_BRIDGE = 15;  //橋のランダム最大数
 }
 
 //コンストラクタ
@@ -82,8 +79,6 @@ void Stage::Initialize()
         }
     }
 
-    //オーディオ初期化
-    StageAudio::Initialize();
     StageLoad();
 
     for (int x = 0; x < STAGE_SIZE_X; x++)
@@ -93,7 +88,6 @@ void Stage::Initialize()
             stage_[x][z].type = csv->GetValue(x, z);
         }
     }
-
 
     //ランダムなステージを出すか
     if (ShouldPopRandStage_) RandStage();
@@ -454,7 +448,7 @@ void Stage::PopBridgeEffect()
 {
     effectPos_ = { (float)bufX, 1.f, (float)bufZ };
     StageEffect::PopBridgeEffect(effectPos_);
-    StageAudio::PopStageAudio();
+    AudioManager::SmokeAudio();
 }
 
 void Stage::RandStage()

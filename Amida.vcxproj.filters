@@ -149,9 +149,6 @@
     <ClCompile Include="Manager\StageEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\StageAudio.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Manager\ItemBoxEffect.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -233,16 +230,10 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\HitAudio.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\ClickAudio.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Sound.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\BGMManager.cpp">
+    <ClCompile Include="Manager\AudioManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -346,9 +337,6 @@
     <ClInclude Include="Manager\StageEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\StageAudio.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Manager\ItemBoxEffect.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -433,16 +421,10 @@
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\HitAudio.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\ClickAudio.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Sound.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\BGMManager.h">
+    <ClInclude Include="Manager\AudioManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

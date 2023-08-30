@@ -8,7 +8,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Color.h"
 #include "../Player/Player.h"
-#include "../Manager/HitAudio.h"
+#include "../Manager/AudioManager.h"
 
 namespace
 {
@@ -90,7 +90,7 @@ void RotateAroundBall::OnCollision(GameObject* pTarget)
         pTarget->GetObjectName() == "EnemyGreen" ||
         pTarget->GetObjectName() == "EnemyRed")
     {
-        HitAudio::HitAudio();
+        AudioManager::HitAudio();
         pTarget->KillMe();
     }
 }

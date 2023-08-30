@@ -17,16 +17,4 @@ namespace ResultObserver
     {
         return IsWin;
     }
-    void ResultAudio()
-    {
-        //èüÇ¡ÇΩÇ∆Ç´
-        if (IsWin)
-        {
-            Audio::Play(Audio::Load("Audio/win.wav"));
-        }
-        else
-        {
-            Audio::Play(Audio::Load("Audio/lose.wav"));
-        }
-    }
 }

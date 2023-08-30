@@ -5,6 +5,7 @@
 #include "../Engine/UI.h"
 #include "../Observer/ResultObserver.h"
 #include "../Image/Board.h"
+#include "../Manager/AudioManager.h"
 
 namespace
 {
@@ -22,19 +23,18 @@ ResultScene::ResultScene(GameObject* parent)
 //‰Šú‰»
 void ResultScene::Initialize()
 {
-	//Ÿ”s‚Ì‰¹
-	ResultObserver::ResultAudio();
-
 	std::string resultStr = "";
 
 	//Ÿ”s‚É‚æ‚Á‚Ä•Ï‚¦‚é
 	if (ResultObserver::GetIsWin())
 	{
 		resultStr = "Clear\\win.png";
+		AudioManager::WinAudio();
 	}
 	else
 	{
 		resultStr = "Clear\\lose.png";
+		AudioManager::LoseAudio();
 	}
 	assert(resultStr != "");
 

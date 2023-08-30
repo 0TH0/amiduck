@@ -8,6 +8,7 @@
 #include "Audio.h"
 #include "Input.h"
 #include "VFX.h"
+#include "../Manager/AudioManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -39,6 +40,9 @@ void SceneManager::Update()
 		//そのシーンのオブジェクトを全削除
 		KillAllChildren();
 		
+		//オーディオ初期化
+		AudioManager::Initialize();
+
 		//次のシーンを作成
 		switch (nextSceneID_)
 		{
