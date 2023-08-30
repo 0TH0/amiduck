@@ -4,7 +4,6 @@
 #include "../Engine/PolyLine.h"
 #include "../Engine/Astar.h"
 #include "../Engine/Color.h"
-#include "../Manager/EnemyEffect.h"
 #include "../Player/Player.h"
 
 //EnemyBase‚ğŠÇ—‚·‚éƒNƒ‰ƒX

@@ -143,21 +143,6 @@
     <ClCompile Include="Scene\TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\BombEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\StageEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\ItemBoxEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\StarEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\EnemyEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Manager\PlaySceneGuide.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -212,9 +197,6 @@
     <ClCompile Include="Stage\Water.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\ElectricEffect.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\TutorialScece.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -239,7 +221,7 @@
     <ClCompile Include="Item\Heart.cpp">
       <Filter>Item</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\EffectManger.cpp">
+    <ClCompile Include="Manager\EffectManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -337,21 +319,6 @@
     <ClInclude Include="Scene\TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\BombEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\StageEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\ItemBoxEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\StarEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\EnemyEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Manager\PlaySceneGuide.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -409,9 +376,6 @@
     <ClInclude Include="Stage\Water.h">
       <Filter>Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\ElectricEffect.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\TutorialScece.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -436,7 +400,7 @@
     <ClInclude Include="Item\Heart.h">
       <Filter>Item</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\EffectManger.h">
+    <ClInclude Include="Manager\EffectManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

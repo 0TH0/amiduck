@@ -2,7 +2,7 @@
 #include "../Scene/PlayScene.h"
 #include "../Player/Player.h"
 #include "Item.h"
-#include "../Manager/ItemBoxEffect.h"
+#include "../Manager/EffectManager.h"
 #include "../Engine/Model.h"
 #include "../Engine/Image.h"
 #include "../Engine/SceneManager.h"
@@ -84,7 +84,7 @@ void ItemBox::OnCollision(GameObject* pTarget)
 		if (IsVisibled())
 		{
 			//エフェクト
-			ItemBoxEffect::TakeItemBoxEffect(transform_.position_);
+			EffectManager::TakeItemBoxEffect(transform_.position_);
 			pPlayer->SetHasItem(true);
 		}
 		Invisible();

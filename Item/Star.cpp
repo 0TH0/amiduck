@@ -1,7 +1,8 @@
 #include "Star.h"
 #include "../Scene/PlayScene.h"
 #include "../Player/Player.h"
-#include "../Manager/StarEffect.h"
+#include "../Manager/EffectManager.h"
+#include "../Manager/AudioManager.h"
 #include "../Engine/Model.h"
 #include "../Engine/Image.h"
 #include "../Engine/SceneManager.h"
@@ -36,8 +37,8 @@ void Star::Update()
 	//出現時にエフェクトを出す
 	if (time_ < 2)
 	{
-		//StarManager::StarAudio();
-		StarManager::StarEffect(transform_.position_);
+		AudioManager::StarAudio();
+		EffectManager::StarEffect(transform_.position_);
 	}
 
 	//開始してから直ぐに星を取らないように
@@ -82,8 +83,8 @@ void Star::OnCollision(GameObject* pTarget)
 		if (time_ >= rimit_ && IsVisibled())
 		{
 			Invisible();
-			StarManager::StarEffect(transform_.position_);
-			//StarManager::StarAudio();
+			EffectManager::StarEffect(transform_.position_);
+			AudioManager::StarAudio();
 			time_ = 0;
 		}
 	}

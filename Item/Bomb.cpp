@@ -3,7 +3,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Input.h"
 #include "../Player/Player.h"
-#include "../Manager/BombEffect.h"
+#include "../Manager/EffectManager.h"
 #include "../Manager/AudioManager.h"
 
 namespace
@@ -51,7 +51,7 @@ void Bomb::Update()
 	Player* pPlayer = (Player*)FindObject("Player");
 	transform_.rotate_.x += 5;
 
-	BombEffect::BombEffect(transform_.position_);
+	EffectManager::BombEffect(transform_.position_);
 	time++;
 
 	data.position = transform_.position_;

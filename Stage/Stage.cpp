@@ -13,7 +13,7 @@
 #include "../Enemy/EnemyBlue.h"
 #include "../Enemy/EnemyGreen.h"
 #include "../Manager/AudioManager.h"
-#include "../Manager/StageEffect.h"
+#include "../Manager/EffectManager.h"
 #include "../Engine/VFX.h"
 
 namespace
@@ -447,7 +447,7 @@ void Stage::PopBridge()
 void Stage::PopBridgeEffect()
 {
     effectPos_ = { (float)bufX, 1.f, (float)bufZ };
-    StageEffect::PopBridgeEffect(effectPos_);
+    EffectManager::PopBridgeEffect(effectPos_);
     AudioManager::SmokeAudio();
 }
 
