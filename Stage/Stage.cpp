@@ -34,7 +34,7 @@ namespace
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),enemyPos_(),hAudio_(-1),hModel_(),player_pos_(),stagePos_(), ShouldPopRandStage_(true),
-    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(7),csv(),effectPos_(), frameCount_(1)
+    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(5),csv(),effectPos_(), frameCount_(1)
 {
 }
 

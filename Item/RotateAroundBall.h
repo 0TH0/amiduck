@@ -27,6 +27,4 @@ public:
 
     //ŠJ•ú
     void Release() override;
-
-    void OnCollision(GameObject* pTarget) override;
 };

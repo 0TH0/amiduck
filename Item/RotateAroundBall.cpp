@@ -83,14 +83,3 @@ void RotateAroundBall::Draw()
 void RotateAroundBall::Release()
 {
 }
-
-void RotateAroundBall::OnCollision(GameObject* pTarget)
-{
-    if (pTarget->GetObjectName() == "EnemyBlue" ||
-        pTarget->GetObjectName() == "EnemyGreen" ||
-        pTarget->GetObjectName() == "EnemyRed")
-    {
-        AudioManager::HitAudio();
-        pTarget->KillMe();
-    }
-}

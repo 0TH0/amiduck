@@ -48,6 +48,8 @@ public:
     //ŠJ•ú
     void Release() override;
 
+    void OnCollision(GameObject* pTarget) override;
+
     //–Ú“I‚ÉŒü‚©‚Á‚Ä“®‚­
     void Move();
 

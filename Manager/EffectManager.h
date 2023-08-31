@@ -10,4 +10,5 @@ namespace EffectManager
 	void PopBridgeEffect(XMFLOAT3 pos);
 	void StarEffect(XMFLOAT3 pos);
 	void RiverEffect(XMFLOAT3 pos);
+	void DieEffect(XMFLOAT3 pos);
 };

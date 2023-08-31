@@ -30,7 +30,7 @@ void Bomb::Initialize()
 	assert(hModel_ >= 0);
 
 	//“–‚½‚è”»’è
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.5f);
 	AddCollider(collision);
 
 	transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
@@ -89,16 +89,4 @@ void Bomb::Draw()
 //ŠJ•ú
 void Bomb::Release()
 {
-}
-
-void Bomb::OnCollision(GameObject* pTarget)
-{
-	if (pTarget->GetObjectName() == "EnemyBlue" || 
-		pTarget->GetObjectName() == "EnemyGreen" ||
-		pTarget->GetObjectName() == "EnemyRed" ||
-		pTarget->GetObjectName() == "Fire")
-	{
-		AudioManager::HitAudio();
-		pTarget->KillMe();
-	}
 }

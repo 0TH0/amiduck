@@ -1,15 +1,16 @@
 #include "EnemyBase.h"
 #include "../Engine/Collider.h"
 #include "../Engine/Model.h"
+#include "../Manager/AudioManager.h"
+#include "../Manager/EffectManager.h"
 
 namespace
 {
-    static const int ROTATE_SPEED = 5;      //回転速度
+    static const int ROTATE_Y = -90;      //Y回転
     static const float DIF_GOAL = 0.3f;     //目的地までの誤差調整
-    static const float POSY = 0.7f;         //Y座標
+    static const float POS_Y = 0.7f;         //Y座標
     static const float LERP = 0.2f;         //補間する値
     static const float RADIUS = 0.5f;       //当たり判定サイズ
-    XMFLOAT3 pos;
 }
 
 EnemyBase::EnemyBase(GameObject* parent, std::string name)
@@ -28,7 +29,8 @@ void EnemyBase::Initialize()
     SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, ZERO, ZERO), RADIUS);
     AddCollider(collision);
 
-    transform_.position_.y = POSY;
+    transform_.position_.y = POS_Y;
+    transform_.rotate_.y = ROTATE_Y;
 
     //初期化
     InitBase();
@@ -58,7 +60,11 @@ void EnemyBase::Update()
 void EnemyBase::Draw()
 {
     Model::SetOutLineDrawFlag(hModel_, true);
-    Model::SetTransform(hModel_, transform_);
+    //誤差修正
+    Transform trans = transform_;
+    trans.position_ = {transform_.position_.x - DIF_GOAL, POS_Y, transform_.position_.z - DIF_GOAL};
+
+    Model::SetTransform(hModel_, trans);
     //各色変更
     ChangeColor();
     Model::Draw(hModel_);
@@ -69,17 +75,28 @@ void EnemyBase::Release()
     ReleaseBase();
 }
 
+void EnemyBase::OnCollision(GameObject* pTarget)
+{
+    //プレイヤーのアイテムに当たった
+    if (pTarget->GetObjectName() == "Bomb" ||
+        pTarget->GetObjectName() == "RotateAroundBall")
+    {
+        AudioManager::HitAudio();
+        EffectManager::DieEffect(transform_.position_);
+        KillMe();
+    }
+}
+
 void EnemyBase::Move()
 {
     //目的地に着いていない場合
     if (CanMove_ && totalCell_ >= 0)
     {
         //目的地までのベクトル
-        v_ = { (float)AI_.GetToGoalCell(totalCell_).x + DIF_GOAL, POSY, (float)AI_.GetToGoalCell(totalCell_).z + DIF_GOAL, 0 };
-
-        pos = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), v_, LERP));
+        v_ = { (float)AI_.GetToGoalCell(totalCell_).x + DIF_GOAL, POS_Y, (float)AI_.GetToGoalCell(totalCell_).z + DIF_GOAL, 0 };
+        
         //線形補間
-        transform_.position_ = pos;
+        transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), v_, LERP));
     }
 }
 
