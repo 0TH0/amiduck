@@ -11,10 +11,10 @@
 
 namespace
 {
-	static const XMFLOAT3 SCALE = { 1.5f, 1.5f, 1.5f };
-	static const float RADIUS = 0.75f;
-	static const float ROTATE_SPEED = 3.f;
-	static const int COOL_TIME = 900;
+	static const XMFLOAT3 SCALE = { 1.5f, 1.5f, 1.5f };	//大きさ
+	static const float RADIUS = 0.75f;					//当たり判定のサイズ
+	static const float ROTATE_SPEED = 3.f;				//回転速度
+	static const int COOL_TIME = 900;					//クールタイム
 }
 
 //コンストラクタ
@@ -58,7 +58,7 @@ void ItemBox::Update()
 void ItemBox::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+	Model::Draw(hModel_, 0.7f);
 
 	Player* pPlayer = (Player*)FindObject("Player");
 

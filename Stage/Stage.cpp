@@ -19,7 +19,6 @@
 namespace
 {
     static Item* pItem;                     //アイテム
-    static int bufX, bufY, bufZ;            //クリックした位置
     static XMINT3 buf[5];                   //クリックした位置配列
     static bool IsHit = false;              //カーソルがモデルにヒットしたか
     static float minDistance;               //最小距離
@@ -34,7 +33,7 @@ namespace
 Stage::Stage(GameObject* parent)
     :GameObject(parent, "Stage"), woodCoolTime_(300),stage_(),
     bridgeCount_(0),hAudio_(-1),hModel_(),stagePos_(), ShouldPopRandStage_(true),
-    GuidePopBridgePos(),pPlayer_(), bridgeRimit_(5),csv(),effectPos_(), frameCount_(1)
+    GuidePopBridgePos(), bridgeRimit_(5),csv(),effectPos_(), frameCount_(1)
 {
 }
 
@@ -107,12 +106,12 @@ void Stage::Initialize()
                 ItemBox* pItemBox = Instantiate<ItemBox>(GetParent());
                 pItemBox->SetPosition(x, 1.25f, z);
             }
-            if (stage_[x][z].type == ENEMY_RED)
+            if (stage_[x][z].type == ENEMY_WHITE)
             {
                 EnemyWhite* pEnemyWhite = Instantiate<EnemyWhite>(GetParent());
                 pEnemyWhite->SetPosition(x, 1.5f, z);
             }
-            if (stage_[x][z].type == ENEMY_BLUE)
+            if (stage_[x][z].type == ENEMY_YELLOW)
             {
                 EnemyYellow* pEnemyYellow = Instantiate<EnemyYellow>(GetParent());
                 pEnemyYellow->SetPosition(x, 1.5f, z);
@@ -125,7 +124,6 @@ void Stage::Initialize()
         }
     }
 
-    pText->Initialize();
     pItem = (Item*)FindObject("Item");
 }
 

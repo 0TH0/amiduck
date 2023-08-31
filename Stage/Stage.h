@@ -21,8 +21,8 @@ class Stage : public GameObject
         LOG,
         PLAYER,
         ITEMBOX,
-        ENEMY_RED,
-        ENEMY_BLUE,
+        ENEMY_WHITE,
+        ENEMY_YELLOW,
         ENEMY_GREEN,
         CORNER,
         STAGE_MAX
@@ -40,15 +40,12 @@ class Stage : public GameObject
     int bridgeCount_;
     int hAudio_;
     int woodCoolTime_;
+    int bufX, bufY, bufZ;                //クリックした位置
     const int bridgeRimit_;             //端から何マス橋を置けなくするか
     bool ShouldPopRandStage_;
     XMFLOAT3 GuidePopBridgePos;
-
-    Text* pText = new Text;
     CsvReader* csv;
     XMFLOAT3 effectPos_;
-    EmitterData data;
-    Player* pPlayer_;
 
 public: 
 
@@ -84,6 +81,7 @@ public:
     void SetStageType(int x, int z, StageModelType Type) { stage_[x][z].type = Type; };
     int GetStageType(int x, int z) { return stage_[x][z].type; };
     int GetModelHandle(int handle) { return hModel_[handle]; };
+    XMINT3 GetMousePos() { return XMINT3(bufX, bufY, bufZ); };
 
     //左クリックで橋を出現させる
     void PopBridge();
