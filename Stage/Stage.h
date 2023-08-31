@@ -35,8 +35,6 @@ class Stage : public GameObject
     } stage_[STAGE_SIZE_X][STAGE_SIZE_Z]; //ステージ
 
     int hModel_[STAGE_MAX];
-    XMFLOAT3 player_pos_;
-    XMFLOAT3 enemyPos_;
     XMFLOAT3 stagePos_;
     int frameCount_;
     int bridgeCount_;
