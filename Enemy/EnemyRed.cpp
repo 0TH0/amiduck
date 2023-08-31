@@ -22,7 +22,7 @@ void EnemyRed::Action()
 
 void EnemyRed::InitBase()
 {
-    hModel_ = Model::Load("Model/Player/duck.fbx");
+    hModel_ = Model::Load("Model/Player/duck_white.fbx");
 }
 
 void EnemyRed::ChangeColor()

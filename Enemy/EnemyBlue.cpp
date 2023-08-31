@@ -27,6 +27,7 @@ void EnemyBlue::Action()
 
 void EnemyBlue::InitBase()
 {
+    hModel_ = Model::Load("Model/Player/duck_yellow.fbx");
 }
 
 void EnemyBlue::ChangeColor()

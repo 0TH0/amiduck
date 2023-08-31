@@ -265,21 +265,7 @@ void Stage::PopBridge()
             //ƒNƒŠƒbƒN‚µ‚½‚Æ‚±‚ë‚ª‰½‚à‚È‚©‚Á‚½‚ç
             if (stage_[bufX][bufZ].type == EMPTY)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (stage_[bufX][bufZ - 1 - i].type == LOG)
-                    {
-                        stage_[bufX][bufZ - i].type = BRIDGE;
-                        stage_[bufX][bufZ + 1 - i].type = BRIDGE;
-                        stage_[bufX][bufZ + 2 - i].type = BRIDGE;
-                        stage_[bufX][bufZ + 3 - i].type = BRIDGE;
-                        stage_[bufX][bufZ + 4 - i].type = BRIDGE;
-                        PopBridgeEffect();
-                        pItem->MinWoodCount();
-                    }
-                }
-
-                /*if (stage_[bufX][bufZ - 1].type == LOG)
+                if (stage_[bufX][bufZ - 1].type == LOG)
                 {
                     stage_[bufX][bufZ].type = BRIDGE;
                     stage_[bufX][bufZ + 1].type = BRIDGE;
@@ -328,7 +314,7 @@ void Stage::PopBridge()
                     stage_[bufX][bufZ - 4].type = BRIDGE;
                     PopBridgeEffect();
                     pItem->MinWoodCount();
-                }*/
+                }
             }
         }
     }

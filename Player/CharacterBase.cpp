@@ -12,7 +12,7 @@ namespace
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
 	: GameObject(parent, name),pStage(nullptr), data(), prevPosition(), 
-      jumpV0_(0.2f),gravity(0.1f),angle_(0),move_(),speed_(0.3f),SpeedUpTime_(0),
+      jumpV0_(0.2f),gravity(0.1f),angle_(0),move_(),speed_(0.3f),SpeedUpTime_(0),hModel_(-1),
       IsJump_(false), IsGround_(false), IsEnemy(false), IsReturn_(false), IsSpeedUp_(false),IsRight_(false),IsLeft_(false),
       IsStop_(false), IsOnBridge_(false),
       delay_(0),StoppedTime_(0),hasItem_(0),speedChange_(0.2f)

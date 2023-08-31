@@ -18,6 +18,7 @@ protected:
     int frameMove_;     //何フレーム毎に進むか
     XMVECTOR v_;         //移動ベクトル
     Player* pPlayer_;   //プレイヤー
+    XMVECTOR  prevPosition;//前の座標
 
     //各行動
     virtual void Action() = 0;      
@@ -49,6 +50,9 @@ public:
 
     //目的に向かって動く
     void Move();
+
+    //動く方向に回転する
+    void RotateDirMove();
 
     //経路探索
     void Search(CELL goal);
