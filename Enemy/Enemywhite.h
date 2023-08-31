@@ -1,14 +1,14 @@
 #pragma once
 #include "EnemyBase.h"
 
-class EnemyRed : public EnemyBase
+class EnemyWhite : public EnemyBase
 {
 public:
     //コンストラクタ
-    EnemyRed(GameObject* parent);
+    EnemyWhite(GameObject* parent);
 
     //デストラクタ
-    ~EnemyRed();
+    ~EnemyWhite();
 
     void Action() override;
     void InitBase() override;

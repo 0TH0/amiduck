@@ -195,8 +195,8 @@ void Player::ReleaseBase()
 void Player::OnCollision(GameObject* pTarget)
 {
     //玉に当たったら
-    if (pTarget->GetObjectName() == "EnemyRed" || 
-        pTarget->GetObjectName() == "EnemyBlue" ||
+    if (pTarget->GetObjectName() == "EnemyWhite" || 
+        pTarget->GetObjectName() == "EnemyYellow" ||
         pTarget->GetObjectName() == "EnemyGreen")
     {
         //ゲームオーバー

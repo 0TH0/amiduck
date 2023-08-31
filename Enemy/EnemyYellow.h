@@ -1,16 +1,16 @@
 #pragma once
 #include "EnemyBase.h"
 
-class EnemyBlue : public EnemyBase
+class EnemyYellow : public EnemyBase
 {
     int dist_; //プレイヤーとの距離
     bool IsPlayerNear_;
 public:
     //コンストラクタ
-    EnemyBlue(GameObject* parent);
+    EnemyYellow(GameObject* parent);
 
     //デストラクタ
-    ~EnemyBlue();
+    ~EnemyYellow();
 
     void Action() override;
     void InitBase() override;

@@ -1,17 +1,17 @@
-#include "EnemyBlue.h"
+#include "EnemyYellow.h"
 
-EnemyBlue::EnemyBlue(GameObject* parent)
-    :EnemyBase(parent, "EnemyBlue"), dist_(30), IsPlayerNear_(false)
+EnemyYellow::EnemyYellow(GameObject* parent)
+    :EnemyBase(parent, "EnemyYellow"), dist_(30), IsPlayerNear_(false)
 {
 }
 
-EnemyBlue::~EnemyBlue()
+EnemyYellow::~EnemyYellow()
 {
 }
 
-void EnemyBlue::Action()
+void EnemyYellow::Action()
 {
-    //プレイヤーと青の距離が30以下なら
+    //プレイヤーと敵の距離が30以下なら
     IsPlayerNear_ = (CalcDist(GetPosition(), pPlayer_->GetPosition()) <= dist_);
     if (IsPlayerNear_)
     {
@@ -25,16 +25,16 @@ void EnemyBlue::Action()
     Search({ PlayerPosX, PlayerPosZ });
 }
 
-void EnemyBlue::InitBase()
+void EnemyYellow::InitBase()
 {
     hModel_ = Model::Load("Model/Player/duck_yellow.fbx");
 }
 
-void EnemyBlue::ChangeColor()
+void EnemyYellow::ChangeColor()
 {
     Model::SetColor(hModel_, BLUE);
 }
 
-void EnemyBlue::ReleaseBase()
+void EnemyYellow::ReleaseBase()
 {
 }

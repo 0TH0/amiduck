@@ -1,15 +1,15 @@
-#include "EnemyRed.h"
+#include "EnemyWhite.h"
 
-EnemyRed::EnemyRed(GameObject* parent)
-    :EnemyBase(parent, "EnemyRed")
+EnemyWhite::EnemyWhite(GameObject* parent)
+    :EnemyBase(parent, "EnemyWhite")
 {
 }
 
-EnemyRed::~EnemyRed()
+EnemyWhite::~EnemyWhite()
 {
 }
 
-void EnemyRed::Action()
+void EnemyWhite::Action()
 {
     Move();
 
@@ -20,16 +20,16 @@ void EnemyRed::Action()
     Search({ PlayerPosX, PlayerPosZ });
 }
 
-void EnemyRed::InitBase()
+void EnemyWhite::InitBase()
 {
     hModel_ = Model::Load("Model/Player/duck_white.fbx");
 }
 
-void EnemyRed::ChangeColor()
+void EnemyWhite::ChangeColor()
 {
     Model::SetColor(hModel_, RED);
 }
 
-void EnemyRed::ReleaseBase()
+void EnemyWhite::ReleaseBase()
 {
 }

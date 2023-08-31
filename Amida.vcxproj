@@ -126,9 +126,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy\EnemyBase.cpp" />
-    <ClCompile Include="Enemy\EnemyBlue.cpp" />
+    <ClCompile Include="Enemy\EnemyYellow.cpp" />
     <ClCompile Include="Enemy\EnemyGreen.cpp" />
-    <ClCompile Include="Enemy\EnemyRed.cpp" />
+    <ClCompile Include="Enemy\EnemyWhite.cpp" />
     <ClCompile Include="Engine\Alpha.cpp" />
     <ClCompile Include="Engine\Astar.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -162,7 +162,6 @@
     <ClCompile Include="Image\Instructions.cpp" />
     <ClCompile Include="Image\Line.cpp" />
     <ClCompile Include="Item\Bomb.cpp" />
-    <ClCompile Include="Item\Heart.cpp" />
     <ClCompile Include="Item\RotateAroundBall.cpp" />
     <ClCompile Include="Item\Item.cpp" />
     <ClCompile Include="Item\ItemBox.cpp" />
@@ -186,9 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\EnemyBase.h" />
-    <ClInclude Include="Enemy\EnemyBlue.h" />
+    <ClInclude Include="Enemy\EnemyYellow.h" />
     <ClInclude Include="Enemy\EnemyGreen.h" />
-    <ClInclude Include="Enemy\EnemyRed.h" />
+    <ClInclude Include="Enemy\Enemywhite.h" />
     <ClInclude Include="Engine\Alpha.h" />
     <ClInclude Include="Engine\Astar.h" />
     <ClInclude Include="Engine\Audio.h" />
@@ -223,7 +222,6 @@
     <ClInclude Include="Image\Instructions.h" />
     <ClInclude Include="Image\Line.h" />
     <ClInclude Include="Item\Bomb.h" />
-    <ClInclude Include="Item\Heart.h" />
     <ClInclude Include="Item\RotateAroundBall.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Item\ItemBox.h" />

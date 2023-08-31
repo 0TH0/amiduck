@@ -9,8 +9,8 @@
 #include "../Engine/CsvReader.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
-#include "../Enemy/EnemyRed.h"
-#include "../Enemy/EnemyBlue.h"
+#include "../Enemy/EnemyWhite.h"
+#include "../Enemy/EnemyYellow.h"
 #include "../Enemy/EnemyGreen.h"
 #include "../Manager/AudioManager.h"
 #include "../Manager/EffectManager.h"
@@ -109,13 +109,13 @@ void Stage::Initialize()
             }
             if (stage_[x][z].type == ENEMY_RED)
             {
-                EnemyRed* pEnemyRed = Instantiate<EnemyRed>(GetParent());
-                pEnemyRed->SetPosition(x, 1.5f, z);
+                EnemyWhite* pEnemyWhite = Instantiate<EnemyWhite>(GetParent());
+                pEnemyWhite->SetPosition(x, 1.5f, z);
             }
             if (stage_[x][z].type == ENEMY_BLUE)
             {
-                EnemyBlue* pEnemyBlue = Instantiate<EnemyBlue>(GetParent());
-                pEnemyBlue->SetPosition(x, 1.5f, z);
+                EnemyYellow* pEnemyYellow = Instantiate<EnemyYellow>(GetParent());
+                pEnemyYellow->SetPosition(x, 1.5f, z);
             }
             if (stage_[x][z].type == ENEMY_GREEN)
             {

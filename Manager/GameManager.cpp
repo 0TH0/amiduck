@@ -4,8 +4,8 @@
 #include "../Player/Player.h"
 #include "../Observer/ResultObserver.h"
 #include "../Engine/SceneManager.h"
-#include "../Enemy/EnemyRed.h"
-#include "../Enemy/EnemyBlue.h"
+#include "../Enemy/EnemyWhite.h"
+#include "../Enemy/EnemyYellow.h"
 #include "../Enemy/EnemyGreen.h"
 #include "../Stage/Stage.h"
 #include "../Item/Star.h"
@@ -14,8 +14,8 @@ namespace
 {
 	static Player* pPlayer;
 	static Star* pStar;
-	static EnemyRed* pEnemyRed;
-	static EnemyBlue* pEnemyBlue;
+	static EnemyWhite* pEnemyWhite;
+	static EnemyYellow* pEnemyYellow;
 	static EnemyGreen* pEnemyGreen;
 	static SceneManager* pSceneManager;
 	static Stage* pStage;
@@ -50,8 +50,8 @@ void GameManager::Update()
 {
 	pPlayer = (Player*)FindObject("Player");
 	pStage = (Stage*)FindObject("Stage");
-	pEnemyRed = (EnemyRed*)FindObject("EnemyRed");
-	pEnemyBlue = (EnemyBlue*)FindObject("EnemyBlue");
+	pEnemyWhite = (EnemyWhite*)FindObject("EnemyWhite");
+	pEnemyYellow = (EnemyYellow*)FindObject("EnemyYellow");
 	pEnemyGreen = (EnemyGreen*)FindObject("EnemyGreen");
 
 	if (pPlayer->GetStarNum() < MAX_STAR)
@@ -105,25 +105,25 @@ void GameManager::RandObject()
 
 void GameManager::EnemyReturn()
 {
-	if (pEnemyRed == nullptr)
+	if (pEnemyWhite == nullptr)
 	{
 		EnemyTime_[RED]++;
 		if (EnemyTime_[RED] >= MAX_TIME)
 		{
 			RandObject();
-			pEnemyRed = Instantiate<EnemyRed>(this);
-			pEnemyRed->SetPosition(randPos_.x, randPos_.y, randPos_.z);
+			pEnemyWhite = Instantiate<EnemyWhite>(this);
+			pEnemyWhite->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 			EnemyTime_[RED] = 0;
 		}
 	}
-	if (pEnemyBlue == nullptr)
+	if (pEnemyYellow == nullptr)
 	{
 		EnemyTime_[BLUE]++;
 		if (EnemyTime_[BLUE] >= MAX_TIME)
 		{
 			RandObject();
-			pEnemyBlue = Instantiate<EnemyBlue>(this);
-			pEnemyBlue->SetPosition(randPos_.x, randPos_.y, randPos_.z);
+			pEnemyYellow = Instantiate<EnemyYellow>(this);
+			pEnemyYellow->SetPosition(randPos_.x, randPos_.y, randPos_.z);
 			EnemyTime_[BLUE] = 0;
 		}
 	}
