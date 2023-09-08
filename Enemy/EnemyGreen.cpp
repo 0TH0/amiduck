@@ -25,7 +25,7 @@ void EnemyGreen::Action()
 
 void EnemyGreen::InitBase()
 {
-    hModel_ = Model::Load("Model/Player/duck_pond.fbx");
+    hModel_ = Model::Load("Model/duck_pond.fbx");
 }
 
 void EnemyGreen::ChangeColor()

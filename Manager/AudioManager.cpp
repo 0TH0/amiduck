@@ -13,7 +13,7 @@ namespace AudioManager
 	int hSmokeAudio;				//‰Œ‚Ì‰¹
 	int hJumpAudio;					//ƒWƒƒƒ“ƒv‚µ‚½‰¹
 	int hStarAudio;					//¯‚Ì‰¹
-
+	
 	//‰Šú‰»
 	void Initialize()
 	{

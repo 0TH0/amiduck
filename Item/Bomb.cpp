@@ -48,15 +48,10 @@ void Bomb::Initialize()
 //XV
 void Bomb::Update()
 {
-	Player* pPlayer = (Player*)FindObject("Player");
 	transform_.rotate_.x += 5;
-
-	EffectManager::BombEffect(transform_.position_);
-	time++;
-
-	data.position = transform_.position_;
+	time_++;
 	
-	if (time >= MAX_TIME)
+	if (time_ >= MAX_TIME)
 	{
 		KillMe();
 	}

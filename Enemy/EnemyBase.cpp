@@ -78,11 +78,16 @@ void EnemyBase::Release()
 void EnemyBase::OnCollision(GameObject* pTarget)
 {
     //プレイヤーのアイテムに当たった
-    if (pTarget->GetObjectName() == "Bomb" ||
-        pTarget->GetObjectName() == "RotateAroundBall")
+    if (pTarget->GetObjectName() == "RotateAroundBall")
     {
         AudioManager::HitAudio();
         EffectManager::DieEffect(transform_.position_);
+        KillMe();
+    }
+    if (pTarget->GetObjectName() == "Bomb")
+    {
+        AudioManager::HitAudio();
+        EffectManager::BombEffect(transform_.position_);
         KillMe();
     }
 }

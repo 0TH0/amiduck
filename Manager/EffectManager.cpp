@@ -31,14 +31,14 @@ namespace EffectManager
         EmitterData data;
         data.textureFileName = "Particle\\Cloud.png";
         data.delay = 0;
-        data.number = 1;
-        data.lifeTime = 10;
+        data.number = 5;
+        data.lifeTime = 100;
         data.direction = XMFLOAT3(1, 0, 0);
         data.speed = 0.4f;
         data.speedRnd = 1;
-        data.size = XMFLOAT2(3, 3);
+        data.size = XMFLOAT2(5, 5);
         data.sizeRnd = XMFLOAT2(0, 0);
-        data.scale = XMFLOAT2(1.05, 1.05);
+        data.scale = XMFLOAT2(1.1, 1.1);
         data.color = XMFLOAT4(1, 0, 0, 1);
         data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
         data.gravity = 0.003f;
@@ -47,7 +47,6 @@ namespace EffectManager
         VFX::Start(data);
     }
 
-    //敵のエフェクト
     void EnemyEffect(XMFLOAT3 pos, XMFLOAT4 color)
     {
         EmitterData data;

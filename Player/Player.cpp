@@ -10,8 +10,7 @@
 #include "../Engine/Camera.h"
 #include "../Engine/SphereCollider.h"
 #include "../Engine/SceneManager.h"
-#include "../Engine/Text.h"
-#include "../Engine/Audio.h"
+#include "../Manager/AudioManager.h"
 #include "../Engine/Color.h"
 
 namespace
@@ -111,7 +110,7 @@ void Player::Command()
     if (Input::IsKeyDown(DIK_SPACE) && transform_.position_.y <= 0.75f)
     {
         //Œø‰Ê‰¹
-        Audio::Play(hAudio_);
+        AudioManager::JumpAudio();
 
         //d—Í
         gravity = 0.008f;
@@ -144,11 +143,8 @@ void Player::Command()
 
 void Player::InitBase()
 {
-    hModel_ = Model::Load("Model\\Player\\egg.fbx");
+    hModel_ = Model::Load("Model/egg.fbx");
     assert(hModel_ >= 0);
-
-    hAudio_ = Audio::Load("Audio\\Jump.wav");
-    assert(hAudio_ >= 0);
 
     transform_.scale_ = XMFLOAT3(0.4f, 0.4f,0.4f);
 

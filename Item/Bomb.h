@@ -9,9 +9,6 @@ class Bomb : public GameObject
 public:
 	int hModel_;
 	Transform PlayerTrans_;
-	float plus;
-	EmitterData data;
-	int time;
 	int starDelay_;
 	Stage* pStage;
 	float speed_;        //ˆÚ“®‘¬“x
