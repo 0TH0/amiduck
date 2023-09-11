@@ -8,11 +8,12 @@ class Bomb : public GameObject
 {
 public:
 	int hModel_;
-	Transform PlayerTrans_;
+	XMFLOAT3 playerPos_;
+	XMFLOAT3 mousePos_;
+
 	int starDelay_;
 	Stage* pStage;
 	float speed_;        //移動速度
-	bool IsReturn_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

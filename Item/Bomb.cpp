@@ -30,48 +30,67 @@ void Bomb::Initialize()
 	assert(hModel_ >= 0);
 
 	//“–‚½‚è”»’è
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.5f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 3.f);
 	AddCollider(collision);
 
 	transform_.scale_ = XMFLOAT3(0.35, 0.35, 0.35);
 
 	transform_.rotate_ = XMFLOAT3(0, 0, 0);
-
-	//‰ŠúˆÊ’u‚ÍƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ì‚™{‚P
-	Player* pPlayer = (Player*)FindObject("Player");
-	IsReturn_ = pPlayer->GetReturn();
-	PlayerTrans_.position_ = pPlayer->GetPosition();
-	transform_.position_ = PlayerTrans_.position_;
-	transform_.position_.y = PlayerTrans_.position_.y + 1;
 }
 
+XMVECTOR player;
+XMVECTOR mouse;
 //XV
 void Bomb::Update()
 {
-	transform_.rotate_.x += 5;
-	time_++;
-	
-	if (time_ >= MAX_TIME)
+	if (Input::IsKey(DIK_O))
 	{
-		KillMe();
-	}
+		Player* pPlayer = (Player*)FindObject("Player");
+		playerPos_ = pPlayer->GetPosition();
+		playerPos_.y = 3;
+		transform_.position_ = playerPos_;
+		player = XMLoadFloat3(&playerPos_);
 
-	if (IsReturn_)
-	{
-		transform_.position_.x--;
+
+		//‰ŠúˆÊ’u‚ÍƒvƒŒƒCƒ„[‚ÌˆÊ’u‚Ì‚™{‚P
+		pStage = (Stage*)FindObject("Stage");
+		mousePos_ = XMFLOAT3(pStage->GetMousePos().x, 3, pStage->GetMousePos().z);
+
+		mouse = XMLoadFloat3(&mousePos_);
 	}
 	else
 	{
-		transform_.position_.x++;
+		XMVECTOR Root = (mouse - player);
+
+		//³‹K‰»‚·‚é
+		Root = XMVector3Normalize(Root);//ƒxƒNƒgƒ‹‚Ì’·‚³‚ð‚P‚É‚µ‚Ä
+
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + Root);
+		transform_.position_.y = 3;
 	}
-	if (starDelay_ >= MAX_STAR_DELAY)
-	{
-		starDelay_ = 0;
-	}
-	else if (starDelay_ > 0)
-	{
-		starDelay_++;
-	}
+	//transform_.rotate_.x += 5;
+	//time_++;
+	//
+	//if (time_ >= MAX_TIME)
+	//{
+	//	KillMe();
+	//}
+	//if (IsReturn_)
+	//{
+	//	transform_.position_.x--;
+	//}
+	//else
+	//{
+	//	transform_.position_.x++;
+	//}
+	//if (starDelay_ >= MAX_STAR_DELAY)
+	//{
+	//	starDelay_ = 0;
+	//}
+	//else if (starDelay_ > 0)
+	//{
+	//	starDelay_++;
+	//}
 }
 
 //•`‰æ

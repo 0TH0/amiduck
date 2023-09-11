@@ -73,37 +73,38 @@ void Player::Action()
 void Player::Command()
 {
     //アイテム使用
-    if (Input::IsKeyDown(DIK_E) && hasItem_)
+    if (Input::IsKeyDown(DIK_E))
     {
         Item* pItem = (Item*)FindObject("Item");
-        switch (pItem->GetItem())
-        {
-            //ボール出す
-        case Item::ItemNum::BALL:
-            Instantiate<RotateAroundBall>(GetParent());
-            hasItem_ = false;
-            pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            break;
-            //爆弾出す
-        case Item::ItemNum::BOMB:
-            Instantiate<Bomb>(GetParent());
-            hasItem_ = false;
-            pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            break;
-        case Item::ItemNum::WING:
-            //橋を渡っていなかったら
-            if (!(IsOnBridge_) && hasItem_)
-            {
-                //ダッシュ
-                IsSpeedUp_ = true;
-                Instantiate<Line>(this);
-                hasItem_ = false;
-                pItem->SetItem(Item::ItemNum::ITEM_MAX);
-            }
-            break;
-        default:
-            break;
-        }
+        Instantiate<Bomb>(GetParent());
+        //switch (pItem->GetItem())
+        //{
+        //    //ボール出す
+        //case Item::ItemNum::BALL:
+        //    Instantiate<RotateAroundBall>(GetParent());
+        //    hasItem_ = false;
+        //    pItem->SetItem(Item::ItemNum::ITEM_MAX);
+        //    break;
+        //    //爆弾出す
+        //case Item::ItemNum::BOMB:
+        //    Instantiate<Bomb>(GetParent());
+        //    hasItem_ = false;
+        //    pItem->SetItem(Item::ItemNum::ITEM_MAX);
+        //    break;
+        //case Item::ItemNum::WING:
+        //    //橋を渡っていなかったら
+        //    if (!(IsOnBridge_) && hasItem_)
+        //    {
+        //        //ダッシュ
+        //        IsSpeedUp_ = true;
+        //        Instantiate<Line>(this);
+        //        hasItem_ = false;
+        //        pItem->SetItem(Item::ItemNum::ITEM_MAX);
+        //    }
+        //    break;
+        //default:
+        //    break;
+        //}
     }
 
     //ジャンプ
