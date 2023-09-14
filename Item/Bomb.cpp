@@ -43,7 +43,7 @@ XMVECTOR mouse;
 //更新
 void Bomb::Update()
 {
-	if (Input::IsKey(DIK_O))
+	if (Input::IsKey(DIK_E))
 	{
 		Player* pPlayer = (Player*)FindObject("Player");
 		playerPos_ = pPlayer->GetPosition();
@@ -65,8 +65,13 @@ void Bomb::Update()
 		//正規化する
 		Root = XMVector3Normalize(Root);//ベクトルの長さを１にして
 
-		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + Root);
-		transform_.position_.y = 3;
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + (Root));
+	}
+
+	time_ ++;
+	if (time_ >= 300)
+	{
+		KillMe();
 	}
 	//transform_.rotate_.x += 5;
 	//time_++;
